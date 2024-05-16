@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const multer = require("multer");
 const cors = require("cors");
 const sqlite3 = require("sqlite3").verbose(); // Importa el módulo sqlite3
 const port = 3000;
@@ -10,11 +11,36 @@ const filePath = "./trainers.json";
 // Configuración de la base de datos
 const db = new sqlite3.Database(":memory:"); // Crea una base de datos en memoria
 
+
+// Define la configuración de multer para el almacenamiento de archivos
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/grumpis/') // Directorio donde se guardarán los archivos
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '-' + file.originalname) // Nombre del archivo guardado
+  }
+});
+
+const upload = multer({ storage: storage });
 // Crea una tabla para almacenar los entrenadores
 db.serialize(() => {
   db.run(
     "CREATE TABLE IF NOT EXISTS trainers (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, password TEXT, grumpidolar TEXT)"
   );
+});
+// Crea una tabla para almacenar los grumpis
+db.serialize(() => {
+  db.run(`
+    CREATE TABLE IF NOT EXISTS grumpis (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      nombre TEXT,
+      descripcion TEXT,
+      salud INTEGER,
+      imagen TEXT,
+      ataques TEXT
+    )
+  `);
 });
 
 // Declara trainer_list como una variable global
@@ -33,6 +59,15 @@ try {
 app.use(cors());
 app.use(express.json()); // Middleware para analizar el cuerpo de la solicitud como JSON
 
+/**
+ * 
+ * 
+ * 
+ *  ENTRENADORES
+ * 
+ * 
+ * 
+ */
 // Cargar la lista de entrenadores desde el archivo al iniciar
 fs.readFile(filePath, "utf8", (err, data) => {
   if (err && err.code !== "ENOENT") {
@@ -132,4 +167,74 @@ app.delete("/user/:id", async (req, res) => {
 
 app.listen(port, () => {
   console.log(`Servidor GrumpiStore, iniciado en el puerto: ${port}`);
+});
+
+
+/**
+ * 
+ * 
+ * 
+ *  GRUMPIS
+ * 
+ * 
+ * 
+ */
+// Estructura de datos para representar un grumpi
+class Grumpi {
+  constructor(nombre, descripcion, salud, imagen, ataques) {
+    this.nombre = nombre;
+    this.descripcion = descripcion;
+    this.salud = salud;
+    this.imagen = imagen;
+    this.ataques = ataques;
+  }
+}
+
+// Endpoint para obtener todos los grumpis
+app.get("/grumpis", (req, res) => {
+  db.all("SELECT * FROM grumpis", (err, rows) => {
+    if (err) {
+      console.error("Error al obtener los grumpis:", err);
+      return res.status(500).json({ error: "Error interno del servidor" });
+    }
+
+    // Devolver la lista de grumpis en formato JSON
+    res.json({ grumpis: rows });
+  });
+});
+
+// Endpoint para guardar un nuevo grumpi
+// Ruta para manejar la solicitud POST del formulario
+app.post('/subir-grumpi', upload.single('imagen'), (req, res) => {
+  // Obtener los datos del formulario y la imagen
+  const datosFormulario = req.body;
+  const imagen = req.file;
+
+  // Combinar los datos del formulario y la información de la imagen
+  const datosCombinados = {
+    nombre: datosFormulario.nombre,
+    descripcion: datosFormulario.descripcion,
+    numeroGrumpidex: datosFormulario.numeroGrumpidex,
+    listaAtaques: datosFormulario.listaAtaques,
+    energia: datosFormulario.energia,
+    salud: datosFormulario.salud,
+    imagen: {
+      nombreArchivo: imagen.originalname,
+      rutaArchivo: imagen.path // Puedes almacenar la ruta del archivo para accederlo posteriormente
+    }
+  };
+
+  // Convertir los datos combinados a formato JSON
+  const datosJSON = JSON.stringify(datosCombinados);
+
+  // Guardar los datos JSON en un archivo
+  fs.writeFile('datos.json', datosJSON, (err) => {
+    if (err) {
+      console.error('Error al guardar los datos:', err);
+      res.status(500).send('Error interno del servidor');
+    } else {
+      console.log('Datos guardados correctamente');
+      res.send('Datos guardados correctamente');
+    }
+  });
 });
