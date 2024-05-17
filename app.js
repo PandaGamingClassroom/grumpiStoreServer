@@ -11,36 +11,28 @@ const filePath = "./trainers.json";
 // Configuración de la base de datos
 const db = new sqlite3.Database(":memory:"); // Crea una base de datos en memoria
 
+// Asegúrate de que el directorio de almacenamiento existe
+const path = require("path");
+const uploadDir = path.join(__dirname, "uploads", "grumpis");
+fs.mkdirSync(uploadDir, { recursive: true });
 
 // Define la configuración de multer para el almacenamiento de archivos
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/grumpis/') // Directorio donde se guardarán los archivos
+    cb(null, "uploads/grumpis/"); // Directorio donde se guardarán los archivos
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + '-' + file.originalname) // Nombre del archivo guardado
-  }
+    cb(null, Date.now() + "-" + file.originalname); // Nombre del archivo guardado
+  },
 });
 
 const upload = multer({ storage: storage });
+
 // Crea una tabla para almacenar los entrenadores
 db.serialize(() => {
   db.run(
     "CREATE TABLE IF NOT EXISTS trainers (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, password TEXT, grumpidolar TEXT)"
   );
-});
-// Crea una tabla para almacenar los grumpis
-db.serialize(() => {
-  db.run(`
-    CREATE TABLE IF NOT EXISTS grumpis (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      nombre TEXT,
-      descripcion TEXT,
-      salud INTEGER,
-      imagen TEXT,
-      ataques TEXT
-    )
-  `);
 });
 
 // Declara trainer_list como una variable global
@@ -58,15 +50,17 @@ try {
 
 app.use(cors());
 app.use(express.json()); // Middleware para analizar el cuerpo de la solicitud como JSON
+// Servir las imágenes estáticas desde el directorio de uploads
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 /**
- * 
- * 
- * 
+ *
+ *
+ *
  *  ENTRENADORES
- * 
- * 
- * 
+ *
+ *
+ *
  */
 // Cargar la lista de entrenadores desde el archivo al iniciar
 fs.readFile(filePath, "utf8", (err, data) => {
@@ -114,127 +108,95 @@ app.put("/user", (req, res) => {
 });
 
 app.delete("/user/:id", async (req, res) => {
-    const userId = req.params.id;
+  const userId = req.params.id;
 
-    // Eliminar el usuario de la base de datos
-    db.run("DELETE FROM trainers WHERE id = ?", [userId], function (err) {
+  // Eliminar el usuario de la base de datos
+  db.run("DELETE FROM trainers WHERE id = ?", [userId], function (err) {
+    if (err) {
+      console.error("Error al eliminar el usuario:", err);
+      return res.status(500).json({ error: "Error interno del servidor" });
+    }
+
+    console.log(`Usuario con ID ${userId} eliminado correctamente`);
+
+    // Filtrar la lista de entrenadores para excluir el usuario eliminado
+    const updatedTrainerList = trainer_list.filter(
+      (trainer) => trainer.id !== parseInt(userId)
+    );
+
+    // Guardar la lista actualizada en el archivo JSON
+    fs.writeFile(filePath, JSON.stringify(updatedTrainerList), (err) => {
       if (err) {
-        console.error("Error al eliminar el usuario:", err);
+        console.error("Error al actualizar el archivo JSON:", err);
         return res.status(500).json({ error: "Error interno del servidor" });
       }
 
-      console.log(`Usuario con ID ${userId} eliminado correctamente`);
+      console.log("BBDD actualizada correctamente");
 
-      // Filtrar la lista de entrenadores para excluir el usuario eliminado
-      const updatedTrainerList = trainer_list.filter(
-        (trainer) => trainer.id !== parseInt(userId)
-      );
+      // Obtener la lista de entrenadores actualizada después de la eliminación
+      const updatedTrainerListWithDB = []; // Lista actualizada con los datos de la base de datos
 
-      // Guardar la lista actualizada en el archivo JSON
-      fs.writeFile(filePath, JSON.stringify(updatedTrainerList), (err) => {
+      // Consultar la base de datos para obtener la lista de entrenadores actualizada
+      db.all("SELECT * FROM trainers", [], (err, rows) => {
         if (err) {
-          console.error("Error al actualizar el archivo JSON:", err);
+          console.error(
+            "Error al obtener la lista actualizada de entrenadores:",
+            err
+          );
           return res.status(500).json({ error: "Error interno del servidor" });
         }
 
-        console.log("BBDD actualizada correctamente");
+        updatedTrainerListWithDB.push(...rows);
 
-        // Obtener la lista de entrenadores actualizada después de la eliminación
-        const updatedTrainerListWithDB = []; // Lista actualizada con los datos de la base de datos
-
-        // Consultar la base de datos para obtener la lista de entrenadores actualizada
-        db.all("SELECT * FROM trainers", [], (err, rows) => {
-          if (err) {
-            console.error(
-              "Error al obtener la lista actualizada de entrenadores:",
-              err
-            );
-            return res
-              .status(500)
-              .json({ error: "Error interno del servidor" });
-          }
-
-          updatedTrainerListWithDB.push(...rows);
-
-          res.status(200).json({
-            message: `Usuario con ID ${userId} eliminado correctamente`,
-            trainer_list: updatedTrainerListWithDB, // Devolver la lista actualizada de entrenadores
-          });
+        res.status(200).json({
+          message: `Usuario con ID ${userId} eliminado correctamente`,
+          trainer_list: updatedTrainerListWithDB, // Devolver la lista actualizada de entrenadores
         });
       });
     });
+  });
 });
 
 app.listen(port, () => {
   console.log(`Servidor GrumpiStore, iniciado en el puerto: ${port}`);
 });
 
-
 /**
- * 
- * 
- * 
+ *
+ *
+ *
  *  GRUMPIS
- * 
- * 
- * 
+ *
+ *
+ *
  */
-// Estructura de datos para representar un grumpi
-class Grumpi {
-  constructor(nombre, descripcion, salud, imagen, ataques) {
-    this.nombre = nombre;
-    this.descripcion = descripcion;
-    this.salud = salud;
-    this.imagen = imagen;
-    this.ataques = ataques;
-  }
-}
 
-// Endpoint para obtener todos los grumpis
-app.get("/grumpis", (req, res) => {
-  db.all("SELECT * FROM grumpis", (err, rows) => {
+// Ruta para obtener las URLs de todas las imágenes
+app.get('/getImageUrls', (req, res) => {
+  // Lee todos los archivos en el directorio de imágenes
+  fs.readdir(uploadDir, (err, files) => {
     if (err) {
-      console.error("Error al obtener los grumpis:", err);
-      return res.status(500).json({ error: "Error interno del servidor" });
+      console.error('Error al leer el directorio de imágenes:', err);
+      return res.status(500).json({ error: 'Error interno del servidor' });
     }
 
-    // Devolver la lista de grumpis en formato JSON
-    res.json({ grumpis: rows });
+    // Construye las URLs de las imágenes
+    const imageUrls = files.map(file => {
+      return `http://localhost:3000/uploads/grumpis/${file}`;
+    });
+
+    // Devuelve las URLs de las imágenes como una respuesta JSON
+    res.json({ imageUrls });
   });
 });
 
-// Endpoint para guardar un nuevo grumpi
-// Ruta para manejar la solicitud POST del formulario
-app.post('/subir-grumpi', upload.single('imagen'), (req, res) => {
-  // Obtener los datos del formulario y la imagen
-  const datosFormulario = req.body;
-  const imagen = req.file;
-
-  // Combinar los datos del formulario y la información de la imagen
-  const datosCombinados = {
-    nombre: datosFormulario.nombre,
-    descripcion: datosFormulario.descripcion,
-    numeroGrumpidex: datosFormulario.numeroGrumpidex,
-    listaAtaques: datosFormulario.listaAtaques,
-    energia: datosFormulario.energia,
-    salud: datosFormulario.salud,
-    imagen: {
-      nombreArchivo: imagen.originalname,
-      rutaArchivo: imagen.path // Puedes almacenar la ruta del archivo para accederlo posteriormente
-    }
-  };
-
-  // Convertir los datos combinados a formato JSON
-  const datosJSON = JSON.stringify(datosCombinados);
-
-  // Guardar los datos JSON en un archivo
-  fs.writeFile('datos.json', datosJSON, (err) => {
-    if (err) {
-      console.error('Error al guardar los datos:', err);
-      res.status(500).send('Error interno del servidor');
-    } else {
-      console.log('Datos guardados correctamente');
-      res.send('Datos guardados correctamente');
-    }
-  });
+app.post("/upload", upload.single("image"), (req, res) => {
+  // req.file contiene la información del archivo
+  // req.body contiene cualquier campo adicional enviado en el formulario
+  console.log("Archivo recibido:", req.file);
+  console.log("Datos del formulario:", req.body);
+  if (!req.file) {
+    return res.status(400).json({ message: "No se ha subido ninguna imagen" });
+  }
+  res.json({ message: "Imagen subida correctamente", file: req.file });
 });
