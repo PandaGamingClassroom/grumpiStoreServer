@@ -19,10 +19,17 @@ fs.mkdirSync(uploadDir, { recursive: true });
 // Define la configuración de multer para el almacenamiento de archivos
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "uploads/grumpis/"); // Directorio donde se guardarán los archivos
+    // Determina el directorio de destino en función de la ruta de la solicitud
+    let uploadDir;
+    if (req.path === "/upload") {
+      uploadDir = "uploads/grumpis";
+    } else if (req.path === "/upload-medal") {
+      uploadDir = "uploads/medals";
+    }
+    cb(null, uploadDir);
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + "-" + file.originalname); // Nombre del archivo guardado
+    cb(null, Date.now() + "-" + file.originalname);
   },
 });
 
@@ -191,12 +198,21 @@ app.get('/getImageUrls', (req, res) => {
 });
 
 app.post("/upload", upload.single("image"), (req, res) => {
-  // req.file contiene la información del archivo
-  // req.body contiene cualquier campo adicional enviado en el formulario
   console.log("Archivo recibido:", req.file);
   console.log("Datos del formulario:", req.body);
   if (!req.file) {
     return res.status(400).json({ message: "No se ha subido ninguna imagen" });
   }
   res.json({ message: "Imagen subida correctamente", file: req.file });
+});
+
+app.post("/upload-medal", upload.single("image"), (req, res) => {
+  console.log("Medalla recibida:", req.file);
+  if (!req.file) {
+    return res.status(400).json({ message: "No se ha subido ninguna imagen" });
+  }
+  res.json({
+    message: "Imagen de medalla subida correctamente",
+    file: req.file,
+  });
 });
