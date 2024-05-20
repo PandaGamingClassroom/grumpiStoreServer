@@ -4,14 +4,18 @@
     "password": "333",
     "id": 2,
     "criaturas": [
-      "http://localhost:3000/uploads/grumpis/001.1.png"
+      "http://localhost:3000/uploads/grumpis/001.1.png",
+      "http://localhost:3000/uploads/grumpis/002.1.png"
     ]
   },
   {
     "name": "Nuevo",
     "password": "344423",
     "id": 3,
-    "criaturas": []
+    "criaturas": [
+      "http://localhost:3000/uploads/grumpis/001.1.png",
+      "http://localhost:3000/uploads/grumpis/001.1.png"
+    ]
   },
   {
     "name": "Pablo",
@@ -29,6 +33,8 @@
     "name": "prueba02",
     "password": "222",
     "id": 6,
-    "criaturas": []
+    "criaturas": [
+      "http://localhost:3000/uploads/grumpis/001.1.png"
+    ]
   }
 ]

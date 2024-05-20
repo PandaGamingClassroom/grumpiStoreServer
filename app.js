@@ -320,7 +320,11 @@ app.delete("/user/:id", async (req, res) => {
 });
 
 
-
+/**
+ * 
+ *    ASIGNACIÓN DE CRIATURAS A LOS ENTRENADORES
+ * 
+ */
 // Cargar los datos de los entrenadores del archivo JSON al iniciar la aplicación
 let trainerData = [];
 try {
@@ -353,7 +357,6 @@ function assignCreatureToTrainer(trainerName, creatureName) {
   // Aquí iría tu lógica para asignar la criatura al entrenador
   // Buscar el entrenador por nombre y actualizar sus datos en memoria
   const trainer = trainerData.find((trainer) => trainer.name === trainerName);
-  console.log('Entrenador para asignar criatura: ', trainer);
   if (trainer) {
     // Aquí actualizarías los datos del entrenador con la nueva criatura asignada
     trainer.criaturas.push(creatureName); // Por ejemplo, asumiendo que tienes una propiedad 'criaturas' en tu objeto de entrenador
@@ -367,30 +370,37 @@ function assignCreatureToTrainer(trainerName, creatureName) {
 // Ruta de asignación de criaturas
 app.post("/assign-creature", (req, res) => {
   const { trainerName, creatureName } = req.body;
-
+  console.log("Datos de la solicitud:", req.body);
   // Llamada a la función para asignar la criatura al entrenador
   assignCreatureToTrainer(trainerName, creatureName)
     .then((message) => {
-      res.status(200).send(message);
+      res.status(200).json({ message: message }); // Enviar el mensaje como parte de un objeto JSON
     })
     .catch((error) => {
       console.error("Error al asignar la criatura:", error);
-      res.status(500).send("Error al asignar la criatura al entrenador");
+      res
+        .status(500)
+        .json({ error: "Error al asignar la criatura al entrenador: " + error.message }); // Enviar el mensaje de error como parte de un objeto JSON
     });
 });
+/**************************************************************
+ * 
+ *    FIN DE ASIGNACIÓN DE CRIATURAS A LOS ENTRENADORES
+ * 
+ *************************************************************/
 
 
 
 
-/**
- *
- *
- *
- *  GRUMPIS
- *
- *
- *
- */
+/***************************************************************
+ *                                                              *
+ *                                                              *
+ *                                                              *
+ *                            GRUMPIS                           *
+ *                                                              *
+ *                                                              *
+ *                                                              *
+ ***************************************************************/
 
 // Ruta para obtener las URLs de todas las imágenes
 app.get('/getImageUrls', (req, res) => {
