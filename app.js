@@ -9,12 +9,17 @@ const fs = require("fs");
 // Ruta al archivo donde se guardarán los entrenadores
 const filePath = "./trainers.json";
 // Configuración de la base de datos
-const db = new sqlite3.Database(":memory:"); // Crea una base de datos en memoria
+// const db = new sqlite3.Database("database.db"); // Crea una base de datos en memoria
+const db = new sqlite3.Database(":memory:");
+
+
 
 // Asegúrate de que el directorio de almacenamiento existe
 const path = require("path");
 const uploadDir = path.join(__dirname, "uploads", "grumpis");
+const uploadDirMedals = path.join(__dirname, "uploads", "medals");
 fs.mkdirSync(uploadDir, { recursive: true });
+fs.mkdirSync(uploadDirMedals, { recursive: true });
 
 // Define la configuración de multer para el almacenamiento de archivos
 const storage = multer.diskStorage({
@@ -35,11 +40,161 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// Crea una tabla para almacenar los entrenadores
+// Crea las tablas
 db.serialize(() => {
-  db.run(
-    "CREATE TABLE IF NOT EXISTS trainers (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, password TEXT, grumpidolar TEXT)"
-  );
+  // Tabla principal de entrenadores
+  db.run(`
+    CREATE TABLE IF NOT EXISTS trainers (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      nombre TEXT,
+      password TEXT,
+      grumpidolar INTEGER,
+      medallas TEXT,
+      grumpis TEXT,
+      energias TEXT,
+      objetos_combate TEXT,
+      objetos_evolutivos TEXT
+    )
+  `);
+
+  // Tabla de medallas
+  db.run(`
+    CREATE TABLE IF NOT EXISTS medallas (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      nombre TEXT,
+      imagen TEXT,
+      trainer_id INTEGER,
+      FOREIGN KEY (trainer_id) REFERENCES trainers (id)
+    )
+  `);
+
+  // Tabla de grumpis
+  db.run(`
+    CREATE TABLE IF NOT EXISTS grumpis (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      nombre TEXT,
+      imagen TEXT,
+      trainer_id INTEGER,
+      FOREIGN KEY (trainer_id) REFERENCES trainers (id)
+    )
+  `);
+
+  // Tabla de energías
+  db.run(`
+    CREATE TABLE IF NOT EXISTS energias (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      nombre TEXT,
+      imagen TEXT,
+      trainer_id INTEGER,
+      FOREIGN KEY (trainer_id) REFERENCES trainers (id)
+    )
+  `);
+
+  // Tabla de objetos de combate
+  db.run(`
+    CREATE TABLE IF NOT EXISTS objetos_combate (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      nombre TEXT,
+      imagen TEXT,
+      trainer_id INTEGER,
+      FOREIGN KEY (trainer_id) REFERENCES trainers (id)
+    )
+  `);
+
+  // Tabla de objetos evolutivos
+  db.run(`
+    CREATE TABLE IF NOT EXISTS objetos_evolutivos (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      nombre TEXT,
+      imagen TEXT,
+      trainer_id INTEGER,
+      FOREIGN KEY (trainer_id) REFERENCES trainers (id)
+    )
+  `);
+
+  db.run(`
+  CREATE TABLE IF NOT EXISTS trainer_creatures (
+    trainer_id INTEGER,
+    creature_id INTEGER,
+    FOREIGN KEY (trainer_id) REFERENCES trainers (id),
+    FOREIGN KEY (creature_id) REFERENCES grumpis (id)
+  )
+`);
+});
+
+// Ejemplo de inserción de datos
+db.serialize(() => {
+  // Inserción de un entrenador
+  db.run(`
+    INSERT INTO trainers (nombre, password, grumpidolar)
+    VALUES (?, ?, ?)
+  `, ['Ash Ketchum', 'password123', 1000], function(err) {
+    if (err) {
+      return console.error(err.message);
+    }
+    
+    const trainer_id = this.lastID;
+
+    let medallas = [];
+    let grumpis = [];
+    let energias = [];
+    let objetos_combate = [];
+    let objetos_evolutivos = [];
+
+    // Inserción de medallas para el entrenador
+    db.run(`
+      INSERT INTO medallas (nombre, imagen, trainer_id)
+      VALUES (?, ?, ?)
+    `, ['Medalla Roca', 'medalla_roca.png', trainer_id], function() {
+      medallas.push(this.lastID);
+    });
+
+    // Inserción de grumpis para el entrenador
+    db.run(`
+      INSERT INTO grumpis (nombre, imagen, trainer_id)
+      VALUES (?, ?, ?)
+    `, ['Grumpi Fuego', 'grumpi_fuego.png', trainer_id], function() {
+      grumpis.push(this.lastID);
+    });
+
+    // Inserción de energías para el entrenador
+    db.run(`
+      INSERT INTO energias (nombre, imagen, trainer_id)
+      VALUES (?, ?, ?)
+    `, ['Energía Solar', 'energia_solar.png', trainer_id], function() {
+      energias.push(this.lastID);
+    });
+
+    // Inserción de objetos de combate para el entrenador
+    db.run(`
+      INSERT INTO objetos_combate (nombre, imagen, trainer_id)
+      VALUES (?, ?, ?)
+    `, ['Espada del Grumpi', 'espada_grumpi.png', trainer_id], function() {
+      objetos_combate.push(this.lastID);
+    });
+
+    // Inserción de objetos evolutivos para el entrenador
+    db.run(`
+      INSERT INTO objetos_evolutivos (nombre, imagen, trainer_id)
+      VALUES (?, ?, ?)
+    `, ['Piedra Evolutiva', 'piedra_evolutiva.png', trainer_id], function() {
+      objetos_evolutivos.push(this.lastID);
+    });
+
+    // Actualiza el entrenador con los datos de sus atributos en formato JSON
+    db.run(`
+      UPDATE trainers
+      SET medallas = ?, grumpis = ?, energias = ?, objetos_combate = ?, objetos_evolutivos = ?
+      WHERE id = ?
+    `, [
+      JSON.stringify(medallas),
+      JSON.stringify(grumpis),
+      JSON.stringify(energias),
+      JSON.stringify(objetos_combate),
+      JSON.stringify(objetos_evolutivos),
+      trainer_id
+    ]);
+  });
 });
 
 // Declara trainer_list como una variable global
@@ -164,9 +319,68 @@ app.delete("/user/:id", async (req, res) => {
   });
 });
 
-app.listen(port, () => {
-  console.log(`Servidor GrumpiStore, iniciado en el puerto: ${port}`);
+
+
+// Cargar los datos de los entrenadores del archivo JSON al iniciar la aplicación
+let trainerData = [];
+try {
+  const data = fs.readFileSync(filePath, "utf8");
+  trainerData = JSON.parse(data);
+  // Inicializar la propiedad 'criaturas' si no está presente en cada objeto de entrenador
+  trainerData.forEach((trainer) => {
+    if (!trainer.criaturas) {
+      trainer.criaturas = [];
+    }
+  });
+  console.log("Datos de entrenadores cargados correctamente:", trainerData);
+} catch (err) {
+  console.error("Error al leer el archivo de entrenadores:", err);
+}
+
+// Función para actualizar y guardar los datos del entrenador en el archivo JSON
+function saveTrainerData() {
+  fs.writeFile(filePath, JSON.stringify(trainerData, null, 2), (err) => {
+    if (err) {
+      console.error("Error al guardar los datos del entrenador:", err);
+    } else {
+      console.log("Datos del entrenador guardados correctamente.");
+    }
+  });
+}
+
+// Función para asignar una criatura a un entrenador
+function assignCreatureToTrainer(trainerName, creatureName) {
+  // Aquí iría tu lógica para asignar la criatura al entrenador
+  // Buscar el entrenador por nombre y actualizar sus datos en memoria
+  const trainer = trainerData.find((trainer) => trainer.name === trainerName);
+  console.log('Entrenador para asignar criatura: ', trainer);
+  if (trainer) {
+    // Aquí actualizarías los datos del entrenador con la nueva criatura asignada
+    trainer.criaturas.push(creatureName); // Por ejemplo, asumiendo que tienes una propiedad 'criaturas' en tu objeto de entrenador
+    saveTrainerData(); // Guardar los cambios en el archivo JSON
+    return Promise.resolve("Criatura asignada correctamente al entrenador.");
+  } else {
+    return Promise.reject(`Entrenador con nombre ${trainerName} no encontrado.`);
+  }
+}
+
+// Ruta de asignación de criaturas
+app.post("/assign-creature", (req, res) => {
+  const { trainerName, creatureName } = req.body;
+
+  // Llamada a la función para asignar la criatura al entrenador
+  assignCreatureToTrainer(trainerName, creatureName)
+    .then((message) => {
+      res.status(200).send(message);
+    })
+    .catch((error) => {
+      console.error("Error al asignar la criatura:", error);
+      res.status(500).send("Error al asignar la criatura al entrenador");
+    });
 });
+
+
+
 
 /**
  *
@@ -197,6 +411,29 @@ app.get('/getImageUrls', (req, res) => {
   });
 });
 
+/**
+ * 
+ * OBTENCIÓN DE MEDALLAS
+ * 
+ */
+app.get('/getImageMedals', (req, res) => {
+  // Lee todos los archivos en el directorio de imágenes
+  fs.readdir(uploadDirMedals, (err, files) => {
+    if (err) {
+      console.error("Error al leer el directorio de imágenes:", err);
+      return res.status(500).json({ error: "Error interno del servidor" });
+    }
+
+    // Construye las URLs de las imágenes
+    const imageUrls = files.map((file) => {
+      return `http://localhost:3000/uploads/medals/${file}`;
+    });
+
+    // Devuelve las URLs de las imágenes como una respuesta JSON
+    res.json({ imageUrls });
+  });
+});
+
 app.post("/upload", upload.single("image"), (req, res) => {
   console.log("Archivo recibido:", req.file);
   console.log("Datos del formulario:", req.body);
@@ -206,6 +443,12 @@ app.post("/upload", upload.single("image"), (req, res) => {
   res.json({ message: "Imagen subida correctamente", file: req.file });
 });
 
+
+/**
+ * 
+ * SUBIR MEDALLAS
+ * 
+ */
 app.post("/upload-medal", upload.single("image"), (req, res) => {
   console.log("Medalla recibida:", req.file);
   if (!req.file) {
@@ -215,4 +458,13 @@ app.post("/upload-medal", upload.single("image"), (req, res) => {
     message: "Imagen de medalla subida correctamente",
     file: req.file,
   });
+});
+
+
+
+
+
+
+app.listen(port, () => {
+  console.log(`Servidor GrumpiStore, iniciado en el puerto: ${port}`);
 });

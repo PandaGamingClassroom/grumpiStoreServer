@@ -1,1 +1,34 @@
-[{"name":"Periquito","password":"333","id":2},{"name":"Nuevo","password":"344423","id":3},{"name":"Pablo","password":"123","id":4}]
+[
+  {
+    "name": "Periquito",
+    "password": "333",
+    "id": 2,
+    "criaturas": [
+      "http://localhost:3000/uploads/grumpis/001.1.png"
+    ]
+  },
+  {
+    "name": "Nuevo",
+    "password": "344423",
+    "id": 3,
+    "criaturas": []
+  },
+  {
+    "name": "Pablo",
+    "password": "123",
+    "id": 4,
+    "criaturas": []
+  },
+  {
+    "name": "Prueba01",
+    "password": "111",
+    "id": 5,
+    "criaturas": []
+  },
+  {
+    "name": "prueba02",
+    "password": "222",
+    "id": 6,
+    "criaturas": []
+  }
+]
