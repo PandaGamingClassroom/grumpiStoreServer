@@ -286,84 +286,89 @@ app.put("/user", (req, res) => {
   res.send("Got a PUT request at /user");
 });
 
-app.delete("/user/:id", async (req, res) => {
-  const userId = req.params.id;
+app.delete("/user/:name", (req, res) => {
+  const userName = req.params.name;
 
-  // Eliminar el usuario de la base de datos
-  db.run("DELETE FROM trainers WHERE id = ?", [userId], function (err) {
+  // Leer el contenido del archivo trainers.json
+  fs.readFile(filePath, "utf8", (err, data) => {
     if (err) {
-      console.error("Error al eliminar el usuario:", err);
+      console.error("Error al leer el archivo JSON:", err);
       return res.status(500).json({ error: "Error interno del servidor" });
     }
 
-    console.log(`Usuario con ID ${userId} eliminado correctamente`);
+    try {
+      let trainers = JSON.parse(data);
 
-    // Filtrar la lista de entrenadores para excluir el usuario eliminado
-    const updatedTrainerList = trainer_list.filter(
-      (trainer) => trainer.id !== parseInt(userId)
-    );
+      // Filtrar la lista de entrenadores para excluir el entrenador seleccionado
+      const updatedTrainerList = trainers.filter(
+        (trainer) => trainer.name !== userName
+      );
 
-    // Guardar la lista actualizada en el archivo JSON
-    fs.writeFile(filePath, JSON.stringify(updatedTrainerList), (err) => {
-      if (err) {
-        console.error("Error al actualizar el archivo JSON:", err);
-        return res.status(500).json({ error: "Error interno del servidor" });
-      }
+      // Guardar la lista actualizada en el archivo JSON
+      fs.writeFile(
+        filePath,
+        JSON.stringify(updatedTrainerList, null, 2),
+        (err) => {
+          if (err) {
+            console.error("Error al actualizar el archivo JSON:", err);
+            return res
+              .status(500)
+              .json({ error: "Error interno del servidor" });
+          }
 
-      console.log("BBDD actualizada correctamente");
+          console.log(`Usuario con nombre ${userName} eliminado correctamente`);
 
-      // Obtener la lista de entrenadores actualizada después de la eliminación
-      const updatedTrainerListWithDB = []; // Lista actualizada con los datos de la base de datos
-
-      // Consultar la base de datos para obtener la lista de entrenadores actualizada
-      db.all("SELECT * FROM trainers", [], (err, rows) => {
-        if (err) {
-          console.error(
-            "Error al obtener la lista actualizada de entrenadores:",
-            err
-          );
-          return res.status(500).json({ error: "Error interno del servidor" });
+          // Devolver la lista actualizada como respuesta
+          res.status(200).json({
+            message: `Usuario con nombre ${userName} eliminado correctamente`,
+            trainer_list: updatedTrainerList,
+          });
         }
-
-        updatedTrainerListWithDB.push(...rows);
-
-        res.status(200).json({
-          message: `Usuario con ID ${userId} eliminado correctamente`,
-          trainer_list: updatedTrainerListWithDB, // Devolver la lista actualizada de entrenadores
-        });
-      });
-    });
+      );
+    } catch (error) {
+      console.error("Error al analizar el contenido JSON:", error);
+      return res.status(500).json({ error: "Error interno del servidor" });
+    }
   });
 });
 
 
 // Ruta para actualizar entrenador
-app.put('/trainers/update/:name', (req, res) => {
+app.put("/trainers/update/:name", (req, res) => {
   const trainerName = req.params.name;
   const { trainer_name, trainer_pass, grumpidolar } = req.body;
 
   fs.readFile(filePath, "utf8", (err, data) => {
     if (err) {
-      res.status(500).send("Error reading trainers file");
+      res.status(500).json({ error: "Error al leer el fichero [${filepath}]" });
       return;
     }
 
     let trainers = JSON.parse(data);
-    let trainer = trainers.find((t) => t.name === trainerName);
-    if (trainer) {
-      trainer.name = trainer_name;
-      trainer.password = trainer_pass;
-      trainer.grumpidolar = grumpidolar;
+    let trainerIndex = trainers.findIndex((t) => t.name === trainerName);
+    if (trainerIndex !== -1) {
+      let updatedTrainer = trainers[trainerIndex];
+      if (trainer_name !== undefined) {
+        updatedTrainer.name = trainer_name;
+      }
+      if (trainer_pass !== undefined) {
+        updatedTrainer.password = trainer_pass;
+      }
+      if (grumpidolar !== undefined) {
+        updatedTrainer.grumpidolar = grumpidolar;
+      }
 
       fs.writeFile(filePath, JSON.stringify(trainers, null, 2), (err) => {
         if (err) {
-          res.status(500).send("Error writing trainers file");
+          res
+            .status(500)
+            .json({ error: "Error al escribir en el fichero [${filepath}]" });
           return;
         }
-        res.status(200).send("Trainer updated");
+        res.status(200).json({ message: "Entrenador actualizado correctamente" }); // Modifica la respuesta para enviar un objeto JSON válido
       });
     } else {
-      res.status(404).send("Trainer not found");
+      res.status(404).json({ error: "Entrenador no encontrado" });
     }
   });
 });

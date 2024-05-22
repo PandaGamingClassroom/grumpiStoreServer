@@ -9,7 +9,7 @@
       "http://localhost:3000/uploads/grumpis/033.1.png",
       "http://localhost:3000/uploads/grumpis/011.1.png"
     ],
-    "grumpidolar": "24"
+    "grumpidolar": "1"
   },
   {
     "name": "Nuevo",
@@ -17,26 +17,6 @@
     "id": 3,
     "criaturas": [
       "http://localhost:3000/uploads/grumpis/001.1.png",
-      "http://localhost:3000/uploads/grumpis/001.1.png"
-    ]
-  },
-  {
-    "name": "Pablo",
-    "password": "123",
-    "id": 4,
-    "criaturas": []
-  },
-  {
-    "name": "Prueba01",
-    "password": "111",
-    "id": 5,
-    "criaturas": []
-  },
-  {
-    "name": "prueba02",
-    "password": "222",
-    "id": 6,
-    "criaturas": [
       "http://localhost:3000/uploads/grumpis/001.1.png"
     ]
   }
