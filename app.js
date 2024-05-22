@@ -215,15 +215,15 @@ app.use(express.json()); // Middleware para analizar el cuerpo de la solicitud c
 // Servir las imágenes estáticas desde el directorio de uploads
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-/**
+/**************************************************
  *
  *
  *
- *  ENTRENADORES
+ *                    ENTRENADORES
  *
  *
  *
- */
+ *************************************************/
 // Cargar la lista de entrenadores desde el archivo al iniciar
 fs.readFile(filePath, "utf8", (err, data) => {
   if (err && err.code !== "ENOENT") {
@@ -245,9 +245,26 @@ fs.readFile(filePath, "utf8", (err, data) => {
  * Método para obtener el listado de Entrenadores
  */
 app.get("/", (req, res) => {
-  res.json({ trainer_list });
+  // Lee el contenido del archivo trainers.json
+  fs.readFile(filePath, "utf8", (err, data) => {
+    if (err) {
+      // Manejar el error si no se puede leer el archivo
+      console.error("Error al leer el archivo trainers.json:", err);
+      res.status(500).json({ error: "Error al leer el archivo trainers.json" });
+    } else {
+      try {
+        // Parsea el contenido del archivo JSON a un objeto JavaScript
+        const trainerList = JSON.parse(data);
+        // Envía el listado completo de entrenadores como respuesta
+        res.json({ trainer_list: trainerList });
+      } catch (parseError) {
+        // Manejar el error si no se puede parsear el contenido JSON
+        console.error("Error al parsear el contenido JSON:", parseError);
+        res.status(500).json({ error: "Error al parsear el contenido JSON" });
+      }
+    }
+  });
 });
-
 /**
  * Método para guardar un nuevo entrenador
  */
@@ -320,11 +337,42 @@ app.delete("/user/:id", async (req, res) => {
 });
 
 
-/**
+// Ruta para actualizar entrenador
+app.put('/trainers/update/:name', (req, res) => {
+  const trainerName = req.params.name;
+  const { trainer_name, trainer_pass, grumpidolar } = req.body;
+
+  fs.readFile(filePath, "utf8", (err, data) => {
+    if (err) {
+      res.status(500).send("Error reading trainers file");
+      return;
+    }
+
+    let trainers = JSON.parse(data);
+    let trainer = trainers.find((t) => t.name === trainerName);
+    if (trainer) {
+      trainer.name = trainer_name;
+      trainer.password = trainer_pass;
+      trainer.grumpidolar = grumpidolar;
+
+      fs.writeFile(filePath, JSON.stringify(trainers, null, 2), (err) => {
+        if (err) {
+          res.status(500).send("Error writing trainers file");
+          return;
+        }
+        res.status(200).send("Trainer updated");
+      });
+    } else {
+      res.status(404).send("Trainer not found");
+    }
+  });
+});
+
+/********************************************************************
  * 
- *    ASIGNACIÓN DE CRIATURAS A LOS ENTRENADORES
+ *            ASIGNACIÓN DE CRIATURAS A LOS ENTRENADORES
  * 
- */
+ *******************************************************************/
 // Cargar los datos de los entrenadores del archivo JSON al iniciar la aplicación
 let trainerData = [];
 try {
@@ -389,7 +437,43 @@ app.post("/assign-creature", (req, res) => {
  * 
  *************************************************************/
 
+/**
+ * Método para obtener la información de un entrenador por nombre
+ */
+app.get("/trainer/:nombre", (req, res) => {
+  const nombre = req.params.nombre;
 
+  // Lee los datos del archivo trainers.json
+  fs.readFile(filePath, "utf8", (err, data) => {
+    if (err) {
+      console.error("Error al leer el archivo trainers.json:", err);
+      return res
+        .status(500)
+        .json({ success: false, error: "Error interno del servidor" });
+    }
+
+    try {
+      const trainerList = JSON.parse(data);
+      // Busca el entrenador por nombre en la lista
+      const trainer = trainerList.find((trainer) => trainer.name === nombre);
+
+      if (!trainer) {
+        // Si no se encuentra ningún entrenador con ese nombre, devuelve un mensaje de error
+        res
+          .status(200)
+          .json({ success: false, error: "Entrenador no encontrado" });
+      } else {
+        // Si se encuentra el entrenador, devuelve sus datos
+        res.json({ success: true, data: trainer });
+      }
+    } catch (error) {
+      console.error("Error al parsear el archivo trainers.json:", error);
+      res
+        .status(500)
+        .json({ success: false, error: "Error interno del servidor" });
+    }
+  });
+});
 
 
 /***************************************************************

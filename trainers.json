@@ -5,8 +5,11 @@
     "id": 2,
     "criaturas": [
       "http://localhost:3000/uploads/grumpis/001.1.png",
-      "http://localhost:3000/uploads/grumpis/002.1.png"
-    ]
+      "http://localhost:3000/uploads/grumpis/002.1.png",
+      "http://localhost:3000/uploads/grumpis/033.1.png",
+      "http://localhost:3000/uploads/grumpis/011.1.png"
+    ],
+    "grumpidolar": "24"
   },
   {
     "name": "Nuevo",
