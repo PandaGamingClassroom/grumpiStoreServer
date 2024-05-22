@@ -9,7 +9,8 @@
       "http://localhost:3000/uploads/grumpis/033.1.png",
       "http://localhost:3000/uploads/grumpis/011.1.png"
     ],
-    "grumpidolar": "1"
+    "grumpidolar": "1",
+    "medallas": []
   },
   {
     "name": "Nuevo",
@@ -18,6 +19,7 @@
     "criaturas": [
       "http://localhost:3000/uploads/grumpis/001.1.png",
       "http://localhost:3000/uploads/grumpis/001.1.png"
-    ]
+    ],
+    "medallas": []
   }
 ]

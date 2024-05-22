@@ -18,6 +18,7 @@ const db = new sqlite3.Database(":memory:");
 const path = require("path");
 const uploadDir = path.join(__dirname, "uploads", "grumpis");
 const uploadDirMedals = path.join(__dirname, "uploads", "medals");
+const uploadDirCombatObjects = path.join(__dirname, "uploads", "combatObjects");
 fs.mkdirSync(uploadDir, { recursive: true });
 fs.mkdirSync(uploadDirMedals, { recursive: true });
 
@@ -510,6 +511,16 @@ app.get('/getImageUrls', (req, res) => {
   });
 });
 
+
+/***************************************************************
+ *                                                              *
+ *                                                              *
+ *                                                              *
+ *                           MEDALLAS                           *
+ *                                                              *
+ *                                                              *
+ *                                                              *
+ ***************************************************************/
 /**
  * 
  * OBTENCIÓN DE MEDALLAS
@@ -533,6 +544,7 @@ app.get('/getImageMedals', (req, res) => {
   });
 });
 
+
 app.post("/upload", upload.single("image"), (req, res) => {
   console.log("Archivo recibido:", req.file);
   console.log("Datos del formulario:", req.body);
@@ -543,11 +555,11 @@ app.post("/upload", upload.single("image"), (req, res) => {
 });
 
 
-/**
+/******************************
  * 
- * SUBIR MEDALLAS
+ *        SUBIR MEDALLAS
  * 
- */
+ *****************************/
 app.post("/upload-medal", upload.single("image"), (req, res) => {
   console.log("Medalla recibida:", req.file);
   if (!req.file) {
@@ -559,8 +571,95 @@ app.post("/upload-medal", upload.single("image"), (req, res) => {
   });
 });
 
+/********************************************************************
+ *                                                                  *
+ *            ASIGNACIÓN DE MEDALLAS A LOS ENTRENADORES             *
+ *                                                                  *
+ *******************************************************************/
+try {
+  const data = fs.readFileSync(filePath, "utf8");
+  trainerData = JSON.parse(data);
+  // Inicializar la propiedad 'medallas' si no está presente en cada objeto de entrenador
+  trainerData.forEach((trainer) => {
+    if (!trainer.medallas) {
+      trainer.medallas = [];
+    }
+  });
+  console.log("Datos de entrenadores cargados correctamente:", trainerData);
+} catch (err) {
+  console.error("Error al leer el archivo de entrenadores:", err);
+}
+
+// Función para actualizar y guardar los datos del entrenador en el archivo JSON
+function saveTrainerData() {
+  fs.writeFile(filePath, JSON.stringify(trainerData, null, 2), (err) => {
+    if (err) {
+      console.error("Error al guardar los datos del entrenador:", err);
+    } else {
+      console.log("Datos del entrenador guardados correctamente.");
+    }
+  });
+}
+
+// Función para asignar una medalla a un entrenador
+function assignMedalToTrainer(trainerName, medalName) {
+  // Aquí iría tu lógica para asignar la medalla al entrenador
+  // Buscar el entrenador por nombre y actualizar sus datos en memoria
+  const trainer = trainerData.find((trainer) => trainer.name === trainerName);
+  if (trainer) {
+    // Aquí actualizarías los datos del entrenador con la nueva medalla asignada
+    trainer.medallas.push(medalName); // Por ejemplo, asumiendo que tienes una propiedad 'medallas' en tu objeto de entrenador
+    saveTrainerData(); // Guardar los cambios en el archivo JSON
+    return Promise.resolve("Medalla asignada correctamente al entrenador.");
+  } else {
+    return Promise.reject(
+      `Entrenador con nombre ${trainerName} no encontrado.`
+    );
+  }
+}
+
+// Ruta de asignación de medallas
+app.post("/assign-medal", (req, res) => {
+  const { trainerName, medalName } = req.body;
+  console.log("Datos de la solicitud:", req.body);
+  // Llamada a la función para asignar la medalla al entrenador
+  assignMedalToTrainer(trainerName, medalName)
+    .then((message) => {
+      res.status(200).json({ message: message }); // Enviar el mensaje como parte de un objeto JSON
+    })
+    .catch((error) => {
+      console.error("Error al asignar la medalla:", error);
+      res
+        .status(500)
+        .json({
+          error: "Error al asignar la medalla al entrenador: " + error.message,
+        }); // Enviar el mensaje de error como parte de un objeto JSON
+    });
+});
 
 
+/********************************
+ * 
+ *      OBJETOS DE COMBATE
+ * 
+ *******************************/
+app.get("/getImageCombatObjects", (req, res) => {
+  // Lee todos los archivos en el directorio de imágenes
+  fs.readdir(uploadDirCombatObjects, (err, files) => {
+    if (err) {
+      console.error("Error al leer el directorio de imágenes:", err);
+      return res.status(500).json({ error: "Error interno del servidor" });
+    }
+
+    // Construye las URLs de las imágenes
+    const imageUrls = files.map((file) => {
+      return `http://localhost:3000/uploads/combatObjects/${file}`;
+    });
+
+    // Devuelve las URLs de las imágenes como una respuesta JSON
+    res.json({ imageUrls });
+  });
+});
 
 
 
