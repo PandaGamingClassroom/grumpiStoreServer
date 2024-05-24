@@ -100,6 +100,7 @@ db.serialize(() => {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       nombre TEXT,
       imagen TEXT,
+      precio INTEGER,
       trainer_id INTEGER,
       FOREIGN KEY (trainer_id) REFERENCES trainers (id)
     )
@@ -812,24 +813,41 @@ app.post("/assign-medal", (req, res) => {
  *      OBJETOS DE COMBATE
  * 
  *******************************/
+// app.get("/getImageCombatObjects", (req, res) => {
+//   // Lee todos los archivos en el directorio de imágenes
+//   fs.readdir(uploadDirCombatObjects, (err, files) => {
+//     if (err) {
+//       console.error("Error al leer el directorio de imágenes:", err);
+//       return res.status(500).json({ error: "Error interno del servidor" });
+//     }
+
+//     // Construye las URLs de las imágenes
+//     const imageUrls = files.map((file) => {
+//       return `http://localhost:3000/uploads/combatObjects/${file}`;
+//     });
+
+//     // Devuelve las URLs de las imágenes como una respuesta JSON
+//     res.json({ imageUrls });
+//   });
+// });
 app.get("/getImageCombatObjects", (req, res) => {
-  // Lee todos los archivos en el directorio de imágenes
-  fs.readdir(uploadDirCombatObjects, (err, files) => {
+  const filePath = path.join(__dirname, "combatObjects.json");
+
+  fs.readFile(filePath, "utf8", (err, data) => {
     if (err) {
-      console.error("Error al leer el directorio de imágenes:", err);
+      console.error("Error al leer el archivo de objetos de combate:", err);
       return res.status(500).json({ error: "Error interno del servidor" });
     }
 
-    // Construye las URLs de las imágenes
-    const imageUrls = files.map((file) => {
-      return `http://localhost:3000/uploads/combatObjects/${file}`;
-    });
-
-    // Devuelve las URLs de las imágenes como una respuesta JSON
-    res.json({ imageUrls });
+    try {
+      const combatObjects = JSON.parse(data);
+      res.json({ combatObjects });
+    } catch (parseErr) {
+      console.error("Error al analizar el archivo JSON:", parseErr);
+      res.status(500).json({ error: "Error interno del servidor" });
+    }
   });
 });
-
 
 
 app.listen(port, () => {

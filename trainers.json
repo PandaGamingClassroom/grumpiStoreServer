@@ -20,6 +20,12 @@
         "nombre": "Energía Agua",
         "tipo": "Agua",
         "imagen": "../../../../assets/energies/Agua2.0.PNG"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/Agua2.0.PNG"
       }
     ]
   },

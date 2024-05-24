@@ -1,0 +1,17 @@
+[
+    {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.png",
+        "precio": 5
+    },
+    {
+      "nombre": "Poción",
+      "imagen": "http://localhost:3000/uploads/combatObjects/Pocion.png",
+      "precio": 7
+    },
+    {
+      "nombre": "Desfibrilador",
+      "imagen": "http://localhost:3000/uploads/combatObjects/Desfibrilador.png",
+      "precio": 5
+    }
+]
