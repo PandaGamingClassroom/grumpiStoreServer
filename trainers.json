@@ -9,8 +9,19 @@
       "http://localhost:3000/uploads/grumpis/033.1.png",
       "http://localhost:3000/uploads/grumpis/011.1.png"
     ],
-    "grumpidolar": "1",
-    "medallas": []
+    "grumpidolar": 18,
+    "medallas": [
+      "http://localhost:3000/uploads/medals/Medalla_Agua.png",
+      "http://localhost:3000/uploads/medals/Medalla_fuego.png"
+    ],
+    "energias": [
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/Agua2.0.PNG"
+      }
+    ]
   },
   {
     "name": "Nuevo",
@@ -18,8 +29,15 @@
     "id": 3,
     "criaturas": [
       "http://localhost:3000/uploads/grumpis/001.1.png",
-      "http://localhost:3000/uploads/grumpis/001.1.png"
+      "http://localhost:3000/uploads/grumpis/001.1.png",
+      "http://localhost:3000/uploads/grumpis/020.1.png"
     ],
+    "medallas": []
+  },
+  {
+    "name": "Pablo",
+    "password": "1234",
+    "id": 4,
     "medallas": []
   }
 ]

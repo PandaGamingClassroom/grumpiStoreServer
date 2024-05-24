@@ -18,6 +18,7 @@ const db = new sqlite3.Database(":memory:");
 const path = require("path");
 const uploadDir = path.join(__dirname, "uploads", "grumpis");
 const uploadDirMedals = path.join(__dirname, "uploads", "medals");
+const uploadDirEnergies = path.join(__dirname, "uploads", "energies");
 const uploadDirCombatObjects = path.join(__dirname, "uploads", "combatObjects");
 fs.mkdirSync(uploadDir, { recursive: true });
 fs.mkdirSync(uploadDirMedals, { recursive: true });
@@ -53,6 +54,7 @@ db.serialize(() => {
       medallas TEXT,
       grumpis TEXT,
       energias TEXT,
+      total_energias INTEGER,
       objetos_combate TEXT,
       objetos_evolutivos TEXT
     )
@@ -85,6 +87,7 @@ db.serialize(() => {
     CREATE TABLE IF NOT EXISTS energias (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       nombre TEXT,
+      tipo TEXT,
       imagen TEXT,
       trainer_id INTEGER,
       FOREIGN KEY (trainer_id) REFERENCES trainers (id)
@@ -287,50 +290,38 @@ app.put("/user", (req, res) => {
   res.send("Got a PUT request at /user");
 });
 
-app.delete("/user/:name", (req, res) => {
+app.delete("/user/:name", async (req, res) => {
   const userName = req.params.name;
 
-  // Leer el contenido del archivo trainers.json
-  fs.readFile(filePath, "utf8", (err, data) => {
-    if (err) {
-      console.error("Error al leer el archivo JSON:", err);
-      return res.status(500).json({ error: "Error interno del servidor" });
+  try {
+    const data = await fs.readFile(filePath, "utf8");
+    let trainers = JSON.parse(data);
+
+    // Filtrar la lista de entrenadores para excluir el entrenador seleccionado
+    const updatedTrainerList = trainers.filter(
+      (trainer) => trainer.name !== userName
+    );
+
+    if (trainers.length === updatedTrainerList.length) {
+      // El usuario no se encontró en la lista
+      return res
+        .status(404)
+        .json({ error: `Usuario con nombre ${userName} no encontrado` });
     }
 
-    try {
-      let trainers = JSON.parse(data);
+    await fs.writeFile(filePath, JSON.stringify(updatedTrainerList, null, 2));
 
-      // Filtrar la lista de entrenadores para excluir el entrenador seleccionado
-      const updatedTrainerList = trainers.filter(
-        (trainer) => trainer.name !== userName
-      );
+    console.log(`Usuario con nombre ${userName} eliminado correctamente`);
 
-      // Guardar la lista actualizada en el archivo JSON
-      fs.writeFile(
-        filePath,
-        JSON.stringify(updatedTrainerList, null, 2),
-        (err) => {
-          if (err) {
-            console.error("Error al actualizar el archivo JSON:", err);
-            return res
-              .status(500)
-              .json({ error: "Error interno del servidor" });
-          }
-
-          console.log(`Usuario con nombre ${userName} eliminado correctamente`);
-
-          // Devolver la lista actualizada como respuesta
-          res.status(200).json({
-            message: `Usuario con nombre ${userName} eliminado correctamente`,
-            trainer_list: updatedTrainerList,
-          });
-        }
-      );
-    } catch (error) {
-      console.error("Error al analizar el contenido JSON:", error);
-      return res.status(500).json({ error: "Error interno del servidor" });
-    }
-  });
+    // Devolver la lista actualizada como respuesta
+    res.status(200).json({
+      message: `Usuario con nombre ${userName} eliminado correctamente`,
+      trainer_list: updatedTrainerList,
+    });
+  } catch (err) {
+    console.error("Error al procesar el archivo JSON:", err);
+    res.status(500).json({ error: "Error interno del servidor" });
+  }
 });
 
 
@@ -443,6 +434,94 @@ app.post("/assign-creature", (req, res) => {
  * 
  *************************************************************/
 
+/**---------------------------------------------------------------------------------------------*/
+
+/**************************************************************
+ * 
+ *    ASIGNACIÓN DE GRUMPIDOLARES A LOS ENTRENADORES
+ * 
+ *************************************************************/
+try {
+  const data = fs.readFileSync(filePath, "utf8");
+  trainerData = JSON.parse(data);
+
+  if (!Array.isArray(trainerData)) {
+    throw new Error("Los datos de entrenadores no son un array.");
+  }
+
+  trainerData.forEach((trainer) => {
+    if (typeof trainer.grumpidolar === "undefined") {
+      trainer.grumpidolar = 0;
+    }
+  });
+
+  console.log("Datos de entrenadores cargados correctamente:", trainerData);
+} catch (err) {
+  console.error("Error al leer el archivo de entrenadores:", err);
+}
+
+function saveTrainerData() {
+  fs.writeFile(filePath, JSON.stringify(trainerData, null, 2), (err) => {
+    if (err) {
+      console.error("Error al guardar los datos del entrenador:", err);
+    } else {
+      console.log("Datos del entrenador guardados correctamente.");
+    }
+  });
+}
+
+function assignGrumpidolaresToTrainer(trainerName, grumpidolar) {
+  return new Promise((resolve, reject) => {
+    console.log("Cantidad de Grumpidólares recibida (original): ", grumpidolar);
+    const grumpidolaresNumber = Number(grumpidolar);
+    console.log("Cantidad de Grumpidólares convertida: ", grumpidolaresNumber);
+
+    if (isNaN(grumpidolaresNumber) || grumpidolaresNumber <= 0) {
+      console.log("Cantidad de Grumpidólares no válida: ", grumpidolaresNumber);
+      return reject("Grumpidólares debe ser un número positivo.");
+    }
+
+    const trainer = trainerData.find((trainer) => trainer.name === trainerName);
+    if (trainer) {
+      console.log("Entrenador encontrado:", trainer);
+
+      // Asegurarse de que trainer.grumpidolar es un número antes de sumar
+      trainer.grumpidolar = Number(trainer.grumpidolar) || 0;
+      trainer.grumpidolar += grumpidolaresNumber;
+
+      console.log(
+        "Cantidad de Grumpidólares después de la asignación:",
+        trainer.grumpidolar
+      );
+
+      saveTrainerData();
+      resolve("Grumpidólares asignados correctamente al entrenador.");
+    } else {
+      reject(`Entrenador con nombre ${trainerName} no encontrado.`);
+    }
+  });
+}
+
+app.post("/assign-grumpidolares", (req, res) => {
+  const { trainerName, grumpidolar } = req.body;
+  console.log("Datos de la solicitud:", req.body);
+  assignGrumpidolaresToTrainer(trainerName, req.body.grumpidolares)
+    .then((message) => {
+      res.status(200).json({ message: message });
+    })
+    .catch((error) => {
+      console.error("Error al asignar los Grumpidólares:", error);
+      res.status(400).json({ error: error });
+    });
+});
+/**************************************************************
+ * 
+ *    FIN DE ASIGNACIÓN DE GRUMPIDOLARES A LOS ENTRENADORES
+ * 
+ *************************************************************/
+
+
+
 /**
  * Método para obtener la información de un entrenador por nombre
  */
@@ -544,6 +623,96 @@ app.get('/getImageMedals', (req, res) => {
   });
 });
 
+/******************************************
+ * 
+ * OBTENER LAS IMÁGENES DE LAS ENERGÍAS
+ * 
+ ******************************************/
+app.get("/getImageEnergies", (req, res) => {
+  // Lee todos los archivos en el directorio de imágenes
+  fs.readdir(uploadDirEnergies, (err, files) => {
+    if (err) {
+      console.error("Error al leer el directorio de imágenes:", err);
+      return res.status(500).json({ error: "Error interno del servidor" });
+    }
+
+    // Construye las URLs de las imágenes
+    const imageUrls = files.map((file) => {
+      return `http://localhost:3000/uploads/energies/${file}`;
+    });
+
+    // Devuelve las URLs de las imágenes como una respuesta JSON
+    res.json({ imageUrls });
+  });
+});
+
+/******************************************
+ * 
+ * ASIGNAR ENERGÍAS
+ * 
+ ******************************************/
+// Cargar los datos de los entrenadores del archivo JSON al iniciar la aplicación
+try {
+  const data = fs.readFileSync(filePath, "utf8");
+  trainerData = JSON.parse(data);
+  // Inicializar la propiedad 'energias' si no está presente en cada objeto de entrenador
+  trainerData.forEach((trainer) => {
+    if (!trainer.energias) {
+      trainer.energias = [];
+    }
+  });
+  console.log("Datos de entrenadores cargados correctamente:", trainerData);
+} catch (err) {
+  console.error("Error al leer el archivo de entrenadores:", err);
+}
+
+// Función para asignar una energía a un entrenador
+function assignEnergieToTrainer(trainerName, energia) {
+  const trainer = trainerData.find((trainer) => trainer.name === trainerName);
+  if (trainer) {
+    if (!Array.isArray(trainer.energias)) {
+      trainer.energias = []; // Inicializar si no está definida como un arreglo
+    }
+    trainer.energias.push(energia); // Agregar la energía al arreglo de energías del entrenador
+    saveTrainerData(); // Guardar los cambios en el archivo JSON
+    return Promise.resolve("Energía asignada correctamente al entrenador.");
+  } else {
+    return Promise.reject(
+      `Entrenador con nombre ${trainerName} no encontrado.`
+    );
+  }
+}
+
+// Función para guardar los datos de entrenadores en el archivo JSON
+function saveTrainerData() {
+  try {
+    fs.writeFileSync(filePath, JSON.stringify(trainerData, null, 2), "utf8");
+    console.log("Datos de entrenadores guardados correctamente.");
+  } catch (err) {
+    console.error("Error al guardar los datos de entrenadores:", err);
+  }
+}
+
+// Ruta de asignación de energías
+app.post("/assign-energie", (req, res) => {
+  const { trainerName, energie } = req.body;
+  console.log("Datos de la solicitud:", req.body);
+  assignEnergieToTrainer(trainerName, energie)
+    .then((message) => {
+      res.status(200).json({ message: message });
+    })
+    .catch((error) => {
+      console.error("Error al asignar la energía:", error);
+      res
+        .status(500)
+        .json({ error: "Error al asignar la energía al entrenador: " + error });
+    });
+});
+/******************************************
+ * 
+ * FIN ASIGNAR LAS ENERGÍAS
+ * 
+ ******************************************/
 
 app.post("/upload", upload.single("image"), (req, res) => {
   console.log("Archivo recibido:", req.file);
