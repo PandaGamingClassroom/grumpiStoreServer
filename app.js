@@ -8,6 +8,8 @@ const fs = require("fs");
 
 // Ruta al archivo donde se guardarán los entrenadores
 const filePath = "./trainers.json";
+// Ruta del archivo donde se guardan los objetos de combate
+const filePathObjectsCombat = "./combatObjects.json";
 // Configuración de la base de datos
 // const db = new sqlite3.Database("database.db"); // Crea una base de datos en memoria
 const db = new sqlite3.Database(":memory:");
@@ -393,7 +395,7 @@ function saveTrainerData() {
     if (err) {
       console.error("Error al guardar los datos del entrenador:", err);
     } else {
-      console.log("Datos del entrenador guardados correctamente.");
+      console.log("Datos del entrenador guardados correctamente.", trainerData);
     }
   });
 }
@@ -515,6 +517,71 @@ app.post("/assign-grumpidolares", (req, res) => {
       res.status(400).json({ error: error });
     });
 });
+
+/**
+ * 
+ *  ASIGNACIÓN DE GRUMPIDÓLARES AL ENTRENADOR DESPUÉS DE REALIZAR 
+ *  LA COMPRA DE OBJETOS.
+ * 
+ */
+function assignGrumpidolaresAfterBuyToTrainer(trainerName, grumpidolar) {
+  return new Promise((resolve, reject) => {
+    console.log("Cantidad de Grumpidólares recibida (original): ", grumpidolar);
+    const grumpidolaresNumber = Number(grumpidolar);
+    console.log("Cantidad de Grumpidólares convertida: ", grumpidolaresNumber);
+
+    if (isNaN(grumpidolaresNumber) || grumpidolaresNumber <= 0) {
+      console.log("Cantidad de Grumpidólares no válida: ", grumpidolaresNumber);
+      return reject("Grumpidólares debe ser un número positivo.");
+    }
+
+    const trainer = trainerData.find((trainer) => trainer.name === trainerName);
+    if (trainer) {
+      console.log("Entrenador encontrado:", trainer);
+
+      // Asegurarse de que trainer.grumpidolar es un número antes de sumar
+      trainer.grumpidolar = Number(trainer.grumpidolar) || 0;
+
+      console.log(
+        "Cantidad de Grumpidólares después de la compra:",
+        trainer.grumpidolar
+      );
+
+      saveTrainerData();
+      resolve("Grumpidólares asignados correctamente al entrenador.");
+    } else {
+      reject(`Entrenador con nombre ${trainerName} no encontrado.`);
+    }
+  });
+}
+
+
+app.post("/assignGrumpidolares-after-buy", (req, res) => {
+  console.log("Datos de la solicitud:", req.body);
+  console.log(
+    "Cantidad de Grumpidólares para actualizar: ",
+    req.body.grumpidolares
+  );
+  assignGrumpidolaresAfterBuyToTrainer(
+    req.body.trainerName,
+    req.body.grumpidolares
+  )
+    .then((message) => {
+      res.status(200).json({ message: message });
+    })
+    .catch((error) => {
+      console.error("Error al asignar los Grumpidólares:", error);
+      res.status(400).json({ error: error });
+    });
+});
+
+
+  /**
+   *
+   *  FIN DE LA ASIGNACIÓN DE GRUMPIDÓLARES AL ENTRENADOR 
+   *  DESPUÉS DE REALIZAR LA COMPRA DE OBJETOS.
+   *
+   */
 /**************************************************************
  * 
  *    FIN DE ASIGNACIÓN DE GRUMPIDOLARES A LOS ENTRENADORES
@@ -813,38 +880,23 @@ app.post("/assign-medal", (req, res) => {
  *      OBJETOS DE COMBATE
  * 
  *******************************/
-// app.get("/getImageCombatObjects", (req, res) => {
-//   // Lee todos los archivos en el directorio de imágenes
-//   fs.readdir(uploadDirCombatObjects, (err, files) => {
-//     if (err) {
-//       console.error("Error al leer el directorio de imágenes:", err);
-//       return res.status(500).json({ error: "Error interno del servidor" });
-//     }
-
-//     // Construye las URLs de las imágenes
-//     const imageUrls = files.map((file) => {
-//       return `http://localhost:3000/uploads/combatObjects/${file}`;
-//     });
-
-//     // Devuelve las URLs de las imágenes como una respuesta JSON
-//     res.json({ imageUrls });
-//   });
-// });
 app.get("/getImageCombatObjects", (req, res) => {
-  const filePath = path.join(__dirname, "combatObjects.json");
-
-  fs.readFile(filePath, "utf8", (err, data) => {
+  fs.readFile(filePathObjectsCombat, "utf8", (err, data) => {
     if (err) {
-      console.error("Error al leer el archivo de objetos de combate:", err);
-      return res.status(500).json({ error: "Error interno del servidor" });
-    }
-
-    try {
-      const combatObjects = JSON.parse(data);
-      res.json({ combatObjects });
-    } catch (parseErr) {
-      console.error("Error al analizar el archivo JSON:", parseErr);
-      res.status(500).json({ error: "Error interno del servidor" });
+      // Manejar el error si no se puede leer el archivo
+      console.error("Error al leer el archivo trainers.json:", err);
+      res.status(500).json({ error: "Error al leer el archivo combatObjects.json" });
+    } else {
+      try {
+        // Parsea el contenido del archivo JSON a un objeto JavaScript
+        const objectsList = JSON.parse(data);
+        // Envía el listado completo de entrenadores como respuesta
+        res.json({ objectsList: objectsList });
+      } catch (parseError) {
+        // Manejar el error si no se puede parsear el contenido JSON
+        console.error("Error al parsear el contenido JSON:", parseError);
+        res.status(500).json({ error: "Error al parsear el contenido JSON" });
+      }
     }
   });
 });
