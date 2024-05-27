@@ -10,6 +10,7 @@ const fs = require("fs");
 const filePath = "./trainers.json";
 // Ruta del archivo donde se guardan los objetos de combate
 const filePathObjectsCombat = "./combatObjects.json";
+const filePathObjectsEvolution = "./evolutionObjects.json";
 // Configuración de la base de datos
 // const db = new sqlite3.Database("database.db"); // Crea una base de datos en memoria
 const db = new sqlite3.Database(":memory:");
@@ -979,18 +980,25 @@ app.post("/assign-combatObjects", (req, res) => {
  * 
  ******************************************************/                     
 app.get("/getEvoOBjects", (req, res) => {
-  // Lee todos los archivos en el directorio de imágenes
-  fs.readdir(uploadDirEvoObjects, (err, files) => {
+  fs.readFile(filePathObjectsEvolution, "utf8", (err, data) => {
     if (err) {
-      console.error("Error al leer el directorio de imágenes:", err);
-      return res.status(500).json({ error: "Error interno del servidor" });
+      // Manejar el error si no se puede leer el archivo
+      console.error("Error al leer el archivo evolutionObjects.json:", err);
+      res
+        .status(500)
+        .json({ error: "Error al leer el archivo evolutionObjects.json" });
+    } else {
+      try {
+        // Parsea el contenido del archivo JSON a un objeto JavaScript
+        const objectsList = JSON.parse(data);
+        // Envía el listado completo de entrenadores como respuesta
+        res.json({ objectsList: objectsList });
+      } catch (parseError) {
+        // Manejar el error si no se puede parsear el contenido JSON
+        console.error("Error al parsear el contenido JSON:", parseError);
+        res.status(500).json({ error: "Error al parsear el contenido JSON" });
+      }
     }
-    // Construye las URLs de las imágenes
-    const imageUrls = files.map((file) => {
-      return `http://localhost:3000/uploads/evoObjects/${file}`;
-    });
-    // Devuelve las URLs de las imágenes como una respuesta JSON
-    res.json({ imageUrls });
   });
 });
 
@@ -1016,26 +1024,26 @@ try {
 
 // Función para asignar una energía a un entrenador
 function assignEvoObjectsToTrainer(trainerName, evoObjetct) {
-  const trainer = trainerData.find((trainer) => trainer.name === trainerName);
-  if (trainer) {
-    if (!Array.isArray(trainer.objetos_evolutivos)) {
-      trainer.objetos_evolutivos = []; // Inicializar si no está definida como un arreglo
+  return new Promise((resolve, reject) => {
+    // Buscar el entrenador por nombre y actualizar sus datos en memoria
+    const trainer = trainerData.find((trainer) => trainer.name === trainerName);
+    if (trainer) {
+      console.log("Datos del entrenador: ", trainer);
+      console.log("Objeto evolutivo a asignar al entrenador: ", evoObjetct);
+      trainer.objetos_evolutivos.push(evoObjetct); // Asumiendo que tienes una propiedad 'objetos_combate' en tu objeto de entrenador
+      saveTrainerData(); // Guardar los cambios en el archivo JSON
+      resolve("Objeto evolutivo asignado correctamente al entrenador.");
+    } else {
+      reject(new Error(`Entrenador con nombre ${trainerName} no encontrado.`));
     }
-    trainer.objetos_evolutivos.push(evoObjetct); // Agregar la energía al arreglo de energías del entrenador
-    saveTrainerData(); // Guardar los cambios en el archivo JSON
-    return Promise.resolve("Objeto evolutivo asignado correctamente al entrenador.");
-  } else {
-    return Promise.reject(
-      `Entrenador con nombre ${trainerName} no encontrado.`
-    );
-  }
+  });
 }
 
 // Ruta de asignación de los objetos evolutivos
 app.post("/assign-evo-objects", (req, res) => {
-  const { trainerName, energie } = req.body;
+  const { trainerName, evoObject } = req.body;
   console.log("Datos de la solicitud:", req.body);
-  assignEvoObjectsToTrainer(trainerName, energie)
+  assignEvoObjectsToTrainer(trainerName, evoObject)
     .then((message) => {
       res.status(200).json({ message: message });
     })

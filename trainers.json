@@ -10,7 +10,7 @@
       "http://localhost:3000/uploads/grumpis/011.1.png",
       "http://localhost:3000/uploads/grumpis/013.1.png"
     ],
-    "grumpidolar": 8,
+    "grumpidolar": 3,
     "medallas": [
       "http://localhost:3000/uploads/medals/Medalla_Agua.png",
       "http://localhost:3000/uploads/medals/Medalla_fuego.png"
@@ -49,8 +49,14 @@
         "nombre": "Poción",
         "imagen": "http://localhost:3000/uploads/combatObjects/Pocion.1.png",
         "precio": 7
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
       }
-    ]
+    ],
+    "objetos_evolutivos": []
   },
   {
     "name": "Nuevo",
@@ -62,13 +68,15 @@
       "http://localhost:3000/uploads/grumpis/020.1.png"
     ],
     "medallas": [],
-    "objetos_combate": []
+    "objetos_combate": [],
+    "objetos_evolutivos": []
   },
   {
     "name": "Pablo",
     "password": "1234",
     "id": 4,
     "medallas": [],
-    "objetos_combate": []
+    "objetos_combate": [],
+    "objetos_evolutivos": []
   }
 ]
