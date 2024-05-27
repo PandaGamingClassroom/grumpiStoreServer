@@ -22,6 +22,7 @@ const uploadDir = path.join(__dirname, "uploads", "grumpis");
 const uploadDirMedals = path.join(__dirname, "uploads", "medals");
 const uploadDirEnergies = path.join(__dirname, "uploads", "energies");
 const uploadDirCombatObjects = path.join(__dirname, "uploads", "combatObjects");
+const uploadDirEvoObjects = path.join(__dirname, "uploads", "evoObjects");
 fs.mkdirSync(uploadDir, { recursive: true });
 fs.mkdirSync(uploadDirMedals, { recursive: true });
 
@@ -530,7 +531,7 @@ function assignGrumpidolaresAfterBuyToTrainer(trainerName, grumpidolar) {
     const grumpidolaresNumber = Number(grumpidolar);
     console.log("Cantidad de Grumpidólares convertida: ", grumpidolaresNumber);
 
-    if (isNaN(grumpidolaresNumber) || grumpidolaresNumber <= 0) {
+    if (isNaN(grumpidolaresNumber) || grumpidolaresNumber < 0) {
       console.log("Cantidad de Grumpidólares no válida: ", grumpidolaresNumber);
       return reject("Grumpidólares debe ser un número positivo.");
     }
@@ -876,11 +877,11 @@ app.post("/assign-medal", (req, res) => {
 });
 
 
-/********************************
- * 
- *      OBJETOS DE COMBATE
- * 
- *******************************/
+                      /********************************
+                       * 
+                       *      OBJETOS DE COMBATE
+                       * 
+                       *******************************/
 app.get("/getImageCombatObjects", (req, res) => {
   fs.readFile(filePathObjectsCombat, "utf8", (err, data) => {
     if (err) {
@@ -902,12 +903,11 @@ app.get("/getImageCombatObjects", (req, res) => {
   });
 });
 /************************************************************
- * ASIGNACIÓN DE LOS OBJETOS DE COMBATE A UN ENTRENADOR
  * 
  * 
- * @param {*} trainerName 
- * @param {*} combatObject 
- * @returns 
+ *  ASIGNACIÓN DE LOS OBJETOS DE COMBATE A UN ENTRENADOR
+ * 
+ * 
  ***********************************************************/
 
 /**
@@ -963,6 +963,97 @@ app.post("/assign-combatObjects", (req, res) => {
       }); // Enviar el mensaje de error como parte de un objeto JSON
     });
 });
+/***************************************************************
+ *                                                              *
+ *                                                              *
+ *                                                              *
+ *                       OBJETOS EVOLUTIVOS                     *
+ *                                                              *
+ *                                                              *
+ *                                                              *
+ ***************************************************************/
+
+ /******************************************************
+ * 
+ *  OBTENER LAS IMÁGENES DE LOS OBJETOS EVOLUTIVOS
+ * 
+ ******************************************************/                     
+app.get("/getEvoOBjects", (req, res) => {
+  // Lee todos los archivos en el directorio de imágenes
+  fs.readdir(uploadDirEvoObjects, (err, files) => {
+    if (err) {
+      console.error("Error al leer el directorio de imágenes:", err);
+      return res.status(500).json({ error: "Error interno del servidor" });
+    }
+    // Construye las URLs de las imágenes
+    const imageUrls = files.map((file) => {
+      return `http://localhost:3000/uploads/evoObjects/${file}`;
+    });
+    // Devuelve las URLs de las imágenes como una respuesta JSON
+    res.json({ imageUrls });
+  });
+});
+
+/******************************************
+ * 
+ *       ASIGNAR OBJETOS EVOLUTIVOS
+ * 
+ ******************************************/
+// Cargar los datos de los entrenadores del archivo JSON al iniciar la aplicación
+try {
+  const data = fs.readFileSync(filePath, "utf8");
+  trainerData = JSON.parse(data);
+  // Inicializar la propiedad 'energias' si no está presente en cada objeto de entrenador
+  trainerData.forEach((trainer) => {
+    if (!trainer.objetos_evolutivos) {
+      trainer.objetos_evolutivos = [];
+    }
+  });
+  console.log("Datos de entrenadores cargados correctamente:", trainerData);
+} catch (err) {
+  console.error("Error al leer el archivo de entrenadores:", err);
+}
+
+// Función para asignar una energía a un entrenador
+function assignEvoObjectsToTrainer(trainerName, evoObjetct) {
+  const trainer = trainerData.find((trainer) => trainer.name === trainerName);
+  if (trainer) {
+    if (!Array.isArray(trainer.objetos_evolutivos)) {
+      trainer.objetos_evolutivos = []; // Inicializar si no está definida como un arreglo
+    }
+    trainer.objetos_evolutivos.push(evoObjetct); // Agregar la energía al arreglo de energías del entrenador
+    saveTrainerData(); // Guardar los cambios en el archivo JSON
+    return Promise.resolve("Objeto evolutivo asignado correctamente al entrenador.");
+  } else {
+    return Promise.reject(
+      `Entrenador con nombre ${trainerName} no encontrado.`
+    );
+  }
+}
+
+// Ruta de asignación de los objetos evolutivos
+app.post("/assign-evo-objects", (req, res) => {
+  const { trainerName, energie } = req.body;
+  console.log("Datos de la solicitud:", req.body);
+  assignEvoObjectsToTrainer(trainerName, energie)
+    .then((message) => {
+      res.status(200).json({ message: message });
+    })
+    .catch((error) => {
+      console.error("Error al asignar el objeto evolutivo:", error);
+      res.status(500).json({
+        error: "Error al asignar el objeto evolutivo al entrenador: " + error,
+      });
+    });
+});
+/******************************************
+ * 
+ *    FIN DE ASIGNAR OBJETOS EVOLUTIVOS
+ * 
+ ******************************************/
+
+
+
 
 
 app.listen(port, () => {

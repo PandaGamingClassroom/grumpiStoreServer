@@ -10,7 +10,7 @@
       "http://localhost:3000/uploads/grumpis/011.1.png",
       "http://localhost:3000/uploads/grumpis/013.1.png"
     ],
-    "grumpidolar": 5,
+    "grumpidolar": 8,
     "medallas": [
       "http://localhost:3000/uploads/medals/Medalla_Agua.png",
       "http://localhost:3000/uploads/medals/Medalla_fuego.png"
@@ -34,6 +34,21 @@
         "nombre": "Despertador",
         "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
         "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Poción",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Pocion.1.png",
+        "precio": 7
       }
     ]
   },
