@@ -3,13 +3,14 @@
     "name": "Periquito",
     "password": "333",
     "id": 2,
-    "criaturas": [
+    "grumpis": [
       "http://localhost:3000/uploads/grumpis/001.1.png",
       "http://localhost:3000/uploads/grumpis/002.1.png",
       "http://localhost:3000/uploads/grumpis/033.1.png",
-      "http://localhost:3000/uploads/grumpis/011.1.png"
+      "http://localhost:3000/uploads/grumpis/011.1.png",
+      "http://localhost:3000/uploads/grumpis/013.1.png"
     ],
-    "grumpidolar": 18,
+    "grumpidolar": 5,
     "medallas": [
       "http://localhost:3000/uploads/medals/Medalla_Agua.png",
       "http://localhost:3000/uploads/medals/Medalla_fuego.png"
@@ -27,23 +28,32 @@
         "tipo": "Agua",
         "imagen": "../../../../assets/energies/Agua2.0.PNG"
       }
+    ],
+    "objetos_combate": [
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      }
     ]
   },
   {
     "name": "Nuevo",
     "password": "344423",
     "id": 3,
-    "criaturas": [
+    "grumpis": [
       "http://localhost:3000/uploads/grumpis/001.1.png",
       "http://localhost:3000/uploads/grumpis/001.1.png",
       "http://localhost:3000/uploads/grumpis/020.1.png"
     ],
-    "medallas": []
+    "medallas": [],
+    "objetos_combate": []
   },
   {
     "name": "Pablo",
     "password": "1234",
     "id": 4,
-    "medallas": []
+    "medallas": [],
+    "objetos_combate": []
   }
 ]

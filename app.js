@@ -370,7 +370,7 @@ app.put("/trainers/update/:name", (req, res) => {
 
 /********************************************************************
  * 
- *            ASIGNACIÓN DE CRIATURAS A LOS ENTRENADORES
+ *            ASIGNACIÓN DE grumpis A LOS ENTRENADORES
  * 
  *******************************************************************/
 // Cargar los datos de los entrenadores del archivo JSON al iniciar la aplicación
@@ -378,10 +378,10 @@ let trainerData = [];
 try {
   const data = fs.readFileSync(filePath, "utf8");
   trainerData = JSON.parse(data);
-  // Inicializar la propiedad 'criaturas' si no está presente en cada objeto de entrenador
+  // Inicializar la propiedad 'grumpis' si no está presente en cada objeto de entrenador
   trainerData.forEach((trainer) => {
-    if (!trainer.criaturas) {
-      trainer.criaturas = [];
+    if (!trainer.grumpis) {
+      trainer.grumpis = [];
     }
   });
   console.log("Datos de entrenadores cargados correctamente:", trainerData);
@@ -407,7 +407,7 @@ function assignCreatureToTrainer(trainerName, creatureName) {
   const trainer = trainerData.find((trainer) => trainer.name === trainerName);
   if (trainer) {
     // Aquí actualizarías los datos del entrenador con la nueva criatura asignada
-    trainer.criaturas.push(creatureName); // Por ejemplo, asumiendo que tienes una propiedad 'criaturas' en tu objeto de entrenador
+    trainer.grumpis.push(creatureName); // Por ejemplo, asumiendo que tienes una propiedad 'grumpis' en tu objeto de entrenador
     saveTrainerData(); // Guardar los cambios en el archivo JSON
     return Promise.resolve("Criatura asignada correctamente al entrenador.");
   } else {
@@ -415,7 +415,7 @@ function assignCreatureToTrainer(trainerName, creatureName) {
   }
 }
 
-// Ruta de asignación de criaturas
+// Ruta de asignación de grumpis
 app.post("/assign-creature", (req, res) => {
   const { trainerName, creatureName } = req.body;
   console.log("Datos de la solicitud:", req.body);
@@ -425,15 +425,15 @@ app.post("/assign-creature", (req, res) => {
       res.status(200).json({ message: message }); // Enviar el mensaje como parte de un objeto JSON
     })
     .catch((error) => {
-      console.error("Error al asignar la criatura:", error);
+      console.error("Error al asignar el grumpi:", error);
       res
         .status(500)
-        .json({ error: "Error al asignar la criatura al entrenador: " + error.message }); // Enviar el mensaje de error como parte de un objeto JSON
+        .json({ error: "Error al asignar el grumpi al entrenador: " + error.message }); // Enviar el mensaje de error como parte de un objeto JSON
     });
 });
 /**************************************************************
  * 
- *    FIN DE ASIGNACIÓN DE CRIATURAS A LOS ENTRENADORES
+ *    FIN DE ASIGNACIÓN DE grumpis A LOS ENTRENADORES
  * 
  *************************************************************/
 
@@ -541,6 +541,7 @@ function assignGrumpidolaresAfterBuyToTrainer(trainerName, grumpidolar) {
 
       // Asegurarse de que trainer.grumpidolar es un número antes de sumar
       trainer.grumpidolar = Number(trainer.grumpidolar) || 0;
+      trainer.grumpidolar = grumpidolaresNumber;
 
       console.log(
         "Cantidad de Grumpidólares después de la compra:",
@@ -899,6 +900,68 @@ app.get("/getImageCombatObjects", (req, res) => {
       }
     }
   });
+});
+/************************************************************
+ * ASIGNACIÓN DE LOS OBJETOS DE COMBATE A UN ENTRENADOR
+ * 
+ * 
+ * @param {*} trainerName 
+ * @param {*} combatObject 
+ * @returns 
+ ***********************************************************/
+
+/**
+ * Comprobación si la lista de objetos de combate existe 
+ * entre los atributos del entrenador.
+ * Si no existe, se genera.
+ */
+try {
+  const data = fs.readFileSync(filePath, "utf8");
+  trainerData = JSON.parse(data);
+  // Inicializar la propiedad 'objetos_combate' si no está presente en cada objeto de entrenador
+  trainerData.forEach((trainer) => {
+    if (!trainer.objetos_combate) {
+      trainer.objetos_combate = [];
+    }
+  });
+  console.log("Datos de entrenadores cargados correctamente:", trainerData);
+} catch (err) {
+  console.error("Error al leer el archivo de entrenadores:", err);
+}
+// Función para asignar un objeto de combate a un entrenador
+function assignCombatObjectToTrainer(trainerName, combatObject) {
+  return new Promise((resolve, reject) => {
+    // Buscar el entrenador por nombre y actualizar sus datos en memoria
+    const trainer = trainerData.find((trainer) => trainer.name === trainerName);
+    if (trainer) {
+      console.log("Datos del entrenador: ", trainer);
+      console.log("Objeto a asignar al entrenador: ", combatObject);
+      trainer.objetos_combate.push(combatObject); // Asumiendo que tienes una propiedad 'objetos_combate' en tu objeto de entrenador
+      saveTrainerData(); // Guardar los cambios en el archivo JSON
+      resolve("Objeto de combate asignado correctamente al entrenador.");
+    } else {
+      reject(new Error(`Entrenador con nombre ${trainerName} no encontrado.`));
+    }
+  });
+}
+
+// Ruta de asignación de objetos de combate
+app.post("/assign-combatObjects", (req, res) => {
+  const { trainerName, combatObject } = req.body;
+  console.log("Datos de la solicitud:", req.body);
+  // Llamada a la función para asignar el objeto de combate al entrenador
+  assignCombatObjectToTrainer(trainerName, combatObject)
+    .then((message) => {
+      res.status(200).json({ message: message }); // Enviar el mensaje como parte de un objeto JSON
+    })
+    .catch((error) => {
+      console.error("Error al asignar el objeto de combate:", error);
+      res.status(500).json({
+        error:
+          "Error al asignar el objeto de combate al entrenador: " +
+          error.message,
+      }); // Enviar el mensaje de error como parte de un objeto JSON
+    });
 });
 
 
