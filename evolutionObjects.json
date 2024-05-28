@@ -1,53 +1,62 @@
 [
   {
+    "id": 1,
     "nombre": "Losa Agua",
     "imagen": "http://localhost:3000/uploads/evoObjects/Losa_agua.png",
     "tipo": "agua",
     "precio": 5
   },
   {
+    "id": 2,
     "nombre": "Losa Aire",
     "imagen": "http://localhost:3000/uploads/evoObjects/Losa_aire.png",
     "tipo": "aire",
     "precio": 5
   },
   {
+    "id": 3,
     "nombre": "Losa Fuego",
     "imagen": "http://localhost:3000/uploads/evoObjects/Losa_fuego.png",
     "tipo": "fuego",
     "precio": 5
   },
   {
+    "id": 4,
     "nombre": "Losa Luz",
     "imagen": "http://localhost:3000/uploads/evoObjects/Losa_luz.png",
     "tipo": "luz",
     "precio": 5
   },
   {
+    "id": 5,
     "nombre": "Losa Normal",
     "imagen": "http://localhost:3000/uploads/evoObjects/Losa_normal.png",
     "tipo": "normal",
     "precio": 5
   },
   {
+    "id": 6,
     "nombre": "Losa Oscuridad",
     "imagen": "http://localhost:3000/uploads/evoObjects/Losa_oscuridad.png",
     "tipo": "oscuridad",
     "precio": 5
   },
   {
+    "id": 7,
     "nombre": "Losa Rayo",
     "imagen": "http://localhost:3000/uploads/evoObjects/Losa_rayo.png",
     "tipo": "rayo",
     "precio": 5
   },
   {
+    "id": 8,
     "nombre": "Losa Tierra",
     "imagen": "http://localhost:3000/uploads/evoObjects/Losa_tierra.png",
     "tipo": "tierra",
     "precio": 5
   },
   {
+    "id": 9,
     "nombre": "Losa Vida",
     "imagen": "http://localhost:3000/uploads/evoObjects/Losa_vida.png",
     "tipo": "vida",
