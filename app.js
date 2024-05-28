@@ -1023,16 +1023,40 @@ try {
 }
 
 // Función para asignar una energía a un entrenador
-function assignEvoObjectsToTrainer(trainerName, evoObjetct) {
+function assignEvoObjectsToTrainer(trainerName, evoObject) {
   return new Promise((resolve, reject) => {
     // Buscar el entrenador por nombre y actualizar sus datos en memoria
     const trainer = trainerData.find((trainer) => trainer.name === trainerName);
     if (trainer) {
-      console.log("Datos del entrenador: ", trainer);
-      console.log("Objeto evolutivo a asignar al entrenador: ", evoObjetct);
-      trainer.objetos_evolutivos.push(evoObjetct); // Asumiendo que tienes una propiedad 'objetos_combate' en tu objeto de entrenador
-      saveTrainerData(); // Guardar los cambios en el archivo JSON
-      resolve("Objeto evolutivo asignado correctamente al entrenador.");
+      console.log("Datos del entrenador:", trainer);
+      console.log("Objeto evolutivo a asignar al entrenador:", evoObject);
+
+      // Verificar si el entrenador tiene suficientes energías del tipo requerido
+      const energyType = evoObject.tipo;
+      const energyAmount = evoObject.precio;
+
+      const availableEnergies = trainer.energias.filter(
+        (e) => e.tipo.toLowerCase() === energyType.toLowerCase()
+      );
+      if (availableEnergies.length >= energyAmount) {
+        // Descontar las energías del tipo requerido
+        trainer.energias = trainer.energias.filter((e, index) => {
+          return !(
+            e.tipo.toLowerCase() === energyType.toLowerCase() &&
+            index < energyAmount
+          );
+        });
+        // Asignar el objeto evolutivo
+        trainer.objetos_evolutivos.push(evoObject);
+        saveTrainerData(); // Guardar los cambios en el archivo JSON
+        resolve("Objeto evolutivo asignado correctamente al entrenador.");
+      } else {
+        reject(
+          new Error(
+            `El entrenador no tiene suficientes energías de tipo ${energyType}.`
+          )
+        );
+      }
     } else {
       reject(new Error(`Entrenador con nombre ${trainerName} no encontrado.`));
     }

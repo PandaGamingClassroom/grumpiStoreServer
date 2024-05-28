@@ -82,7 +82,7 @@
   },
   {
     "nombre": "Pluma oscura",
-    "imagen": "http://localhost:3000/uploads/evoObjects/OBJ_PLLUMAOSCURA.png",
+    "imagen": "http://localhost:3000/uploads/evoObjects/OBJ_PLUMAOSCURA.png",
     "tipo": "",
     "precio": 7
   }

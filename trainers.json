@@ -17,36 +17,6 @@
     ],
     "energias": [
       {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/Agua2.0.PNG"
-      },
-      {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/Agua2.0.PNG"
-      },
-      {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/Agua2.0.PNG"
-      },
-      {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/Agua2.0.PNG"
-      },
-      {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/Agua2.0.PNG"
-      },
-      {
         "id": 2,
         "nombre": "Energía Fuego",
         "tipo": "Fuego",
@@ -81,6 +51,13 @@
       }
     ],
     "objetos_evolutivos": [
+      {
+        "id": 1,
+        "nombre": "Losa Agua",
+        "imagen": "http://localhost:3000/uploads/evoObjects/Losa_agua.png",
+        "tipo": "agua",
+        "precio": 5
+      },
       {
         "id": 1,
         "nombre": "Losa Agua",
