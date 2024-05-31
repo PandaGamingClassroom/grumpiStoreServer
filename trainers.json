@@ -3,6 +3,7 @@
     "name": "Periquito",
     "password": "333",
     "id": 2,
+    "rol": "entrenador",
     "grumpis": [
       "http://localhost:3000/uploads/grumpis/001.1.png",
       "http://localhost:3000/uploads/grumpis/002.1.png",
@@ -119,6 +120,7 @@
     "name": "Nuevo",
     "password": "344423",
     "id": 3,
+    "rol": "entrenador",
     "grumpis": [
       "http://localhost:3000/uploads/grumpis/001.1.png",
       "http://localhost:3000/uploads/grumpis/001.1.png",
@@ -132,6 +134,7 @@
     "name": "Pablo",
     "password": "1234",
     "id": 4,
+    "rol": "entrenador",
     "medallas": [],
     "objetos_combate": [],
     "objetos_evolutivos": []

@@ -8,14 +8,13 @@ const fs = require("fs");
 
 // Ruta al archivo donde se guardarán los entrenadores
 const filePath = "./trainers.json";
+const filePathAmin = "./admin.json";
 // Ruta del archivo donde se guardan los objetos de combate
 const filePathObjectsCombat = "./combatObjects.json";
 const filePathObjectsEvolution = "./evolutionObjects.json";
 // Configuración de la base de datos
 // const db = new sqlite3.Database("database.db"); // Crea una base de datos en memoria
 const db = new sqlite3.Database(":memory:");
-
-
 
 // Asegúrate de que el directorio de almacenamiento existe
 const path = require("path");
@@ -52,8 +51,10 @@ db.serialize(() => {
   db.run(`
     CREATE TABLE IF NOT EXISTS trainers (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id_profesor INTEGER,
       nombre TEXT,
       password TEXT,
+      rol TEXT,
       grumpidolar INTEGER,
       marca_combate INTEGER,
       medallas TEXT,
@@ -62,8 +63,18 @@ db.serialize(() => {
       total_energias INTEGER,
       objetos_combate TEXT,
       objetos_evolutivos TEXT
+      FOREIGN KEY (id_profesor) REFERENCES profesores(id)
     )
   `);
+
+  db.run(`
+  CREATE TABLE IF NOT EXISTS profesores (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nombre TEXT,
+    usuario TEXT,
+    password TEXT,
+    rol TEXT,
+  )`);
 
   // Tabla de medallas
   db.run(`
@@ -135,76 +146,103 @@ db.serialize(() => {
 // Ejemplo de inserción de datos
 db.serialize(() => {
   // Inserción de un entrenador
-  db.run(`
+  db.run(
+    `
     INSERT INTO trainers (nombre, password, grumpidolar)
     VALUES (?, ?, ?)
-  `, ['Ash Ketchum', 'password123', 1000], function(err) {
-    if (err) {
-      return console.error(err.message);
-    }
-    
-    const trainer_id = this.lastID;
+  `,
+    ["Ash Ketchum", "password123", 1000],
+    function (err) {
+      if (err) {
+        return console.error(err.message);
+      }
 
-    let medallas = [];
-    let grumpis = [];
-    let energias = [];
-    let objetos_combate = [];
-    let objetos_evolutivos = [];
+      const trainer_id = this.lastID;
 
-    // Inserción de medallas para el entrenador
-    db.run(`
+      let medallas = [];
+      let grumpis = [];
+      let energias = [];
+      let objetos_combate = [];
+      let objetos_evolutivos = [];
+
+      // Inserción de medallas para el entrenador
+      db.run(
+        `
       INSERT INTO medallas (nombre, imagen, trainer_id)
       VALUES (?, ?, ?)
-    `, ['Medalla Roca', 'medalla_roca.png', trainer_id], function() {
-      medallas.push(this.lastID);
-    });
+    `,
+        ["Medalla Roca", "medalla_roca.png", trainer_id],
+        function () {
+          medallas.push(this.lastID);
+        }
+      );
 
-    // Inserción de grumpis para el entrenador
-    db.run(`
+      // Inserción de grumpis para el entrenador
+      db.run(
+        `
       INSERT INTO grumpis (nombre, imagen, trainer_id)
       VALUES (?, ?, ?)
-    `, ['Grumpi Fuego', 'grumpi_fuego.png', trainer_id], function() {
-      grumpis.push(this.lastID);
-    });
+    `,
+        ["Grumpi Fuego", "grumpi_fuego.png", trainer_id],
+        function () {
+          grumpis.push(this.lastID);
+        }
+      );
 
-    // Inserción de energías para el entrenador
-    db.run(`
+      // Inserción de energías para el entrenador
+      db.run(
+        `
       INSERT INTO energias (nombre, imagen, trainer_id)
       VALUES (?, ?, ?)
-    `, ['Energía Solar', 'energia_solar.png', trainer_id], function() {
-      energias.push(this.lastID);
-    });
+    `,
+        ["Energía Solar", "energia_solar.png", trainer_id],
+        function () {
+          energias.push(this.lastID);
+        }
+      );
 
-    // Inserción de objetos de combate para el entrenador
-    db.run(`
+      // Inserción de objetos de combate para el entrenador
+      db.run(
+        `
       INSERT INTO objetos_combate (nombre, imagen, trainer_id)
       VALUES (?, ?, ?)
-    `, ['Espada del Grumpi', 'espada_grumpi.png', trainer_id], function() {
-      objetos_combate.push(this.lastID);
-    });
+    `,
+        ["Espada del Grumpi", "espada_grumpi.png", trainer_id],
+        function () {
+          objetos_combate.push(this.lastID);
+        }
+      );
 
-    // Inserción de objetos evolutivos para el entrenador
-    db.run(`
+      // Inserción de objetos evolutivos para el entrenador
+      db.run(
+        `
       INSERT INTO objetos_evolutivos (nombre, imagen, trainer_id)
       VALUES (?, ?, ?)
-    `, ['Piedra Evolutiva', 'piedra_evolutiva.png', trainer_id], function() {
-      objetos_evolutivos.push(this.lastID);
-    });
+    `,
+        ["Piedra Evolutiva", "piedra_evolutiva.png", trainer_id],
+        function () {
+          objetos_evolutivos.push(this.lastID);
+        }
+      );
 
-    // Actualiza el entrenador con los datos de sus atributos en formato JSON
-    db.run(`
+      // Actualiza el entrenador con los datos de sus atributos en formato JSON
+      db.run(
+        `
       UPDATE trainers
       SET medallas = ?, grumpis = ?, energias = ?, objetos_combate = ?, objetos_evolutivos = ?
       WHERE id = ?
-    `, [
-      JSON.stringify(medallas),
-      JSON.stringify(grumpis),
-      JSON.stringify(energias),
-      JSON.stringify(objetos_combate),
-      JSON.stringify(objetos_evolutivos),
-      trainer_id
-    ]);
-  });
+    `,
+        [
+          JSON.stringify(medallas),
+          JSON.stringify(grumpis),
+          JSON.stringify(energias),
+          JSON.stringify(objetos_combate),
+          JSON.stringify(objetos_evolutivos),
+          trainer_id,
+        ]
+      );
+    }
+  );
 });
 
 // Declara trainer_list como una variable global
@@ -292,6 +330,36 @@ app.post("/", (req, res) => {
   });
 });
 
+app.post("/new-user", (req, res) => {
+  const nuevoUsuario = req.body;
+  nuevoUsuario.id = currentId++; // Obtener los datos del cuerpo de la solicitud POST
+  trainer_list.push(nuevoUsuario); // Agregar el nuevo entrenador a la lista
+
+  if (nuevoUsuario.rol == "entrenador") {
+    fs.writeFile(filePath, JSON.stringify(trainer_list), (err) => {
+      if (err) {
+        res.status(500).json({ error: err.message });
+        return;
+      }
+      res.json({
+        message: "Entrenador agregado correctamente",
+        nuevoEntrenador,
+      });
+    });
+  } else if (nuevoUsuario.rol == "profesor") {
+    fs.writeFile(filePathAmin, JSON.stringify(trainer_list), (err) => {
+      if (err) {
+        res.status(500).json({ error: err.message });
+        return;
+      }
+      res.json({
+        message: "Entrenador agregado correctamente",
+        nuevoEntrenador,
+      });
+    });
+  }
+});
+
 app.put("/user", (req, res) => {
   res.send("Got a PUT request at /user");
 });
@@ -330,7 +398,6 @@ app.delete("/user/:name", async (req, res) => {
   }
 });
 
-
 // Ruta para actualizar entrenador
 app.put("/trainers/update/:name", (req, res) => {
   const trainerName = req.params.name;
@@ -355,9 +422,9 @@ app.put("/trainers/update/:name", (req, res) => {
       if (grumpidolar !== undefined) {
         updatedTrainer.grumpidolar = grumpidolar;
       }
-       if (combatMark !== undefined) {
-         updatedTrainer.marca_combate = combatMark;
-       }
+      if (combatMark !== undefined) {
+        updatedTrainer.marca_combate = combatMark;
+      }
 
       fs.writeFile(filePath, JSON.stringify(trainers, null, 2), (err) => {
         if (err) {
@@ -366,7 +433,9 @@ app.put("/trainers/update/:name", (req, res) => {
             .json({ error: "Error al escribir en el fichero [${filepath}]" });
           return;
         }
-        res.status(200).json({ message: "Entrenador actualizado correctamente" }); // Modifica la respuesta para enviar un objeto JSON válido
+        res
+          .status(200)
+          .json({ message: "Entrenador actualizado correctamente" }); // Modifica la respuesta para enviar un objeto JSON válido
       });
     } else {
       res.status(404).json({ error: "Entrenador no encontrado" });
@@ -375,9 +444,9 @@ app.put("/trainers/update/:name", (req, res) => {
 });
 
 /********************************************************************
- * 
+ *
  *            ASIGNACIÓN DE grumpis A LOS ENTRENADORES
- * 
+ *
  *******************************************************************/
 // Cargar los datos de los entrenadores del archivo JSON al iniciar la aplicación
 let trainerData = [];
@@ -417,7 +486,9 @@ function assignCreatureToTrainer(trainerName, creatureName) {
     saveTrainerData(); // Guardar los cambios en el archivo JSON
     return Promise.resolve("Criatura asignada correctamente al entrenador.");
   } else {
-    return Promise.reject(`Entrenador con nombre ${trainerName} no encontrado.`);
+    return Promise.reject(
+      `Entrenador con nombre ${trainerName} no encontrado.`
+    );
   }
 }
 
@@ -432,23 +503,23 @@ app.post("/assign-creature", (req, res) => {
     })
     .catch((error) => {
       console.error("Error al asignar el grumpi:", error);
-      res
-        .status(500)
-        .json({ error: "Error al asignar el grumpi al entrenador: " + error.message }); // Enviar el mensaje de error como parte de un objeto JSON
+      res.status(500).json({
+        error: "Error al asignar el grumpi al entrenador: " + error.message,
+      }); // Enviar el mensaje de error como parte de un objeto JSON
     });
 });
 /**************************************************************
- * 
+ *
  *    FIN DE ASIGNACIÓN DE grumpis A LOS ENTRENADORES
- * 
+ *
  *************************************************************/
 
 /**---------------------------------------------------------------------------------------------*/
 
 /**************************************************************
- * 
+ *
  *    ASIGNACIÓN DE GRUMPIDOLARES A LOS ENTRENADORES
- * 
+ *
  *************************************************************/
 try {
   const data = fs.readFileSync(filePath, "utf8");
@@ -525,10 +596,10 @@ app.post("/assign-grumpidolares", (req, res) => {
 });
 
 /**
- * 
- *  ASIGNACIÓN DE GRUMPIDÓLARES AL ENTRENADOR DESPUÉS DE REALIZAR 
+ *
+ *  ASIGNACIÓN DE GRUMPIDÓLARES AL ENTRENADOR DESPUÉS DE REALIZAR
  *  LA COMPRA DE OBJETOS.
- * 
+ *
  */
 function assignGrumpidolaresAfterBuyToTrainer(trainerName, grumpidolar) {
   return new Promise((resolve, reject) => {
@@ -562,7 +633,6 @@ function assignGrumpidolaresAfterBuyToTrainer(trainerName, grumpidolar) {
   });
 }
 
-
 app.post("/assignGrumpidolares-after-buy", (req, res) => {
   console.log("Datos de la solicitud:", req.body);
   console.log(
@@ -582,20 +652,17 @@ app.post("/assignGrumpidolares-after-buy", (req, res) => {
     });
 });
 
-
-  /**
-   *
-   *  FIN DE LA ASIGNACIÓN DE GRUMPIDÓLARES AL ENTRENADOR 
-   *  DESPUÉS DE REALIZAR LA COMPRA DE OBJETOS.
-   *
-   */
+/**
+ *
+ *  FIN DE LA ASIGNACIÓN DE GRUMPIDÓLARES AL ENTRENADOR
+ *  DESPUÉS DE REALIZAR LA COMPRA DE OBJETOS.
+ *
+ */
 /**************************************************************
- * 
+ *
  *    FIN DE ASIGNACIÓN DE GRUMPIDOLARES A LOS ENTRENADORES
- * 
+ *
  *************************************************************/
-
-
 
 /**
  * Método para obtener la información de un entrenador por nombre
@@ -635,7 +702,6 @@ app.get("/trainer/:nombre", (req, res) => {
   });
 });
 
-
 /***************************************************************
  *                                                              *
  *                                                              *
@@ -647,16 +713,16 @@ app.get("/trainer/:nombre", (req, res) => {
  ***************************************************************/
 
 // Ruta para obtener las URLs de todas las imágenes
-app.get('/getImageUrls', (req, res) => {
+app.get("/getImageUrls", (req, res) => {
   // Lee todos los archivos en el directorio de imágenes
   fs.readdir(uploadDir, (err, files) => {
     if (err) {
-      console.error('Error al leer el directorio de imágenes:', err);
-      return res.status(500).json({ error: 'Error interno del servidor' });
+      console.error("Error al leer el directorio de imágenes:", err);
+      return res.status(500).json({ error: "Error interno del servidor" });
     }
 
     // Construye las URLs de las imágenes
-    const imageUrls = files.map(file => {
+    const imageUrls = files.map((file) => {
       return `http://localhost:3000/uploads/grumpis/${file}`;
     });
 
@@ -664,7 +730,6 @@ app.get('/getImageUrls', (req, res) => {
     res.json({ imageUrls });
   });
 });
-
 
 /***************************************************************
  *                                                              *
@@ -676,11 +741,11 @@ app.get('/getImageUrls', (req, res) => {
  *                                                              *
  ***************************************************************/
 /**
- * 
+ *
  * OBTENCIÓN DE MEDALLAS
- * 
+ *
  */
-app.get('/getImageMedals', (req, res) => {
+app.get("/getImageMedals", (req, res) => {
   // Lee todos los archivos en el directorio de imágenes
   fs.readdir(uploadDirMedals, (err, files) => {
     if (err) {
@@ -699,9 +764,9 @@ app.get('/getImageMedals', (req, res) => {
 });
 
 /******************************************
- * 
+ *
  * OBTENER LAS IMÁGENES DE LAS ENERGÍAS
- * 
+ *
  ******************************************/
 app.get("/getImageEnergies", (req, res) => {
   // Lee todos los archivos en el directorio de imágenes
@@ -722,9 +787,9 @@ app.get("/getImageEnergies", (req, res) => {
 });
 
 /******************************************
- * 
+ *
  * ASIGNAR ENERGÍAS
- * 
+ *
  ******************************************/
 // Cargar los datos de los entrenadores del archivo JSON al iniciar la aplicación
 try {
@@ -784,9 +849,9 @@ app.post("/assign-energie", (req, res) => {
     });
 });
 /******************************************
- * 
+ *
  * FIN ASIGNAR LAS ENERGÍAS
- * 
+ *
  ******************************************/
 
 app.post("/upload", upload.single("image"), (req, res) => {
@@ -798,11 +863,10 @@ app.post("/upload", upload.single("image"), (req, res) => {
   res.json({ message: "Imagen subida correctamente", file: req.file });
 });
 
-
 /******************************
- * 
+ *
  *        SUBIR MEDALLAS
- * 
+ *
  *****************************/
 app.post("/upload-medal", upload.single("image"), (req, res) => {
   console.log("Medalla recibida:", req.file);
@@ -873,26 +937,25 @@ app.post("/assign-medal", (req, res) => {
     })
     .catch((error) => {
       console.error("Error al asignar la medalla:", error);
-      res
-        .status(500)
-        .json({
-          error: "Error al asignar la medalla al entrenador: " + error.message,
-        }); // Enviar el mensaje de error como parte de un objeto JSON
+      res.status(500).json({
+        error: "Error al asignar la medalla al entrenador: " + error.message,
+      }); // Enviar el mensaje de error como parte de un objeto JSON
     });
 });
 
-
-                      /********************************
-                       * 
-                       *      OBJETOS DE COMBATE
-                       * 
-                       *******************************/
+/********************************
+ *
+ *      OBJETOS DE COMBATE
+ *
+ *******************************/
 app.get("/getImageCombatObjects", (req, res) => {
   fs.readFile(filePathObjectsCombat, "utf8", (err, data) => {
     if (err) {
       // Manejar el error si no se puede leer el archivo
       console.error("Error al leer el archivo trainers.json:", err);
-      res.status(500).json({ error: "Error al leer el archivo combatObjects.json" });
+      res
+        .status(500)
+        .json({ error: "Error al leer el archivo combatObjects.json" });
     } else {
       try {
         // Parsea el contenido del archivo JSON a un objeto JavaScript
@@ -908,15 +971,15 @@ app.get("/getImageCombatObjects", (req, res) => {
   });
 });
 /************************************************************
- * 
- * 
+ *
+ *
  *  ASIGNACIÓN DE LOS OBJETOS DE COMBATE A UN ENTRENADOR
- * 
- * 
+ *
+ *
  ***********************************************************/
 
 /**
- * Comprobación si la lista de objetos de combate existe 
+ * Comprobación si la lista de objetos de combate existe
  * entre los atributos del entrenador.
  * Si no existe, se genera.
  */
@@ -978,11 +1041,11 @@ app.post("/assign-combatObjects", (req, res) => {
  *                                                              *
  ***************************************************************/
 
- /******************************************************
- * 
+/******************************************************
+ *
  *  OBTENER LAS IMÁGENES DE LOS OBJETOS EVOLUTIVOS
- * 
- ******************************************************/                     
+ *
+ ******************************************************/
 app.get("/getEvoOBjects", (req, res) => {
   fs.readFile(filePathObjectsEvolution, "utf8", (err, data) => {
     if (err) {
@@ -1007,9 +1070,9 @@ app.get("/getEvoOBjects", (req, res) => {
 });
 
 /******************************************
- * 
+ *
  *       ASIGNAR OBJETOS EVOLUTIVOS
- * 
+ *
  ******************************************/
 // Cargar los datos de los entrenadores del archivo JSON al iniciar la aplicación
 try {
@@ -1083,16 +1146,15 @@ app.post("/assign-evo-objects", (req, res) => {
     });
 });
 /******************************************
- * 
+ *
  *    FIN DE ASIGNAR OBJETOS EVOLUTIVOS
- * 
+ *
  ******************************************/
 
-
 /******************************************
- * 
+ *
  *    ASIGNAR MARCAS DE COMBATE
- * 
+ *
  ******************************************/
 try {
   const data = fs.readFileSync(filePath, "utf8");
@@ -1156,11 +1218,10 @@ app.post("/assign-combatMarks", (req, res) => {
     });
 });
 /******************************************
- * 
+ *
  *    FIN DE ASIGNAR MARCAS DE COMBATE
- * 
+ *
  ******************************************/
-
 
 app.listen(port, () => {
   console.log(`Servidor GrumpiStore, iniciado en el puerto: ${port}`);
