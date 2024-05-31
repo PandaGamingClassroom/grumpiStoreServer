@@ -55,6 +55,7 @@ db.serialize(() => {
       nombre TEXT,
       password TEXT,
       grumpidolar INTEGER,
+      marca_combate INTEGER,
       medallas TEXT,
       grumpis TEXT,
       energias TEXT,
@@ -333,7 +334,7 @@ app.delete("/user/:name", async (req, res) => {
 // Ruta para actualizar entrenador
 app.put("/trainers/update/:name", (req, res) => {
   const trainerName = req.params.name;
-  const { trainer_name, trainer_pass, grumpidolar } = req.body;
+  const { trainer_name, trainer_pass, grumpidolar, combatMark } = req.body;
 
   fs.readFile(filePath, "utf8", (err, data) => {
     if (err) {
@@ -354,6 +355,9 @@ app.put("/trainers/update/:name", (req, res) => {
       if (grumpidolar !== undefined) {
         updatedTrainer.grumpidolar = grumpidolar;
       }
+       if (combatMark !== undefined) {
+         updatedTrainer.marca_combate = combatMark;
+       }
 
       fs.writeFile(filePath, JSON.stringify(trainers, null, 2), (err) => {
         if (err) {
@@ -1085,7 +1089,77 @@ app.post("/assign-evo-objects", (req, res) => {
  ******************************************/
 
 
+/******************************************
+ * 
+ *    ASIGNAR MARCAS DE COMBATE
+ * 
+ ******************************************/
+try {
+  const data = fs.readFileSync(filePath, "utf8");
+  trainerData = JSON.parse(data);
 
+  if (!Array.isArray(trainerData)) {
+    throw new Error("Los datos de entrenadores no son un array.");
+  }
+
+  trainerData.forEach((trainer) => {
+    if (typeof trainer.marca_combate === "undefined") {
+      trainer.marca_combate = 0;
+    }
+  });
+
+  console.log("Datos de entrenadores cargados correctamente:", trainerData);
+} catch (err) {
+  console.error("Error al leer el archivo de entrenadores:", err);
+}
+function assignCombatMarksToTrainer(trainerName, combatMark) {
+  return new Promise((resolve, reject) => {
+    console.log("Cantidad de Grumpidólares recibida (original): ", grumpidolar);
+    const combatMarkNumber = Number(combatMark);
+    console.log("Cantidad de Grumpidólares convertida: ", combatMarkNumber);
+
+    if (isNaN(combatMarkNumber) || combatMarkNumber <= 0) {
+      console.log("Cantidad de Grumpidólares no válida: ", combatMarkNumber);
+      return reject("Grumpidólares debe ser un número positivo.");
+    }
+
+    const trainer = trainerData.find((trainer) => trainer.name === trainerName);
+    if (trainer) {
+      console.log("Entrenador encontrado:", trainer);
+
+      // Asegurarse de que trainer.grumpidolar es un número antes de sumar
+      trainer.marca_combate = Number(trainer.marca_combate) || 0;
+      trainer.marca_combate += combatMark;
+
+      console.log(
+        "Cantidad de marcas de comabte después de la asignación:",
+        trainer.marca_combate
+      );
+
+      saveTrainerData();
+      resolve("Marcas de combate asignadas correctamente al entrenador.");
+    } else {
+      reject(`Entrenador con nombre ${trainerName} no encontrado.`);
+    }
+  });
+}
+app.post("/assign-combatMarks", (req, res) => {
+  const { trainerName, combatMark } = req.body;
+  console.log("Datos de la solicitud:", req.body);
+  assignCombatMarksToTrainer(trainerName, req.body.combatMark)
+    .then((message) => {
+      res.status(200).json({ message: message });
+    })
+    .catch((error) => {
+      console.error("Error al asignar las marcas de combate:", error);
+      res.status(400).json({ error: error });
+    });
+});
+/******************************************
+ * 
+ *    FIN DE ASIGNAR MARCAS DE COMBATE
+ * 
+ ******************************************/
 
 
 app.listen(port, () => {

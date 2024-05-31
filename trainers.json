@@ -11,9 +11,10 @@
       "http://localhost:3000/uploads/grumpis/013.1.png"
     ],
     "grumpidolar": 3,
+    "marca_combate": "4",
     "medallas": [
-      "http://localhost:3000/uploads/medals/Medalla_Agua.png",
-      "http://localhost:3000/uploads/medals/Medalla_fuego.png"
+      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png",
+      "http://localhost:3000/uploads/medals/Medalla_fuego.1.png"
     ],
     "energias": [
       {
@@ -21,6 +22,60 @@
         "nombre": "Energía Fuego",
         "tipo": "Fuego",
         "imagen": "../../../../assets/energies/Fuego2.0.PNG"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/Agua2.0.PNG"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/Agua2.0.PNG"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/Agua2.0.PNG"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/Agua2.0.PNG"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/Agua2.0.PNG"
+      },
+      {
+        "id": 3,
+        "nombre": "Energía Fuego",
+        "tipo": "Fuego",
+        "imagen": "../../../../assets/energies/Fuego2.0.PNG"
+      },
+      {
+        "id": 3,
+        "nombre": "Energía Fuego",
+        "tipo": "Fuego",
+        "imagen": "../../../../assets/energies/Fuego2.0.PNG"
+      },
+      {
+        "id": 3,
+        "nombre": "Energía Fuego",
+        "tipo": "Fuego",
+        "imagen": "../../../../assets/energies/Fuego2.0.PNG"
+      },
+      {
+        "id": 9,
+        "nombre": "Energía Vida",
+        "tipo": "Vida",
+        "imagen": "../../../../assets/energies/Vida2.0.PNG"
       }
     ],
     "objetos_combate": [
@@ -54,14 +109,7 @@
       {
         "id": 1,
         "nombre": "Losa Agua",
-        "imagen": "http://localhost:3000/uploads/evoObjects/Losa_agua.png",
-        "tipo": "agua",
-        "precio": 5
-      },
-      {
-        "id": 1,
-        "nombre": "Losa Agua",
-        "imagen": "http://localhost:3000/uploads/evoObjects/Losa_agua.png",
+        "imagen": "http://localhost:3000/uploads/evoObjects/LOSA_AGUA.1.png",
         "tipo": "agua",
         "precio": 5
       }
