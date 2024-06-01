@@ -55,6 +55,24 @@
         "imagen": "../../../../assets/energies/Agua2.0.PNG"
       },
       {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/Agua2.0.PNG"
+      },
+      {
+        "id": 3,
+        "nombre": "Energía Fuego",
+        "tipo": "Fuego",
+        "imagen": "../../../../assets/energies/Fuego2.0.PNG"
+      },
+      {
+        "id": 3,
+        "nombre": "Energía Fuego",
+        "tipo": "Fuego",
+        "imagen": "../../../../assets/energies/Fuego2.0.PNG"
+      },
+      {
         "id": 3,
         "nombre": "Energía Fuego",
         "tipo": "Fuego",
@@ -113,6 +131,13 @@
         "imagen": "http://localhost:3000/uploads/evoObjects/LOSA_AGUA.1.png",
         "tipo": "agua",
         "precio": 5
+      },
+      {
+        "id": 1,
+        "nombre": "Losa Agua",
+        "imagen": "http://localhost:3000/uploads/evoObjects/LOSA_AGUA.1.png",
+        "tipo": "agua",
+        "precio": 5
       }
     ]
   },
@@ -128,7 +153,8 @@
     ],
     "medallas": [],
     "objetos_combate": [],
-    "objetos_evolutivos": []
+    "objetos_evolutivos": [],
+    "marca_combate": 0
   },
   {
     "name": "Pablo",
@@ -137,6 +163,7 @@
     "rol": "entrenador",
     "medallas": [],
     "objetos_combate": [],
-    "objetos_evolutivos": []
+    "objetos_evolutivos": [],
+    "marca_combate": 0
   }
 ]
