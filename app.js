@@ -62,19 +62,20 @@ db.serialize(() => {
       energias TEXT,
       total_energias INTEGER,
       objetos_combate TEXT,
-      objetos_evolutivos TEXT
+      objetos_evolutivos TEXT,
       FOREIGN KEY (id_profesor) REFERENCES profesores(id)
     )
   `);
 
   db.run(`
-  CREATE TABLE IF NOT EXISTS profesores (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    nombre TEXT,
-    usuario TEXT,
-    password TEXT,
-    rol TEXT,
-  )`);
+    CREATE TABLE IF NOT EXISTS profesores (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      nombre TEXT,
+      usuario TEXT,
+      password TEXT,
+      rol TEXT
+    )
+  `);
 
   // Tabla de medallas
   db.run(`
@@ -83,7 +84,7 @@ db.serialize(() => {
       nombre TEXT,
       imagen TEXT,
       trainer_id INTEGER,
-      FOREIGN KEY (trainer_id) REFERENCES trainers (id)
+      FOREIGN KEY (trainer_id) REFERENCES trainers(id)
     )
   `);
 
@@ -94,7 +95,7 @@ db.serialize(() => {
       nombre TEXT,
       imagen TEXT,
       trainer_id INTEGER,
-      FOREIGN KEY (trainer_id) REFERENCES trainers (id)
+      FOREIGN KEY (trainer_id) REFERENCES trainers(id)
     )
   `);
 
@@ -106,7 +107,7 @@ db.serialize(() => {
       tipo TEXT,
       imagen TEXT,
       trainer_id INTEGER,
-      FOREIGN KEY (trainer_id) REFERENCES trainers (id)
+      FOREIGN KEY (trainer_id) REFERENCES trainers(id)
     )
   `);
 
@@ -118,7 +119,7 @@ db.serialize(() => {
       imagen TEXT,
       precio INTEGER,
       trainer_id INTEGER,
-      FOREIGN KEY (trainer_id) REFERENCES trainers (id)
+      FOREIGN KEY (trainer_id) REFERENCES trainers(id)
     )
   `);
 
@@ -129,18 +130,27 @@ db.serialize(() => {
       nombre TEXT,
       imagen TEXT,
       trainer_id INTEGER,
-      FOREIGN KEY (trainer_id) REFERENCES trainers (id)
+      FOREIGN KEY (trainer_id) REFERENCES trainers(id)
     )
   `);
 
+  // Tabla de relación entre entrenadores y criaturas
   db.run(`
-  CREATE TABLE IF NOT EXISTS trainer_creatures (
-    trainer_id INTEGER,
-    creature_id INTEGER,
-    FOREIGN KEY (trainer_id) REFERENCES trainers (id),
-    FOREIGN KEY (creature_id) REFERENCES grumpis (id)
-  )
-`);
+    CREATE TABLE IF NOT EXISTS trainer_creatures (
+      trainer_id INTEGER,
+      creature_id INTEGER,
+      FOREIGN KEY (trainer_id) REFERENCES trainers(id),
+      FOREIGN KEY (creature_id) REFERENCES grumpis(id)
+    )
+  `);
+});
+
+// Cerrando la base de datos
+db.close((err) => {
+  if (err) {
+    return console.error(err.message);
+  }
+  console.log('Cerrado la conexión con la base de datos.');
 });
 
 // Ejemplo de inserción de datos
