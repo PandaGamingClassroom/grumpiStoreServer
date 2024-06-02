@@ -71,6 +71,7 @@ db.serialize(() => {
     CREATE TABLE IF NOT EXISTS profesores (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       nombre TEXT,
+      apellidos TEXT,
       usuario TEXT,
       password TEXT,
       rol TEXT
@@ -1233,6 +1234,217 @@ app.post("/assign-combatMarks", (req, res) => {
  *
  ******************************************/
 
+/**
+ * 
+ *  GESTIÓN DE PROFESORES
+ * 
+ */
+let profesoresList = [];
+let idDelProfe = 1; // Inicialmente, el ID empieza en 1
+
+// Lee los datos del archivo trainers.json si existe
+try {
+  const data = fs.readFileSync(filePathAmin, "utf8");
+  profesoresList = JSON.parse(data);
+} catch (err) {
+  // Si hay un error al leer el archivo, asigna un array vacío a trainer_list
+  profesoresList = [];
+}
+fs.readFile(filePathAmin, "utf8", (err, data) => {
+  if (err && err.code !== "ENOENT") {
+    console.error("Error al leer el archivo:", err);
+  } else if (data) {
+    try {
+      profesoresList = JSON.parse(data);
+      // Si hay entrenadores en la lista, ajustar currentId al mayor ID + 1
+      if (profesoresList.length > 0) {
+        idDelProfe =
+          Math.max(...profesoresList.map((profesor) => profesor.id)) + 1;
+      }
+    } catch (e) {
+      console.error("Error al parsear JSON:", e);
+    }
+  }
+});
+
+app.get("/profesores", (req, res) => {
+  // Lee el contenido del archivo trainers.json
+  fs.readFile(filePathAmin, "utf8", (err, data) => {
+    if (err) {
+      // Manejar el error si no se puede leer el archivo
+      console.error("Error al leer el archivo admin.json:", err);
+      res.status(500).json({ error: "Error al leer el archivo admin.json" });
+    } else {
+      try {
+        // Parsea el contenido del archivo JSON a un objeto JavaScript
+        const prof_list = JSON.parse(data);
+        // Envía el listado completo de entrenadores como respuesta
+        res.json({ profesoresList: prof_list });
+      } catch (parseError) {
+        // Manejar el error si no se puede parsear el contenido JSON
+        console.error("Error al parsear el contenido JSON:", parseError);
+        res.status(500).json({ error: "Error al parsear el contenido JSON" });
+      }
+    }
+  });
+});
+const readJsonFile = (filePathAmin) => {
+  return new Promise((resolve, reject) => {
+    fs.readFile(filePathAmin, "utf8", (err, data) => {
+      if (err) {
+        return reject(err);
+      }
+      try {
+        const jsonData = JSON.parse(data);
+        resolve(jsonData);
+      } catch (err) {
+        reject(err);
+      }
+    });
+  });
+};
+/**
+ * 
+ *  OBTENER UN PROFESOR POR SU NOMBRE 
+ * 
+ */
+app.get("/profesor/:nombre", (req, res) => {
+  const nombre = req.params.nombre;
+
+  // Lee los datos del archivo trainers.json
+  fs.readFile(filePathAmin, "utf8", (err, data) => {
+    if (err) {
+      console.error("Error al leer el archivo trainers.json:", err);
+      return res
+        .status(500)
+        .json({ success: false, error: "Error interno del servidor" });
+    }
+
+    try {
+      const profe_list = JSON.parse(data);
+      // Busca el entrenador por nombre en la lista
+      console.log("Lista profesores: ", profe_list);
+      const profe = profe_list.find((profesor) => profesor.nombre === nombre);
+
+      if (!profe) {
+        // Si no se encuentra ningún entrenador con ese nombre, devuelve un mensaje de error
+        res
+          .status(200)
+          .json({ success: false, error: "Profesor no encontrado" });
+      } else {
+        // Si se encuentra el entrenador, devuelve sus datos
+        res.json({ success: true, data: profe });
+      }
+    } catch (error) {
+      console.error("Error al parsear el archivo admin.json:", error);
+      res
+        .status(500)
+        .json({ success: false, error: "Error interno del servidor" });
+    }
+  });
+});
+
+app.get("/profesor/:id", async (req, res) => {
+  const profesorId = parseInt(req.params.id);
+
+  try {
+    const profesores = await readJsonFile(filePathAmin);
+    const entrenadores = await readJsonFile(filePath);
+
+    const profesor = profesores.find((p) => p.id === profesorId);
+
+    if (!profesor) {
+      return res.status(404).json({ error: "Profesor no encontrado" });
+    }
+
+    const entrenadoresAsignados = entrenadores.filter(
+      (t) => t.id_profesor === profesorId
+    );
+
+    res.json({
+      profesor,
+      entrenadores: entrenadoresAsignados,
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Endpoint para obtener la lista de entrenadores de un profesor por su ID
+app.get('/profesor/:id/entrenadores', async (req, res) => {
+  const profesorId = parseInt(req.params.id);
+
+  try {
+    const entrenadores = await readJsonFile(filePath);
+    const entrenadoresAsignados = entrenadores.filter(t => t.id_profesor === profesorId);
+
+    if (entrenadoresAsignados.length === 0) {
+      return res.status(404).json({ success: false, message: "No se encontraron entrenadores para el profesor indicado" });
+    }
+
+    res.json({ success: true, data: entrenadoresAsignados });
+  } catch (err) {
+    res.status(500).json({ success: false, error: "Error interno del servidor" });
+  }
+});
+
+// Agregar un nuevo profesor
+app.post('/profesores', (req, res) => {
+  const nuevoProfesor = req.body;
+
+  fs.readFile(filePath, 'utf8', (err, data) => {
+    if (err) {
+      return res.status(500).json({ error: 'Error al leer el archivo' });
+    }
+    
+    const adminData = JSON.parse(data);
+    nuevoProfesor.id = adminData.profesores.length ? adminData.profesores[adminData.profesores.length - 1].id + 1 : 1;
+    adminData.profesores.push(nuevoProfesor);
+
+    fs.writeFile(filePath, JSON.stringify(adminData, null, 2), (err) => {
+      if (err) {
+        return res.status(500).json({ error: 'Error al escribir el archivo' });
+      }
+
+      res.status(201).json(nuevoProfesor);
+    });
+  });
+});
+
+// Agregar entrenadores a un profesor existente
+app.post('/profesores/:id/entrenadores', (req, res) => {
+  const profesorId = parseInt(req.params.id);
+  const nuevosEntrenadores = req.body.entrenadores;
+
+  fs.readFile(filePath, 'utf8', (err, data) => {
+    if (err) {
+      return res.status(500).json({ error: 'Error al leer el archivo' });
+    }
+
+    const adminData = JSON.parse(data);
+    const profesor = adminData.profesores.find(p => p.id === profesorId);
+
+    if (!profesor) {
+      return res.status(404).json({ error: 'Profesor no encontrado' });
+    }
+
+    profesor.entrenadores = profesor.entrenadores.concat(nuevosEntrenadores);
+
+    fs.writeFile(filePath, JSON.stringify(adminData, null, 2), (err) => {
+      if (err) {
+        return res.status(500).json({ error: 'Error al escribir el archivo' });
+      }
+
+      res.status(200).json(profesor);
+    });
+  });
+});
+
+/**
+ * 
+ * FIN DE GESTIÓN DE PROFESORES
+ * 
+ */
 app.listen(port, () => {
   console.log(`Servidor GrumpiStore, iniciado en el puerto: ${port}`);
 });

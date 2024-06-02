@@ -65,19 +65,19 @@
   {
     "nombre": "Balanza del orden",
     "imagen": "http://localhost:3000/uploads/evoObjects/BALANZA_DEL_ORDEN.1.png",
-    "tipo": "",
+    "tipo": "normal",
     "precio": 7
   },
   {
     "nombre": "Pluma celestial",
     "imagen": "http://localhost:3000/uploads/evoObjects/PLUMA_CELESTIAL.1.png",
-    "tipo": "",
+    "tipo": "luz",
     "precio": 7
   },
   {
     "nombre": "Pluma oscura",
     "imagen": "http://localhost:3000/uploads/evoObjects/PLUMA_OSCURA.1.png",
-    "tipo": "",
+    "tipo": "oscuridad",
     "precio": 7
   }
 ]

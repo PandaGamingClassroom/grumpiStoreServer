@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "id": 1,
+    "nombre": "Pablo",
+    "apellidos": "Moreno Ortega",
+    "usuario": "admin",
+    "password": "admin",
+    "rol": "profesor"
+  },
+  {
+    "id": 2,
+    "nombre": "Daniel",
+    "apellidos": "García Díaz",
+    "usuario": "dani",
+    "password": "dani",
+    "rol": "profesor"
+  }
+]
