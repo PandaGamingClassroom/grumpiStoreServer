@@ -1,0 +1,21 @@
+[
+    {
+      "id": 1,
+      "nombre": "Bugi ",
+      "n_grumpidex": "001",
+      "descripcion": " Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
+      "ataques": [
+        {
+          "nombre": "Placaje",
+          "efecto": "10",
+          "tipo": "Normal"
+        },
+        {
+          "nombre": "Espora seta",
+          "efecto": "30",
+          "tipo": "Vida"
+        }
+      ],
+      "tipo": "Vida"
+    }
+]

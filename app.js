@@ -6,12 +6,15 @@ const sqlite3 = require("sqlite3").verbose(); // Importa el módulo sqlite3
 const port = 3000;
 const fs = require("fs");
 
-// Ruta al archivo donde se guardarán los entrenadores
-const filePath = "./trainers.json";
-const filePathAmin = "./admin.json";
-// Ruta del archivo donde se guardan los objetos de combate
-const filePathObjectsCombat = "./combatObjects.json";
-const filePathObjectsEvolution = "./evolutionObjects.json";
+/**********************
+ *  RUTAS DE ACCESO
+ *********************/
+const filePath = "./data/trainers.json";
+const filePathAmin = "./data/admin.json";
+const filePathGrumpis = "./data/grumpis.json";
+const filePathObjectsCombat = "./data/combatObjects.json";
+const filePathObjectsEvolution = "./data/evolutionObjects.json";
+
 // Configuración de la base de datos
 // const db = new sqlite3.Database("database.db"); // Crea una base de datos en memoria
 const db = new sqlite3.Database(":memory:");
