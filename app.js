@@ -98,7 +98,11 @@ db.serialize(() => {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       nombre TEXT,
       imagen TEXT,
+      n_grumpidex TEXT,
+      descripcion TEXT,
       trainer_id INTEGER,
+      ataques TEXT,
+      tipo TEXT,
       FOREIGN KEY (trainer_id) REFERENCES trainers(id)
     )
   `);
@@ -725,6 +729,32 @@ app.get("/trainer/:nombre", (req, res) => {
  *                                                              *
  *                                                              *
  ***************************************************************/
+
+/**
+ * OBTENCIÓN DE LOS GRUMPIS
+ */
+app.get("/getGrumpis", (req, res) => {
+  fs.readFile(filePathGrumpis, "utf8", (err, data) => {
+    if (err) {
+      // Manejar el error si no se puede leer el archivo
+      console.error("Error al leer el archivo grumpis.json:", err);
+      res
+        .status(500)
+        .json({ error: "Error al leer el archivo grumpis.json" });
+    } else {
+      try {
+        // Parsea el contenido del archivo JSON a un objeto JavaScript
+        const grumpis_list = JSON.parse(data);
+        // Envía el listado completo de entrenadores como respuesta
+        res.json({ grumpis_list: grumpis_list });
+      } catch (parseError) {
+        // Manejar el error si no se puede parsear el contenido JSON
+        console.error("Error al parsear el contenido JSON:", parseError);
+        res.status(500).json({ error: "Error al parsear el contenido JSON" });
+      }
+    }
+  });
+});
 
 // Ruta para obtener las URLs de todas las imágenes
 app.get("/getImageUrls", (req, res) => {
