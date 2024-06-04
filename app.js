@@ -14,6 +14,7 @@ const filePathAmin = "./data/admin.json";
 const filePathGrumpis = "./data/grumpis.json";
 const filePathObjectsCombat = "./data/combatObjects.json";
 const filePathObjectsEvolution = "./data/evolutionObjects.json";
+const filePathRewards = "./data/rewards.json";
 
 // Configuración de la base de datos
 // const db = new sqlite3.Database("database.db"); // Crea una base de datos en memoria
@@ -24,8 +25,9 @@ const path = require("path");
 const uploadDir = path.join(__dirname, "uploads", "grumpis");
 const uploadDirMedals = path.join(__dirname, "uploads", "medals");
 const uploadDirEnergies = path.join(__dirname, "uploads", "energies");
-const uploadDirCombatObjects = path.join(__dirname, "uploads", "combatObjects");
-const uploadDirEvoObjects = path.join(__dirname, "uploads", "evoObjects");
+const uploadDirEncargados = path.join(__dirname, "uploads", "encargados");
+const uploadDirLeagueBadges = path.join(__dirname, "uploads", "leagueBadges");
+
 fs.mkdirSync(uploadDir, { recursive: true });
 fs.mkdirSync(uploadDirMedals, { recursive: true });
 
@@ -1478,6 +1480,103 @@ app.post('/profesores/:id/entrenadores', (req, res) => {
  * FIN DE GESTIÓN DE PROFESORES
  * 
  */
+
+
+/***************************************************************
+ *                                                              *
+ *                                                              *
+ *                                                              *
+ *                          RECOMPENSAS                         *
+ *                                                              *
+ *                                                              *
+ *                                                              *
+ ***************************************************************/
+/**
+ * Obtención de la lista de recompensas
+ */
+app.get("/getRewards", (req, res) => {
+  fs.readFile(filePathRewards, "utf8", (err, data) => {
+    if (err) {
+      // Manejar el error si no se puede leer el archivo
+      console.error("Error al leer el archivo rewards.json:", err);
+      res
+        .status(500)
+        .json({ error: "Error al leer el archivo rewards.json" });
+    } else {
+      try {
+        // Parsea el contenido del archivo JSON a un objeto JavaScript
+        const rewardsList = JSON.parse(data);
+        // Envía el listado completo de entrenadores como respuesta
+        res.json({ rewardsList: rewardsList });
+      } catch (parseError) {
+        // Manejar el error si no se puede parsear el contenido JSON
+        console.error("Error al parsear el contenido JSON:", parseError);
+        res.status(500).json({ error: "Error al parsear el contenido JSON" });
+      }
+    }
+  });
+});
+
+
+/***************************************************************
+ *                                                              *
+ *                                                              *
+ *                                                              *
+ *                          ENCARGADOS                          *
+ *                                                              *
+ *                                                              *
+ *                                                              *
+ ***************************************************************/
+/**
+ * Obtención de la lista de encargados
+ */
+app.get("/getEncargados", (req, res) => {
+  fs.readdir(uploadDirEncargados, (err, files) => {
+    if (err) {
+      console.error("Error al leer el directorio de imágenes:", err);
+      return res.status(500).json({ error: "Error interno del servidor" });
+    }
+
+    // Construye las URLs de las imágenes
+    const imageUrls = files.map((file) => {
+      return `http://localhost:3000/uploads/encargados/${file}`;
+    });
+
+    // Devuelve las URLs de las imágenes como una respuesta JSON
+    res.json({ imageUrls });
+  });
+});
+
+
+/***************************************************************
+ *                                                              *
+ *                                                              *
+ *                                                              *
+ *                     DISTINTIVOS DE LIGA                      *
+ *                                                              *
+ *                                                              *
+ *                                                              *
+ ***************************************************************/
+/**
+ * Obtención de la lista de los distintivos de liga
+ */
+app.get("/getLeagueBadges", (req, res) => {
+  fs.readdir(uploadDirLeagueBadges, (err, files) => {
+    if (err) {
+      console.error("Error al leer el directorio de imágenes:", err);
+      return res.status(500).json({ error: "Error interno del servidor" });
+    }
+
+    // Construye las URLs de las imágenes
+    const imageUrls = files.map((file) => {
+      return `http://localhost:3000/uploads/leagueBadges/${file}`;
+    });
+
+    // Devuelve las URLs de las imágenes como una respuesta JSON
+    res.json({ imageUrls });
+  });
+});
+
 app.listen(port, () => {
   console.log(`Servidor GrumpiStore, iniciado en el puerto: ${port}`);
 });
