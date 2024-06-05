@@ -68,6 +68,7 @@ db.serialize(() => {
       total_energias INTEGER,
       objetos_combate TEXT,
       objetos_evolutivos TEXT,
+      recompensas TEXT,
       FOREIGN KEY (id_profesor) REFERENCES profesores(id)
     )
   `);
@@ -1517,6 +1518,55 @@ app.get("/getRewards", (req, res) => {
   });
 });
 
+/**
+ * Asignación de recompensas al entrenador
+ */
+try {
+  const data = fs.readFileSync(filePath, "utf8");
+  trainerData = JSON.parse(data);
+  // Inicializar la propiedad 'grumpis' si no está presente en cada objeto de entrenador
+  trainerData.forEach((trainer) => {
+    if (!trainer.recompensas) {
+      trainer.recompensas = [];
+    }
+  });
+  console.log("Datos de entrenadores cargados correctamente:", trainerData);
+} catch (err) {
+  console.error("Error al leer el archivo de entrenadores:", err);
+}
+
+function assignRewardToTrainer(trainerName, reward) {
+  // Aquí iría tu lógica para asignar la criatura al entrenador
+  // Buscar el entrenador por nombre y actualizar sus datos en memoria
+  const trainer = trainerData.find((trainer) => trainer.name === trainerName);
+  if (trainer) {
+    // Aquí actualizarías los datos del entrenador con la nueva criatura asignada
+    trainer.recompensas.push(reward); // Por ejemplo, asumiendo que tienes una propiedad 'grumpis' en tu objeto de entrenador
+    saveTrainerData(); // Guardar los cambios en el archivo JSON
+    return Promise.resolve("Criatura asignada correctamente al entrenador.");
+  } else {
+    return Promise.reject(
+      `Entrenador con nombre ${trainerName} no encontrado.`
+    );
+  }
+}
+
+app.post("/assign-rewards", (req, res) => {
+  const { trainerName, reward } = req.body;
+  console.log("Datos de la solicitud:", req.body);
+  // Llamada a la función para asignar la criatura al entrenador
+  assignRewardToTrainer(trainerName, reward)
+    .then((message) => {
+      res.status(200).json({ message: message }); // Enviar el mensaje como parte de un objeto JSON
+    })
+    .catch((error) => {
+      console.error("Error al asignar la recompensa:", error);
+      res.status(500).json({
+        error: "Error al asignar la recompensa al entrenador: " + error.message,
+      }); // Enviar el mensaje de error como parte de un objeto JSON
+    });
+});
+
 
 /***************************************************************
  *                                                              *
@@ -1576,6 +1626,10 @@ app.get("/getLeagueBadges", (req, res) => {
     res.json({ imageUrls });
   });
 });
+
+
+
+
 
 app.listen(port, () => {
   console.log(`Servidor GrumpiStore, iniciado en el puerto: ${port}`);
