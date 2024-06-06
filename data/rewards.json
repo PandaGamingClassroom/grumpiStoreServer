@@ -3,7 +3,8 @@
     "id": 1,
     "nombre": "Recompensa 1",
     "img": "http://localhost:3000/uploads/rewards/RECOMPENSA_1.1.png",
-    "condicion": "20"
+    "condicion": "20",
+    "uso": ""
   },
   {
     "id": 2,
