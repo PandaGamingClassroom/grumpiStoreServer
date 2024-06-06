@@ -6,12 +6,257 @@
     "rol": "entrenador",
     "id_profesor": 1,
     "grumpis": [
-      "http://localhost:3000/uploads/grumpis/001.1.png",
-      "http://localhost:3000/uploads/grumpis/002.1.png",
-      "http://localhost:3000/uploads/grumpis/033.1.png",
-      "http://localhost:3000/uploads/grumpis/011.1.png",
-      "http://localhost:3000/uploads/grumpis/013.1.png",
-      "http://localhost:3000/uploads/grumpis/001.1.png"
+      {
+        "id": 1,
+        "trainer_id": 0,
+        "nombre": "Bugi",
+        "n_grumpidex": "001",
+        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
+        "ataques": [
+          {
+            "nombre": "Placaje",
+            "efecto": "10",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Espora seta",
+            "efecto": "30",
+            "tipo": "Vida"
+          }
+        ],
+        "tipo": "Vida"
+      },
+      {
+        "id": 2,
+        "trainer_id": 0,
+        "nombre": "Bolibugi",
+        "n_grumpidex": "002",
+        "img": "http://localhost:3000/uploads/grumpis/002.1.png",
+        "descripcion": "Forma evolucionada de Bugi. Recubre su cuerpo con una protección para defenderse de los atacantes mientras consigue su forma definitiva. Se dice que rueda felizmente por los bosques.",
+        "ataques": [
+          {
+            "nombre": "Protección",
+            "efecto": "Anula un ataque. Ataca en primer lugar siguiente turno.",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Rodar",
+            "efecto": "40",
+            "tipo": "Normal"
+          }
+        ],
+        "tipo": "Vida"
+      },
+      {
+        "id": 3,
+        "trainer_id": 0,
+        "nombre": "Bugelion",
+        "n_grumpidex": "003",
+        "img": "http://localhost:3000/uploads/grumpis/003.1.png",
+        "descripcion": "Forma evolucionada de Bolibugi. Una vez roto su cascarón usa parte de él como espada y como escudo para batallar con los enemigos.",
+        "ataques": [
+          {
+            "nombre": "Reflejo",
+            "efecto": "Ciega al enemigo durante un turno.",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Tajo espora",
+            "efecto": "50",
+            "tipo": "Vida"
+          }
+        ],
+        "tipo": "Vida"
+      },
+      {
+        "id": 4,
+        "trainer_id": 0,
+        "nombre": "Goti",
+        "n_grumpidex": "004",
+        "img": "http://localhost:3000/uploads/grumpis/004.1.png",
+        "descripcion": "FTiene forma de gota de agua. Estos grumpis nacen de las tormentas de verano. Son muy miedosos y difíciles de encontrar, ya que viven en lagos y no se les puede ver con facilidad.",
+        "ataques": [
+          {
+            "nombre": "Salpicar",
+            "efecto": "10",
+            "tipo": "Agua"
+          },
+          {
+            "nombre": "Condensación",
+            "efecto": "Agua"
+          }
+        ],
+        "tipo": "Agua"
+      },
+      {
+        "id": 8,
+        "trainer_id": 0,
+        "nombre": "Elekspike",
+        "n_grumpidex": "008",
+        "img": "http://localhost:3000/uploads/grumpis/008.1.png",
+        "descripcion": "Forma evolucionada de Elekspoke. Recubre su cuerpo con nuevas púas que le permite almacenar una mayor cantidad de electricidad. Es capaz de dar electricidad a un hogar solo con la energía que almacena en un día.",
+        "ataques": [
+          {
+            "nombre": "Púa Rayo",
+            "efecto": "20: Lanzar moneda: Cara paraliza, cruz, no hace nada",
+            "tipo": "Rayo"
+          },
+          {
+            "nombre": "Descarga",
+            "efecto": "40",
+            "tipo": "Rayo"
+          }
+        ],
+        "tipo": "Rayo"
+      },
+      {
+        "id": 15,
+        "trainer_id": 0,
+        "nombre": "Ducknake",
+        "n_grumpidex": "015",
+        "img": "http://localhost:3000/uploads/grumpis/015.1.png",
+        "descripcion": "Forma evolucionada de Duckin. Al evolucionar adopta una postura más señorial cambiando también su personalidad. Esta forma evolucionada ha aprendido a controlar su apetito.",
+        "ataques": [
+          {
+            "nombre": "Vuelo",
+            "efecto": "40",
+            "tipo": "Aire"
+          },
+          {
+            "nombre": "Rayo veneno",
+            "efecto": "20 + Marca veneno (10x).",
+            "tipo": "Vida"
+          }
+        ],
+        "tipo": "Aire"
+      },
+      {
+        "id": 14,
+        "trainer_id": 0,
+        "nombre": "Duckin",
+        "n_grumpidex": "014",
+        "img": "http://localhost:3000/uploads/grumpis/014.1.png",
+        "descripcion": "Forma evolucionada de Cuacky. Ave de gran tamaño. Le encanta comer y si es tu compañero, intentará comer toda la comida que lleves encima.",
+        "ataques": [
+          {
+            "nombre": "Trampa veneno",
+            "efecto": "20x",
+            "tipo": "Vida"
+          },
+          {
+            "nombre": "Engullir",
+            "efecto": "40",
+            "tipo": "Normal"
+          }
+        ],
+        "tipo": "Aire"
+      },
+      {
+        "id": 21,
+        "trainer_id": 0,
+        "nombre": "Devigru",
+        "n_grumpidex": "021",
+        "img": "http://localhost:3000/uploads/grumpis/021.1.png",
+        "descripcion": "Forma evolucionada de Shapegru tras la exposición a una Pluma Oscura. Simboliza la tristeza y maldad contenida en Shapegru hacia él mismo y los demás.",
+        "ataques": [
+          {
+            "nombre": "Látigo de Hades",
+            "efecto": "80",
+            "tipo": "Oscuridad"
+          },
+          {
+            "nombre": "Portal oscuro",
+            "efecto": "100",
+            "tipo": "Oscuridad"
+          }
+        ],
+        "tipo": "Oscuridad"
+      },
+      {
+        "id": 23,
+        "trainer_id": 0,
+        "nombre": "Seally",
+        "n_grumpidex": "023",
+        "img": "http://localhost:3000/uploads/grumpis/023.1.png",
+        "descripcion": "Pequeño ser marino que habita en zonas gélidas. Cuando está a punto de evolucionar se mueve hacía aguas más cálidas. Es juguetón y travieso.",
+        "ataques": [
+          {
+            "nombre": "Salpicar",
+            "efecto": "10",
+            "tipo": "Agua"
+          },
+          {
+            "nombre": "Nado rápido",
+            "efecto": "30",
+            "tipo": "Agua"
+          }
+        ],
+        "tipo": "Agua"
+      },
+      {
+        "id": 25,
+        "trainer_id": 0,
+        "nombre": "Chatty",
+        "n_grumpidex": "025",
+        "img": "http://localhost:3000/uploads/grumpis/025.1.png",
+        "descripcion": "Ser adorable que vive junto a los seres humanos, llenándoles de amor y alegría.",
+        "ataques": [
+          {
+            "nombre": "Arañazo",
+            "efecto": "30",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Lametón",
+            "efecto": "50",
+            "tipo": "Oscuridad"
+          }
+        ],
+        "tipo": "Oscuridad"
+      },
+      {
+        "id": 27,
+        "trainer_id": 0,
+        "nombre": "Dracoison",
+        "n_grumpidex": "027",
+        "img": "http://localhost:3000/uploads/grumpis/027.1.png",
+        "descripcion": "Forma evolucionada de Poisony. Tiene aspecto de dragón y su elemento estrella es el veneno. Su aliento es capaz de infectar todo un bosque.",
+        "ataques": [
+          {
+            "nombre": "Trampa veneno",
+            "efecto": "20x",
+            "tipo": "Vida"
+          },
+          {
+            "nombre": "Drago-aliento",
+            "efecto": "80",
+            "tipo": "Oscuridad"
+          }
+        ],
+        "tipo": "Vida"
+      },
+      {
+        "id": 30,
+        "trainer_id": 0,
+        "nombre": "Flamebi",
+        "n_grumpidex": "029",
+        "img": "http://localhost:3000/uploads/grumpis/029.1.png",
+        "descripcion": "Forma evolucionada de Eggtelio al exponerse a una Losa Agua. Su cuerpo adopta un color azul que recuerda al mismo mar.",
+        "ataques": [
+          {
+            "nombre": "Placaje",
+            "efecto": "10",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Escupe fuego",
+            "efecto": "50",
+            "tipo": "Fuego"
+          }
+        ],
+        "tipo": "Fuego"
+      }
     ],
     "grumpidolar": "8",
     "marca_combate": "4",
@@ -141,7 +386,8 @@
         "tipo": "agua",
         "precio": 5
       }
-    ]
+    ],
+    "recompensas": []
   },
   {
     "name": "Nuevo",
@@ -158,7 +404,8 @@
     "objetos_combate": [],
     "objetos_evolutivos": [],
     "marca_combate": "4",
-    "grumpidolar": "4"
+    "grumpidolar": "4",
+    "recompensas": []
   },
   {
     "name": "Pablo",
@@ -169,7 +416,8 @@
     "medallas": [],
     "objetos_combate": [],
     "objetos_evolutivos": [],
-    "marca_combate": 0
+    "marca_combate": 0,
+    "recompensas": []
   },
   {
     "name": "Josete",
@@ -180,7 +428,31 @@
     "medallas": [],
     "objetos_combate": [],
     "objetos_evolutivos": [],
-    "marca_combate": 0
+    "marca_combate": 0,
+    "recompensas": [],
+    "grumpis": [
+      {
+        "id": 1,
+        "trainer_id": 0,
+        "nombre": "Bugi",
+        "n_grumpidex": "001",
+        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
+        "ataques": [
+          {
+            "nombre": "Placaje",
+            "efecto": "10",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Espora seta",
+            "efecto": "30",
+            "tipo": "Vida"
+          }
+        ],
+        "tipo": "Vida"
+      }
+    ]
   },
   {
     "name": "Manuela",
@@ -191,6 +463,7 @@
     "medallas": [],
     "objetos_combate": [],
     "objetos_evolutivos": [],
-    "marca_combate": 0
+    "marca_combate": 0,
+    "recompensas": []
   }
 ]

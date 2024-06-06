@@ -497,28 +497,30 @@ function saveTrainerData() {
 }
 
 // Función para asignar una criatura a un entrenador
-function assignCreatureToTrainer(trainerName, creatureName) {
-  // Aquí iría tu lógica para asignar la criatura al entrenador
-  // Buscar el entrenador por nombre y actualizar sus datos en memoria
+function assignCreatureToTrainer(trainerName, creature) {
+  console.log("Grumpi para asignar al entrenador: ", creature);
   const trainer = trainerData.find((trainer) => trainer.name === trainerName);
   if (trainer) {
-    // Aquí actualizarías los datos del entrenador con la nueva criatura asignada
-    trainer.grumpis.push(creatureName); // Por ejemplo, asumiendo que tienes una propiedad 'grumpis' en tu objeto de entrenador
-    saveTrainerData(); // Guardar los cambios en el archivo JSON
+    // Asegurarse de que la propiedad 'grumpis' existe
+    if (!trainer.grumpis) {
+      trainer.grumpis = [];
+    }
+    trainer.grumpis.push(creature); // Asignar la criatura
+    saveTrainerData(); // Guardar los cambios en los datos de los entrenadores
     return Promise.resolve("Criatura asignada correctamente al entrenador.");
   } else {
     return Promise.reject(
-      `Entrenador con nombre ${trainerName} no encontrado.`
+      new Error(`Entrenador con nombre ${trainerName} no encontrado.`)
     );
   }
 }
 
 // Ruta de asignación de grumpis
 app.post("/assign-creature", (req, res) => {
-  const { trainerName, creatureName } = req.body;
+  const { trainerName, creature } = req.body;
   console.log("Datos de la solicitud:", req.body);
-  // Llamada a la función para asignar la criatura al entrenador
-  assignCreatureToTrainer(trainerName, creatureName)
+
+  assignCreatureToTrainer(trainerName, creature)
     .then((message) => {
       res.status(200).json({ message: message }); // Enviar el mensaje como parte de un objeto JSON
     })
