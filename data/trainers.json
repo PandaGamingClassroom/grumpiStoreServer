@@ -426,7 +426,33 @@
     "rol": "entrenador",
     "id_profesor": 1,
     "medallas": [],
-    "objetos_combate": [],
+    "objetos_combate": [
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Gafas de sol",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Gafas_de_sol.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      }
+    ],
     "objetos_evolutivos": [],
     "marca_combate": 0,
     "recompensas": [],
@@ -451,6 +477,27 @@
           }
         ],
         "tipo": "Vida"
+      }
+    ],
+    "grumpidolar": 0,
+    "energias": [
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/Agua2.0.PNG"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/Agua2.0.PNG"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/Agua2.0.PNG"
       }
     ]
   },
