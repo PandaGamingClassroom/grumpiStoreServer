@@ -266,82 +266,58 @@
     ],
     "energias": [
       {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/Agua2.0.PNG"
+      },
+      {
         "id": 2,
-        "nombre": "Energía Fuego",
-        "tipo": "Fuego",
-        "imagen": "../../../../assets/energies/Fuego2.0.PNG"
+        "nombre": "Energía Aire",
+        "tipo": "Aire",
+        "imagen": "../../../../assets/energies/Aire2.0.PNG"
       },
       {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/Agua2.0.PNG"
+        "id": 2,
+        "nombre": "Energía Aire",
+        "tipo": "Aire",
+        "imagen": "../../../../assets/energies/Aire2.0.PNG"
       },
       {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/Agua2.0.PNG"
+        "id": 2,
+        "nombre": "Energía Aire",
+        "tipo": "Aire",
+        "imagen": "../../../../assets/energies/Aire2.0.PNG"
       },
       {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/Agua2.0.PNG"
+        "id": 4,
+        "nombre": "Energía Luz",
+        "tipo": "Luz",
+        "imagen": "../../../../assets/energies/Luz2.0.PNG"
       },
       {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/Agua2.0.PNG"
+        "id": 4,
+        "nombre": "Energía Luz",
+        "tipo": "Luz",
+        "imagen": "../../../../assets/energies/Luz2.0.PNG"
       },
       {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/Agua2.0.PNG"
+        "id": 4,
+        "nombre": "Energía Luz",
+        "tipo": "Luz",
+        "imagen": "../../../../assets/energies/Luz2.0.PNG"
       },
       {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/Agua2.0.PNG"
+        "id": 4,
+        "nombre": "Energía Luz",
+        "tipo": "Luz",
+        "imagen": "../../../../assets/energies/Luz2.0.PNG"
       },
       {
-        "id": 3,
-        "nombre": "Energía Fuego",
-        "tipo": "Fuego",
-        "imagen": "../../../../assets/energies/Fuego2.0.PNG"
-      },
-      {
-        "id": 3,
-        "nombre": "Energía Fuego",
-        "tipo": "Fuego",
-        "imagen": "../../../../assets/energies/Fuego2.0.PNG"
-      },
-      {
-        "id": 3,
-        "nombre": "Energía Fuego",
-        "tipo": "Fuego",
-        "imagen": "../../../../assets/energies/Fuego2.0.PNG"
-      },
-      {
-        "id": 3,
-        "nombre": "Energía Fuego",
-        "tipo": "Fuego",
-        "imagen": "../../../../assets/energies/Fuego2.0.PNG"
-      },
-      {
-        "id": 3,
-        "nombre": "Energía Fuego",
-        "tipo": "Fuego",
-        "imagen": "../../../../assets/energies/Fuego2.0.PNG"
-      },
-      {
-        "id": 9,
-        "nombre": "Energía Vida",
-        "tipo": "Vida",
-        "imagen": "../../../../assets/energies/Vida2.0.PNG"
+        "id": 5,
+        "nombre": "Energía Normal",
+        "tipo": "Normal",
+        "imagen": "../../../../assets/energies/Normal2.0.PNG"
       }
     ],
     "objetos_combate": [
@@ -387,7 +363,37 @@
         "precio": 5
       }
     ],
-    "recompensas": []
+    "recompensas": [
+      {
+        "id": 1,
+        "nombre": "Recompensa 1",
+        "img": "http://localhost:3000/uploads/rewards/RECOMPENSA_1.1.png",
+        "condicion": "20",
+        "uso": ""
+      },
+      {
+        "id": 1,
+        "nombre": "Recompensa 1",
+        "img": "http://localhost:3000/uploads/rewards/RECOMPENSA_1.1.png",
+        "condicion": "20",
+        "uso": ""
+      },
+      {
+        "id": 1,
+        "nombre": "Recompensa 1",
+        "img": "http://localhost:3000/uploads/rewards/RECOMPENSA_1.1.png",
+        "condicion": "20",
+        "uso": ""
+      },
+      {
+        "id": 1,
+        "nombre": "Recompensa 1",
+        "img": "http://localhost:3000/uploads/rewards/RECOMPENSA_1.1.png",
+        "condicion": "20",
+        "uso": ""
+      }
+    ],
+    "energies": []
   },
   {
     "name": "Nuevo",
@@ -405,7 +411,8 @@
     "objetos_evolutivos": [],
     "marca_combate": "4",
     "grumpidolar": "4",
-    "recompensas": []
+    "recompensas": [],
+    "energies": []
   },
   {
     "name": "Pablo",
@@ -417,7 +424,8 @@
     "objetos_combate": [],
     "objetos_evolutivos": [],
     "marca_combate": 0,
-    "recompensas": []
+    "recompensas": [],
+    "energies": []
   },
   {
     "name": "Josete",
@@ -499,7 +507,8 @@
         "tipo": "Agua",
         "imagen": "../../../../assets/energies/Agua2.0.PNG"
       }
-    ]
+    ],
+    "energies": []
   },
   {
     "name": "Manuela",
@@ -511,6 +520,7 @@
     "objetos_combate": [],
     "objetos_evolutivos": [],
     "marca_combate": 0,
-    "recompensas": []
+    "recompensas": [],
+    "energies": []
   }
 ]

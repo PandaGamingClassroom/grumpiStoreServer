@@ -161,7 +161,7 @@ db.close((err) => {
   if (err) {
     return console.error(err.message);
   }
-  console.log('Cerrado la conexión con la base de datos.');
+  console.log("Cerrado la conexión con la base de datos.");
 });
 
 // Ejemplo de inserción de datos
@@ -743,9 +743,7 @@ app.get("/getGrumpis", (req, res) => {
     if (err) {
       // Manejar el error si no se puede leer el archivo
       console.error("Error al leer el archivo grumpis.json:", err);
-      res
-        .status(500)
-        .json({ error: "Error al leer el archivo grumpis.json" });
+      res.status(500).json({ error: "Error al leer el archivo grumpis.json" });
     } else {
       try {
         // Parsea el contenido del archivo JSON a un objeto JavaScript
@@ -1273,9 +1271,9 @@ app.post("/assign-combatMarks", (req, res) => {
  ******************************************/
 
 /**
- * 
+ *
  *  GESTIÓN DE PROFESORES
- * 
+ *
  */
 let profesoresList = [];
 let idDelProfe = 1; // Inicialmente, el ID empieza en 1
@@ -1342,9 +1340,9 @@ const readJsonFile = (filePathAmin) => {
   });
 };
 /**
- * 
- *  OBTENER UN PROFESOR POR SU NOMBRE 
- * 
+ *
+ *  OBTENER UN PROFESOR POR SU NOMBRE
+ *
  */
 app.get("/profesor/:nombre", (req, res) => {
   const nombre = req.params.nombre;
@@ -1409,39 +1407,50 @@ app.get("/profesor/:id", async (req, res) => {
 });
 
 // Endpoint para obtener la lista de entrenadores de un profesor por su ID
-app.get('/profesor/:id/entrenadores', async (req, res) => {
+app.get("/profesor/:id/entrenadores", async (req, res) => {
   const profesorId = parseInt(req.params.id);
 
   try {
     const entrenadores = await readJsonFile(filePath);
-    const entrenadoresAsignados = entrenadores.filter(t => t.id_profesor === profesorId);
+    const entrenadoresAsignados = entrenadores.filter(
+      (t) => t.id_profesor === profesorId
+    );
 
     if (entrenadoresAsignados.length === 0) {
-      return res.status(404).json({ success: false, message: "No se encontraron entrenadores para el profesor indicado" });
+      return res
+        .status(404)
+        .json({
+          success: false,
+          message: "No se encontraron entrenadores para el profesor indicado",
+        });
     }
 
     res.json({ success: true, data: entrenadoresAsignados });
   } catch (err) {
-    res.status(500).json({ success: false, error: "Error interno del servidor" });
+    res
+      .status(500)
+      .json({ success: false, error: "Error interno del servidor" });
   }
 });
 
 // Agregar un nuevo profesor
-app.post('/profesores', (req, res) => {
+app.post("/profesores", (req, res) => {
   const nuevoProfesor = req.body;
 
-  fs.readFile(filePath, 'utf8', (err, data) => {
+  fs.readFile(filePath, "utf8", (err, data) => {
     if (err) {
-      return res.status(500).json({ error: 'Error al leer el archivo' });
+      return res.status(500).json({ error: "Error al leer el archivo" });
     }
-    
+
     const adminData = JSON.parse(data);
-    nuevoProfesor.id = adminData.profesores.length ? adminData.profesores[adminData.profesores.length - 1].id + 1 : 1;
+    nuevoProfesor.id = adminData.profesores.length
+      ? adminData.profesores[adminData.profesores.length - 1].id + 1
+      : 1;
     adminData.profesores.push(nuevoProfesor);
 
     fs.writeFile(filePath, JSON.stringify(adminData, null, 2), (err) => {
       if (err) {
-        return res.status(500).json({ error: 'Error al escribir el archivo' });
+        return res.status(500).json({ error: "Error al escribir el archivo" });
       }
 
       res.status(201).json(nuevoProfesor);
@@ -1450,27 +1459,27 @@ app.post('/profesores', (req, res) => {
 });
 
 // Agregar entrenadores a un profesor existente
-app.post('/profesores/:id/entrenadores', (req, res) => {
+app.post("/profesores/:id/entrenadores", (req, res) => {
   const profesorId = parseInt(req.params.id);
   const nuevosEntrenadores = req.body.entrenadores;
 
-  fs.readFile(filePath, 'utf8', (err, data) => {
+  fs.readFile(filePath, "utf8", (err, data) => {
     if (err) {
-      return res.status(500).json({ error: 'Error al leer el archivo' });
+      return res.status(500).json({ error: "Error al leer el archivo" });
     }
 
     const adminData = JSON.parse(data);
-    const profesor = adminData.profesores.find(p => p.id === profesorId);
+    const profesor = adminData.profesores.find((p) => p.id === profesorId);
 
     if (!profesor) {
-      return res.status(404).json({ error: 'Profesor no encontrado' });
+      return res.status(404).json({ error: "Profesor no encontrado" });
     }
 
     profesor.entrenadores = profesor.entrenadores.concat(nuevosEntrenadores);
 
     fs.writeFile(filePath, JSON.stringify(adminData, null, 2), (err) => {
       if (err) {
-        return res.status(500).json({ error: 'Error al escribir el archivo' });
+        return res.status(500).json({ error: "Error al escribir el archivo" });
       }
 
       res.status(200).json(profesor);
@@ -1479,11 +1488,10 @@ app.post('/profesores/:id/entrenadores', (req, res) => {
 });
 
 /**
- * 
+ *
  * FIN DE GESTIÓN DE PROFESORES
- * 
+ *
  */
-
 
 /***************************************************************
  *                                                              *
@@ -1502,9 +1510,7 @@ app.get("/getRewards", (req, res) => {
     if (err) {
       // Manejar el error si no se puede leer el archivo
       console.error("Error al leer el archivo rewards.json:", err);
-      res
-        .status(500)
-        .json({ error: "Error al leer el archivo rewards.json" });
+      res.status(500).json({ error: "Error al leer el archivo rewards.json" });
     } else {
       try {
         // Parsea el contenido del archivo JSON a un objeto JavaScript
@@ -1526,10 +1532,12 @@ app.get("/getRewards", (req, res) => {
 try {
   const data = fs.readFileSync(filePath, "utf8");
   trainerData = JSON.parse(data);
-  // Inicializar la propiedad 'grumpis' si no está presente en cada objeto de entrenador
   trainerData.forEach((trainer) => {
     if (!trainer.recompensas) {
       trainer.recompensas = [];
+    }
+    if (!trainer.energies) {
+      trainer.energies = [];
     }
   });
   console.log("Datos de entrenadores cargados correctamente:", trainerData);
@@ -1537,15 +1545,36 @@ try {
   console.error("Error al leer el archivo de entrenadores:", err);
 }
 
+function saveTrainerData() {
+  fs.writeFileSync(filePath, JSON.stringify(trainerData, null, 2), "utf8");
+}
+
 function assignRewardToTrainer(trainerName, reward) {
-  // Aquí iría tu lógica para asignar la criatura al entrenador
-  // Buscar el entrenador por nombre y actualizar sus datos en memoria
   const trainer = trainerData.find((trainer) => trainer.name === trainerName);
   if (trainer) {
-    // Aquí actualizarías los datos del entrenador con la nueva criatura asignada
-    trainer.recompensas.push(reward); // Por ejemplo, asumiendo que tienes una propiedad 'grumpis' en tu objeto de entrenador
-    saveTrainerData(); // Guardar los cambios en el archivo JSON
-    return Promise.resolve("Criatura asignada correctamente al entrenador.");
+    trainer.recompensas.push(reward);
+    saveTrainerData();
+    return Promise.resolve("Recompensa asignada correctamente al entrenador.");
+  } else {
+    return Promise.reject(
+      `Entrenador con nombre ${trainerName} no encontrado.`
+    );
+  }
+}
+
+function spendEnergies(trainerName, energiesToSpend) {
+  const trainer = trainerData.find((trainer) => trainer.name === trainerName);
+  if (trainer) {
+    energiesToSpend.forEach((energyToSpend) => {
+      const index = trainer.energias.findIndex(
+        (energy) => energy.tipo === energyToSpend.type
+      );
+      if (index !== -1) {
+        trainer.energias.splice(index, energyToSpend.quantity);
+      }
+    });
+    saveTrainerData();
+    return Promise.resolve("Energías gastadas correctamente.");
   } else {
     return Promise.reject(
       `Entrenador con nombre ${trainerName} no encontrado.`
@@ -1556,19 +1585,30 @@ function assignRewardToTrainer(trainerName, reward) {
 app.post("/assign-rewards", (req, res) => {
   const { trainerName, reward } = req.body;
   console.log("Datos de la solicitud:", req.body);
-  // Llamada a la función para asignar la criatura al entrenador
   assignRewardToTrainer(trainerName, reward)
     .then((message) => {
-      res.status(200).json({ message: message }); // Enviar el mensaje como parte de un objeto JSON
+      res.status(200).json({ message: message });
     })
     .catch((error) => {
       console.error("Error al asignar la recompensa:", error);
       res.status(500).json({
-        error: "Error al asignar la recompensa al entrenador: " + error.message,
-      }); // Enviar el mensaje de error como parte de un objeto JSON
+        error: "Error al asignar la recompensa al entrenador: " + error,
+      });
     });
 });
 
+app.post("/spend-energies", (req, res) => {
+  const { trainerName, energiesToSpend } = req.body;
+  console.log("Datos de la solicitud:", req.body);
+  spendEnergies(trainerName, energiesToSpend)
+    .then((message) => {
+      res.status(200).json({ message: message });
+    })
+    .catch((error) => {
+      console.error("Error al gastar energías:", error);
+      res.status(500).json({ error: "Error al gastar energías: " + error });
+    });
+});
 
 /***************************************************************
  *                                                              *
@@ -1599,7 +1639,6 @@ app.get("/getEncargados", (req, res) => {
   });
 });
 
-
 /***************************************************************
  *                                                              *
  *                                                              *
@@ -1628,10 +1667,6 @@ app.get("/getLeagueBadges", (req, res) => {
     res.json({ imageUrls });
   });
 });
-
-
-
-
 
 app.listen(port, () => {
   console.log(`Servidor GrumpiStore, iniciado en el puerto: ${port}`);
