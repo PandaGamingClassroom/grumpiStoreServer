@@ -14,16 +14,8 @@
         "img": "http://localhost:3000/uploads/grumpis/001.1.png",
         "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
         "ataques": [
-          {
-            "nombre": "Placaje",
-            "efecto": "10",
-            "tipo": "Normal"
-          },
-          {
-            "nombre": "Espora seta",
-            "efecto": "30",
-            "tipo": "Vida"
-          }
+          { "nombre": "Placaje", "efecto": "10", "tipo": "Normal" },
+          { "nombre": "Espora seta", "efecto": "30", "tipo": "Vida" }
         ],
         "tipo": "Vida"
       },
@@ -40,11 +32,7 @@
             "efecto": "Anula un ataque. Ataca en primer lugar siguiente turno.",
             "tipo": "Normal"
           },
-          {
-            "nombre": "Rodar",
-            "efecto": "40",
-            "tipo": "Normal"
-          }
+          { "nombre": "Rodar", "efecto": "40", "tipo": "Normal" }
         ],
         "tipo": "Vida"
       },
@@ -61,11 +49,7 @@
             "efecto": "Ciega al enemigo durante un turno.",
             "tipo": "Normal"
           },
-          {
-            "nombre": "Tajo espora",
-            "efecto": "50",
-            "tipo": "Vida"
-          }
+          { "nombre": "Tajo espora", "efecto": "50", "tipo": "Vida" }
         ],
         "tipo": "Vida"
       },
@@ -77,15 +61,8 @@
         "img": "http://localhost:3000/uploads/grumpis/004.1.png",
         "descripcion": "FTiene forma de gota de agua. Estos grumpis nacen de las tormentas de verano. Son muy miedosos y difíciles de encontrar, ya que viven en lagos y no se les puede ver con facilidad.",
         "ataques": [
-          {
-            "nombre": "Salpicar",
-            "efecto": "10",
-            "tipo": "Agua"
-          },
-          {
-            "nombre": "Condensación",
-            "efecto": "Agua"
-          }
+          { "nombre": "Salpicar", "efecto": "10", "tipo": "Agua" },
+          { "nombre": "Condensación", "efecto": "Agua" }
         ],
         "tipo": "Agua"
       },
@@ -102,11 +79,7 @@
             "efecto": "20: Lanzar moneda: Cara paraliza, cruz, no hace nada",
             "tipo": "Rayo"
           },
-          {
-            "nombre": "Descarga",
-            "efecto": "40",
-            "tipo": "Rayo"
-          }
+          { "nombre": "Descarga", "efecto": "40", "tipo": "Rayo" }
         ],
         "tipo": "Rayo"
       },
@@ -118,11 +91,7 @@
         "img": "http://localhost:3000/uploads/grumpis/015.1.png",
         "descripcion": "Forma evolucionada de Duckin. Al evolucionar adopta una postura más señorial cambiando también su personalidad. Esta forma evolucionada ha aprendido a controlar su apetito.",
         "ataques": [
-          {
-            "nombre": "Vuelo",
-            "efecto": "40",
-            "tipo": "Aire"
-          },
+          { "nombre": "Vuelo", "efecto": "40", "tipo": "Aire" },
           {
             "nombre": "Rayo veneno",
             "efecto": "20 + Marca veneno (10x).",
@@ -139,16 +108,8 @@
         "img": "http://localhost:3000/uploads/grumpis/014.1.png",
         "descripcion": "Forma evolucionada de Cuacky. Ave de gran tamaño. Le encanta comer y si es tu compañero, intentará comer toda la comida que lleves encima.",
         "ataques": [
-          {
-            "nombre": "Trampa veneno",
-            "efecto": "20x",
-            "tipo": "Vida"
-          },
-          {
-            "nombre": "Engullir",
-            "efecto": "40",
-            "tipo": "Normal"
-          }
+          { "nombre": "Trampa veneno", "efecto": "20x", "tipo": "Vida" },
+          { "nombre": "Engullir", "efecto": "40", "tipo": "Normal" }
         ],
         "tipo": "Aire"
       },
@@ -160,16 +121,8 @@
         "img": "http://localhost:3000/uploads/grumpis/021.1.png",
         "descripcion": "Forma evolucionada de Shapegru tras la exposición a una Pluma Oscura. Simboliza la tristeza y maldad contenida en Shapegru hacia él mismo y los demás.",
         "ataques": [
-          {
-            "nombre": "Látigo de Hades",
-            "efecto": "80",
-            "tipo": "Oscuridad"
-          },
-          {
-            "nombre": "Portal oscuro",
-            "efecto": "100",
-            "tipo": "Oscuridad"
-          }
+          { "nombre": "Látigo de Hades", "efecto": "80", "tipo": "Oscuridad" },
+          { "nombre": "Portal oscuro", "efecto": "100", "tipo": "Oscuridad" }
         ],
         "tipo": "Oscuridad"
       },
@@ -181,16 +134,8 @@
         "img": "http://localhost:3000/uploads/grumpis/023.1.png",
         "descripcion": "Pequeño ser marino que habita en zonas gélidas. Cuando está a punto de evolucionar se mueve hacía aguas más cálidas. Es juguetón y travieso.",
         "ataques": [
-          {
-            "nombre": "Salpicar",
-            "efecto": "10",
-            "tipo": "Agua"
-          },
-          {
-            "nombre": "Nado rápido",
-            "efecto": "30",
-            "tipo": "Agua"
-          }
+          { "nombre": "Salpicar", "efecto": "10", "tipo": "Agua" },
+          { "nombre": "Nado rápido", "efecto": "30", "tipo": "Agua" }
         ],
         "tipo": "Agua"
       },
@@ -202,16 +147,8 @@
         "img": "http://localhost:3000/uploads/grumpis/025.1.png",
         "descripcion": "Ser adorable que vive junto a los seres humanos, llenándoles de amor y alegría.",
         "ataques": [
-          {
-            "nombre": "Arañazo",
-            "efecto": "30",
-            "tipo": "Normal"
-          },
-          {
-            "nombre": "Lametón",
-            "efecto": "50",
-            "tipo": "Oscuridad"
-          }
+          { "nombre": "Arañazo", "efecto": "30", "tipo": "Normal" },
+          { "nombre": "Lametón", "efecto": "50", "tipo": "Oscuridad" }
         ],
         "tipo": "Oscuridad"
       },
@@ -223,16 +160,8 @@
         "img": "http://localhost:3000/uploads/grumpis/027.1.png",
         "descripcion": "Forma evolucionada de Poisony. Tiene aspecto de dragón y su elemento estrella es el veneno. Su aliento es capaz de infectar todo un bosque.",
         "ataques": [
-          {
-            "nombre": "Trampa veneno",
-            "efecto": "20x",
-            "tipo": "Vida"
-          },
-          {
-            "nombre": "Drago-aliento",
-            "efecto": "80",
-            "tipo": "Oscuridad"
-          }
+          { "nombre": "Trampa veneno", "efecto": "20x", "tipo": "Vida" },
+          { "nombre": "Drago-aliento", "efecto": "80", "tipo": "Oscuridad" }
         ],
         "tipo": "Vida"
       },
@@ -244,16 +173,8 @@
         "img": "http://localhost:3000/uploads/grumpis/029.1.png",
         "descripcion": "Forma evolucionada de Eggtelio al exponerse a una Losa Agua. Su cuerpo adopta un color azul que recuerda al mismo mar.",
         "ataques": [
-          {
-            "nombre": "Placaje",
-            "efecto": "10",
-            "tipo": "Normal"
-          },
-          {
-            "nombre": "Escupe fuego",
-            "efecto": "50",
-            "tipo": "Fuego"
-          }
+          { "nombre": "Placaje", "efecto": "10", "tipo": "Normal" },
+          { "nombre": "Escupe fuego", "efecto": "50", "tipo": "Fuego" }
         ],
         "tipo": "Fuego"
       }
@@ -266,10 +187,130 @@
     ],
     "energias": [
       {
+        "id": 2,
+        "nombre": "Energía Fuego",
+        "tipo": "Fuego",
+        "imagen": "../../../../assets/energies/Fuego2.0.PNG"
+      },
+      {
         "id": 1,
         "nombre": "Energía Agua",
         "tipo": "Agua",
         "imagen": "../../../../assets/energies/Agua2.0.PNG"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/Agua2.0.PNG"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/Agua2.0.PNG"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/Agua2.0.PNG"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/Agua2.0.PNG"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/Agua2.0.PNG"
+      },
+      {
+        "id": 3,
+        "nombre": "Energía Fuego",
+        "tipo": "Fuego",
+        "imagen": "../../../../assets/energies/Fuego2.0.PNG"
+      },
+      {
+        "id": 3,
+        "nombre": "Energía Fuego",
+        "tipo": "Fuego",
+        "imagen": "../../../../assets/energies/Fuego2.0.PNG"
+      },
+      {
+        "id": 3,
+        "nombre": "Energía Fuego",
+        "tipo": "Fuego",
+        "imagen": "../../../../assets/energies/Fuego2.0.PNG"
+      },
+      {
+        "id": 3,
+        "nombre": "Energía Fuego",
+        "tipo": "Fuego",
+        "imagen": "../../../../assets/energies/Fuego2.0.PNG"
+      },
+      {
+        "id": 3,
+        "nombre": "Energía Fuego",
+        "tipo": "Fuego",
+        "imagen": "../../../../assets/energies/Fuego2.0.PNG"
+      },
+      {
+        "id": 9,
+        "nombre": "Energía Vida",
+        "tipo": "Vida",
+        "imagen": "../../../../assets/energies/Vida2.0.PNG"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/Agua2.0.PNG"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/Agua2.0.PNG"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/Agua2.0.PNG"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/Agua2.0.PNG"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/Agua2.0.PNG"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/Agua2.0.PNG"
+      },
+      {
+        "id": 2,
+        "nombre": "Energía Aire",
+        "tipo": "Aire",
+        "imagen": "../../../../assets/energies/Aire2.0.PNG"
+      },
+      {
+        "id": 2,
+        "nombre": "Energía Aire",
+        "tipo": "Aire",
+        "imagen": "../../../../assets/energies/Aire2.0.PNG"
       },
       {
         "id": 2,
@@ -384,16 +425,8 @@
         "img": "http://localhost:3000/uploads/rewards/RECOMPENSA_1.1.png",
         "condicion": "20",
         "uso": ""
-      },
-      {
-        "id": 1,
-        "nombre": "Recompensa 1",
-        "img": "http://localhost:3000/uploads/rewards/RECOMPENSA_1.1.png",
-        "condicion": "20",
-        "uso": ""
       }
-    ],
-    "energies": []
+    ]
   },
   {
     "name": "Nuevo",
@@ -411,8 +444,7 @@
     "objetos_evolutivos": [],
     "marca_combate": "4",
     "grumpidolar": "4",
-    "recompensas": [],
-    "energies": []
+    "recompensas": []
   },
   {
     "name": "Pablo",
@@ -473,16 +505,8 @@
         "img": "http://localhost:3000/uploads/grumpis/001.1.png",
         "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
         "ataques": [
-          {
-            "nombre": "Placaje",
-            "efecto": "10",
-            "tipo": "Normal"
-          },
-          {
-            "nombre": "Espora seta",
-            "efecto": "30",
-            "tipo": "Vida"
-          }
+          { "nombre": "Placaje", "efecto": "10", "tipo": "Normal" },
+          { "nombre": "Espora seta", "efecto": "30", "tipo": "Vida" }
         ],
         "tipo": "Vida"
       }
@@ -522,5 +546,6 @@
     "marca_combate": 0,
     "recompensas": [],
     "energies": []
-  }
+  },
+  { "name": "Abelardo", "password": "1111", "id": 6 }
 ]
