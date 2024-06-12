@@ -258,7 +258,7 @@
         "tipo": "Fuego"
       }
     ],
-    "grumpidolar": 98,
+    "grumpidolar": 88,
     "marca_combate": "4",
     "medallas": [
       "http://localhost:3000/uploads/medals/Medalla_Agua.1.png",
@@ -270,42 +270,6 @@
         "nombre": "Energía Fuego",
         "tipo": "Fuego",
         "imagen": "../../../../assets/energies/Fuego2.0.PNG"
-      },
-      {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/Agua2.0.PNG"
-      },
-      {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/Agua2.0.PNG"
-      },
-      {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/Agua2.0.PNG"
-      },
-      {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/Agua2.0.PNG"
-      },
-      {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/Agua2.0.PNG"
-      },
-      {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/Agua2.0.PNG"
       },
       {
         "id": 3,
@@ -495,9 +459,33 @@
         "nombre": "Despertador",
         "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
         "precio": 5
+      },
+      {
+        "nombre": "Desfibrilador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Desfibrilador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
       }
     ],
     "objetos_evolutivos": [
+      {
+        "id": 1,
+        "nombre": "Losa Agua",
+        "imagen": "http://localhost:3000/uploads/evoObjects/LOSA_AGUA.1.png",
+        "tipo": "agua",
+        "precio": 5
+      },
+      {
+        "id": 1,
+        "nombre": "Losa Agua",
+        "imagen": "http://localhost:3000/uploads/evoObjects/LOSA_AGUA.1.png",
+        "tipo": "agua",
+        "precio": 5
+      },
       {
         "id": 1,
         "nombre": "Losa Agua",
