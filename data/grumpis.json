@@ -611,8 +611,8 @@
     "id": 30,
     "trainer_id": 0,
     "nombre": "Flamebi",
-    "n_grumpidex": "029",
-    "img": "http://localhost:3000/uploads/grumpis/029.1.png",
+    "n_grumpidex": "030",
+    "img": "http://localhost:3000/uploads/grumpis/030.1.png",
     "descripcion": "Forma evolucionada de Eggtelio al exponerse a una Losa Agua. Su cuerpo adopta un color azul que recuerda al mismo mar.",
     "ataques": [
       {
@@ -623,6 +623,426 @@
       {
         "nombre": "Escupe fuego",
         "efecto": "50",
+        "tipo": "Fuego"
+      }
+    ],
+    "tipo": "Fuego"
+  },
+  {
+    "id": 31,
+    "trainer_id": 0,
+    "nombre": "Lightibi",
+    "n_grumpidex": "031",
+    "img": "http://localhost:3000/uploads/grumpis/031.1.png",
+    "descripcion": "Descripción: Forma evolucionada de Eggtelio al exponerse a una Losa Rayo. Tiene un plumaje que recuerda a los rayos en los días de tormenta. Está muy cargado de electricidad estática.",
+    "ataques": [
+      {
+        "nombre": "Picotazo",
+        "efecto": "20",
+        "tipo": "Aire"
+      },
+      {
+        "nombre": "Electricidad estática",
+        "efecto": "40",
+        "tipo": "Rayo"
+      }
+    ],
+    "tipo": "Rayo"
+  },
+  {
+    "id": 32,
+    "trainer_id": 0,
+    "nombre": "Dino",
+    "n_grumpidex": "032",
+    "img": "http://localhost:3000/uploads/grumpis/032.1.png",
+    "descripcion": "Simpático dinosaurio que vive en ríos y lagos. Le encanta nadar junto a los peces.",
+    "ataques": [
+      {
+        "nombre": "Placaje",
+        "efecto": "10",
+        "tipo": "Normal"
+      },
+      {
+        "nombre": "Nado rápido",
+        "efecto": "30",
+        "tipo": "Agua"
+      }
+    ],
+    "tipo": "Agua"
+  },
+  {
+    "id": 33,
+    "trainer_id": 0,
+    "nombre": "Superdino",
+    "n_grumpidex": "033",
+    "img": "http://localhost:3000/uploads/grumpis/033.1.png",
+    "descripcion": "Forma evolucionada de Dino. Al evolucionar le aparece un gran cuerno con forma de espada, se dice que es el acero más poderoso.",
+    "ataques": [
+      {
+        "nombre": "Espada letal",
+        "efecto": "40",
+        "tipo": "Tierra"
+      },
+      {
+        "nombre": "Surf",
+        "efecto": "70",
+        "tipo": "Agua"
+      }
+    ],
+    "tipo": "Agua"
+  },
+  {
+    "id": 34,
+    "trainer_id": 0,
+    "nombre": "Tokio",
+    "n_grumpidex": "034",
+    "img": "http://localhost:3000/uploads/grumpis/034.1.png",
+    "descripcion": "Gatita adorable y juguetona que engaña por su apariencia. Esconde un poder muy destructivo.",
+    "ataques": [
+      {
+        "nombre": "Tsunami",
+        "efecto": "70",
+        "tipo": "Agua"
+      },
+      {
+        "nombre": "Terremoto",
+        "efecto": "70",
+        "tipo": "Tierra"
+      }
+    ],
+    "tipo": "Normal"
+  },
+  {
+    "id": 35,
+    "trainer_id": 0,
+    "nombre": "Babektry",
+    "n_grumpidex": "035",
+    "img": "http://localhost:3000/uploads/grumpis/035.1.png",
+    "descripcion": "Grumpi de pequeño tamaño que es capaz de controlar los elementos del agua y del rayo. Por suerte, suele ser muy tranquilo y amigable.",
+    "ataques": [
+      {
+        "nombre": "Chispa",
+        "efecto": "10",
+        "tipo": "Rayo"
+      },
+      {
+        "nombre": "Nado rápido",
+        "efecto": "30",
+        "tipo": "Agua"
+      }
+    ],
+    "tipo": "Rayo"
+  },
+  {
+    "id": 36,
+    "trainer_id": 0,
+    "nombre": "Elektry",
+    "n_grumpidex": "036",
+    "img": "http://localhost:3000/uploads/grumpis/036.1.png",
+    "descripcion": "Forma evolucionada de Babektry. Esta pequeña criatura consigue su nueva forma de zorro eléctrico al aprender a combinar el poder del agua con la electricidad.",
+    "ataques": [
+      {
+        "nombre": "Condensación",
+        "efecto": "Se protege durante un turno de un ataque enemigo.",
+        "tipo": "Agua"
+      },
+      {
+        "nombre": "Rayo",
+        "efecto": "60",
+        "tipo": "Rayo"
+      }
+    ],
+    "tipo": "Rayo"
+  },
+  {
+    "id": 37,
+    "trainer_id": 0,
+    "nombre": "Gecko",
+    "n_grumpidex": "037",
+    "img": "http://localhost:3000/uploads/grumpis/037.1.png",
+    "descripcion": "Reptil con un tono verdoso que utiliza para camuflarse entre la vegetación. Cuando crece de algunas de sus escamas brotan algunas hojas.",
+    "ataques": [
+      {
+        "nombre": "Camuflaje",
+        "efecto": "Evita el siguiente ataque.",
+        "tipo": "Vida"
+      },
+      {
+        "nombre": "Rodar",
+        "efecto": "40",
+        "tipo": "Normal"
+      }
+    ],
+    "tipo": "Vida"
+  },
+  {
+    "id": 38,
+    "trainer_id": 0,
+    "nombre": "Gorgona",
+    "n_grumpidex": "038",
+    "img": "http://localhost:3000/uploads/grumpis/038.1.png",
+    "descripcion": "Forma evolucionada de Gecko. Este Grumpi aumenta bastante su tamaño al evolucionar adquiriendo una gran fuerza. En su espalda llegan a crecer unos grandes pinchos rojos cargados de veneno que utiliza para defenderse.",
+    "ataques": [
+      {
+        "nombre": "Absorber",
+        "efecto": "10 - Se cura 30ps",
+        "tipo": "Vida"
+      },
+      {
+        "nombre": "Trampa veneno",
+        "efecto": "20x",
+        "tipo": "Vida"
+      }
+    ],
+    "tipo": "Vida"
+  },
+  {
+    "id": 39,
+    "trainer_id": 0,
+    "nombre": "Thunderbolt",
+    "n_grumpidex": "039",
+    "img": "http://localhost:3000/uploads/grumpis/039.1.png",
+    "descripcion": "Grumpi que se utiliza como criatura de compañía. Se caracterizan por ser muy dóciles y protectores de sus compañeros humanos.",
+    "ataques": [
+      {
+        "nombre": "Ladrido",
+        "efecto": "Paraliza al objetivo",
+        "tipo": "Oscuridad"
+      },
+      {
+        "nombre": "Mordisco rayo",
+        "efecto": "30",
+        "tipo": "Rayo"
+      }
+    ],
+    "tipo": "Rayo"
+  },
+  {
+    "id": 40,
+    "trainer_id": 0,
+    "nombre": "Thunderfly",
+    "n_grumpidex": "040",
+    "img": "http://localhost:3000/uploads/grumpis/040.1.png",
+    "descripcion": "Forma evolucionada de Thunderbolt. Al evolucionar desarrolla unas grandes alas que le permiten volar y captar mejor la electricidad del ambiente.",
+    "ataques": [
+      {
+        "nombre": "Aleteo",
+        "efecto": "Confunde al enemigo. Potencia +20 su próximo ataque eléctrico.",
+        "tipo": "Aire"
+      },
+      {
+        "nombre": "Placaje eléctrico",
+        "efecto": "20",
+        "tipo": "Rayo"
+      }
+    ],
+    "tipo": "Rayo"
+  },
+  {
+    "id": 41,
+    "trainer_id": 0,
+    "nombre": "Flybolt",
+    "n_grumpidex": "041",
+    "img": "http://localhost:3000/uploads/grumpis/041.1.png",
+    "descripcion": "Forma evolucionada de Thunderfly. Algunas historias dicen que más que una evolución es una fusión entre sus predecesores, de ahí su nombre.",
+    "ataques": [
+      {
+        "nombre": "Pesadilla",
+        "efecto": "40 y confunde al objetivo",
+        "tipo": "Oscuridad"
+      },
+      {
+        "nombre": "Giga-rayo",
+        "efecto": "70",
+        "tipo": "Rayo"
+      }
+    ],
+    "tipo": "Rayo"
+  },
+  {
+    "id": 42,
+    "trainer_id": 0,
+    "nombre": "Seed",
+    "n_grumpidex": "042",
+    "img": "http://localhost:3000/uploads/grumpis/042.1.png",
+    "descripcion": "Es familiar de los puercoespín, sin embargo, en lugar de crear gran cantidad de púas,este Grumpi se cubre de hojas por todo el cuerpo.",
+    "ataques": [
+      {
+        "nombre": "Giga-hoja",
+        "efecto": "40",
+        "tipo": "Vida"
+      },
+      {
+        "nombre": "Excavar",
+        "efecto": "60",
+        "tipo": "Tierra"
+      }
+    ],
+    "tipo": "Vida"
+  },
+  {
+    "id": 43,
+    "trainer_id": 0,
+    "nombre": "Groundbro",
+    "n_grumpidex": "043",
+    "img": "http://localhost:3000/uploads/grumpis/043.1.png",
+    "descripcion": "Es bastante difícil de ver, ya que este vive casi siempre bajo tierra y pocas veces se le ve en la superficie.",
+    "ataques": [
+      {
+        "nombre": "Escudo negro",
+        "efecto": "Gana un turno extra.",
+        "tipo": "Oscuridad"
+      },
+      {
+        "nombre": "Terremoto",
+        "efecto": "70",
+        "tipo": "Tierra"
+      }
+    ],
+    "tipo": "Tierra"
+  },
+  {
+    "id": 44,
+    "trainer_id": 0,
+    "nombre": "Blacky",
+    "n_grumpidex": "044",
+    "img": "http://localhost:3000/uploads/grumpis/044.1.png",
+    "descripcion": "Pequeño reptil creado de la oscuridad. A pesar de su apariencia, no es nada agresivo.",
+    "ataques": [
+      {
+        "nombre": "Placaje",
+        "efecto": "10.",
+        "tipo": "Normal"
+      },
+      {
+        "nombre": "Apagón",
+        "efecto": "30",
+        "tipo": "Oscuridad"
+      }
+    ],
+    "tipo": "Oscuridad"
+  },
+  {
+    "id": 45,
+    "trainer_id": 0,
+    "nombre": "Bicelph",
+    "n_grumpidex": "045",
+    "img": "http://localhost:3000/uploads/grumpis/045.1.png",
+    "descripcion": "Forma evolucionada de Blacky. Posee dos cabezas que le permiten atacar por el frente y por la espalda, lo que le hace ser un ser muy cauto e inteligente.",
+    "ataques": [
+      {
+        "nombre": "Mordisco",
+        "efecto": "30.",
+        "tipo": "Normal"
+      },
+      {
+        "nombre": "Drago-aliento",
+        "efecto": "80",
+        "tipo": "Oscuridad"
+      }
+    ],
+    "tipo": "Oscuridad"
+  },
+  {
+    "id": 46,
+    "trainer_id": 0,
+    "nombre": "Bliko",
+    "n_grumpidex": "046",
+    "img": "http://localhost:3000/uploads/grumpis/046.1.png",
+    "descripcion": "Grumpi misterioso del que se sabe muy poco. Se cree que su existencia está relacionada con los seres celestiales.",
+    "ataques": [
+      {
+        "nombre": "Placaje",
+        "efecto": "10.",
+        "tipo": "Normal"
+      },
+      {
+        "nombre": "Destello",
+        "efecto": "20 + ceguera",
+        "tipo": "Luz"
+      }
+    ],
+    "tipo": "Luz"
+  },
+  {
+    "id": 47,
+    "trainer_id": 0,
+    "nombre": "Blikonix",
+    "n_grumpidex": "047",
+    "img": "http://localhost:3000/uploads/grumpis/047.1.png",
+    "descripcion": "Forma evolucionada de Bliko. Tiene un cuerpo cubierto por un metal muy poderoso que le permite reflejar y controlar la luz a su antojo.",
+    "ataques": [
+      {
+        "nombre": "Destello",
+        "efecto": "20 + ceguera",
+        "tipo": "Luz"
+      },
+      {
+        "nombre": "Vuelo",
+        "efecto": "40",
+        "tipo": "Aire"
+      }
+    ],
+    "tipo": "Luz"
+  },
+  {
+    "id": 48,
+    "trainer_id": 0,
+    "nombre": "Megalix",
+    "n_grumpidex": "048",
+    "img": "http://localhost:3000/uploads/grumpis/048.1.png",
+    "descripcion": "Forma evolucionada de Blikonix. Al evolucionar adopta una postura erguida que le permite usar las extremidades superiores para portar espadas de luz",
+    "ataques": [
+      {
+        "nombre": "Haz de luz",
+        "efecto": "50",
+        "tipo": "Luz"
+      },
+      {
+        "nombre": "Espada santa",
+        "efecto": "80",
+        "tipo": "Luz"
+      }
+    ],
+    "tipo": "Luz"
+  },
+  {
+    "id": 49,
+    "trainer_id": 0,
+    "nombre": "Tortulio",
+    "n_grumpidex": "049",
+    "img": "http://localhost:3000/uploads/grumpis/049.1.png",
+    "descripcion": "A pesar de su apariencia azul que se podría realccionar con el agua, este Grumpi, es capaz de dominar las llamas de fuego de color azul, o fuego fatuo.",
+    "ataques": [
+      {
+        "nombre": "Arañazo",
+        "efecto": "30",
+        "tipo": "Normal"
+      },
+      {
+        "nombre": "Fuego fatuo",
+        "efecto": "Quema al objetivo",
+        "tipo": "Fuego"
+      }
+    ],
+    "tipo": "Fuego"
+  },
+  {
+    "id": 50,
+    "trainer_id": 0,
+    "nombre": "Tortumax",
+    "n_grumpidex": "050",
+    "img": "http://localhost:3000/uploads/grumpis/050.1.png",
+    "descripcion": "Forma evolucionada de Tortulio. Tiene la capacidad de lanzar llamas con gran potencia por su boca.",
+    "ataques": [
+      {
+        "nombre": "Colmillo ígneo",
+        "efecto": "30",
+        "tipo": "Fuego"
+      },
+      {
+        "nombre": "Lanzallamas",
+        "efecto": "60",
         "tipo": "Fuego"
       }
     ],
