@@ -895,6 +895,42 @@ app.post("/assign-energie", (req, res) => {
         .json({ error: "Error al asignar la energía al entrenador: " + error });
     });
 });
+
+
+function buyEnergiesToTrainer(trainerName, energy) {
+  return new Promise((resolve, reject) => {
+    // Buscar el entrenador por nombre y actualizar sus datos en memoria
+    const trainer = trainerData.find((trainer) => trainer.name === trainerName);
+    if (trainer) {
+      console.log("Datos del entrenador: ", trainer);
+      console.log("Energia a comprar por el entrenador: ", energy);
+      trainer.energias.push(energy); // Asumiendo que tienes una propiedad 'objetos_combate' en tu objeto de entrenador
+      saveTrainerData(); // Guardar los cambios en el archivo JSON
+      resolve("Energía comprada asignada correctamente al entrenador.");
+    } else {
+      reject(new Error(`Entrenador con nombre ${trainerName} no encontrado.`));
+    }
+  });
+}
+
+
+app.post("/buyEnergies", (req, res) => {
+  const { trainerName, energy } = req.body;
+  console.log("Datos de la solicitud:", req.body);
+  // Llamada a la función para asignar el objeto de combate al entrenador
+  buyEnergiesToTrainer(trainerName, energy)
+    .then((message) => {
+      res.status(200).json({ message: message }); // Enviar el mensaje como parte de un objeto JSON
+    })
+    .catch((error) => {
+      console.error("Error al realizar la compra de energías:", error);
+      res.status(500).json({
+        error:
+          "Error al realizar la compra de energías por el entrenador: " +
+          error.message,
+      }); // Enviar el mensaje de error como parte de un objeto JSON
+    });
+});
 /******************************************
  *
  * FIN ASIGNAR LAS ENERGÍAS
