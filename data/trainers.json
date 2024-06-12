@@ -258,7 +258,7 @@
         "tipo": "Fuego"
       }
     ],
-    "grumpidolar": 108,
+    "grumpidolar": 98,
     "marca_combate": "4",
     "medallas": [
       "http://localhost:3000/uploads/medals/Medalla_Agua.1.png",
@@ -438,6 +438,30 @@
         "nombre": "Energía Normal",
         "tipo": "Normal",
         "imagen": "../../../../assets/energies/Normal2.0.PNG"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/Agua2.0.PNG"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/Agua2.0.PNG"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/Agua2.0.PNG"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/Agua2.0.PNG"
       },
       {
         "id": 1,
