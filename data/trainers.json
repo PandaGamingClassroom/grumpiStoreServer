@@ -258,7 +258,7 @@
         "tipo": "Fuego"
       }
     ],
-    "grumpidolar": 88,
+    "grumpidolar": 73,
     "marca_combate": "4",
     "medallas": [
       "http://localhost:3000/uploads/medals/Medalla_Agua.1.png",
@@ -266,124 +266,10 @@
     ],
     "energias": [
       {
-        "id": 2,
-        "nombre": "Energía Fuego",
-        "tipo": "Fuego",
-        "imagen": "../../../../assets/energies/Fuego2.0.PNG"
-      },
-      {
-        "id": 3,
-        "nombre": "Energía Fuego",
-        "tipo": "Fuego",
-        "imagen": "../../../../assets/energies/Fuego2.0.PNG"
-      },
-      {
-        "id": 3,
-        "nombre": "Energía Fuego",
-        "tipo": "Fuego",
-        "imagen": "../../../../assets/energies/Fuego2.0.PNG"
-      },
-      {
-        "id": 3,
-        "nombre": "Energía Fuego",
-        "tipo": "Fuego",
-        "imagen": "../../../../assets/energies/Fuego2.0.PNG"
-      },
-      {
-        "id": 3,
-        "nombre": "Energía Fuego",
-        "tipo": "Fuego",
-        "imagen": "../../../../assets/energies/Fuego2.0.PNG"
-      },
-      {
-        "id": 3,
-        "nombre": "Energía Fuego",
-        "tipo": "Fuego",
-        "imagen": "../../../../assets/energies/Fuego2.0.PNG"
-      },
-      {
         "id": 9,
         "nombre": "Energía Vida",
         "tipo": "Vida",
         "imagen": "../../../../assets/energies/Vida2.0.PNG"
-      },
-      {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/Agua2.0.PNG"
-      },
-      {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/Agua2.0.PNG"
-      },
-      {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/Agua2.0.PNG"
-      },
-      {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/Agua2.0.PNG"
-      },
-      {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/Agua2.0.PNG"
-      },
-      {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/Agua2.0.PNG"
-      },
-      {
-        "id": 2,
-        "nombre": "Energía Aire",
-        "tipo": "Aire",
-        "imagen": "../../../../assets/energies/Aire2.0.PNG"
-      },
-      {
-        "id": 2,
-        "nombre": "Energía Aire",
-        "tipo": "Aire",
-        "imagen": "../../../../assets/energies/Aire2.0.PNG"
-      },
-      {
-        "id": 2,
-        "nombre": "Energía Aire",
-        "tipo": "Aire",
-        "imagen": "../../../../assets/energies/Aire2.0.PNG"
-      },
-      {
-        "id": 2,
-        "nombre": "Energía Aire",
-        "tipo": "Aire",
-        "imagen": "../../../../assets/energies/Aire2.0.PNG"
-      },
-      {
-        "id": 2,
-        "nombre": "Energía Aire",
-        "tipo": "Aire",
-        "imagen": "../../../../assets/energies/Aire2.0.PNG"
-      },
-      {
-        "id": 4,
-        "nombre": "Energía Luz",
-        "tipo": "Luz",
-        "imagen": "../../../../assets/energies/Luz2.0.PNG"
-      },
-      {
-        "id": 4,
-        "nombre": "Energía Luz",
-        "tipo": "Luz",
-        "imagen": "../../../../assets/energies/Luz2.0.PNG"
       },
       {
         "id": 4,
@@ -402,6 +288,12 @@
         "nombre": "Energía Normal",
         "tipo": "Normal",
         "imagen": "../../../../assets/energies/Normal2.0.PNG"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/Agua2.0.PNG"
       },
       {
         "id": 1,
@@ -469,6 +361,11 @@
         "nombre": "Despertador",
         "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
         "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
       }
     ],
     "objetos_evolutivos": [
@@ -502,6 +399,13 @@
       }
     ],
     "recompensas": [
+      {
+        "id": 1,
+        "nombre": "Recompensa 1",
+        "img": "http://localhost:3000/uploads/rewards/RECOMPENSA_1.1.png",
+        "condicion": "20",
+        "uso": ""
+      },
       {
         "id": 1,
         "nombre": "Recompensa 1",
@@ -659,6 +563,43 @@
     "password": "1111",
     "id": 6,
     "recompensas": [],
-    "energies": []
+    "energies": [],
+    "grumpis": [
+      {
+        "id": 31,
+        "trainer_id": 0,
+        "nombre": "Lightibi",
+        "n_grumpidex": "031",
+        "img": "http://localhost:3000/uploads/grumpis/031.1.png",
+        "descripcion": "Descripción: Forma evolucionada de Eggtelio al exponerse a una Losa Rayo. Tiene un plumaje que recuerda a los rayos en los días de tormenta. Está muy cargado de electricidad estática.",
+        "ataques": [
+          {
+            "nombre": "Picotazo",
+            "efecto": "20",
+            "tipo": "Aire"
+          },
+          {
+            "nombre": "Electricidad estática",
+            "efecto": "40",
+            "tipo": "Rayo"
+          }
+        ],
+        "tipo": "Rayo"
+      }
+    ],
+    "energias": [
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/Agua2.0.PNG"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/Agua2.0.PNG"
+      }
+    ]
   }
 ]
