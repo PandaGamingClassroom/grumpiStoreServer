@@ -265,66 +265,7 @@
       "http://localhost:3000/uploads/medals/Medalla_fuego.1.png"
     ],
     "energias": [
-      {
-        "id": 9,
-        "nombre": "Energía Vida",
-        "tipo": "Vida",
-        "imagen": "../../../../assets/energies/Vida2.0.PNG"
-      },
-      {
-        "id": 4,
-        "nombre": "Energía Luz",
-        "tipo": "Luz",
-        "imagen": "../../../../assets/energies/Luz2.0.PNG"
-      },
-      {
-        "id": 4,
-        "nombre": "Energía Luz",
-        "tipo": "Luz",
-        "imagen": "../../../../assets/energies/Luz2.0.PNG"
-      },
-      {
-        "id": 5,
-        "nombre": "Energía Normal",
-        "tipo": "Normal",
-        "imagen": "../../../../assets/energies/Normal2.0.PNG"
-      },
-      {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/Agua2.0.PNG"
-      },
-      {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/Agua2.0.PNG"
-      },
-      {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/Agua2.0.PNG"
-      },
-      {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/Agua2.0.PNG"
-      },
-      {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/Agua2.0.PNG"
-      },
-      {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/Agua2.0.PNG"
-      }
+  
     ],
     "objetos_combate": [
       {
@@ -524,24 +465,7 @@
     ],
     "grumpidolar": 0,
     "energias": [
-      {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/Agua2.0.PNG"
-      },
-      {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/Agua2.0.PNG"
-      },
-      {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/Agua2.0.PNG"
-      }
+
     ],
     "energies": []
   },
@@ -588,18 +512,7 @@
       }
     ],
     "energias": [
-      {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/Agua2.0.PNG"
-      },
-      {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/Agua2.0.PNG"
-      }
+   
     ]
   }
 ]
