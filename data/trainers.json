@@ -265,7 +265,78 @@
       "http://localhost:3000/uploads/medals/Medalla_fuego.1.png"
     ],
     "energias": [
-  
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 2,
+        "nombre": "Energía Aire",
+        "tipo": "Aire",
+        "imagen": "../../../../assets/energies/ENERGIA_AIRE.1.png"
+      },
+      {
+        "id": 6,
+        "nombre": "Energía Oscuridad",
+        "tipo": "Oscuridad",
+        "imagen": "../../../../assets/energies/ENERGIA_OSCURIDAD.1.png"
+      },
+      {
+        "id": 6,
+        "nombre": "Energía Oscuridad",
+        "tipo": "Oscuridad",
+        "imagen": "../../../../assets/energies/ENERGIA_OSCURIDAD.1.png"
+      },
+      {
+        "id": 6,
+        "nombre": "Energía Oscuridad",
+        "tipo": "Oscuridad",
+        "imagen": "../../../../assets/energies/ENERGIA_OSCURIDAD.1.png"
+      },
+      {
+        "id": 6,
+        "nombre": "Energía Oscuridad",
+        "tipo": "Oscuridad",
+        "imagen": "../../../../assets/energies/ENERGIA_OSCURIDAD.1.png"
+      }
     ],
     "objetos_combate": [
       {
@@ -464,9 +535,7 @@
       }
     ],
     "grumpidolar": 0,
-    "energias": [
-
-    ],
+    "energias": [],
     "energies": []
   },
   {
@@ -511,8 +580,6 @@
         "tipo": "Rayo"
       }
     ],
-    "energias": [
-   
-    ]
+    "energias": []
   }
 ]
