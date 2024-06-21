@@ -258,43 +258,13 @@
         "tipo": "Fuego"
       }
     ],
-    "grumpidolar": 73,
+    "grumpidolar": 65,
     "marca_combate": "4",
     "medallas": [
       "http://localhost:3000/uploads/medals/Medalla_Agua.1.png",
       "http://localhost:3000/uploads/medals/Medalla_fuego.1.png"
     ],
     "energias": [
-      {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
-      },
-      {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
-      },
-      {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
-      },
-      {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
-      },
-      {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
-      },
       {
         "id": 1,
         "nombre": "Energía Agua",
@@ -336,6 +306,12 @@
         "nombre": "Energía Oscuridad",
         "tipo": "Oscuridad",
         "imagen": "../../../../assets/energies/ENERGIA_OSCURIDAD.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
       }
     ],
     "objetos_combate": [
@@ -381,6 +357,13 @@
       }
     ],
     "objetos_evolutivos": [
+      {
+        "id": 1,
+        "nombre": "Losa Agua",
+        "imagen": "http://localhost:3000/uploads/evoObjects/LOSA_AGUA.1.png",
+        "tipo": "agua",
+        "precio": 5
+      },
       {
         "id": 1,
         "nombre": "Losa Agua",
@@ -462,25 +445,14 @@
     "energies": []
   },
   {
-    "name": "Pablo",
-    "password": "1234",
-    "id": 4,
-    "rol": "entrenador",
-    "id_profesor": 1,
-    "medallas": [],
-    "objetos_combate": [],
-    "objetos_evolutivos": [],
-    "marca_combate": 0,
-    "recompensas": [],
-    "energies": []
-  },
-  {
     "name": "Josete",
     "password": "1111",
     "id": 5,
     "rol": "entrenador",
     "id_profesor": 1,
-    "medallas": [],
+    "medallas": [
+      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png"
+    ],
     "objetos_combate": [
       {
         "nombre": "Despertador",
@@ -534,7 +506,7 @@
         "tipo": "Vida"
       }
     ],
-    "grumpidolar": 0,
+    "grumpidolar": 212,
     "energias": [],
     "energies": []
   },
@@ -544,12 +516,37 @@
     "id": 5,
     "rol": "entrenador",
     "id_profesor": 2,
-    "medallas": [],
+    "medallas": [
+      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png"
+    ],
     "objetos_combate": [],
     "objetos_evolutivos": [],
     "marca_combate": 0,
     "recompensas": [],
-    "energies": []
+    "energies": [],
+    "grumpis": [
+      {
+        "id": 2,
+        "trainer_id": 0,
+        "nombre": "Bolibugi",
+        "n_grumpidex": "002",
+        "img": "http://localhost:3000/uploads/grumpis/002.1.png",
+        "descripcion": "Forma evolucionada de Bugi. Recubre su cuerpo con una protección para defenderse de los atacantes mientras consigue su forma definitiva. Se dice que rueda felizmente por los bosques.",
+        "ataques": [
+          {
+            "nombre": "Protección",
+            "efecto": "Anula un ataque. Ataca en primer lugar siguiente turno.",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Rodar",
+            "efecto": "40",
+            "tipo": "Normal"
+          }
+        ],
+        "tipo": "Vida"
+      }
+    ]
   },
   {
     "name": "Abelardo",
@@ -578,6 +575,27 @@
           }
         ],
         "tipo": "Rayo"
+      },
+      {
+        "id": 1,
+        "trainer_id": 0,
+        "nombre": "Bugi",
+        "n_grumpidex": "001",
+        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
+        "ataques": [
+          {
+            "nombre": "Placaje",
+            "efecto": "10",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Espora seta",
+            "efecto": "30",
+            "tipo": "Vida"
+          }
+        ],
+        "tipo": "Vida"
       }
     ],
     "energias": []

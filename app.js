@@ -389,7 +389,7 @@ app.delete("/user/:name", async (req, res) => {
   const userName = req.params.name;
 
   try {
-    const data = await fs.readFile(filePath, "utf8");
+    const data = await fs.promises.readFile(filePath, "utf8"); // Utiliza fs.promises para leer el archivo
     let trainers = JSON.parse(data);
 
     // Filtrar la lista de entrenadores para excluir el entrenador seleccionado
@@ -397,14 +397,17 @@ app.delete("/user/:name", async (req, res) => {
       (trainer) => trainer.name !== userName
     );
 
-    if (trainers.length === updatedTrainerList.length) {
+    if (updatedTrainerList.length === trainers.length) {
       // El usuario no se encontró en la lista
       return res
         .status(404)
         .json({ error: `Usuario con nombre ${userName} no encontrado` });
     }
 
-    await fs.writeFile(filePath, JSON.stringify(updatedTrainerList, null, 2));
+    await fs.promises.writeFile(
+      filePath,
+      JSON.stringify(updatedTrainerList, null, 2)
+    );
 
     console.log(`Usuario con nombre ${userName} eliminado correctamente`);
 
@@ -1494,34 +1497,59 @@ app.post("/profesores", (req, res) => {
   });
 });
 
-// Agregar entrenadores a un profesor existente
-app.post("/profesores/:id/entrenadores", (req, res) => {
+// Agregar un nuevo entrenador
+app.post('/profesores/:id/entrenadores', (req, res) => {
   const profesorId = parseInt(req.params.id);
-  const nuevosEntrenadores = req.body.entrenadores;
+  const nuevoEntrenador = req.body;
 
-  fs.readFile(filePath, "utf8", (err, data) => {
+  fs.readFile(filePath, 'utf8', (err, data) => {
     if (err) {
-      return res.status(500).json({ error: "Error al leer el archivo" });
+      return res.status(500).json({ error: 'Error al leer el archivo' });
     }
 
-    const adminData = JSON.parse(data);
-    const profesor = adminData.profesores.find((p) => p.id === profesorId);
+    const entrenadores = JSON.parse(data);
+    nuevoEntrenador.id = entrenadores.length
+      ? entrenadores[entrenadores.length - 1].id + 1
+      : 1;
+    nuevoEntrenador.id_profesor = profesorId;
 
-    if (!profesor) {
-      return res.status(404).json({ error: "Profesor no encontrado" });
-    }
+    entrenadores.push(nuevoEntrenador);
 
-    profesor.entrenadores = profesor.entrenadores.concat(nuevosEntrenadores);
-
-    fs.writeFile(filePath, JSON.stringify(adminData, null, 2), (err) => {
+    fs.writeFile(filePath, JSON.stringify(entrenadores, null, 2), (err) => {
       if (err) {
-        return res.status(500).json({ error: "Error al escribir el archivo" });
+        return res.status(500).json({ error: 'Error al escribir el archivo' });
       }
 
-      res.status(200).json(profesor);
+      res.status(201).json(nuevoEntrenador);
     });
   });
 });
+
+// Obtener entrenadores por ID de profesor
+app.get('/profesor/:id/entrenadores', async (req, res) => {
+  const profesorId = parseInt(req.params.id);
+
+  try {
+    const entrenadores = await readJsonFile(filePath);
+    const entrenadoresAsignados = entrenadores.filter(
+      (t) => t.id_profesor === profesorId
+    );
+
+    if (entrenadoresAsignados.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: 'No se encontraron entrenadores para el profesor indicado',
+      });
+    }
+
+    res.json({ success: true, data: entrenadoresAsignados });
+  } catch (err) {
+    res
+      .status(500)
+      .json({ success: false, error: 'Error interno del servidor' });
+  }
+});
+
 
 /**
  *
