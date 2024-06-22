@@ -334,6 +334,7 @@ app.get("/", (req, res) => {
     }
   });
 });
+
 /**
  * Método para guardar un nuevo entrenador
  */
@@ -351,6 +352,11 @@ app.post("/", (req, res) => {
   });
 });
 
+/**
+ * 
+ * Función para añadir un nuevo usuario
+ * 
+ */
 app.post("/new-user", (req, res) => {
   const nuevoUsuario = req.body;
   nuevoUsuario.id = currentId++; // Obtener los datos del cuerpo de la solicitud POST
@@ -385,6 +391,11 @@ app.put("/user", (req, res) => {
   res.send("Got a PUT request at /user");
 });
 
+/**
+ * 
+ * Función para eliminar un entrenador
+ * 
+ */
 app.delete("/user/:name", async (req, res) => {
   const userName = req.params.name;
 
@@ -534,6 +545,7 @@ app.post("/assign-creature", (req, res) => {
       }); // Enviar el mensaje de error como parte de un objeto JSON
     });
 });
+
 /**************************************************************
  *
  *    FIN DE ASIGNACIÓN DE grumpis A LOS ENTRENADORES
