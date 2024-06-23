@@ -1509,14 +1509,14 @@ app.post("/profesores", (req, res) => {
   });
 });
 
-// Agregar un nuevo entrenador
-app.post('/profesores/:id/entrenadores', (req, res) => {
+// Endpoint para agregar un nuevo entrenador
+app.post("/profesores/:id/entrenadores", (req, res) => {
   const profesorId = parseInt(req.params.id);
   const nuevoEntrenador = req.body;
 
-  fs.readFile(filePath, 'utf8', (err, data) => {
+  fs.readFile(filePath, "utf8", (err, data) => {
     if (err) {
-      return res.status(500).json({ error: 'Error al leer el archivo' });
+      return res.status(500).json({ error: "Error al leer el archivo" });
     }
 
     const entrenadores = JSON.parse(data);
@@ -1529,7 +1529,7 @@ app.post('/profesores/:id/entrenadores', (req, res) => {
 
     fs.writeFile(filePath, JSON.stringify(entrenadores, null, 2), (err) => {
       if (err) {
-        return res.status(500).json({ error: 'Error al escribir el archivo' });
+        return res.status(500).json({ error: "Error al escribir el archivo" });
       }
 
       res.status(201).json(nuevoEntrenador);

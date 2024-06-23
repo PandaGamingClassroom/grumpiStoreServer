@@ -600,5 +600,35 @@
       }
     ],
     "energias": []
+  },
+  {
+    "name": "Josefina",
+    "password": "333",
+    "id_profesor": 1,
+    "id": 7
+  },
+  {
+    "name": "Abelardo",
+    "password": "444",
+    "id_profesor": 2,
+    "id": 8
+  },
+  {
+    "name": "Esutaquia",
+    "password": "111",
+    "id_profesor": 2,
+    "id": 9
+  },
+  {
+    "name": "Profundo",
+    "password": "0",
+    "id_profesor": 2,
+    "id": 10
+  },
+  {
+    "name": "Superman",
+    "password": "1",
+    "id_profesor": 1,
+    "id": 11
   }
 ]
