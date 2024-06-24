@@ -8,156 +8,758 @@
   },
   {
     "id": 2,
-    "nombre": "Protección",
-    "efecto": "Anula un ataque. Ataca en primer lugar siguiente turno.",
-    "tipo": "Normal",
-    "especial": false
-  },
-  {
-    "id": 3,
     "nombre": "Rodar",
     "efecto": "40",
     "tipo": "Normal",
     "especial": false
   },
   {
+    "id": 3,
+    "nombre": "Reflejo",
+    "efecto": "Ciega al enemigo durante un turno.",
+    "tipo": "Normal",
+    "especial": false
+  },
+  {
     "id": 4,
-    "nombre": "",
-    "efecto": "",
-    "tipo": "",
+    "nombre": "Constricción",
+    "efecto": "20x",
+    "tipo": "Normal",
     "especial": false
   },
   {
     "id": 5,
-    "nombre": "",
-    "efecto": "",
-    "tipo": "",
+    "nombre": "Mordisco",
+    "efecto": "30",
+    "tipo": "Normal",
     "especial": false
   },
   {
     "id": 6,
-    "nombre": "",
-    "efecto": "",
-    "tipo": "",
+    "nombre": "Engullir",
+    "efecto": "40",
+    "tipo": "Normal",
     "especial": false
   },
   {
     "id": 7,
-    "nombre": "",
-    "efecto": "",
-    "tipo": "",
+    "nombre": "Cornada",
+    "efecto": "30",
+    "tipo": "Normal",
     "especial": false
   },
   {
     "id": 8,
-    "nombre": "",
-    "efecto": "",
-    "tipo": "",
+    "nombre": "Embestida",
+    "efecto": "70 - Se hace a sí mismo 20p.",
+    "tipo": "Normal",
     "especial": false
   },
   {
     "id": 9,
-    "nombre": "",
-    "efecto": "",
-    "tipo": "",
+    "nombre": "Arañazo",
+    "efecto": "30",
+    "tipo": "Normal",
     "especial": false
   },
   {
     "id": 10,
-    "nombre": "",
-    "efecto": "",
-    "tipo": "",
+    "nombre": "Giro rápido",
+    "efecto": "30",
+    "tipo": "Normal",
     "especial": false
   },
   {
     "id": 11,
-    "nombre": "",
-    "efecto": "",
-    "tipo": "",
+    "nombre": "Golpe doble",
+    "efecto": "15x - Se lanza una moneda dos veces, quita 15 de vida por cada cara.",
+    "tipo": "Normal",
     "especial": false
   },
   {
     "id": 12,
-    "nombre": "",
-    "efecto": "",
-    "tipo": "",
+    "nombre": "Copión",
+    "efecto": "Copia el ataque más poderoso del rival.",
+    "tipo": "Normal",
     "especial": false
   },
   {
     "id": 13,
-    "nombre": "",
-    "efecto": "",
-    "tipo": "",
+    "nombre": "Látigo de Hades",
+    "efecto": "80",
+    "tipo": "Fuego",
     "especial": false
   },
   {
     "id": 14,
-    "nombre": "",
-    "efecto": "",
-    "tipo": "",
+    "nombre": "Escupe fuego",
+    "efecto": "50",
+    "tipo": "Fuego",
     "especial": false
   },
   {
     "id": 15,
-    "nombre": "",
-    "efecto": "",
-    "tipo": "",
+    "nombre": "Fuego Fatuo",
+    "efecto": "Quema al objetivo",
+    "tipo": "Fuego",
     "especial": false
   },
   {
     "id": 16,
-    "nombre": "",
-    "efecto": "",
-    "tipo": "",
+    "nombre": "Lanzallamas",
+    "efecto": "60",
+    "tipo": "Fuego",
     "especial": false
   },
   {
     "id": 17,
-    "nombre": "",
-    "efecto": "",
-    "tipo": "",
+    "nombre": "Colmillo ígneo",
+    "efecto": "30",
+    "tipo": "Fuego",
     "especial": false
   },
   {
     "id": 18,
-    "nombre": "",
-    "efecto": "",
-    "tipo": "",
+    "nombre": "Garra fuego",
+    "efecto": "40",
+    "tipo": "Fuego",
     "especial": false
   },
   {
     "id": 19,
-    "nombre": "",
-    "efecto": "",
-    "tipo": "",
+    "nombre": "Roca ígnea",
+    "efecto": "20",
+    "tipo": "Fuego",
     "especial": false
   },
   {
     "id": 20,
-    "nombre": "",
-    "efecto": "",
-    "tipo": "",
+    "nombre": "Ascuas",
+    "efecto": "15 + Quemadura",
+    "tipo": "Fuego",
     "especial": false
   },
   {
     "id": 21,
-    "nombre": "",
-    "efecto": "",
-    "tipo": "",
+    "nombre": "Lluvia de meteoros",
+    "efecto": "100",
+    "tipo": "Fuego",
     "especial": false
   },
   {
     "id": 22,
-    "nombre": "",
-    "efecto": "",
-    "tipo": "",
+    "nombre": "Cola ígnea",
+    "efecto": "30",
+    "tipo": "Fuego",
     "especial": false
   },
   {
     "id": 23,
-    "nombre": "",
-    "efecto": "",
-    "tipo": "",
+    "nombre": "Tejedora ígnea",
+    "efecto": "50",
+    "tipo": "Fuego",
+    "especial": false
+  },
+  {
+    "id": 24,
+    "nombre": "Windmill",
+    "efecto": "60 + Quemadura",
+    "tipo": "Fuego",
+    "especial": false
+  },
+  {
+    "id": 25,
+    "nombre": "Salpicar",
+    "efecto": "10",
+    "tipo": "Agua",
+    "especial": false
+  },
+  {
+    "id": 26,
+    "nombre": "Condensación",
+    "efecto": "Se protege durante un turno de un ataque enemigo.",
+    "tipo": "Agua",
+    "especial": false
+  },
+  {
+    "id": 27,
+    "nombre": "Chorro de agua",
+    "efecto": "50",
+    "tipo": "Agua",
+    "especial": false
+  },
+  {
+    "id": 28,
+    "nombre": "Nado rápido",
+    "efecto": "30",
+    "tipo": "Agua",
+    "especial": false
+  },
+  {
+    "id": 29,
+    "nombre": "Surf",
+    "efecto": "70",
+    "tipo": "Agua",
+    "especial": false
+  },
+  {
+    "id": 30,
+    "nombre": "Llanto",
+    "efecto": "10",
+    "tipo": "Agua",
+    "especial": false
+  },
+  {
+    "id": 31,
+    "nombre": "Tsunami",
+    "efecto": "70",
+    "tipo": "Agua",
+    "especial": false
+  },
+  {
+    "id": 32,
+    "nombre": "Mordisco gélido",
+    "efecto": "30",
+    "tipo": "Agua",
+    "especial": false
+  },
+  {
+    "id": 33,
+    "nombre": "Diluvio",
+    "efecto": "60",
+    "tipo": "Agua",
+    "especial": false
+  },
+  {
+    "id": 34,
+    "nombre": "Cañón de agua",
+    "efecto": "70",
+    "tipo": "Agua",
+    "especial": false
+  },
+  {
+    "id": 35,
+    "nombre": "Granizo",
+    "efecto": "50",
+    "tipo": "Agua",
+    "especial": false
+  },
+  {
+    "id": 36,
+    "nombre": "Portal oscuro",
+    "efecto": "100",
+    "tipo": "Oscuridad",
+    "especial": false
+  },
+  {
+    "id": 37,
+    "nombre": "Lametón",
+    "efecto": "50",
+    "tipo": "Oscuridad",
+    "especial": false
+  },
+  {
+    "id": 38,
+    "nombre": "Drago-aliento",
+    "efecto": "80",
+    "tipo": "Oscuridad",
+    "especial": false
+  },
+  {
+    "id": 39,
+    "nombre": "Ladrido",
+    "efecto": "Paraliza al objetivo (Pierde el turno)",
+    "tipo": "Oscuridad",
+    "especial": false
+  },
+  {
+    "id": 40,
+    "nombre": "Pesadilla",
+    "efecto": "40. Confunde al objetivo.",
+    "tipo": "Oscuridad",
+    "especial": false
+  },
+  {
+    "id": 41,
+    "nombre": "Escudo negro",
+    "efecto": "Gana un turno extra",
+    "tipo": "Oscuridad",
+    "especial": false
+  },
+  {
+    "id": 42,
+    "nombre": "Apagón",
+    "efecto": "30",
+    "tipo": "Oscuridad",
+    "especial": false
+  },
+  {
+    "id": 43,
+    "nombre": "Rayo oscuro",
+    "efecto": "70",
+    "tipo": "Oscuridad",
+    "especial": false
+  },
+  {
+    "id": 44,
+    "nombre": "Dormir",
+    "efecto": "Pierde el siguiente turno.",
+    "tipo": "Luz",
+    "especial": false
+  },
+  {
+    "id": 45,
+    "nombre": "Espada santa",
+    "efecto": "80",
+    "tipo": "Luz",
+    "especial": false
+  },
+  {
+    "id": 46,
+    "nombre": "Destello",
+    "efecto": "20 + ceguera",
+    "tipo": "Luz",
+    "especial": false
+  },
+  {
+    "id": 47,
+    "nombre": "Haz de luz",
+    "efecto": "50",
+    "tipo": "Luz",
+    "especial": false
+  },
+  {
+    "id": 48,
+    "nombre": "Rayo de luz",
+    "efecto": "70",
+    "tipo": "Luz",
+    "especial": false
+  },
+  {
+    "id": 49,
+    "nombre": "Escudo santo",
+    "efecto": "No recibirá daño el próximo turno.",
+    "tipo": "Luz",
+    "especial": false
+  },
+  {
+    "id": 50,
+    "nombre": "Rayo divino",
+    "efecto": "100",
+    "tipo": "Luz",
+    "especial": false
+  },
+  {
+    "id": 51,
+    "nombre": "Teletransporte",
+    "efecto": "Se cambia por el otro Grumpi elegido sin perder el turno.",
+    "tipo": "Luz",
+    "especial": false
+  },
+  {
+    "id": 52,
+    "nombre": "Telequinesia",
+    "efecto": "20",
+    "tipo": "Luz",
+    "especial": false
+  },
+  {
+    "id": 53,
+    "nombre": "Psíquico",
+    "efecto": "70",
+    "tipo": "Luz",
+    "especial": false
+  },
+  {
+    "id": 54,
+    "nombre": "Lectura de mente",
+    "efecto": "40 + confusión.",
+    "tipo": "Luz",
+    "especial": false
+  },
+  {
+    "id": 55,
+    "nombre": "Aleteo",
+    "efecto": "Confunde al enemigo. Potencia +20 su próximo ataque eléctrico.",
+    "tipo": "Aire",
+    "especial": false
+  },
+  {
+    "id": 56,
+    "nombre": "Picoteo",
+    "efecto": "Se cura 10p de vida.",
+    "tipo": "Aire",
+    "especial": false
+  },
+  {
+    "id": 57,
+    "nombre": "Vuelo",
+    "efecto": "40",
+    "tipo": "Aire",
+    "especial": false
+  },
+  {
+    "id": 58,
+    "nombre": "Vendaval",
+    "efecto": "100",
+    "tipo": "Aire",
+    "especial": false
+  },
+  {
+    "id": 59,
+    "nombre": "Picotazo",
+    "efecto": "20",
+    "tipo": "Aire",
+    "especial": false
+  },
+  {
+    "id": 60,
+    "nombre": "Tornado",
+    "efecto": "60",
+    "tipo": "Aire",
+    "especial": false
+  },
+  {
+    "id": 61,
+    "nombre": "Remolino",
+    "efecto": "30",
+    "tipo": "Aire",
+    "especial": false
+  },
+  {
+    "id": 62,
+    "nombre": "Aleteo granizo",
+    "efecto": "50",
+    "tipo": "Aire",
+    "especial": false
+  },
+  {
+    "id": 63,
+    "nombre": "Frío polar",
+    "efecto": "70",
+    "tipo": "Aire",
+    "especial": false
+  },
+  {
+    "id": 64,
+    "nombre": "Chispa",
+    "efecto": "10",
+    "tipo": "Rayo",
+    "especial": false
+  },
+  {
+    "id": 65,
+    "nombre": "Púa rayo",
+    "efecto": "20: Lanzar moneda: Cara paraliza, cruz, no hace nada.",
+    "tipo": "Rayo",
+    "especial": false
+  },
+  {
+    "id": 66,
+    "nombre": "Descarga",
+    "efecto": "40",
+    "tipo": "Rayo",
+    "especial": false
+  },
+  {
+    "id": 67,
+    "nombre": "Giga-rayo",
+    "efecto": "70",
+    "tipo": "Rayo",
+    "especial": false
+  },
+  {
+    "id": 68,
+    "nombre": "Electricidad estática",
+    "efecto": "40",
+    "tipo": "Rayo",
+    "especial": false
+  },
+  {
+    "id": 69,
+    "nombre": "Tormenta eléctrica",
+    "efecto": "60",
+    "tipo": "Rayo",
+    "especial": false
+  },
+  {
+    "id": 70,
+    "nombre": "Mordisco rayo",
+    "efecto": "30",
+    "tipo": "Rayo",
+    "especial": false
+  },
+  {
+    "id": 71,
+    "nombre": "Placaje eléctrico",
+    "efecto": "20",
+    "tipo": "Rayo",
+    "especial": false
+  },
+  {
+    "id": 72,
+    "nombre": "Bioshock",
+    "efecto": "80",
+    "tipo": "Rayo",
+    "especial": false
+  },
+  {
+    "id": 73,
+    "nombre": "Rayo",
+    "efecto": "60",
+    "tipo": "Rayo",
+    "especial": false
+  },
+  {
+    "id": 74,
+    "nombre": "Rayo doble",
+    "efecto": "60x- Se tira una moneda dos veces, hace 60 de daño por cada cara.",
+    "tipo": "Rayo",
+    "especial": false
+  },
+  {
+    "id": 75,
+    "nombre": "Moflete estático",
+    "efecto": "20. Lanzar moneda: Cara paraliza, cruz, no hace nada.",
+    "tipo": "Rayo",
+    "especial": false
+  },
+  {
+    "id": 76,
+    "nombre": "Paralizar",
+    "efecto": "Paraliza al objetivo.",
+    "tipo": "Rayo",
+    "especial": false
+  },
+  {
+    "id": 77,
+    "nombre": "Descarga",
+    "efecto": "100",
+    "tipo": "Rayo",
+    "especial": false
+  },
+  {
+    "id": 78,
+    "nombre": "Golpe acero",
+    "efecto": "30",
+    "tipo": "Tierra",
+    "especial": false
+  },
+  {
+    "id": 79,
+    "nombre": "Onda certera",
+    "efecto": "80",
+    "tipo": "Tierra",
+    "especial": false
+  },
+  {
+    "id": 80,
+    "nombre": "Golpe kárate",
+    "efecto": "50",
+    "tipo": "Tierra",
+    "especial": false
+  },
+  {
+    "id": 81,
+    "nombre": "Soplo de arena",
+    "efecto": "Ciega al enemigo",
+    "tipo": "Tierra",
+    "especial": false
+  },
+  {
+    "id": 82,
+    "nombre": "Espada letal",
+    "efecto": "40",
+    "tipo": "Tierra",
+    "especial": false
+  },
+  {
+    "id": 83,
+    "nombre": "Terremoto",
+    "efecto": "70",
+    "tipo": "Tierra",
+    "especial": false
+  },
+  {
+    "id": 84,
+    "nombre": "Excavar",
+    "efecto": "60",
+    "tipo": "Tierra",
+    "especial": false
+  },
+  {
+    "id": 85,
+    "nombre": "Golpe roca",
+    "efecto": "10",
+    "tipo": "Tierra",
+    "especial": false
+  },
+  {
+    "id": 86,
+    "nombre": "Patada baja",
+    "efecto": "30",
+    "tipo": "Tierra",
+    "especial": false
+  },
+  {
+    "id": 87,
+    "nombre": "Concentración",
+    "efecto": "Aumenta en 10 puntos el siguiente ataque",
+    "tipo": "Tierra",
+    "especial": false
+  },
+  {
+    "id": 88,
+    "nombre": "Puño ultrasónico",
+    "efecto": "60",
+    "tipo": "Tierra",
+    "especial": false
+  },
+  {
+    "id": 89,
+    "nombre": "Puño bala",
+    "efecto": "20+ Se lanza una moneda 3 veces y hace 20 de daño por cada cara.",
+    "tipo": "Tierra",
+    "especial": false
+  },
+  {
+    "id": 90,
+    "nombre": "Tormenta de arena",
+    "efecto": "30",
+    "tipo": "Tierra",
+    "especial": false
+  },
+  {
+    "id": 91,
+    "nombre": "Huesomerang",
+    "efecto": "50",
+    "tipo": "Tierra",
+    "especial": false
+  },
+  {
+    "id": 92,
+    "nombre": "Uki-otoshi",
+    "efecto": "50 + Confusión",
+    "tipo": "Tierra",
+    "especial": false
+  },
+  {
+    "id": 93,
+    "nombre": "Trampa veneno",
+    "efecto": "20x",
+    "tipo": "Vida",
+    "especial": false
+  },
+  {
+    "id": 94,
+    "nombre": "Rayo veneno",
+    "efecto": "20 + Marca veneno 10x*",
+    "tipo": "Vida",
+    "especial": false
+  },
+  {
+    "id": 95,
+    "nombre": "Espora seta",
+    "efecto": "30",
+    "tipo": "Vida",
+    "especial": false
+  },
+  {
+    "id": 96,
+    "nombre": "Campo de setas",
+    "efecto": "20",
+    "tipo": "Vida",
+    "especial": false
+  },
+  {
+    "id": 97,
+    "nombre": "Tajo espora",
+    "efecto": "50",
+    "tipo": "Vida",
+    "especial": false
+  },
+  {
+    "id": 98,
+    "nombre": "Rayo hoja",
+    "efecto": "40",
+    "tipo": "Vida",
+    "especial": false
+  },
+  {
+    "id": 99,
+    "nombre": "Giga-hoja",
+    "efecto": "40",
+    "tipo": "Vida",
+    "especial": false
+  },
+  {
+    "id": 100,
+    "nombre": "Crecimiento salvaje",
+    "efecto": "50",
+    "tipo": "Vida",
+    "especial": false
+  },
+  {
+    "id": 101,
+    "nombre": "Camuflaje",
+    "efecto": "Evita el siguiente ataque.",
+    "tipo": "Vida",
+    "especial": false
+  },
+  {
+    "id": 102,
+    "nombre": "Canalización",
+    "efecto": "Cura 30 puntos de salud.",
+    "tipo": "Vida",
+    "especial": false
+  },
+  {
+    "id": 103,
+    "nombre": "Veneno",
+    "efecto": "10x",
+    "tipo": "Vida",
+    "especial": false
+  },
+  {
+    "id": 104,
+    "nombre": "Absorber",
+    "efecto": "10 + Se cura 30 puntos de salud.",
+    "tipo": "Vida",
+    "especial": false
+  },
+  {
+    "id": 105,
+    "nombre": "Puño drenaje",
+    "efecto": "30 + Se cura 30 puntos de salud.",
+    "tipo": "Vida",
+    "especial": false
+  },
+  {
+    "id": 106,
+    "nombre": "Lanza vital",
+    "efecto": "70 + Se cura 20 puntos de salud.",
+    "tipo": "Vida",
+    "especial": false
+  },
+  {
+    "id": 107,
+    "nombre": "Azote salvaje",
+    "efecto": "60",
+    "tipo": "Vida",
+    "especial": false
+  },
+  {
+    "id": 108,
+    "nombre": "Hoja afilada",
+    "efecto": "30",
+    "tipo": "Vida",
+    "especial": false
+  },
+  {
+    "id": 109,
+    "nombre": "Rayo solar",
+    "efecto": "60 + cegar",
+    "tipo": "Vida",
     "especial": false
   }
 ]

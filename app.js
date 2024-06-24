@@ -15,6 +15,7 @@ const filePathGrumpis = "./data/grumpis.json";
 const filePathObjectsCombat = "./data/combatObjects.json";
 const filePathObjectsEvolution = "./data/evolutionObjects.json";
 const filePathRewards = "./data/rewards.json";
+const filePathAttacks = "./data/attacks.json"
 
 // Configuración de la base de datos
 // const db = new sqlite3.Database("database.db"); // Crea una base de datos en memoria
@@ -783,6 +784,32 @@ app.get("/getGrumpis", (req, res) => {
         const grumpis_list = JSON.parse(data);
         // Envía el listado completo de entrenadores como respuesta
         res.json({ grumpis_list: grumpis_list });
+      } catch (parseError) {
+        // Manejar el error si no se puede parsear el contenido JSON
+        console.error("Error al parsear el contenido JSON:", parseError);
+        res.status(500).json({ error: "Error al parsear el contenido JSON" });
+      }
+    }
+  });
+});
+
+/**
+ * 
+ * OBTENER TODOS LOS ATAQUES
+ * 
+ */
+app.get("/getAllAttacks", (req, res) => {
+  fs.readFile(filePathAttacks, "utf8", (err, data) => {
+    if (err) {
+      // Manejar el error si no se puede leer el archivo
+      console.error("Error al leer el archivo attacks.json:", err);
+      res.status(500).json({ error: "Error al leer el archivo attacks.json" });
+    } else {
+      try {
+        // Parsea el contenido del archivo JSON a un objeto JavaScript
+        const attacks_list = JSON.parse(data);
+        // Envía el listado completo de entrenadores como respuesta
+        res.json({ attacks_list: attacks_list });
       } catch (parseError) {
         // Manejar el error si no se puede parsear el contenido JSON
         console.error("Error al parsear el contenido JSON:", parseError);
