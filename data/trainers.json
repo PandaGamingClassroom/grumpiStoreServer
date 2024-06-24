@@ -258,7 +258,7 @@
         "tipo": "Fuego"
       }
     ],
-    "grumpidolar": 65,
+    "grumpidolar": "650",
     "marca_combate": "4",
     "medallas": [
       "http://localhost:3000/uploads/medals/Medalla_Agua.1.png",
@@ -605,30 +605,180 @@
     "name": "Josefina",
     "password": "333",
     "id_profesor": 1,
-    "id": 7
+    "id": 7,
+    "grumpidolar": "100",
+    "marca_combate": "2",
+    "recompensas": [],
+    "energies": []
   },
   {
     "name": "Abelardo",
     "password": "444",
     "id_profesor": 2,
-    "id": 8
+    "id": 8,
+    "recompensas": [],
+    "energies": []
   },
   {
     "name": "Esutaquia",
     "password": "111",
     "id_profesor": 2,
-    "id": 9
+    "id": 9,
+    "grumpidolar": "",
+    "recompensas": [],
+    "energies": []
   },
   {
     "name": "Profundo",
     "password": "0",
     "id_profesor": 2,
-    "id": 10
+    "id": 10,
+    "recompensas": [],
+    "energies": []
   },
   {
-    "name": "Superman",
-    "password": "1",
+    "name": "Eleuterio",
+    "password": "123",
     "id_profesor": 1,
-    "id": 11
+    "id": 11,
+    "recompensas": [],
+    "energies": []
+  },
+  {
+    "name": "Wasabi",
+    "password": "123",
+    "id_profesor": 1,
+    "id": 12,
+    "recompensas": [],
+    "energies": []
+  },
+  {
+    "name": "Memento",
+    "password": "123",
+    "id_profesor": 1,
+    "id": 13,
+    "recompensas": [],
+    "energies": [],
+    "grumpis": [
+      {
+        "id": 30,
+        "trainer_id": 0,
+        "nombre": "Flamebi",
+        "n_grumpidex": "030",
+        "img": "http://localhost:3000/uploads/grumpis/030.1.png",
+        "descripcion": "Forma evolucionada de Eggtelio al exponerse a una Losa Agua. Su cuerpo adopta un color azul que recuerda al mismo mar.",
+        "ataques": [
+          {
+            "nombre": "Placaje",
+            "efecto": "10",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Escupe fuego",
+            "efecto": "50",
+            "tipo": "Fuego"
+          }
+        ],
+        "tipo": "Fuego"
+      }
+    ]
+  },
+  {
+    "name": "Metoko",
+    "password": "1234",
+    "id_profesor": 1,
+    "id": 14,
+    "recompensas": [],
+    "energies": [],
+    "grumpis": [
+      {
+        "id": 25,
+        "trainer_id": 0,
+        "nombre": "Chatty",
+        "n_grumpidex": "025",
+        "img": "http://localhost:3000/uploads/grumpis/025.1.png",
+        "descripcion": "Ser adorable que vive junto a los seres humanos, llenándoles de amor y alegría.",
+        "ataques": [
+          {
+            "nombre": "Arañazo",
+            "efecto": "30",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Lametón",
+            "efecto": "50",
+            "tipo": "Oscuridad"
+          }
+        ],
+        "tipo": "Oscuridad"
+      },
+      {
+        "id": 26,
+        "trainer_id": 0,
+        "nombre": "Poisony",
+        "n_grumpidex": "026",
+        "img": "http://localhost:3000/uploads/grumpis/026.1.png",
+        "descripcion": "Marsupial cuyo cuerpo está recubierto de toxinas. Se dice que su arañazo es muy venenoso.",
+        "ataques": [
+          {
+            "nombre": "Veneno",
+            "efecto": "10x",
+            "tipo": "Vida"
+          },
+          {
+            "nombre": "Arañazo",
+            "efecto": "30",
+            "tipo": "Normal"
+          }
+        ],
+        "tipo": "Vida"
+      }
+    ],
+    "medallas": [
+      "http://localhost:3000/uploads/medals/Medalla_luz.1.png",
+      "http://localhost:3000/uploads/medals/Medalla_oscuridad.1.png"
+    ],
+    "energias": [
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      }
+    ]
+  },
+  {
+    "name": "Mimoko",
+    "password": "1234",
+    "id_profesor": 1,
+    "id": 15,
+    "recompensas": [],
+    "energies": [],
+    "grumpis": [
+      {
+        "id": 25,
+        "trainer_id": 0,
+        "nombre": "Chatty",
+        "n_grumpidex": "025",
+        "img": "http://localhost:3000/uploads/grumpis/025.1.png",
+        "descripcion": "Ser adorable que vive junto a los seres humanos, llenándoles de amor y alegría.",
+        "ataques": [
+          {
+            "nombre": "Arañazo",
+            "efecto": "30",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Lametón",
+            "efecto": "50",
+            "tipo": "Oscuridad"
+          }
+        ],
+        "tipo": "Oscuridad"
+      }
+    ],
+    "grumpidolar": "500",
+    "marca_combate": "7",
+    "medallas": []
   }
 ]

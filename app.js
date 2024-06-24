@@ -433,14 +433,24 @@ app.delete("/user/:name", async (req, res) => {
   }
 });
 
-// Ruta para actualizar entrenador
+/**
+ * 
+ * Actualiza los datos de un entrenador
+ * 
+ */
 app.put("/trainers/update/:name", (req, res) => {
   const trainerName = req.params.name;
-  const { trainer_name, trainer_pass, grumpidolar, combatMark } = req.body;
+  const {
+    trainer_name,
+    trainer_pass,
+    grumpidolar,
+    combatMark,
+    medalsToRemove,
+  } = req.body;
 
   fs.readFile(filePath, "utf8", (err, data) => {
     if (err) {
-      res.status(500).json({ error: "Error al leer el fichero [${filepath}]" });
+      res.status(500).json({ error: `Error al leer el fichero [${filePath}]` });
       return;
     }
 
@@ -460,23 +470,30 @@ app.put("/trainers/update/:name", (req, res) => {
       if (combatMark !== undefined) {
         updatedTrainer.marca_combate = combatMark;
       }
+      if (medalsToRemove && medalsToRemove.length > 0) {
+        // Filtrar medallas a eliminar basado en índices
+        updatedTrainer.medallas = updatedTrainer.medallas.filter(
+          (_, index) => !medalsToRemove.includes(index)
+        );
+      }
 
       fs.writeFile(filePath, JSON.stringify(trainers, null, 2), (err) => {
         if (err) {
           res
             .status(500)
-            .json({ error: "Error al escribir en el fichero [${filepath}]" });
+            .json({ error: `Error al escribir en el fichero [${filePath}]` });
           return;
         }
         res
           .status(200)
-          .json({ message: "Entrenador actualizado correctamente" }); // Modifica la respuesta para enviar un objeto JSON válido
+          .json({ message: "Entrenador actualizado correctamente" });
       });
     } else {
       res.status(404).json({ error: "Entrenador no encontrado" });
     }
   });
 });
+
 
 /********************************************************************
  *
@@ -514,6 +531,7 @@ function saveTrainerData() {
 function assignCreatureToTrainer(trainerName, creature) {
   console.log("Grumpi para asignar al entrenador: ", creature);
   const trainer = trainerData.find((trainer) => trainer.name === trainerName);
+  console.log('Entrenador buscado?: ', trainer);
   if (trainer) {
     // Asegurarse de que la propiedad 'grumpis' existe
     if (!trainer.grumpis) {
@@ -1013,7 +1031,12 @@ function assignMedalToTrainer(trainerName, medalName) {
   // Buscar el entrenador por nombre y actualizar sus datos en memoria
   const trainer = trainerData.find((trainer) => trainer.name === trainerName);
   if (trainer) {
-    // Aquí actualizarías los datos del entrenador con la nueva medalla asignada
+    /**
+     * Se asegura que la propiedad 'medallas' existe en el entrenador.
+     */
+    if(!trainer.medallas){
+      trainer.medallas = [];
+    }
     trainer.medallas.push(medalName); // Por ejemplo, asumiendo que tienes una propiedad 'medallas' en tu objeto de entrenador
     saveTrainerData(); // Guardar los cambios en el archivo JSON
     return Promise.resolve("Medalla asignada correctamente al entrenador.");

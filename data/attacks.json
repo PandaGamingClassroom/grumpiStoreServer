@@ -1,0 +1,163 @@
+[
+  {
+    "id": 1,
+    "nombre": "Placaje",
+    "efecto": "10",
+    "tipo": "Normal",
+    "especial": false
+  },
+  {
+    "id": 2,
+    "nombre": "Protección",
+    "efecto": "Anula un ataque. Ataca en primer lugar siguiente turno.",
+    "tipo": "Normal",
+    "especial": false
+  },
+  {
+    "id": 3,
+    "nombre": "Rodar",
+    "efecto": "40",
+    "tipo": "Normal",
+    "especial": false
+  },
+  {
+    "id": 4,
+    "nombre": "",
+    "efecto": "",
+    "tipo": "",
+    "especial": false
+  },
+  {
+    "id": 5,
+    "nombre": "",
+    "efecto": "",
+    "tipo": "",
+    "especial": false
+  },
+  {
+    "id": 6,
+    "nombre": "",
+    "efecto": "",
+    "tipo": "",
+    "especial": false
+  },
+  {
+    "id": 7,
+    "nombre": "",
+    "efecto": "",
+    "tipo": "",
+    "especial": false
+  },
+  {
+    "id": 8,
+    "nombre": "",
+    "efecto": "",
+    "tipo": "",
+    "especial": false
+  },
+  {
+    "id": 9,
+    "nombre": "",
+    "efecto": "",
+    "tipo": "",
+    "especial": false
+  },
+  {
+    "id": 10,
+    "nombre": "",
+    "efecto": "",
+    "tipo": "",
+    "especial": false
+  },
+  {
+    "id": 11,
+    "nombre": "",
+    "efecto": "",
+    "tipo": "",
+    "especial": false
+  },
+  {
+    "id": 12,
+    "nombre": "",
+    "efecto": "",
+    "tipo": "",
+    "especial": false
+  },
+  {
+    "id": 13,
+    "nombre": "",
+    "efecto": "",
+    "tipo": "",
+    "especial": false
+  },
+  {
+    "id": 14,
+    "nombre": "",
+    "efecto": "",
+    "tipo": "",
+    "especial": false
+  },
+  {
+    "id": 15,
+    "nombre": "",
+    "efecto": "",
+    "tipo": "",
+    "especial": false
+  },
+  {
+    "id": 16,
+    "nombre": "",
+    "efecto": "",
+    "tipo": "",
+    "especial": false
+  },
+  {
+    "id": 17,
+    "nombre": "",
+    "efecto": "",
+    "tipo": "",
+    "especial": false
+  },
+  {
+    "id": 18,
+    "nombre": "",
+    "efecto": "",
+    "tipo": "",
+    "especial": false
+  },
+  {
+    "id": 19,
+    "nombre": "",
+    "efecto": "",
+    "tipo": "",
+    "especial": false
+  },
+  {
+    "id": 20,
+    "nombre": "",
+    "efecto": "",
+    "tipo": "",
+    "especial": false
+  },
+  {
+    "id": 21,
+    "nombre": "",
+    "efecto": "",
+    "tipo": "",
+    "especial": false
+  },
+  {
+    "id": 22,
+    "nombre": "",
+    "efecto": "",
+    "tipo": "",
+    "especial": false
+  },
+  {
+    "id": 23,
+    "nombre": "",
+    "efecto": "",
+    "tipo": "",
+    "especial": false
+  }
+]
