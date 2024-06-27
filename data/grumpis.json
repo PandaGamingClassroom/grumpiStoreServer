@@ -1047,5 +1047,1244 @@
       }
     ],
     "tipo": "Fuego"
+  },
+  {
+    "id": 51,
+    "trainer_id": 0,
+    "nombre": "Lediby",
+    "n_grumpidex": "051",
+    "img": "http://localhost:3000/uploads/grumpis/051.1.png",
+    "descripcion": "Pequeño insecto que controla distintos estilos de artes marciales. A pesar de su tamaño puede derribar todo un edificio con un solo golpe.",
+    "ataques": [
+      {
+        "nombre": "Golpe roca",
+        "efecto": "10",
+        "tipo": "Tierra"
+      },
+      {
+        "nombre": "Patada baja",
+        "efecto": "30",
+        "tipo": "Tierra"
+      }
+    ],
+    "tipo": "Tierra"
+  },
+  {
+    "id": 52,
+    "trainer_id": 0,
+    "nombre": "Metaliby",
+    "n_grumpidex": "052",
+    "img": "http://localhost:3000/uploads/grumpis/052.1.png",
+    "descripcion": "Forma evolucionada de Lediby. Posee un cuerpo de puro acero capaz de dar puñetazos ultrasónicos.",
+    "ataques": [
+      {
+        "nombre": "Puño drenaje",
+        "efecto": "30 + Se cura 30ps",
+        "tipo": "Vida"
+      },
+      {
+        "nombre": "Puño ultrasónico",
+        "efecto": "60",
+        "tipo": "Tierra"
+      }
+    ],
+    "tipo": "Tierra"
+  },
+  {
+    "id": 53,
+    "trainer_id": 0,
+    "nombre": "Kigyó",
+    "n_grumpidex": "053",
+    "img": "http://localhost:3000/uploads/grumpis/053.1.png",
+    "descripcion": "Pequeña serpiente con un aspecto muy adorable, pero con mucho poder que no duda en utilizar para proteger a su compañero humano.",
+    "ataques": [
+      {
+        "nombre": "Canalización",
+        "efecto": "Se cura 30ps",
+        "tipo": "Vida"
+      },
+      {
+        "nombre": "Terremoto",
+        "efecto": "70",
+        "tipo": "Tierra"
+      }
+    ],
+    "tipo": "Tierra"
+  },
+  {
+    "id": 54,
+    "trainer_id": 0,
+    "nombre": "Cronos",
+    "n_grumpidex": "054",
+    "img": "http://localhost:3000/uploads/grumpis/054.1.png",
+    "descripcion": "Pequeña criatura que dicen que es capaz de controlar el tiempo a su antojo, pudiendo viajar al pasado o al futuro.",
+    "ataques": [
+      {
+        "nombre": "Destello",
+        "efecto": "20 + ceguera",
+        "tipo": "Luz"
+      },
+      {
+        "nombre": "Giro rápido",
+        "efecto": "30",
+        "tipo": "Normal"
+      }
+    ],
+    "tipo": "Luz"
+  },
+  {
+    "id": 55,
+    "trainer_id": 0,
+    "nombre": "Cronos",
+    "n_grumpidex": "055",
+    "img": "http://localhost:3000/uploads/grumpis/055.1.png",
+    "descripcion": "Forma evolucionada de Cronos. Al evolucionar su cuerpo se recubre de una armadura metálica que le da un gran poder de ataque y defensivo.",
+    "ataques": [
+      {
+        "nombre": "Escudo santo",
+        "efecto": "No recibirá daño el próximo turno.",
+        "tipo": "Luz"
+      },
+      {
+        "nombre": "Rayo de luz",
+        "efecto": "70",
+        "tipo": "Luz"
+      }
+    ],
+    "tipo": "Luz"
+  },
+  {
+    "id": 56,
+    "trainer_id": 0,
+    "nombre": "SquaGold",
+    "n_grumpidex": "056",
+    "img": "http://localhost:3000/uploads/grumpis/056.1.png",
+    "descripcion": "Se conocen pocos datos sobre este tipo de Grumpi. Suelen vivir en ruinas de pirámides y templos antiguos. A pesar de su apariencia, esconde un gran poder.",
+    "ataques": [
+      {
+        "nombre": "Púa Rayo",
+        "efecto": "20: Lanzar moneda: Cara paraliza, cruz, no hace nada",
+        "tipo": "Rayo"
+      },
+      {
+        "nombre": "Onda certera",
+        "efecto": "80",
+        "tipo": "Tierra"
+      }
+    ],
+    "tipo": "Tierra"
+  },
+  {
+    "id": 57,
+    "trainer_id": 0,
+    "nombre": "Warhorn",
+    "n_grumpidex": "057",
+    "img": "http://localhost:3000/uploads/grumpis/057.1.png",
+    "descripcion": "Posee un cuerpo cubierto de metal. Su cuerno actúa de pararrayos, lo que le permite captarlos y controlar su poder para fortalecerse.",
+    "ataques": [
+      {
+        "nombre": "Golpe acero",
+        "efecto": "30",
+        "tipo": "Tierra"
+      },
+      {
+        "nombre": "Bioshock",
+        "efecto": "80",
+        "tipo": "Rayo"
+      }
+    ],
+    "tipo": "Rayo"
+  },
+  {
+    "id": 58,
+    "trainer_id": 0,
+    "nombre": "Warbeet",
+    "n_grumpidex": "058",
+    "img": "http://localhost:3000/uploads/grumpis/058.1.png",
+    "descripcion": "Habita en bosques donde no pueda encontrarlo nadie. Pasa las horas del día entrenando para ser el Grumpi más fuerte del lugar.",
+    "ataques": [
+      {
+        "nombre": "Trampa veneno",
+        "efecto": "20x",
+        "tipo": "Vida"
+      },
+      {
+        "nombre": "Puño bala",
+        "efecto": "20+ Se lanza una moneda hasta que salga la cruz. Hace 20 de daño por cada cara.",
+        "tipo": "Tierra"
+      }
+    ],
+    "tipo": "Normal"
+  },
+  {
+    "id": 59,
+    "trainer_id": 0,
+    "nombre": "Warbug",
+    "n_grumpidex": "059",
+    "img": "http://localhost:3000/uploads/grumpis/059.1.png",
+    "descripcion": "Forma evolucionada de Warbeet. De su caparazón brotan unas grandes alas y su cuerno se convierte en la lanza que porta.",
+    "ataques": [
+      {
+        "nombre": "Tornado",
+        "efecto": "60",
+        "tipo": "Aire"
+      },
+      {
+        "nombre": "Lanza vital",
+        "efecto": "70 + Se cura 20 puntos de salud.",
+        "tipo": "Vida"
+      }
+    ],
+    "tipo": "Aire"
+  },
+  {
+    "id": 60,
+    "trainer_id": 0,
+    "nombre": "Darky",
+    "n_grumpidex": "060",
+    "img": "http://localhost:3000/uploads/grumpis/060.1.png",
+    "descripcion": "Ser de la oscuridad con apariencia entre un perro y un gato. Aunque parezca muy adorable, puede llegar a ser muy agresivo.",
+    "ataques": [
+      {
+        "nombre": "Ladrido",
+        "efecto": "Paraliza al objetivo",
+        "tipo": "Oscuridad"
+      },
+      {
+        "nombre": "Mordisco",
+        "efecto": "30",
+        "tipo": "Normal"
+      }
+    ],
+    "tipo": "Oscuridad"
+  },
+  {
+    "id": 61,
+    "trainer_id": 0,
+    "nombre": "Bidark",
+    "n_grumpidex": "061",
+    "img": "http://localhost:3000/uploads/grumpis/061.1.png",
+    "descripcion": "Forma evolucionada de Darky. Aunque parezca tener dos cabezas, una de ellas es un efecto de su pelaje para asustar a sus enemigos y parecer más fuerte.",
+    "ataques": [
+      {
+        "nombre": "Apagón",
+        "efecto": "30",
+        "tipo": "Oscuridad"
+      },
+      {
+        "nombre": "Lametón",
+        "efecto": "50",
+        "tipo": "Oscuridad"
+      }
+    ],
+    "tipo": "Oscuridad"
+  },
+  {
+    "id": 62,
+    "trainer_id": 0,
+    "nombre": "Darkskull",
+    "n_grumpidex": "062",
+    "img": "http://localhost:3000/uploads/grumpis/062.1.png",
+    "descripcion": "Forma evolucionada de Bidark. Gracias a su casco puede entrar en la mente de sus adversarios para conocer sus miedos y usarlos en su contra.",
+    "ataques": [
+      {
+        "nombre": "Pesadilla",
+        "efecto": "40.Confunde al objetivo.",
+        "tipo": "Oscuridad"
+      },
+      {
+        "nombre": "Rayo oscuro",
+        "efecto": "70",
+        "tipo": "Oscuridad"
+      }
+    ],
+    "tipo": "Oscuridad"
+  },
+  {
+    "id": 63,
+    "trainer_id": 0,
+    "nombre": "Foxie",
+    "n_grumpidex": "063",
+    "img": "http://localhost:3000/uploads/grumpis/063.1.png",
+    "descripcion": "Zorrito muy amigable. Debido a sus genes, es capaz de evolucionar a diferentes criaturas. Su evolución depende del objeto al que se exponga.",
+    "ataques": [
+      {
+        "nombre": "Placaje",
+        "efecto": "10",
+        "tipo": "Normal"
+      },
+      {
+        "nombre": "Mordisco",
+        "efecto": "30",
+        "tipo": "Normal"
+      }
+    ],
+    "tipo": "Normal"
+  },
+  {
+    "id": 64,
+    "trainer_id": 0,
+    "nombre": "Foxice",
+    "n_grumpidex": "064",
+    "img": "http://localhost:3000/uploads/grumpis/064.1.png",
+    "descripcion": "Forma evolucionada de Foxie. Al exponerse a una Losa Agua adopta dicho elemento, pudiendo controlar así crear grandes diluvios gracias a su poder de aumentar la condensación del agua de la atmósfera o grandes ventiscas.",
+    "ataques": [
+      {
+        "nombre": "Mordisco gélido",
+        "efecto": "30",
+        "tipo": "Agua"
+      },
+      {
+        "nombre": "Diluvio",
+        "efecto": "60",
+        "tipo": "Agua"
+      }
+    ],
+    "tipo": "Agua"
+  },
+  {
+    "id": 65,
+    "trainer_id": 0,
+    "nombre": "Foxity",
+    "n_grumpidex": "065",
+    "img": "http://localhost:3000/uploads/grumpis/065.1.png",
+    "descripcion": "Forma evolucionada de Foxie. Al exponerse a una Losa Rayo adopta dicho elemento. Al batir sus alas es capaz de generar una gran cantidad de energía, pudiendo lanzar rayos a sus rivales.",
+    "ataques": [
+      {
+        "nombre": "Aleteo",
+        "efecto": "Confunde al enemigo. Potencia +20 su próximo ataque eléctrico.",
+        "tipo": "Aire"
+      },
+      {
+        "nombre": "Rayo",
+        "efecto": "60",
+        "tipo": "Rayo"
+      }
+    ],
+    "tipo": "Rayo"
+  },
+  {
+    "id": 66,
+    "trainer_id": 0,
+    "nombre": "Foxflame",
+    "n_grumpidex": "066",
+    "img": "http://localhost:3000/uploads/grumpis/066.1.png",
+    "descripcion": "Forma evolucionada de Foxie. Al exponerse a una Losa Fuego adopta dicho elemento. Es capaz de controlar las llamas que haya a su alrededor, así como lanzar grandes llamaradas por su boca.",
+    "ataques": [
+      {
+        "nombre": "Colmillo ígneo",
+        "efecto": "30",
+        "tipo": "Fuego"
+      },
+      {
+        "nombre": "Lanzallamas",
+        "efecto": "60",
+        "tipo": "Fuego"
+      }
+    ],
+    "tipo": "Fuego"
+  },
+  {
+    "id": 67,
+    "trainer_id": 0,
+    "nombre": "Foxwind",
+    "n_grumpidex": "067",
+    "img": "http://localhost:3000/uploads/grumpis/067.1.png",
+    "descripcion": "Forma evolucionada de Foxie. Al exponerse a una Losa Aire adopta dicho elemento. Al batir sus alas es capaz de generar grandes corrientes de aire y remolinos.",
+    "ataques": [
+      {
+        "nombre": "Remolino",
+        "efecto": "30",
+        "tipo": "Aire"
+      },
+      {
+        "nombre": "Tornado",
+        "efecto": "60",
+        "tipo": "Aire"
+      }
+    ],
+    "tipo": "Aire"
+  },
+  {
+    "id": 68,
+    "trainer_id": 0,
+    "nombre": "Foxlive",
+    "n_grumpidex": "068",
+    "img": "http://localhost:3000/uploads/grumpis/068.1.png",
+    "descripcion": "Forma evolucionada de Foxie. Al exponerse a una Losa Vida adopta dicho elemento. Es capaz de generar vida y controlar el crecimiento de las plantas para que le ayuden en su propósito.",
+    "ataques": [
+      {
+        "nombre": "Canalización",
+        "efecto": "Cura 30 puntos de salud",
+        "tipo": "Vida"
+      },
+      {
+        "nombre": "Azote salvaje",
+        "efecto": "60",
+        "tipo": "Vida"
+      }
+    ],
+    "tipo": "Vida"
+  },
+  {
+    "id": 69,
+    "trainer_id": 0,
+    "nombre": "Foxearth",
+    "n_grumpidex": "069",
+    "img": "http://localhost:3000/uploads/grumpis/069.1.png",
+    "descripcion": "Forma evolucionada de Foxie. Al exponerse a una Losa Tierra adopta dicho elemento. Es capaz de crear grandes movimientos en la tierra o crear tormentas de arena batiendo sus alas.",
+    "ataques": [
+      {
+        "nombre": "Tormenta de arena",
+        "efecto": "30",
+        "tipo": "Tierra"
+      },
+      {
+        "nombre": "Terremoto",
+        "efecto": "70",
+        "tipo": "Tierra"
+      }
+    ],
+    "tipo": "Tierra"
+  },
+  {
+    "id": 70,
+    "trainer_id": 0,
+    "nombre": "Claw",
+    "n_grumpidex": "070",
+    "img": "http://localhost:3000/uploads/grumpis/070.1.png",
+    "descripcion": "A pesar de sus rasgos, es un grumpi del elemento fuego, siendo capaz de crear grandes llamaradas desde su boca o lanzar rocas recubiertas de fuego con sus grandes garras.",
+    "ataques": [
+      {
+        "nombre": "Roca ígena",
+        "efecto": "20",
+        "tipo": "Fuego"
+      },
+      {
+        "nombre": "Garra fuego",
+        "efecto": "40",
+        "tipo": "Fuego"
+      }
+    ],
+    "tipo": "Fuego"
+  },
+  {
+    "id": 71,
+    "trainer_id": 0,
+    "nombre": "Sinisterclaw",
+    "n_grumpidex": "071",
+    "img": "http://localhost:3000/uploads/grumpis/071.1.png",
+    "descripcion": "Forma evolucionada de Claw. Al evolucionar crea dos cañones de fuego en su espalda, a partir de los cuales, puede crear llamaradas capaces de derretir un edificio.",
+    "ataques": [
+      {
+        "nombre": "Colmillo ígneo",
+        "efecto": "30",
+        "tipo": "Fuego"
+      },
+      {
+        "nombre": "Excavar",
+        "efecto": "60",
+        "tipo": "Tierra"
+      }
+    ],
+    "tipo": "Fuego"
+  },
+  {
+    "id": 72,
+    "trainer_id": 0,
+    "nombre": "Ted",
+    "n_grumpidex": "072",
+    "img": "http://localhost:3000/uploads/grumpis/072.1.png",
+    "descripcion": "Grumpi activo. Le encanta la actividad física y el deporte, sobre todo el boxeo. Cuando logra un alto rango en dicho deporte, evoluciona.",
+    "ataques": [
+      {
+        "nombre": "Engullir",
+        "efecto": "40",
+        "tipo": "Normal"
+      },
+      {
+        "nombre": "Copión",
+        "efecto": "Copia el ataque cargado del rival",
+        "tipo": "Normal"
+      }
+    ],
+    "tipo": "Normal"
+  },
+  {
+    "id": 73,
+    "trainer_id": 0,
+    "nombre": "Choying",
+    "n_grumpidex": "073",
+    "img": "http://localhost:3000/uploads/grumpis/073.1.png",
+    "descripcion": "Forma evolucionada de Claw. Ha adquirido una gran cantidad de destrezas físicas y mentales para poder vencer a los enemigos con sus puños.",
+    "ataques": [
+      {
+        "nombre": "Golpe doble",
+        "efecto": "15x-  Se lanza  una moneda dos veces, quita 15 de vida por cada cara.",
+        "tipo": "Normal"
+      },
+      {
+        "nombre": "Embestida",
+        "efecto": "70 - Se hace a sí mismo 20p.",
+        "tipo": "Normal"
+      }
+    ],
+    "tipo": "Normal"
+  },
+  {
+    "id": 74,
+    "trainer_id": 0,
+    "nombre": "Kapua",
+    "n_grumpidex": "074",
+    "img": "http://localhost:3000/uploads/grumpis/074.1.png",
+    "descripcion": "Grumpi feliz y risueño formado a partir de vapor de agua y otros gases. Cuando se enfada puede crear chubascos. Su evolución cambia según a qué objeto se exponga.",
+    "ataques": [
+      {
+        "nombre": "Picoteo",
+        "efecto": "Se cura 10ps",
+        "tipo": "Aire"
+      },
+      {
+        "nombre": "Picotazo",
+        "efecto": "20",
+        "tipo": "Aire"
+      }
+    ],
+    "tipo": "Aire"
+  },
+  {
+    "id": 75,
+    "trainer_id": 0,
+    "nombre": "Kapuatorm",
+    "n_grumpidex": "075",
+    "img": "http://localhost:3000/uploads/grumpis/075.1.png",
+    "descripcion": "Forma evolucionada de Kapua mediante una losa rayo. Es capaz de generar tormentas eléctricas gracias a la composición de sus partículas.",
+    "ataques": [
+      {
+        "nombre": "Vuelo",
+        "efecto": "60",
+        "tipo": "Aire"
+      },
+      {
+        "nombre": "Bioshock",
+        "efecto": "80",
+        "tipo": "Rayo"
+      }
+    ],
+    "tipo": "Aire"
+  },
+  {
+    "id": 76,
+    "trainer_id": 0,
+    "nombre": "Kapuawai",
+    "n_grumpidex": "076",
+    "img": "http://localhost:3000/uploads/grumpis/076.1.png",
+    "descripcion": "Forma evolucionada de Kapua mediante una losa aire. Es capaz de crear grandes corrientes de aire.",
+    "ataques": [
+      {
+        "nombre": "Tornado",
+        "efecto": "60",
+        "tipo": "Aire"
+      },
+      {
+        "nombre": "Vendaval",
+        "efecto": "100",
+        "tipo": "Aire"
+      }
+    ],
+    "tipo": "Aire"
+  },
+  {
+    "id": 77,
+    "trainer_id": 0,
+    "nombre": "Oko",
+    "n_grumpidex": "077",
+    "img": "http://localhost:3000/uploads/grumpis/077.1.png",
+    "descripcion": "Grumpi cargado de un líquido bastante volátil. Dicen que al exponerse a algunos objetos cambia la composición del líquido.",
+    "ataques": [
+      {
+        "nombre": "Placaje",
+        "efecto": "10",
+        "tipo": "Normal"
+      },
+      {
+        "nombre": "Reflejo",
+        "efecto": "Ciega al enemigo durante un turno.",
+        "tipo": "Normal"
+      }
+    ],
+    "tipo": "Normal"
+  },
+  {
+    "id": 78,
+    "trainer_id": 0,
+    "nombre": "Okovil",
+    "n_grumpidex": "078",
+    "img": "http://localhost:3000/uploads/grumpis/078.1.png",
+    "descripcion": "Forma evolucionada de Oko al exponerse a una losa oscuridad.Su líquido se vuelve oscuro y venoso capaz de aniquilar cualquier ser vivo.",
+    "ataques": [
+      {
+        "nombre": "Lametón",
+        "efecto": "50",
+        "tipo": "Oscuridad"
+      },
+      {
+        "nombre": "Pesadilla",
+        "efecto": "40 + Aplica confusión",
+        "tipo": "Oscuridad"
+      }
+    ],
+    "tipo": "Oscuridad"
+  },
+  {
+    "id": 79,
+    "trainer_id": 0,
+    "nombre": "Okora",
+    "n_grumpidex": "079",
+    "img": "http://localhost:3000/uploads/grumpis/079.1.png",
+    "descripcion": "Forma evolucionada de Oko al exponerse a una losa vida. A pesar de su aspecto maligno, es un guardián y creador de la la vida de los bosques.",
+    "ataques": [
+      {
+        "nombre": "Crecimiento salvaje",
+        "efecto": "50",
+        "tipo": "Vida"
+      },
+      {
+        "nombre": "Lanza vital",
+        "efecto": "70 + Se cura 20 puntos de salud.",
+        "tipo": "Vida"
+      }
+    ],
+    "tipo": "Vida"
+  },
+  {
+    "id": 80,
+    "trainer_id": 0,
+    "nombre": "Rapetti",
+    "n_grumpidex": "080",
+    "img": "http://localhost:3000/uploads/grumpis/080.1.png",
+    "descripcion": "Conejo de planta feliz que le encanta hacer deporte y saltar por el campo.",
+    "ataques": [
+      {
+        "nombre": "Veneno",
+        "efecto": "10x",
+        "tipo": "Vida"
+      },
+      {
+        "nombre": "Campo de setas",
+        "efecto": "20",
+        "tipo": "Vida"
+      }
+    ],
+    "tipo": "Vida"
+  },
+  {
+    "id": 81,
+    "trainer_id": 0,
+    "nombre": "Rapett",
+    "n_grumpidex": "081",
+    "img": "http://localhost:3000/uploads/grumpis/081.1.png",
+    "descripcion": "Forma evolucionada de Rapetti. Le encanta reflexionar y observar el mundo que le rodea, así como los problemas que se plantean.",
+    "ataques": [
+      {
+        "nombre": "Golpe acero",
+        "efecto": "30",
+        "tipo": "Tierra"
+      },
+      {
+        "nombre": "Espada letal",
+        "efecto": "40",
+        "tipo": "Tierra"
+      }
+    ],
+    "tipo": "Tierra"
+  },
+  {
+    "id": 82,
+    "trainer_id": 0,
+    "nombre": "Rapettelion",
+    "n_grumpidex": "082",
+    "img": "http://localhost:3000/uploads/grumpis/082.1.png",
+    "descripcion": "Forma evolucionada de Rapett. Su pasión por los números y los deportes hacen de él un adversario muy calculador y fuerte.",
+    "ataques": [
+      {
+        "nombre": "Ascuas",
+        "efecto": "15 + Quemadura",
+        "tipo": "Fuego"
+      },
+      {
+        "nombre": "Lanzallamas",
+        "efecto": "60",
+        "tipo": "Fuego"
+      }
+    ],
+    "tipo": "Fuego"
+  },
+  {
+    "id": 83,
+    "trainer_id": 0,
+    "nombre": "Kopere",
+    "n_grumpidex": "083",
+    "img": "http://localhost:3000/uploads/grumpis/083.1.png",
+    "descripcion": "Simio travieso que le encanta hacer agujeros y taparlos para que la gente y otros Grumpis tropiecen en ellos.",
+    "ataques": [
+      {
+        "nombre": "Golpe roca",
+        "efecto": "10",
+        "tipo": "Tierra"
+      },
+      {
+        "nombre": "Soplo de arena",
+        "efecto": "Ciega al enemigo.",
+        "tipo": "Tierra"
+      }
+    ],
+    "tipo": "Tierra"
+  },
+  {
+    "id": 84,
+    "trainer_id": 0,
+    "nombre": "Kopekanga",
+    "n_grumpidex": "084",
+    "img": "http://localhost:3000/uploads/grumpis/084.1.png",
+    "descripcion": "Forma evolucionada de Kopere. Al evolucionar se vuelve más serio y comienza a ayudar a los demás Grumpis en sus labores.",
+    "ataques": [
+      {
+        "nombre": "Tormenta de arena",
+        "efecto": "30",
+        "tipo": "Tierra"
+      },
+      {
+        "nombre": "Golpe kárate",
+        "efecto": "50.",
+        "tipo": "Tierra"
+      }
+    ],
+    "tipo": "Tierra"
+  },
+  {
+    "id": 85,
+    "trainer_id": 0,
+    "nombre": "Kopenguru",
+    "n_grumpidex": "085",
+    "img": "http://localhost:3000/uploads/grumpis/085.1.png",
+    "descripcion": "Forma evolucionada de Kopekanga. Poderoso Grumpi que presta su fuerza para proteger a los más débiles. Son los guardianes de los Grumpis más necesitados.",
+    "ataques": [
+      {
+        "nombre": "Concentración",
+        "efecto": "Aumenta en 10 p. el siguiente ataque. ",
+        "tipo": "Tierra"
+      },
+      {
+        "nombre": "Terremoto",
+        "efecto": "70.",
+        "tipo": "Tierra"
+      }
+    ],
+    "tipo": "Tierra"
+  },
+  {
+    "id": 86,
+    "trainer_id": 0,
+    "nombre": "Toybird",
+    "n_grumpidex": "086",
+    "img": "http://localhost:3000/uploads/grumpis/086.1.png",
+    "descripcion": "Nadie ha visto jamás que hay detrás del disfraz que porta este Grupo. Muchos han querido descubrir que esconde sin mucha suerte, pues es muy poderoso.",
+    "ataques": [
+      {
+        "nombre": "Vuelo",
+        "efecto": "40",
+        "tipo": "Aire"
+      },
+      {
+        "nombre": "Tornado",
+        "efecto": "60.",
+        "tipo": "Aire"
+      }
+    ],
+    "tipo": "Aire"
+  },
+  {
+    "id": 87,
+    "trainer_id": 0,
+    "nombre": "Pokehina",
+    "n_grumpidex": "087",
+    "img": "http://localhost:3000/uploads/grumpis/087.1.png",
+    "descripcion": "Pequeña y simpática criatura que vive en las sombras y lugares oscuros. Es muy juguetona.",
+    "ataques": [
+      {
+        "nombre": "Apagón",
+        "efecto": "10",
+        "tipo": "Oscuridad"
+      },
+      {
+        "nombre": "Escudo negro",
+        "efecto": "Gana un turno extra.",
+        "tipo": "Oscuridad"
+      }
+    ],
+    "tipo": "Oscuridad"
+  },
+  {
+    "id": 88,
+    "trainer_id": 0,
+    "nombre": "Tarahina",
+    "n_grumpidex": "088",
+    "img": "http://localhost:3000/uploads/grumpis/088.1.png",
+    "descripcion": "Forma evolucionada de Pokehina. Viven en lugares oscuros o en la sombra. A veces se les confunden con el monstruo del armario. Sin embargo, son muy cariñosos y buenos.",
+    "ataques": [
+      {
+        "nombre": "Rayo oscuro",
+        "efecto": "70",
+        "tipo": "Oscuridad"
+      },
+      {
+        "nombre": "Drago-aliento",
+        "efecto": "80",
+        "tipo": "Oscuridad"
+      }
+    ],
+    "tipo": "Oscuridad"
+  },
+  {
+    "id": 89,
+    "trainer_id": 0,
+    "nombre": "α-Bot ",
+    "n_grumpidex": "089",
+    "img": "http://localhost:3000/uploads/grumpis/089.1.png",
+    "descripcion": " Robot creado con materiales reciclados de otros robots y de basura espacial. Tiene un gran control de la luz.",
+    "ataques": [
+      {
+        "nombre": "Psíquico",
+        "efecto": "70",
+        "tipo": "Luz"
+      },
+      {
+        "nombre": "Lectura de mente",
+        "efecto": "40 + Aplica confusión",
+        "tipo": "Luz"
+      }
+    ],
+    "tipo": "Luz"
+  },
+  {
+    "id": 90,
+    "trainer_id": 0,
+    "nombre": "β-Bot. ",
+    "n_grumpidex": "090",
+    "img": "http://localhost:3000/uploads/grumpis/090.1.png",
+    "descripcion": "Robot creado para soportar grandes corrientes eléctricas. Dicen que es capaz de controlar el rayo.",
+    "ataques": [
+      {
+        "nombre": "Tormenta eléctrica",
+        "efecto": "60",
+        "tipo": "Rayo"
+      },
+      {
+        "nombre": "Giga-rayo",
+        "efecto": "70",
+        "tipo": "Rayo"
+      }
+    ],
+    "tipo": "Rayo"
+  },
+  {
+    "id": 91,
+    "trainer_id": 0,
+    "nombre": "γ-Bot  ",
+    "n_grumpidex": "091",
+    "img": "http://localhost:3000/uploads/grumpis/091.1.png",
+    "descripcion": "Robot con altas capacidades magnéticas. Puede controlar los metales a su antojo.",
+    "ataques": [
+      {
+        "nombre": "Espada santa",
+        "efecto": "70",
+        "tipo": "Luz"
+      },
+      {
+        "nombre": "Escudo santo",
+        "efecto": "Se protege durante un turno de un ataque enemigo.",
+        "tipo": "Luz"
+      }
+    ],
+    "tipo": "Luz"
+  },
+  {
+    "id": 92,
+    "trainer_id": 0,
+    "nombre": "Punchi",
+    "n_grumpidex": "092",
+    "img": "http://localhost:3000/uploads/grumpis/092.1.png",
+    "descripcion": "Guerrero que controla las artes marciales y el fuego. Es capaz de dar puñetazos tan fuertes como balas de cañón.",
+    "ataques": [
+      {
+        "nombre": "Garra fuego",
+        "efecto": "40",
+        "tipo": "Fuego"
+      },
+      {
+        "nombre": "Lanzallamas",
+        "efecto": "60",
+        "tipo": "Fuego"
+      }
+    ],
+    "tipo": "Fuego"
+  },
+  {
+    "id": 93,
+    "trainer_id": 0,
+    "nombre": "Darkness",
+    "n_grumpidex": "093",
+    "img": "http://localhost:3000/uploads/grumpis/093.1.png",
+    "descripcion": "Pequeña criatura de la oscuridad que vive en casas y lugares abandonados. Molesta a la gente que se acerca a estos sitios como si fuera un fantasma.",
+    "ataques": [
+      {
+        "nombre": "Lametón",
+        "efecto": "50",
+        "tipo": "Oscuridad"
+      },
+      {
+        "nombre": "Rayo oscuro",
+        "efecto": "70",
+        "tipo": "Oscuridad"
+      }
+    ],
+    "tipo": "Oscuridad"
+  },
+  {
+    "id": 94,
+    "trainer_id": 0,
+    "nombre": "Psyodark",
+    "n_grumpidex": "094",
+    "img": "http://localhost:3000/uploads/grumpis/094.1.png",
+    "descripcion": "Criatura legendaria. Poderoso anfibio que es capaz de surcar los mares y océanos a gran velocidad y controlar sus corrientes. Es el guardián de los mares y los océanos.",
+    "ataques": [
+      {
+        "nombre": "Diluvio",
+        "efecto": "60",
+        "tipo": "Agua"
+      },
+      {
+        "nombre": "Cañón agua",
+        "efecto": "70",
+        "tipo": "Agua"
+      }
+    ],
+    "tipo": "Agua"
+  },
+  {
+    "id": 95,
+    "trainer_id": 0,
+    "nombre": "Shadowsteel",
+    "n_grumpidex": "095",
+    "img": "http://localhost:3000/uploads/grumpis/095.1.png",
+    "descripcion": "Criatura legendaria. Licántropo con forma humana que es capaz de controlar la tierra.",
+    "ataques": [
+      {
+        "nombre": "Huesomerang",
+        "efecto": "50",
+        "tipo": "Tierra"
+      },
+      {
+        "nombre": "Onda certera",
+        "efecto": "80",
+        "tipo": "Tierra"
+      }
+    ],
+    "tipo": "Tierra"
+  },
+  {
+    "id": 96,
+    "trainer_id": 0,
+    "nombre": "Phanleo",
+    "n_grumpidex": "096",
+    "img": "http://localhost:3000/uploads/grumpis/096.1.png",
+    "descripcion": "Criatura legendaria. León imperial que es capaz de controlar las brumas y la oscuridad a su antojo. Es conocido como el Señor Oscuro.",
+    "ataques": [
+      {
+        "nombre": "Drago-aliento",
+        "efecto": "70",
+        "tipo": "Oscuridad"
+      },
+      {
+        "nombre": "Portal oscuro",
+        "efecto": "100",
+        "tipo": "Oscuridad"
+      }
+    ],
+    "tipo": "Oscuridad"
+  },
+  {
+    "id": 97,
+    "trainer_id": 0,
+    "nombre": "Emperor",
+    "n_grumpidex": "097",
+    "img": "http://localhost:3000/uploads/grumpis/097.1.png",
+    "descripcion": "Criatura legendaria. Ser de otro planeta que ha llegado al nuestro mediante un portal mágico. Es capaz de controlar las tormentas y la electricidad a su antojo.",
+    "ataques": [
+      {
+        "nombre": "Bioshock",
+        "efecto": "80",
+        "tipo": "Rayo"
+      },
+      {
+        "nombre": "Descarga",
+        "efecto": "100",
+        "tipo": "Rayo"
+      }
+    ],
+    "tipo": "Rayo"
+  },
+  {
+    "id": 98,
+    "trainer_id": 0,
+    "nombre": "Tibu",
+    "n_grumpidex": "098",
+    "img": "http://localhost:3000/uploads/grumpis/098.1.png",
+    "descripcion": "Tiburón de pequeño tamaño que se alimenta principalmente de peces de pequeño tamaño. Le encanta saltar por las olas. ",
+    "ataques": [
+      {
+        "nombre": "Salpicar",
+        "efecto": "10",
+        "tipo": "Agua"
+      },
+      {
+        "nombre": "Nado rápido",
+        "efecto": "30",
+        "tipo": "Agua"
+      }
+    ],
+    "tipo": "Agua"
+  },
+  {
+    "id": 99,
+    "trainer_id": 0,
+    "nombre": "Tintorer",
+    "n_grumpidex": "099",
+    "img": "http://localhost:3000/uploads/grumpis/099.1.png",
+    "descripcion": "Forma evolucionada de Tibu.  Su cuerpo se endurece. Usa su fuerte cabeza para golpear los barcos que se encuentra para demostrar su fuerza.",
+    "ataques": [
+      {
+        "nombre": "Mordisco gélido",
+        "efecto": "30",
+        "tipo": "Agua"
+      },
+      {
+        "nombre": "Chorro agua",
+        "efecto": "50",
+        "tipo": "Agua"
+      }
+    ],
+    "tipo": "Agua"
+  },
+  {
+    "id": 100,
+    "trainer_id": 0,
+    "nombre": "Mandíbula",
+    "n_grumpidex": "100",
+    "img": "http://localhost:3000/uploads/grumpis/100.1.png",
+    "descripcion": "Forma evolucionada de Tintorer. Es conocido como el rey de los mares. Tiene un punzante cuerpo con el que puede desgarrar a sus adversarios.",
+    "ataques": [
+      {
+        "nombre": "Diluvio",
+        "efecto": "60",
+        "tipo": "Agua"
+      },
+      {
+        "nombre": "Surf",
+        "efecto": "70",
+        "tipo": "Agua"
+      }
+    ],
+    "tipo": "Agua"
+  },
+  {
+    "id": 101,
+    "trainer_id": 0,
+    "nombre": "Wormy",
+    "n_grumpidex": "101",
+    "img": "http://localhost:3000/uploads/grumpis/101.1.png",
+    "descripcion": "Gusano escurridizo que le gusta comer hojas con forma extraña.",
+    "ataques": [
+      {
+        "nombre": "Placaje",
+        "efecto": "10",
+        "tipo": "Normal"
+      },
+      {
+        "nombre": "Mordisco",
+        "efecto": "30",
+        "tipo": "Normal"
+      }
+    ],
+    "tipo": "Normal"
+  },
+  {
+    "id": 102,
+    "trainer_id": 0,
+    "nombre": "Shelldi",
+    "n_grumpidex": "102",
+    "img": "http://localhost:3000/uploads/grumpis/102.1.png",
+    "descripcion": "Forma evolucionada de Wormy. Protege su cuerpo para prepararse para la metamorfosis y así convertirse en un Grumpi poderoso. Puede dar mordiscos muy poderosos.",
+    "ataques": [
+      {
+        "nombre": "Mordisco",
+        "efecto": "30",
+        "tipo": "Normal"
+      },
+      {
+        "nombre": "Copión",
+        "efecto": "Copia el ataque más poderoso del rival.",
+        "tipo": "Normal"
+      }
+    ],
+    "tipo": "Normal"
+  },
+  {
+    "id": 103,
+    "trainer_id": 0,
+    "nombre": "Shail",
+    "n_grumpidex": "103",
+    "img": "http://localhost:3000/uploads/grumpis/103.1.png",
+    "descripcion": "Forma evolucionada de Wormy. Protege su cuerpo para prepararse para la metamorfosis y así convertirse en un Grumpi poderoso. Puede dar mordiscos muy poderosos.",
+    "ataques": [
+      {
+        "nombre": "Vuelo",
+        "efecto": "60",
+        "tipo": "Aire"
+      },
+      {
+        "nombre": "Tornado",
+        "efecto": "60",
+        "tipo": "Aire"
+      }
+    ],
+    "tipo": "Aire"
+  },
+  {
+    "id": 104,
+    "trainer_id": 0,
+    "nombre": "Sicosaur",
+    "n_grumpidex": "104",
+    "img": "http://localhost:3000/uploads/grumpis/104.1.png",
+    "descripcion": "Forma evolucionada de Wormy. Protege su cuerpo para prepararse para la metamorfosis y así convertirse en un Grumpi poderoso. Puede dar mordiscos muy poderosos.",
+    "ataques": [
+      {
+        "nombre": "Garra fuego",
+        "efecto": "40",
+        "tipo": "Fuego"
+      },
+      {
+        "nombre": "Fuego fatuo",
+        "efecto": "Quema al objetivo",
+        "tipo": "Fuego"
+      }
+    ],
+    "tipo": "Fuego"
+  },
+  {
+    "id": 105,
+    "trainer_id": 0,
+    "nombre": "Metalwolf",
+    "n_grumpidex": "105",
+    "img": "http://localhost:3000/uploads/grumpis/105.1.png",
+    "descripcion": "Sabueso mecánico que es capaz de lanzar rayos láser por sus ojos y lanzar misiles por diferentes partes de su cuerpo.",
+    "ataques": [
+      {
+        "nombre": "Rayo de luz",
+        "efecto": "70",
+        "tipo": "Luz"
+      },
+      {
+        "nombre": "Teletransporte",
+        "efecto": "Se cambia por el otro Grumpi elegido sin perder el turno.",
+        "tipo": "Luz"
+      }
+    ],
+    "tipo": "Luz"
+  },
+  {
+    "id": 106,
+    "trainer_id": 0,
+    "nombre": "Squishy",
+    "n_grumpidex": "106",
+    "img": "http://localhost:3000/uploads/grumpis/106.1.png",
+    "descripcion": "Ratón cuyo cuerpo parece hecho de gelatina. Es muy simpático y juguetón. Pero si se enfada puede ser muy poderoso.",
+    "ataques": [
+      {
+        "nombre": "Engullir",
+        "efecto": "40",
+        "tipo": "Normal"
+      },
+      {
+        "nombre": "Embestida",
+        "efecto": "70 - Se hace a sí mismo 20p.",
+        "tipo": "Normal"
+      }
+    ],
+    "tipo": "Normal"
+  },
+  {
+    "id": 107,
+    "trainer_id": 0,
+    "nombre": "Lutty",
+    "n_grumpidex": "107",
+    "img": "http://localhost:3000/uploads/grumpis/107.1.png",
+    "descripcion": "Cachorro nacido en el interior de los volcanes. Su cuerpo es capaz de soportar grandes temperaturas.",
+    "ataques": [
+      {
+        "nombre": "Roca ígnea",
+        "efecto": "20",
+        "tipo": "Fuego"
+      },
+      {
+        "nombre": "Colmillo ígneo",
+        "efecto": "30",
+        "tipo": "Fuego"
+      }
+    ],
+    "tipo": "Fuego"
+  },
+  {
+    "id": 108,
+    "trainer_id": 0,
+    "nombre": "Malachatt",
+    "n_grumpidex": "108",
+    "img": "http://localhost:3000/uploads/grumpis/108.1.png",
+    "descripcion": "Forma evolucionada de Lutty. Al crecer, su cuerpo se enfría y endurece, pudiendo controlar el poder de la oscuridad.",
+    "ataques": [
+      {
+        "nombre": "Lametón",
+        "efecto": "50",
+        "tipo": "Oscuridad"
+      },
+      {
+        "nombre": "Pesadilla",
+        "efecto": "40 + Confunde al objetivo",
+        "tipo": "Oscuridad"
+      }
+    ],
+    "tipo": "Oscuridad"
+  },
+  {
+    "id": 109,
+    "trainer_id": 0,
+    "nombre": "Reddy",
+    "n_grumpidex": "109",
+    "img": "http://localhost:3000/uploads/grumpis/109.1.png",
+    "descripcion": "A pesar de su sonrisa tan alegre, es capaz de lanzar lava por los orificios de su cuerpo y así derretir a sus enemigos.",
+    "ataques": [
+      {
+        "nombre": "Garra fuego",
+        "efecto": "40",
+        "tipo": "Fuego"
+      },
+      {
+        "nombre": "Lanzallamas",
+        "efecto": "60",
+        "tipo": "Fuego"
+      }
+    ],
+    "tipo": "Fuego"
   }
 ]
