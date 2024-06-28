@@ -15,7 +15,7 @@ const filePathGrumpis = "./data/grumpis.json";
 const filePathObjectsCombat = "./data/combatObjects.json";
 const filePathObjectsEvolution = "./data/evolutionObjects.json";
 const filePathRewards = "./data/rewards.json";
-const filePathAttacks = "./data/attacks.json"
+const filePathAttacks = "./data/attacks.json";
 
 // Configuración de la base de datos
 // const db = new sqlite3.Database("database.db"); // Crea una base de datos en memoria
@@ -354,9 +354,9 @@ app.post("/", (req, res) => {
 });
 
 /**
- * 
+ *
  * Función para añadir un nuevo usuario
- * 
+ *
  */
 app.post("/new-user", (req, res) => {
   const nuevoUsuario = req.body;
@@ -393,9 +393,9 @@ app.put("/user", (req, res) => {
 });
 
 /**
- * 
+ *
  * Función para eliminar un entrenador
- * 
+ *
  */
 app.delete("/user/:name", async (req, res) => {
   const userName = req.params.name;
@@ -435,9 +435,9 @@ app.delete("/user/:name", async (req, res) => {
 });
 
 /**
- * 
+ *
  * Actualiza los datos de un entrenador
- * 
+ *
  */
 app.put("/trainers/update/:name", (req, res) => {
   const trainerName = req.params.name;
@@ -495,7 +495,6 @@ app.put("/trainers/update/:name", (req, res) => {
   });
 });
 
-
 /********************************************************************
  *
  *            ASIGNACIÓN DE grumpis A LOS ENTRENADORES
@@ -532,7 +531,7 @@ function saveTrainerData() {
 function assignCreatureToTrainer(trainerName, creature) {
   console.log("Grumpi para asignar al entrenador: ", creature);
   const trainer = trainerData.find((trainer) => trainer.name === trainerName);
-  console.log('Entrenador buscado?: ', trainer);
+  console.log("Entrenador buscado?: ", trainer);
   if (trainer) {
     // Asegurarse de que la propiedad 'grumpis' existe
     if (!trainer.grumpis) {
@@ -794,9 +793,9 @@ app.get("/getGrumpis", (req, res) => {
 });
 
 /**
- * 
+ *
  * OBTENER TODOS LOS ATAQUES
- * 
+ *
  */
 app.get("/getAllAttacks", (req, res) => {
   fs.readFile(filePathAttacks, "utf8", (err, data) => {
@@ -837,6 +836,50 @@ app.get("/getImageUrls", (req, res) => {
     res.json({ imageUrls });
   });
 });
+
+/**
+ *
+ * FUNCIÓN PARA AÑADIR UN NUEVO GRUMPI A LA LISTA
+ *
+ */
+app.post("/grumpis", upload.single("image"), (req, res) => {
+  try {
+    const grumpiData = JSON.parse(req.body.grumpiData);
+
+    // Definir la ruta al archivo grumpis.json
+    const grumpisFile = path.join(__dirname, "data", "grumpis.json");
+
+    let grumpis = [];
+    if (fs.existsSync(grumpisFile)) {
+      // Leer el archivo grumpis.json (si existe)
+      grumpis = JSON.parse(fs.readFileSync(grumpisFile, "utf8"));
+    } else {
+      console.log("El archivo grumpis.json no existe, se creará uno nuevo.");
+    }
+    // Asignar un ID único
+    grumpiData.id = grumpis.length + 1;
+
+    // Actualizar la URL de la imagen
+    const fileExt = path.extname(req.file.originalname);
+    grumpiData.img = `http://localhost:3000/uploads/grumpis/${grumpiData.numero}${fileExt}`;
+
+    // Agregar el nuevo Grumpi a la lista
+    grumpis.push(grumpiData);
+
+    // Escribir los datos actualizados de vuelta al archivo grumpis.json
+    fs.writeFileSync(grumpisFile, JSON.stringify(grumpis, null, 2));
+    console.log("Grumpi guardado en grumpis.json:", grumpiData);
+    res
+      .status(201)
+      .json({ message: "Grumpi guardado correctamente", grumpi: grumpiData });
+  } catch (err) {
+    console.error("Error al guardar el Grumpi en grumpis.json", err); // Log the error details
+    res
+      .status(500)
+      .json({ message: "Error al guardar el Grumpi", error: err.message });
+  }
+});
+
 
 /***************************************************************
  *                                                              *
@@ -956,7 +999,6 @@ app.post("/assign-energie", (req, res) => {
     });
 });
 
-
 function buyEnergiesToTrainer(trainerName, energy) {
   return new Promise((resolve, reject) => {
     // Buscar el entrenador por nombre y actualizar sus datos en memoria
@@ -972,7 +1014,6 @@ function buyEnergiesToTrainer(trainerName, energy) {
     }
   });
 }
-
 
 app.post("/buyEnergies", (req, res) => {
   const { trainerName, energy } = req.body;
@@ -1061,7 +1102,7 @@ function assignMedalToTrainer(trainerName, medalName) {
     /**
      * Se asegura que la propiedad 'medallas' existe en el entrenador.
      */
-    if(!trainer.medallas){
+    if (!trainer.medallas) {
       trainer.medallas = [];
     }
     trainer.medallas.push(medalName); // Por ejemplo, asumiendo que tienes una propiedad 'medallas' en tu objeto de entrenador
@@ -1518,12 +1559,10 @@ app.get("/profesor/:id/entrenadores", async (req, res) => {
     );
 
     if (entrenadoresAsignados.length === 0) {
-      return res
-        .status(404)
-        .json({
-          success: false,
-          message: "No se encontraron entrenadores para el profesor indicado",
-        });
+      return res.status(404).json({
+        success: false,
+        message: "No se encontraron entrenadores para el profesor indicado",
+      });
     }
 
     res.json({ success: true, data: entrenadoresAsignados });
@@ -1588,7 +1627,7 @@ app.post("/profesores/:id/entrenadores", (req, res) => {
 });
 
 // Obtener entrenadores por ID de profesor
-app.get('/profesor/:id/entrenadores', async (req, res) => {
+app.get("/profesor/:id/entrenadores", async (req, res) => {
   const profesorId = parseInt(req.params.id);
 
   try {
@@ -1600,7 +1639,7 @@ app.get('/profesor/:id/entrenadores', async (req, res) => {
     if (entrenadoresAsignados.length === 0) {
       return res.status(404).json({
         success: false,
-        message: 'No se encontraron entrenadores para el profesor indicado',
+        message: "No se encontraron entrenadores para el profesor indicado",
       });
     }
 
@@ -1608,10 +1647,9 @@ app.get('/profesor/:id/entrenadores', async (req, res) => {
   } catch (err) {
     res
       .status(500)
-      .json({ success: false, error: 'Error interno del servidor' });
+      .json({ success: false, error: "Error interno del servidor" });
   }
 });
-
 
 /**
  *

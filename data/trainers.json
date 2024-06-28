@@ -745,7 +745,8 @@
         "tipo": "Agua",
         "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
       }
-    ]
+    ],
+    "grumpidolar": 12
   },
   {
     "name": "Mimoko",
