@@ -258,7 +258,7 @@
         "tipo": "Fuego"
       }
     ],
-    "grumpidolar": "650",
+    "grumpidolar": 590,
     "marca_combate": "4",
     "medallas": [
       "http://localhost:3000/uploads/medals/Medalla_Agua.1.png",
@@ -343,6 +343,76 @@
       {
         "nombre": "Desfibrilador",
         "imagen": "http://localhost:3000/uploads/combatObjects/Desfibrilador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Antídoto",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Antidoto.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Antídoto",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Antidoto.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
         "precio": 5
       },
       {
