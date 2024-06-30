@@ -258,7 +258,7 @@
         "tipo": "Fuego"
       }
     ],
-    "grumpidolar": 590,
+    "grumpidolar": 580,
     "marca_combate": "4",
     "medallas": [
       "http://localhost:3000/uploads/medals/Medalla_Agua.1.png",
@@ -306,6 +306,12 @@
         "nombre": "Energía Oscuridad",
         "tipo": "Oscuridad",
         "imagen": "../../../../assets/energies/ENERGIA_OSCURIDAD.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
       },
       {
         "id": 1,
@@ -373,6 +379,16 @@
       {
         "nombre": "Antídoto",
         "imagen": "http://localhost:3000/uploads/combatObjects/Antidoto.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
         "precio": 5
       },
       {
@@ -549,6 +565,11 @@
         "nombre": "Despertador",
         "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
         "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
       }
     ],
     "objetos_evolutivos": [],
@@ -577,7 +598,7 @@
         "tipo": "Vida"
       }
     ],
-    "grumpidolar": 212,
+    "grumpidolar": 207,
     "energias": [],
     "energies": []
   },
