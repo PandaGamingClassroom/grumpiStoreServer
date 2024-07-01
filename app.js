@@ -1601,28 +1601,57 @@ app.post("/profesores", (req, res) => {
 // Endpoint para agregar un nuevo entrenador
 app.post("/profesores/:id/entrenadores", (req, res) => {
   const profesorId = parseInt(req.params.id);
-  const nuevoEntrenador = req.body;
+  const nuevoUsuario = req.body;
+
+  let filePath;
+
+  if (nuevoUsuario.rol === "entrenador") {
+    filePath = "trainers.json";
+  } else if (nuevoUsuario.rol === "profesor") {
+    filePath = "admin.json";
+  } else {
+    return res.status(400).json({ message: "Rol no válido" });
+  }
 
   fs.readFile(filePath, "utf8", (err, data) => {
     if (err) {
-      return res.status(500).json({ error: "Error al leer el archivo" });
-    }
-
-    const entrenadores = JSON.parse(data);
-    nuevoEntrenador.id = entrenadores.length
-      ? entrenadores[entrenadores.length - 1].id + 1
-      : 1;
-    nuevoEntrenador.id_profesor = profesorId;
-
-    entrenadores.push(nuevoEntrenador);
-
-    fs.writeFile(filePath, JSON.stringify(entrenadores, null, 2), (err) => {
-      if (err) {
-        return res.status(500).json({ error: "Error al escribir el archivo" });
+      if (err.code === "ENOENT") {
+        // El archivo no existe, crear el archivo con el nuevo usuario
+        nuevoUsuario.id = 1;
+        nuevoUsuario.id_profesor = profesorId;
+        fs.writeFile(
+          filePath,
+          JSON.stringify([nuevoUsuario], null, 2),
+          (err) => {
+            if (err) {
+              return res
+                .status(500)
+                .json({ error: "Error al escribir el archivo" });
+            }
+            return res.status(201).json(nuevoUsuario);
+          }
+        );
+      } else {
+        return res.status(500).json({ error: "Error al leer el archivo" });
       }
+    } else {
+      const usuarios = JSON.parse(data);
+      nuevoUsuario.id = usuarios.length
+        ? usuarios[usuarios.length - 1].id + 1
+        : 1;
+      nuevoUsuario.id_profesor = profesorId;
 
-      res.status(201).json(nuevoEntrenador);
-    });
+      usuarios.push(nuevoUsuario);
+
+      fs.writeFile(filePath, JSON.stringify(usuarios, null, 2), (err) => {
+        if (err) {
+          return res
+            .status(500)
+            .json({ error: "Error al escribir el archivo" });
+        }
+        res.status(201).json(nuevoUsuario);
+      });
+    }
   });
 });
 
