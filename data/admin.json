@@ -14,5 +14,35 @@
     "usuario": "dani",
     "password": "dani",
     "rol": "profesor"
+  },
+  {
+    "name": "ElFeo",
+    "password": "123",
+    "rol": "profesor",
+    "id_profesor": 1,
+    "id": 3
+  },
+  {
+    "name": "Padre pig",
+    "password": "123",
+    "rol": "profesor",
+    "id_profesor": 1,
+    "id": 4
+  },
+  {
+    "name": "Marica",
+    "password": "123",
+    "rol": "profesor",
+    "id_profesor": 1,
+    "id": 5
+  },
+  {
+    "nombre": "Mariquita",
+    "apellidos": "Pasiva",
+    "usuario": "Mariquita",
+    "password": "123",
+    "rol": "profesor",
+    "id_profesor": 1,
+    "id": 6
   }
 ]

@@ -872,5 +872,12 @@
     "grumpidolar": "500",
     "marca_combate": "7",
     "medallas": []
+  },
+  {
+    "name": "Pepa pig",
+    "password": "666",
+    "rol": "entrenador",
+    "id_profesor": 1,
+    "id": 16
   }
 ]

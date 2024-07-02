@@ -1606,9 +1606,9 @@ app.post("/profesores/:id/entrenadores", (req, res) => {
   let filePath;
 
   if (nuevoUsuario.rol === "entrenador") {
-    filePath = "trainers.json";
+    filePath = "./data/trainers.json";
   } else if (nuevoUsuario.rol === "profesor") {
-    filePath = "admin.json";
+    filePath = "./data/admin.json";
   } else {
     return res.status(400).json({ message: "Rol no válido" });
   }
