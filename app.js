@@ -3,8 +3,14 @@ const app = express();
 const multer = require("multer");
 const cors = require("cors");
 const sqlite3 = require("sqlite3").verbose(); // Importa el módulo sqlite3
-const port = 3000;
+const port = process.env.PORT || 3000;
 const fs = require("fs");
+
+app.use(
+  cors({
+    origin: "https://grumpi-store.vercel.app",
+  })
+);
 
 /**********************
  *  RUTAS DE ACCESO
