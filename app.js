@@ -6,6 +6,8 @@ const sqlite3 = require("sqlite3").verbose(); // Importa el módulo sqlite3
 const port = process.env.PORT || 3000;
 const fs = require("fs");
 
+module.exports = app;
+
 app.use(
   cors({
     origin:
