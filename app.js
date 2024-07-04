@@ -9,6 +9,8 @@ const fs = require("fs");
 app.use(
   cors({
     origin: "https://grumpi-store.vercel.app",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
   })
 );
 
