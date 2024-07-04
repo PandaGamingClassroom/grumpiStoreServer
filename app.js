@@ -8,7 +8,8 @@ const fs = require("fs");
 
 app.use(
   cors({
-    origin: "https://grumpi-store.vercel.app",
+    origin:
+      "https://grumpi-store-4pyw74n0o-panda-gamificacions-projects.vercel.app",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
   })
