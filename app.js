@@ -8,14 +8,14 @@ const fs = require("fs");
 
 module.exports = app;
 
-app.use(
-  cors({
-    origin:
-      "https://grumpi-store-4pyw74n0o-panda-gamificacions-projects.vercel.app",
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    credentials: true,
-  })
-);
+const corsOptions = {
+  origin: "http://localhost:4200", // Origen permitido
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Métodos permitidos
+  credentials: true, // Permitir cookies y otros credenciales
+  optionsSuccessStatus: 200, // Algunas navegadores (Safari) necesitan este ajuste
+};
+
+app.use(cors(corsOptions));
 
 /**********************
  *  RUTAS DE ACCESO
@@ -560,18 +560,29 @@ function assignCreatureToTrainer(trainerName, creature) {
 
 // Ruta de asignación de grumpis
 app.post("/assign-creature", (req, res) => {
-  const { trainerName, creature } = req.body;
+  const { trainerNames, creature } = req.body;
   console.log("Datos de la solicitud:", req.body);
 
-  assignCreatureToTrainer(trainerName, creature)
-    .then((message) => {
-      res.status(200).json({ message: message }); // Enviar el mensaje como parte de un objeto JSON
+  // Crea una promesa para cada entrenador en el array
+  const promises = trainerNames.map((trainerName) =>
+    assignCreatureToTrainer(trainerName, creature)
+  );
+
+  // Espera a que todas las promesas se completen
+  Promise.all(promises)
+    .then((messages) => {
+      res
+        .status(200)
+        .json({
+          message: "Criatura asignada con éxito a todos los entrenadores.",
+        });
     })
     .catch((error) => {
       console.error("Error al asignar el grumpi:", error);
       res.status(500).json({
-        error: "Error al asignar el grumpi al entrenador: " + error.message,
-      }); // Enviar el mensaje de error como parte de un objeto JSON
+        error:
+          "Error al asignar el grumpi a los entrenadores: " + error.message,
+      });
     });
 });
 
