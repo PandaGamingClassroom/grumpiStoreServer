@@ -1138,18 +1138,27 @@ function assignMedalToTrainer(trainerName, medalName) {
 
 // Ruta de asignación de medallas
 app.post("/assign-medal", (req, res) => {
-  const { trainerName, medalName } = req.body;
+  const { trainerNames, medal } = req.body;
   console.log("Datos de la solicitud:", req.body);
-  // Llamada a la función para asignar la medalla al entrenador
-  assignMedalToTrainer(trainerName, medalName)
-    .then((message) => {
-      res.status(200).json({ message: message }); // Enviar el mensaje como parte de un objeto JSON
+
+  // Crea una promesa para cada entrenador en el array
+  const promises = trainerNames.map((trainerName) =>
+    assignMedalToTrainer(trainerName, medal)
+  );
+
+  // Espera a que todas las promesas se completen
+  Promise.all(promises)
+    .then((messages) => {
+      res.status(200).json({
+        message: "Medalla asignada con éxito a todos los entrenadores.",
+      });
     })
     .catch((error) => {
       console.error("Error al asignar la medalla:", error);
       res.status(500).json({
-        error: "Error al asignar la medalla al entrenador: " + error.message,
-      }); // Enviar el mensaje de error como parte de un objeto JSON
+        error:
+          "Error al asignar la medalla a los entrenadores: " + error.message,
+      });
     });
 });
 
