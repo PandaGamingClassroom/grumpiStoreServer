@@ -978,14 +978,19 @@ try {
 
 // Función para asignar una energía a un entrenador
 function assignEnergieToTrainer(trainerName, energia) {
+  // Aquí iría tu lógica para asignar la medalla al entrenador
+  // Buscar el entrenador por nombre y actualizar sus datos en memoria
   const trainer = trainerData.find((trainer) => trainer.name === trainerName);
   if (trainer) {
-    if (!Array.isArray(trainer.energias)) {
-      trainer.energias = []; // Inicializar si no está definida como un arreglo
+    /**
+     * Se asegura que la propiedad 'medallas' existe en el entrenador.
+     */
+    if (!trainer.energias) {
+      trainer.energias = [];
     }
-    trainer.energias.push(energia); // Agregar la energía al arreglo de energías del entrenador
+    trainer.energias.push(energia); // Por ejemplo, asumiendo que tienes una propiedad 'medallas' en tu objeto de entrenador
     saveTrainerData(); // Guardar los cambios en el archivo JSON
-    return Promise.resolve("Energía asignada correctamente al entrenador.");
+    return Promise.resolve("Medalla asignada correctamente al entrenador.");
   } else {
     return Promise.reject(
       `Entrenador con nombre ${trainerName} no encontrado.`
@@ -1003,19 +1008,33 @@ function saveTrainerData() {
   }
 }
 
-// Ruta de asignación de energías
+/*******************************************
+ * 
+ *    ASIGNAR ENERGÍA A LOS ENTRENADORES
+ * 
+ ******************************************/
 app.post("/assign-energie", (req, res) => {
-  const { trainerName, energie } = req.body;
+  const { trainerNames, energie } = req.body;
   console.log("Datos de la solicitud:", req.body);
-  assignEnergieToTrainer(trainerName, energie)
-    .then((message) => {
-      res.status(200).json({ message: message });
+
+  // Crea una promesa para cada entrenador en el array
+  const promises = trainerNames.map((trainerName) =>
+    assignEnergieToTrainer(trainerName, energie)
+  );
+
+  // Espera a que todas las promesas se completen
+  Promise.all(promises)
+    .then((messages) => {
+      res.status(200).json({
+        message: "Medalla asignada con éxito a todos los entrenadores.",
+      });
     })
     .catch((error) => {
-      console.error("Error al asignar la energía:", error);
-      res
-        .status(500)
-        .json({ error: "Error al asignar la energía al entrenador: " + error });
+      console.error("Error al asignar la medalla:", error);
+      res.status(500).json({
+        error:
+          "Error al asignar la medalla a los entrenadores: " + error.message,
+      });
     });
 });
 
@@ -1052,12 +1071,12 @@ app.post("/buyEnergies", (req, res) => {
       }); // Enviar el mensaje de error como parte de un objeto JSON
     });
 });
+
 /******************************************
  *
  * FIN ASIGNAR LAS ENERGÍAS
  *
  ******************************************/
-
 app.post("/upload", upload.single("image"), (req, res) => {
   console.log("Archivo recibido:", req.file);
   console.log("Datos del formulario:", req.body);
