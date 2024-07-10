@@ -530,7 +530,10 @@
         "uso": ""
       }
     ],
-    "energies": []
+    "energies": [],
+    "distintivos_liga": [
+      "http://localhost:3000/uploads/leagueBadges/COPA_GRUMPI.1.png"
+    ]
   },
   {
     "name": "Nuevo",
