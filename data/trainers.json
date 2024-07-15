@@ -277,13 +277,40 @@
           }
         ],
         "tipo": "Vida"
+      },
+      {
+        "id": 1,
+        "trainer_id": 0,
+        "nombre": "Bugi",
+        "n_grumpidex": "001",
+        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
+        "ataques": [
+          {
+            "nombre": "Placaje",
+            "efecto": "10",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Espora seta",
+            "efecto": "30",
+            "tipo": "Vida"
+          }
+        ],
+        "tipo": "Vida"
       }
     ],
-    "grumpidolar": 580,
+    "grumpidolar": 565,
     "marca_combate": "4",
     "medallas": [
       "http://localhost:3000/uploads/medals/Medalla_Agua.1.png",
-      "http://localhost:3000/uploads/medals/Medalla_fuego.1.png"
+      "http://localhost:3000/uploads/medals/Medalla_fuego.1.png",
+      "http://localhost:3000/uploads/medals/Medalla_luz.1.png",
+      "http://localhost:3000/uploads/medals/Medalla_normal.1.png",
+      "http://localhost:3000/uploads/medals/Medalla_oscuridad.1.png",
+      "http://localhost:3000/uploads/medals/Medalla_rayo.1.png",
+      "http://localhost:3000/uploads/medals/Medalla_Tierra.1.png",
+      "http://localhost:3000/uploads/medals/Medalla_vida.1.png"
     ],
     "energias": [
       {
@@ -327,6 +354,18 @@
         "nombre": "Energía Oscuridad",
         "tipo": "Oscuridad",
         "imagen": "../../../../assets/energies/ENERGIA_OSCURIDAD.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
       },
       {
         "id": 1,
@@ -400,6 +439,11 @@
       {
         "nombre": "Antídoto",
         "imagen": "http://localhost:3000/uploads/combatObjects/Antidoto.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
         "precio": 5
       },
       {
@@ -642,10 +686,65 @@
           }
         ],
         "tipo": "Vida"
+      },
+      {
+        "id": 1,
+        "trainer_id": 0,
+        "nombre": "Bugi",
+        "n_grumpidex": "001",
+        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
+        "ataques": [
+          {
+            "nombre": "Placaje",
+            "efecto": "10",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Espora seta",
+            "efecto": "30",
+            "tipo": "Vida"
+          }
+        ],
+        "tipo": "Vida"
+      },
+      {
+        "id": 1,
+        "trainer_id": 0,
+        "nombre": "Bugi",
+        "n_grumpidex": "001",
+        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
+        "ataques": [
+          {
+            "nombre": "Placaje",
+            "efecto": "10",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Espora seta",
+            "efecto": "30",
+            "tipo": "Vida"
+          }
+        ],
+        "tipo": "Vida"
       }
     ],
     "grumpidolar": 207,
-    "energias": [],
+    "energias": [
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      }
+    ],
     "energies": []
   },
   {
@@ -749,6 +848,70 @@
     "energies": [],
     "medallas": [
       "http://localhost:3000/uploads/medals/Medalla_Agua.1.png"
+    ],
+    "energias": [
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      }
+    ],
+    "grumpis": [
+      {
+        "id": 1,
+        "trainer_id": 0,
+        "nombre": "Bugi",
+        "n_grumpidex": "001",
+        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
+        "ataques": [
+          {
+            "nombre": "Placaje",
+            "efecto": "10",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Espora seta",
+            "efecto": "30",
+            "tipo": "Vida"
+          }
+        ],
+        "tipo": "Vida"
+      },
+      {
+        "id": 1,
+        "trainer_id": 0,
+        "nombre": "Bugi",
+        "n_grumpidex": "001",
+        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
+        "ataques": [
+          {
+            "nombre": "Placaje",
+            "efecto": "10",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Espora seta",
+            "efecto": "30",
+            "tipo": "Vida"
+          }
+        ],
+        "tipo": "Vida"
+      }
     ]
   },
   {
@@ -782,7 +945,31 @@
     "id_profesor": 1,
     "id": 11,
     "recompensas": [],
-    "energies": []
+    "energies": [],
+    "grumpidolar": 10,
+    "grumpis": [
+      {
+        "id": 1,
+        "trainer_id": 0,
+        "nombre": "Bugi",
+        "n_grumpidex": "001",
+        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
+        "ataques": [
+          {
+            "nombre": "Placaje",
+            "efecto": "10",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Espora seta",
+            "efecto": "30",
+            "tipo": "Vida"
+          }
+        ],
+        "tipo": "Vida"
+      }
+    ]
   },
   {
     "name": "Wasabi",
@@ -790,7 +977,30 @@
     "id_profesor": 1,
     "id": 12,
     "recompensas": [],
-    "energies": []
+    "energies": [],
+    "grumpis": [
+      {
+        "id": 1,
+        "trainer_id": 0,
+        "nombre": "Bugi",
+        "n_grumpidex": "001",
+        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
+        "ataques": [
+          {
+            "nombre": "Placaje",
+            "efecto": "10",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Espora seta",
+            "efecto": "30",
+            "tipo": "Vida"
+          }
+        ],
+        "tipo": "Vida"
+      }
+    ]
   },
   {
     "name": "Memento",
@@ -872,6 +1082,27 @@
           }
         ],
         "tipo": "Vida"
+      },
+      {
+        "id": 1,
+        "trainer_id": 0,
+        "nombre": "Bugi",
+        "n_grumpidex": "001",
+        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
+        "ataques": [
+          {
+            "nombre": "Placaje",
+            "efecto": "10",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Espora seta",
+            "efecto": "30",
+            "tipo": "Vida"
+          }
+        ],
+        "tipo": "Vida"
       }
     ],
     "medallas": [
@@ -916,6 +1147,27 @@
           }
         ],
         "tipo": "Oscuridad"
+      },
+      {
+        "id": 1,
+        "trainer_id": 0,
+        "nombre": "Bugi",
+        "n_grumpidex": "001",
+        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
+        "ataques": [
+          {
+            "nombre": "Placaje",
+            "efecto": "10",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Espora seta",
+            "efecto": "30",
+            "tipo": "Vida"
+          }
+        ],
+        "tipo": "Vida"
       }
     ],
     "grumpidolar": "500",
