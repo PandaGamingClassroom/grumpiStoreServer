@@ -8,6 +8,11 @@ const fs = require("fs");
 
 module.exports = app;
 
+/**
+ * 
+ * Configuración de CORS
+ * 
+ */
 const corsOptions = {
   origin: "http://localhost:4200", // Origen permitido
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Métodos permitidos
@@ -29,16 +34,21 @@ const filePathRewards = "./data/rewards.json";
 const filePathAttacks = "./data/attacks.json";
 
 // Configuración de la base de datos
-// const db = new sqlite3.Database("database.db"); // Crea una base de datos en memoria
 const db = new sqlite3.Database(":memory:");
 
-// Asegúrate de que el directorio de almacenamiento existe
+/**
+ * Comprobación de que el directorio 
+ * donde se están almacenando las imágenes
+ * existe correctamente
+ * 
+ */
 const path = require("path");
 const uploadDir = path.join(__dirname, "uploads", "grumpis");
 const uploadDirMedals = path.join(__dirname, "uploads", "medals");
 const uploadDirEnergies = path.join(__dirname, "uploads", "energies");
 const uploadDirEncargados = path.join(__dirname, "uploads", "encargados");
 const uploadDirLeagueBadges = path.join(__dirname, "uploads", "leagueBadges");
+const howToGetGrumpi = path.join(__dirname, "uploads", "howToGetGrumpis");
 
 fs.mkdirSync(uploadDir, { recursive: true });
 fs.mkdirSync(uploadDirMedals, { recursive: true });
@@ -952,6 +962,25 @@ app.get("/getImageEnergies", (req, res) => {
     });
 
     // Devuelve las URLs de las imágenes como una respuesta JSON
+    res.json({ imageUrls });
+  });
+});
+
+/********************************************************
+ * 
+ *    OBTENER LAS IMAGENES DE LOS GRUMPIS
+ *    CON LA DESCRIPCIÓN DE COMO CONSEGUIRLOS
+ * 
+ *******************************************************/
+app.get("/getImageGrumpiHowToGet", (req, res) => {
+  fs.readdir(howToGetGrumpi, (err, files) => {
+    if (err) {
+      console.error("Error al leer el directorio de imágenes de los Grumpi con descripción:", err);
+      return res.status(500).json({ error: "Error interno del servidor" });
+    }
+    const imageUrls = files.map((file) => {
+      return `http://localhost:3000/uploads/howToGetGrumpis/${file}`;
+    });
     res.json({ imageUrls });
   });
 });
