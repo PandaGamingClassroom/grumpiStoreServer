@@ -3,8 +3,9 @@ const app = express();
 const multer = require("multer");
 const cors = require("cors");
 const sqlite3 = require("sqlite3").verbose(); // Importa el módulo sqlite3
-const port = process.env.PORT || 3000;
+// const port = process.env.PORT || 3000;
 const fs = require("fs");
+const PORT = process.env.PORT || 3000;
 
 module.exports = app;
 
@@ -2000,7 +2001,6 @@ function assignBadgeToTrainer(trainerName, badgeName) {
     );
   }
 }
-
-app.listen(port, () => {
-  console.log(`Servidor GrumpiStore, iniciado en el puerto: ${port}`);
+app.listen(PORT, () => {
+  console.log(`Servidor GrumpiStore, iniciado en el puerto: ${PORT}`);
 });
