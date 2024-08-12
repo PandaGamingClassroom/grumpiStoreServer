@@ -7,21 +7,6 @@ const sqlite3 = require("sqlite3").verbose(); // Importa el módulo sqlite3
 const fs = require("fs");
 const PORT = process.env.PORT || 3000;
 
-module.exports = app;
-
-/**
- * 
- * Configuración de CORS
- * 
- */
-const corsOptions = {
-  origin: "http://localhost:4200", // Origen permitido
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Métodos permitidos
-  credentials: true, // Permitir cookies y otros credenciales
-  optionsSuccessStatus: 200, // Algunas navegadores (Safari) necesitan este ajuste
-};
-
-app.use(cors(corsOptions));
 
 /**********************
  *  RUTAS DE ACCESO
@@ -50,6 +35,73 @@ const uploadDirEnergies = path.join(__dirname, "uploads", "energies");
 const uploadDirEncargados = path.join(__dirname, "uploads", "encargados");
 const uploadDirLeagueBadges = path.join(__dirname, "uploads", "leagueBadges");
 const howToGetGrumpi = path.join(__dirname, "uploads", "howToGetGrumpis");
+
+
+module.exports = app;
+
+/******************************
+ * 
+ *    CONFIGURACIÓN PARA GIT
+ * 
+ ******************************/
+const chokidar = require("chokidar");
+const simpleGit = require("simple-git");
+
+// Configura simple-git
+const git = simpleGit();
+
+// Configura el directorio a observar
+const watchDirectory = path.join(__dirname, "data");
+
+// Función para hacer commit y push
+const commitAndPush = async (filePath) => {
+  try {
+    console.log(`Detectado cambio en: ${filePath}`);
+
+    // Agregar archivos modificados
+    await git.add(filePath);
+
+    // Hacer commit
+    await git.commit(`Actualización automática de ${path.basename(filePath)}`);
+
+    // Hacer push
+    await git.push("origin", "main");
+
+    console.log(`Commit y push realizados con éxito para: ${filePath}`);
+  } catch (error) {
+    console.error("Error al hacer commit y push:", error);
+  }
+};
+
+// Configura el observador de archivos
+const watcher = chokidar.watch(watchDirectory, {
+  persistent: true,
+  ignoreInitial: true, // No hacer commit para archivos al iniciar
+});
+
+watcher
+  .on("change", (filePath) => commitAndPush(filePath))
+  .on("error", (error) =>
+    console.error("Error en el observador de archivos:", error)
+  );
+
+console.log(`Observando cambios en el directorio: ${watchDirectory}`);
+
+/**
+ * 
+ * Configuración de CORS
+ * 
+ */
+const corsOptions = {
+  origin: "http://localhost:4200", // Origen permitido
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Métodos permitidos
+  credentials: true, // Permitir cookies y otros credenciales
+  optionsSuccessStatus: 200, // Algunas navegadores (Safari) necesitan este ajuste
+};
+
+app.use(cors(corsOptions));
+
+
 
 fs.mkdirSync(uploadDir, { recursive: true });
 fs.mkdirSync(uploadDirMedals, { recursive: true });
