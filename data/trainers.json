@@ -256,6 +256,28 @@
           }
         ],
         "tipo": "Fuego"
+      },
+      {
+        "id": 75,
+        "trainer_id": 0,
+        "nombre": "Kapuatorm",
+        "PS": 150,
+        "n_grumpidex": "075",
+        "img": "http://localhost:3000/uploads/grumpis/075.1.png",
+        "descripcion": "Forma evolucionada de Kapua mediante una losa rayo. Es capaz de generar tormentas eléctricas gracias a la composición de sus partículas.",
+        "ataques": [
+          {
+            "nombre": "Vuelo",
+            "efecto": "60",
+            "tipo": "Aire"
+          },
+          {
+            "nombre": "Bioshock",
+            "efecto": "80",
+            "tipo": "Rayo"
+          }
+        ],
+        "tipo": "Aire"
       }
     ],
     "grumpidolar": 540,
