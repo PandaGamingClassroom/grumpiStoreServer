@@ -346,6 +346,12 @@
         "nombre": "Energía Agua",
         "tipo": "Agua",
         "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
       }
     ],
     "objetos_combate": [
