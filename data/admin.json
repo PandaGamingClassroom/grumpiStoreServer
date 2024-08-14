@@ -16,21 +16,21 @@
     "rol": "profesor"
   },
   {
-    "name": "ElFeo",
+    "nombre": "ElFeo",
     "password": "123",
     "rol": "profesor",
     "id_profesor": 1,
     "id": 3
   },
   {
-    "name": "Padre pig",
+    "nombre": "Padre pig",
     "password": "123",
     "rol": "profesor",
     "id_profesor": 1,
     "id": 4
   },
   {
-    "name": "Marica",
+    "nombre": "Marica",
     "password": "123",
     "rol": "profesor",
     "id_profesor": 1,
