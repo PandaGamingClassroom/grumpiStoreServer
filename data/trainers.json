@@ -278,6 +278,32 @@
           }
         ],
         "tipo": "Aire"
+      },
+      {
+        "id": 12,
+        "trainer_id": 0,
+        "nombre": "Dragrum",
+        "PS": 150,
+        "n_grumpidex": "012",
+        "clase": "evolucion",
+        "img": "http://localhost:3000/uploads/grumpis/012.1.png",
+        "descripcion": "Forma evolucionada de Dragreen. Adquiere un gran tamaño y hace uso de su poder sobre las plantas para atacar con ellas o hacerlas brotar en lugares inhóspitos.",
+        "Ciclo1": "Pagar 3 energías de vida. Hacer un trabajo de algo visto en ciencias de la naturaleza. Tener a Dragreen.",
+        "Ciclo2": "Pagar 3 energías de vida. Hacer un trabajo de algo visto en ciencias de la naturaleza. Tener a Dragreen.",
+        "Ciclo3": "Pagar 3 energías de vida. Hacer un trabajo de algo visto en ciencias de la naturaleza. Tener a Dragreen.",
+        "ataques": [
+          {
+            "nombre": "Goga-hoja",
+            "efecto": "40",
+            "tipo": "Vida"
+          },
+          {
+            "nombre": "Crecimiento salvaje",
+            "efecto": "50",
+            "tipo": "Vida"
+          }
+        ],
+        "tipo": "Vida"
       }
     ],
     "grumpidolar": 540,
@@ -1169,6 +1195,8 @@
     "id_profesor": 1,
     "id": 17,
     "grumpidolar": "1000",
-    "marca_combate": "1"
+    "marca_combate": "1",
+    "recompensas": [],
+    "energies": []
   }
 ]
