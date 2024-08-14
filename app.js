@@ -913,7 +913,7 @@ app.get("/getImageUrls", (req, res) => {
 
     // Construye las URLs de las imágenes
     const imageUrls = files.map((file) => {
-      return `http://localhost:3000/uploads/grumpis/${file}`;
+      return `http://localhost:3000/uploads/howToGetGrumpis/${file}`;
     });
 
     // Devuelve las URLs de las imágenes como una respuesta JSON
