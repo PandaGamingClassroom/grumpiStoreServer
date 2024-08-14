@@ -283,7 +283,6 @@
     "grumpidolar": 540,
     "marca_combate": "4",
     "medallas": [
-      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png",
       "http://localhost:3000/uploads/medals/Medalla_fuego.1.png",
       "http://localhost:3000/uploads/medals/Medalla_luz.1.png",
       "http://localhost:3000/uploads/medals/Medalla_normal.1.png",
