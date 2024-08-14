@@ -1161,5 +1161,12 @@
         "tipo": "Vida"
       }
     ]
+  },
+  {
+    "name": "Setoca",
+    "password": "1",
+    "rol": "entrenador",
+    "id_profesor": 1,
+    "id": 17
   }
 ]
