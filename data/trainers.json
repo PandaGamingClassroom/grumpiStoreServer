@@ -1161,5 +1161,14 @@
         "tipo": "Vida"
       }
     ]
+  },
+  {
+    "name": "Setoca",
+    "password": "1",
+    "rol": "entrenador",
+    "id_profesor": 1,
+    "id": 17,
+    "grumpidolar": "1000",
+    "marca_combate": "1"
   }
 ]
