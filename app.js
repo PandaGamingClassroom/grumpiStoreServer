@@ -913,7 +913,49 @@ app.get("/getImageUrls", (req, res) => {
 
     // Construye las URLs de las imágenes
     const imageUrls = files.map((file) => {
-      return `http://localhost:3000/uploads/howToGetGrumpis/${file}`;
+      return `http://localhost:3000/uploads/grumpis/howToGetGrumpis/${file}`;
+    });
+
+    // Devuelve las URLs de las imágenes como una respuesta JSON
+    res.json({ imageUrls });
+  });
+});
+
+/**
+ * Función para obtener solo las cartas Grumpi Legendarias
+ */
+app.get("/getLegendGrumpi", (req, res) => {
+  // Lee todos los archivos en el directorio de imágenes
+  fs.readdir(uploadDir, (err, files) => {
+    if (err) {
+      console.error("Error al leer el directorio de imágenes:", err);
+      return res.status(500).json({ error: "Error interno del servidor" });
+    }
+
+    // Construye las URLs de las imágenes
+    const imageUrls = files.map((file) => {
+      return `http://localhost:3000/uploads/grumpis/howToGetGrumpis/${file}`;
+    });
+
+    // Devuelve las URLs de las imágenes como una respuesta JSON
+    res.json({ imageUrls });
+  });
+});
+
+/**
+ * Función para obtener solo las cartas Grumpi de evento.
+ */
+app.get("/getEventGrumpi", (req, res) => {
+  // Lee todos los archivos en el directorio de imágenes
+  fs.readdir(uploadDir, (err, files) => {
+    if (err) {
+      console.error("Error al leer el directorio de imágenes:", err);
+      return res.status(500).json({ error: "Error interno del servidor" });
+    }
+
+    // Construye las URLs de las imágenes
+    const imageUrls = files.map((file) => {
+      return `http://localhost:3000/uploads/grumpis/howToGetGrumpis/${file}`;
     });
 
     // Devuelve las URLs de las imágenes como una respuesta JSON
