@@ -7,7 +7,6 @@ const sqlite3 = require("sqlite3").verbose(); // Importa el módulo sqlite3
 const fs = require("fs");
 const PORT = process.env.PORT || 3000;
 
-
 /**********************
  *  RUTAS DE ACCESO
  *********************/
@@ -23,10 +22,10 @@ const filePathAttacks = "./data/attacks.json";
 const db = new sqlite3.Database(":memory:");
 
 /**
- * Comprobación de que el directorio 
+ * Comprobación de que el directorio
  * donde se están almacenando las imágenes
  * existe correctamente
- * 
+ *
  */
 const path = require("path");
 const uploadDir = path.join(__dirname, "uploads", "grumpis");
@@ -36,13 +35,12 @@ const uploadDirEncargados = path.join(__dirname, "uploads", "encargados");
 const uploadDirLeagueBadges = path.join(__dirname, "uploads", "leagueBadges");
 const howToGetGrumpi = path.join(uploadDir, "howToGetGrumpis");
 
-
 module.exports = app;
 
 /******************************
- * 
+ *
  *    CONFIGURACIÓN PARA GIT
- * 
+ *
  ******************************/
 const chokidar = require("chokidar");
 const simpleGit = require("simple-git");
@@ -88,9 +86,9 @@ watcher
 console.log(`Observando cambios en el directorio: ${watchDirectory}`);
 
 /**
- * 
+ *
  * Configuración de CORS
- * 
+ *
  */
 const corsOptions = {
   origin: "http://localhost:4200", // Origen permitido
@@ -100,8 +98,6 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
-
 
 fs.mkdirSync(uploadDir, { recursive: true });
 fs.mkdirSync(uploadDirMedals, { recursive: true });
@@ -921,7 +917,6 @@ app.get("/getImageUrls", (req, res) => {
   });
 });
 
-
 /**
  *
  * FUNCIÓN PARA AÑADIR UN NUEVO GRUMPI A LA LISTA
@@ -1021,15 +1016,18 @@ app.get("/getImageEnergies", (req, res) => {
 });
 
 /********************************************************
- * 
+ *
  *    OBTENER LAS IMAGENES DE LOS GRUMPIS
  *    CON LA DESCRIPCIÓN DE COMO CONSEGUIRLOS
- * 
+ *
  *******************************************************/
 app.get("/getImageGrumpiHowToGet", (req, res) => {
   fs.readdir(howToGetGrumpi, (err, files) => {
     if (err) {
-      console.error("Error al leer el directorio de imágenes de los Grumpi con descripción:", err);
+      console.error(
+        "Error al leer el directorio de imágenes de los Grumpi con descripción:",
+        err
+      );
       return res.status(500).json({ error: "Error interno del servidor" });
     }
     const imageUrls = files.map((file) => {
@@ -1092,9 +1090,9 @@ function saveTrainerData() {
 }
 
 /*******************************************
- * 
+ *
  *    ASIGNAR ENERGÍA A LOS ENTRENADORES
- * 
+ *
  ******************************************/
 app.post("/assign-energie", (req, res) => {
   const { trainerNames, energie } = req.body;
@@ -1813,6 +1811,66 @@ app.get("/profesor/:id/entrenadores", async (req, res) => {
 
 /**
  *
+ * Modificación de los datos del profesor
+ *
+ */
+app.put("/profesors/update/:name", (req, res) => {
+  const professorName = req.params.nombre;
+  const { professor_name } = req.body;
+  fs.readFile(filePathAmin, "utf8", (err, data) => {
+    if (err) {
+      res
+        .status(500)
+        .json({ error: `Error al leer el fichero [${filePathAmin}]` });
+      return;
+    }
+    let professors;
+    try {
+      professors = JSON.parse(data);
+    } catch (parseErr) {
+      res
+        .status(500)
+        .json({ error: "Error al parsear los datos de los profesores." });
+      return;
+    }
+
+    const professorIndex = professors.findIndex(
+      (prof) => prof.nombre === professorName
+    );
+
+    if (professorIndex === -1) {
+      res.status(404).json({ error: "Profesor no encontrado." });
+      return;
+    }
+
+    // Actualizar los datos del profesor
+    if (professor_name) professors[professorIndex].nombre = professor_name;
+    if (password) professors[professorIndex].password = password;
+
+    // Guardar los datos actualizados en el archivo
+    fs.writeFile(
+      filePathAmin,
+      JSON.stringify(professors, null, 2),
+      "utf8",
+      (writeErr) => {
+        if (writeErr) {
+          res
+            .status(500)
+            .json({ error: "Error al guardar los datos actualizados." });
+          return;
+        }
+
+        res.status(200).json({
+          message: "Profesor actualizado correctamente.",
+          data: professors[professorIndex],
+        });
+      }
+    );
+  });
+});
+
+/**
+ *
  * FIN DE GESTIÓN DE PROFESORES
  *
  */
@@ -2025,14 +2083,14 @@ app.post("/assign-badge", (req, res) => {
 });
 
 /**
- * Función para validar si los entrenadores tienen ya una lista de 
+ * Función para validar si los entrenadores tienen ya una lista de
  * distintivos o no, en el caso de no tenerla, la crean.
- * Si ya tuvieran esta lista creada, solo se añadirá el nuevo elemento 
+ * Si ya tuvieran esta lista creada, solo se añadirá el nuevo elemento
  * a los entrenadores seleccionados.
- * 
- * @param {*} trainerName 
- * @param {*} badgeName 
- * @returns 
+ *
+ * @param {*} trainerName
+ * @param {*} badgeName
+ * @returns
  */
 function assignBadgeToTrainer(trainerName, badgeName) {
   // Aquí iría tu lógica para asignar el distintivo al entrenador
