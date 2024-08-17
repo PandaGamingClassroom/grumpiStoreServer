@@ -1817,6 +1817,9 @@ app.get("/profesor/:id/entrenadores", async (req, res) => {
 app.put("/profesors/update/:name", (req, res) => {
   const professorName = req.params.nombre;
   const { professor_name } = req.body;
+  console.log("Profesor que se va a editar: ", professorName);
+  console.log("Atributos a editar del profesor: ", professor_name);
+  
   fs.readFile(filePathAmin, "utf8", (err, data) => {
     if (err) {
       res
