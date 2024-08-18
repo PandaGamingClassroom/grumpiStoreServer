@@ -1953,7 +1953,7 @@ app.delete("/professor_to_delete/:name", async (req, res) => {
     const data = await fs.promises.readFile(filePathAmin, "utf8"); 
     let profesor_list = JSON.parse(data);
 
-    // Filtrar la lista de entrenadores para excluir el entrenador seleccionado
+    // Filtrar la lista de profesores para excluir el profesor seleccionado
     const updatedProfessorList = profesor_list.filter(
       (professor) => professor.nombre !== userName
     );
