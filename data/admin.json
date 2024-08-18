@@ -30,13 +30,6 @@
     "id": 4
   },
   {
-    "nombre": "Marica",
-    "password": "123",
-    "rol": "profesor",
-    "id_profesor": 1,
-    "id": 5
-  },
-  {
     "nombre": "Mariquita",
     "apellidos": "Pasiva",
     "usuario": "Mariquita",
