@@ -37,14 +37,5 @@
     "rol": "profesor",
     "id_profesor": 1,
     "id": 6
-  },
-  {
-    "nombre": "Roberto",
-    "apellidos": "Miculo",
-    "usuario": "petardo",
-    "password": "1",
-    "rol": "profesor",
-    "id_profesor": 1,
-    "id": 8
   }
 ]
