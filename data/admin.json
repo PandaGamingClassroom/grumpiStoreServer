@@ -16,13 +16,6 @@
     "rol": "profesor"
   },
   {
-    "nombre": "ElFeo",
-    "password": "123",
-    "rol": "profesor",
-    "id_profesor": 1,
-    "id": 3
-  },
-  {
     "nombre": "Padre pig",
     "password": "123",
     "rol": "profesor",
