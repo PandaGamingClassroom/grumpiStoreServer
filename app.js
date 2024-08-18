@@ -1811,7 +1811,7 @@ app.get("/profesor/:id/entrenadores", async (req, res) => {
 
 /**
  *
- * Modificación de los datos del profesor
+ * Modificación de la contraseña del profesor
  *
  */
 app.put("/profesors/update/:name", (req, res) => {
