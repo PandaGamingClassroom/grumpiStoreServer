@@ -788,6 +788,12 @@
         "nombre": "Energía Agua",
         "tipo": "Agua",
         "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 2,
+        "nombre": "Energía Aire",
+        "tipo": "Aire",
+        "imagen": "../../../../assets/energies/ENERGIA_AIRE.1.png"
       }
     ],
     "energies": []
@@ -916,6 +922,12 @@
         "nombre": "Energía Agua",
         "tipo": "Agua",
         "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 2,
+        "nombre": "Energía Aire",
+        "tipo": "Aire",
+        "imagen": "../../../../assets/energies/ENERGIA_AIRE.1.png"
       }
     ],
     "grumpis": [
