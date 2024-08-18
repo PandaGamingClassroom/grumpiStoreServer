@@ -1815,11 +1815,12 @@ app.get("/profesor/:id/entrenadores", async (req, res) => {
  *
  */
 app.put("/profesors/update/:name", (req, res) => {
-  const professorName = req.params.nombre;
-  const { professor_name } = req.body;
+  const professorName = req.params.name; // Cambié 'nombre' por 'name' para coincidir con la ruta.
+  const { professor_name, password } = req.body; // Aquí obtienes tanto el nombre como la contraseña desde el cuerpo de la solicitud.
+
   console.log("Profesor que se va a editar: ", professorName);
-  console.log("Atributos a editar del profesor: ", professor_name);
-  
+  console.log("Atributos a editar del profesor: ", professor_name, password);
+
   fs.readFile(filePathAmin, "utf8", (err, data) => {
     if (err) {
       res
@@ -1827,6 +1828,7 @@ app.put("/profesors/update/:name", (req, res) => {
         .json({ error: `Error al leer el fichero [${filePathAmin}]` });
       return;
     }
+
     let professors;
     try {
       professors = JSON.parse(data);
@@ -1848,7 +1850,7 @@ app.put("/profesors/update/:name", (req, res) => {
 
     // Actualizar los datos del profesor
     if (professor_name) professors[professorIndex].nombre = professor_name;
-    if (password) professors[professorIndex].password = password;
+    if (password) professors[professorIndex].password = password; // Aquí se actualiza la contraseña si está presente.
 
     // Guardar los datos actualizados en el archivo
     fs.writeFile(
