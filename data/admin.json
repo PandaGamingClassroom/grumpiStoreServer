@@ -46,15 +46,6 @@
     "id": 6
   },
   {
-    "nombre": "Pajote",
-    "apellidos": "Malaria",
-    "usuario": "Pajote",
-    "password": "1",
-    "rol": "profesor",
-    "id_profesor": 1,
-    "id": 7
-  },
-  {
     "nombre": "Roberto",
     "apellidos": "Miculo",
     "usuario": "petardo",
