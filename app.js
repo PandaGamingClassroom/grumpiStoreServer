@@ -1942,6 +1942,47 @@ app.put("/profesors/update_all_data/:name", (req, res) => {
 });
 
 /**
+ * 
+ * Función para eliminar un profesor
+ * 
+ */
+app.delete("/professor_to_delete/:name", async (req, res) => {
+  const userName = req.params.name;
+
+  try {
+    const data = await fs.promises.readFile(filePathAmin, "utf8"); 
+    let profesor_list = JSON.parse(data);
+
+    // Filtrar la lista de entrenadores para excluir el entrenador seleccionado
+    const updatedProfessorList = profesor_list.filter(
+      (professor) => professor.nombre !== userName
+    );
+
+    if (updatedProfessorList.length === profesor_list.length) {
+      return res
+        .status(404)
+        .json({ error: `Profesor con nombre ${userName} no encontrado` });
+    }
+
+    await fs.promises.writeFile(
+      filePathAmin,
+      JSON.stringify(updatedProfessorList, null, 2)
+    );
+
+    console.log(`Profesor con nombre ${userName} eliminado correctamente`);
+
+    // Devolver la lista actualizada como respuesta
+    res.status(200).json({
+      message: `Profesor con nombre ${userName} eliminado correctamente`,
+      profesor_list: updatedProfessorList,
+    });
+  } catch (err) {
+    console.error("Error al procesar el archivo JSON:", err);
+    res.status(500).json({ error: "Error interno del servidor" });
+  }
+});
+
+/**
  *
  * FIN DE GESTIÓN DE PROFESORES
  *
