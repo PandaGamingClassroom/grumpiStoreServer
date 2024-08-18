@@ -1874,6 +1874,73 @@ app.put("/profesors/update/:name", (req, res) => {
   });
 });
 
+
+/**
+ * 
+ * Modificación de todos los datos del profesor
+ * 
+ */
+app.put("/profesors/update_all_data/:name", (req, res) => {
+  const professorName = req.params.name; // Cambié 'nombre' por 'name' para coincidir con la ruta.
+  const { usuario, professor_name, password } = req.body; // Aquí obtienes tanto el nombre como la contraseña desde el cuerpo de la solicitud.
+
+  console.log("Profesor que se va a editar: ", professorName);
+  console.log("Atributos a editar del profesor: ", usuario, professor_name, password);
+
+  fs.readFile(filePathAmin, "utf8", (err, data) => {
+    if (err) {
+      res
+        .status(500)
+        .json({ error: `Error al leer el fichero [${filePathAmin}]` });
+      return;
+    }
+
+    let professors;
+    try {
+      professors = JSON.parse(data);
+    } catch (parseErr) {
+      res
+        .status(500)
+        .json({ error: "Error al parsear los datos de los profesores." });
+      return;
+    }
+
+    const professorIndex = professors.findIndex(
+      (prof) => prof.nombre === professorName
+    );
+
+    if (professorIndex === -1) {
+      res.status(404).json({ error: "Profesor no encontrado." });
+      return;
+    }
+
+    // Actualizar los datos del profesor
+    if (professor_name) professors[professorIndex].nombre = professor_name;
+    if (password) professors[professorIndex].password = password; 
+    if (usuario) professors[professorIndex].usuario = usuario; 
+
+    // Guardar los datos actualizados en el archivo
+    fs.writeFile(
+      filePathAmin,
+      JSON.stringify(professors, null, 2),
+      "utf8",
+      (writeErr) => {
+        if (writeErr) {
+          res
+            .status(500)
+            .json({ error: "Error al guardar los datos actualizados." });
+          return;
+        }
+
+        res.status(200).json({
+          message: "Profesor actualizado correctamente.",
+          data: professors[professorIndex],
+        });
+      }
+    );
+  });
+});
+
 /**
  *
  * FIN DE GESTIÓN DE PROFESORES
