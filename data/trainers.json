@@ -1229,42 +1229,6 @@
     "medallas": []
   },
   {
-    "name": "Pepa pig",
-    "password": "666",
-    "rol": "entrenador",
-    "id_profesor": 1,
-    "id": 16,
-    "recompensas": [],
-    "energies": [],
-    "grumpis": [
-      {
-        "id": 1,
-        "trainer_id": 0,
-        "nombre": "Bugi",
-        "PS": 100,
-        "n_grumpidex": "001",
-        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
-        "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
-        "Ciclo1": "Realizar un trabajo de algo visto en la asignatura de ciencias de la naturaleza.",
-        "Ciclo2": "Realizar un trabajo de algo visto en la asignatura de ciencias de la naturaleza.",
-        "Ciclo3": "Realizar un trabajo de algo visto en la asignatura de ciencias de la naturaleza.",
-        "ataques": [
-          {
-            "nombre": "Placaje",
-            "efecto": "10",
-            "tipo": "Normal"
-          },
-          {
-            "nombre": "Espora seta",
-            "efecto": "30",
-            "tipo": "Vida"
-          }
-        ],
-        "tipo": "Vida"
-      }
-    ]
-  },
-  {
     "name": "Setoca",
     "password": "1",
     "rol": "entrenador",
