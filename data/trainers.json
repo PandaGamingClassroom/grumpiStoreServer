@@ -304,6 +304,29 @@
           }
         ],
         "tipo": "Vida"
+      },
+      {
+        "id": 17,
+        "trainer_id": 0,
+        "nombre": "Celedge",
+        "PS": 120,
+        "n_grumpidex": "017",
+        "clase": "evolucion",
+        "img": "http://localhost:3000/uploads/grumpis/017.1.png",
+        "descripcion": "Forma evolucionada de Fulge. Es un gran amante de la naturaleza, pues vela por ella constantemente. Cambia al evolucionar las ramas por unas hojas fluorescentes, las cuales le permiten canalizar la energía de la tierra para sanar a otros Grumpis.",
+        "ataques": [
+          {
+            "nombre": "Cornada",
+            "efecto": "30",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Escudo santo",
+            "efecto": "No recibirá daño el próximo turno.",
+            "tipo": "Luz"
+          }
+        ],
+        "tipo": "Luz"
       }
     ],
     "grumpidolar": 540,
@@ -1227,6 +1250,42 @@
     "grumpidolar": "500",
     "marca_combate": "7",
     "medallas": []
+  },
+  {
+    "name": "Pepa pig",
+    "password": "666",
+    "rol": "entrenador",
+    "id_profesor": 1,
+    "id": 16,
+    "recompensas": [],
+    "energies": [],
+    "grumpis": [
+      {
+        "id": 1,
+        "trainer_id": 0,
+        "nombre": "Bugi",
+        "PS": 100,
+        "n_grumpidex": "001",
+        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
+        "Ciclo1": "Realizar un trabajo de algo visto en la asignatura de ciencias de la naturaleza.",
+        "Ciclo2": "Realizar un trabajo de algo visto en la asignatura de ciencias de la naturaleza.",
+        "Ciclo3": "Realizar un trabajo de algo visto en la asignatura de ciencias de la naturaleza.",
+        "ataques": [
+          {
+            "nombre": "Placaje",
+            "efecto": "10",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Espora seta",
+            "efecto": "30",
+            "tipo": "Vida"
+          }
+        ],
+        "tipo": "Vida"
+      }
+    ]
   },
   {
     "name": "Setoca",
