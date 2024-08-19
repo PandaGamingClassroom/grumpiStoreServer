@@ -304,9 +304,32 @@
           }
         ],
         "tipo": "Vida"
+      },
+      {
+        "id": 17,
+        "trainer_id": 0,
+        "nombre": "Celedge",
+        "PS": 120,
+        "n_grumpidex": "017",
+        "clase": "evolucion",
+        "img": "http://localhost:3000/uploads/grumpis/017.1.png",
+        "descripcion": "Forma evolucionada de Fulge. Es un gran amante de la naturaleza, pues vela por ella constantemente. Cambia al evolucionar las ramas por unas hojas fluorescentes, las cuales le permiten canalizar la energía de la tierra para sanar a otros Grumpis.",
+        "ataques": [
+          {
+            "nombre": "Cornada",
+            "efecto": "30",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Escudo santo",
+            "efecto": "No recibirá daño el próximo turno.",
+            "tipo": "Luz"
+          }
+        ],
+        "tipo": "Luz"
       }
     ],
-    "grumpidolar": 540,
+    "grumpidolar": 530,
     "marca_combate": "4",
     "medallas": [
       "http://localhost:3000/uploads/medals/Medalla_fuego.1.png",
@@ -315,7 +338,9 @@
       "http://localhost:3000/uploads/medals/Medalla_oscuridad.1.png",
       "http://localhost:3000/uploads/medals/Medalla_rayo.1.png",
       "http://localhost:3000/uploads/medals/Medalla_Tierra.1.png",
-      "http://localhost:3000/uploads/medals/Medalla_vida.1.png"
+      "http://localhost:3000/uploads/medals/Medalla_vida.1.png",
+      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png",
+      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png"
     ],
     "energias": [
       {
@@ -323,6 +348,30 @@
         "nombre": "Energía Aire",
         "tipo": "Aire",
         "imagen": "../../../../assets/energies/ENERGIA_AIRE.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
       },
       {
         "id": 1,
@@ -547,6 +596,16 @@
         "nombre": "Despertador",
         "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
         "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
       }
     ],
     "objetos_evolutivos": [
@@ -625,6 +684,7 @@
     ],
     "energies": [],
     "distintivos_liga": [
+      "http://localhost:3000/uploads/leagueBadges/COPA_GRUMPI.1.png",
       "http://localhost:3000/uploads/leagueBadges/COPA_GRUMPI.1.png"
     ]
   },
@@ -806,6 +866,30 @@
         "nombre": "Energía Aire",
         "tipo": "Aire",
         "imagen": "../../../../assets/energies/ENERGIA_AIRE.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
       },
       {
         "id": 1,
@@ -1060,6 +1144,10 @@
         ],
         "tipo": "Vida"
       }
+    ],
+    "medallas": [
+      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png",
+      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png"
     ]
   },
   {
