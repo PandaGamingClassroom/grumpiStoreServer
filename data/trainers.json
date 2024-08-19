@@ -1,0 +1,1486 @@
+[
+  {
+    "name": "Periquito",
+    "password": "333",
+    "id": 2,
+    "rol": "entrenador",
+    "id_profesor": 1,
+    "grumpis": [
+      {
+        "id": 1,
+        "trainer_id": 0,
+        "nombre": "Bugi",
+        "n_grumpidex": "001",
+        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
+        "ataques": [
+          {
+            "nombre": "Placaje",
+            "efecto": "10",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Espora seta",
+            "efecto": "30",
+            "tipo": "Vida"
+          }
+        ],
+        "tipo": "Vida"
+      },
+      {
+        "id": 2,
+        "trainer_id": 0,
+        "nombre": "Bolibugi",
+        "n_grumpidex": "002",
+        "img": "http://localhost:3000/uploads/grumpis/002.1.png",
+        "descripcion": "Forma evolucionada de Bugi. Recubre su cuerpo con una protección para defenderse de los atacantes mientras consigue su forma definitiva. Se dice que rueda felizmente por los bosques.",
+        "ataques": [
+          {
+            "nombre": "Protección",
+            "efecto": "Anula un ataque. Ataca en primer lugar siguiente turno.",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Rodar",
+            "efecto": "40",
+            "tipo": "Normal"
+          }
+        ],
+        "tipo": "Vida"
+      },
+      {
+        "id": 3,
+        "trainer_id": 0,
+        "nombre": "Bugelion",
+        "n_grumpidex": "003",
+        "img": "http://localhost:3000/uploads/grumpis/003.1.png",
+        "descripcion": "Forma evolucionada de Bolibugi. Una vez roto su cascarón usa parte de él como espada y como escudo para batallar con los enemigos.",
+        "ataques": [
+          {
+            "nombre": "Reflejo",
+            "efecto": "Ciega al enemigo durante un turno.",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Tajo espora",
+            "efecto": "50",
+            "tipo": "Vida"
+          }
+        ],
+        "tipo": "Vida"
+      },
+      {
+        "id": 4,
+        "trainer_id": 0,
+        "nombre": "Goti",
+        "n_grumpidex": "004",
+        "img": "http://localhost:3000/uploads/grumpis/004.1.png",
+        "descripcion": "FTiene forma de gota de agua. Estos grumpis nacen de las tormentas de verano. Son muy miedosos y difíciles de encontrar, ya que viven en lagos y no se les puede ver con facilidad.",
+        "ataques": [
+          {
+            "nombre": "Salpicar",
+            "efecto": "10",
+            "tipo": "Agua"
+          },
+          {
+            "nombre": "Condensación",
+            "efecto": "Agua"
+          }
+        ],
+        "tipo": "Agua"
+      },
+      {
+        "id": 8,
+        "trainer_id": 0,
+        "nombre": "Elekspike",
+        "n_grumpidex": "008",
+        "img": "http://localhost:3000/uploads/grumpis/008.1.png",
+        "descripcion": "Forma evolucionada de Elekspoke. Recubre su cuerpo con nuevas púas que le permite almacenar una mayor cantidad de electricidad. Es capaz de dar electricidad a un hogar solo con la energía que almacena en un día.",
+        "ataques": [
+          {
+            "nombre": "Púa Rayo",
+            "efecto": "20: Lanzar moneda: Cara paraliza, cruz, no hace nada",
+            "tipo": "Rayo"
+          },
+          {
+            "nombre": "Descarga",
+            "efecto": "40",
+            "tipo": "Rayo"
+          }
+        ],
+        "tipo": "Rayo"
+      },
+      {
+        "id": 15,
+        "trainer_id": 0,
+        "nombre": "Ducknake",
+        "n_grumpidex": "015",
+        "img": "http://localhost:3000/uploads/grumpis/015.1.png",
+        "descripcion": "Forma evolucionada de Duckin. Al evolucionar adopta una postura más señorial cambiando también su personalidad. Esta forma evolucionada ha aprendido a controlar su apetito.",
+        "ataques": [
+          {
+            "nombre": "Vuelo",
+            "efecto": "40",
+            "tipo": "Aire"
+          },
+          {
+            "nombre": "Rayo veneno",
+            "efecto": "20 + Marca veneno (10x).",
+            "tipo": "Vida"
+          }
+        ],
+        "tipo": "Aire"
+      },
+      {
+        "id": 14,
+        "trainer_id": 0,
+        "nombre": "Duckin",
+        "n_grumpidex": "014",
+        "img": "http://localhost:3000/uploads/grumpis/014.1.png",
+        "descripcion": "Forma evolucionada de Cuacky. Ave de gran tamaño. Le encanta comer y si es tu compañero, intentará comer toda la comida que lleves encima.",
+        "ataques": [
+          {
+            "nombre": "Trampa veneno",
+            "efecto": "20x",
+            "tipo": "Vida"
+          },
+          {
+            "nombre": "Engullir",
+            "efecto": "40",
+            "tipo": "Normal"
+          }
+        ],
+        "tipo": "Aire"
+      },
+      {
+        "id": 21,
+        "trainer_id": 0,
+        "nombre": "Devigru",
+        "n_grumpidex": "021",
+        "img": "http://localhost:3000/uploads/grumpis/021.1.png",
+        "descripcion": "Forma evolucionada de Shapegru tras la exposición a una Pluma Oscura. Simboliza la tristeza y maldad contenida en Shapegru hacia él mismo y los demás.",
+        "ataques": [
+          {
+            "nombre": "Látigo de Hades",
+            "efecto": "80",
+            "tipo": "Oscuridad"
+          },
+          {
+            "nombre": "Portal oscuro",
+            "efecto": "100",
+            "tipo": "Oscuridad"
+          }
+        ],
+        "tipo": "Oscuridad"
+      },
+      {
+        "id": 23,
+        "trainer_id": 0,
+        "nombre": "Seally",
+        "n_grumpidex": "023",
+        "img": "http://localhost:3000/uploads/grumpis/023.1.png",
+        "descripcion": "Pequeño ser marino que habita en zonas gélidas. Cuando está a punto de evolucionar se mueve hacía aguas más cálidas. Es juguetón y travieso.",
+        "ataques": [
+          {
+            "nombre": "Salpicar",
+            "efecto": "10",
+            "tipo": "Agua"
+          },
+          {
+            "nombre": "Nado rápido",
+            "efecto": "30",
+            "tipo": "Agua"
+          }
+        ],
+        "tipo": "Agua"
+      },
+      {
+        "id": 25,
+        "trainer_id": 0,
+        "nombre": "Chatty",
+        "n_grumpidex": "025",
+        "img": "http://localhost:3000/uploads/grumpis/025.1.png",
+        "descripcion": "Ser adorable que vive junto a los seres humanos, llenándoles de amor y alegría.",
+        "ataques": [
+          {
+            "nombre": "Arañazo",
+            "efecto": "30",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Lametón",
+            "efecto": "50",
+            "tipo": "Oscuridad"
+          }
+        ],
+        "tipo": "Oscuridad"
+      },
+      {
+        "id": 27,
+        "trainer_id": 0,
+        "nombre": "Dracoison",
+        "n_grumpidex": "027",
+        "img": "http://localhost:3000/uploads/grumpis/027.1.png",
+        "descripcion": "Forma evolucionada de Poisony. Tiene aspecto de dragón y su elemento estrella es el veneno. Su aliento es capaz de infectar todo un bosque.",
+        "ataques": [
+          {
+            "nombre": "Trampa veneno",
+            "efecto": "20x",
+            "tipo": "Vida"
+          },
+          {
+            "nombre": "Drago-aliento",
+            "efecto": "80",
+            "tipo": "Oscuridad"
+          }
+        ],
+        "tipo": "Vida"
+      },
+      {
+        "id": 30,
+        "trainer_id": 0,
+        "nombre": "Flamebi",
+        "n_grumpidex": "029",
+        "img": "http://localhost:3000/uploads/grumpis/029.1.png",
+        "descripcion": "Forma evolucionada de Eggtelio al exponerse a una Losa Agua. Su cuerpo adopta un color azul que recuerda al mismo mar.",
+        "ataques": [
+          {
+            "nombre": "Placaje",
+            "efecto": "10",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Escupe fuego",
+            "efecto": "50",
+            "tipo": "Fuego"
+          }
+        ],
+        "tipo": "Fuego"
+      },
+      {
+        "id": 75,
+        "trainer_id": 0,
+        "nombre": "Kapuatorm",
+        "PS": 150,
+        "n_grumpidex": "075",
+        "img": "http://localhost:3000/uploads/grumpis/075.1.png",
+        "descripcion": "Forma evolucionada de Kapua mediante una losa rayo. Es capaz de generar tormentas eléctricas gracias a la composición de sus partículas.",
+        "ataques": [
+          {
+            "nombre": "Vuelo",
+            "efecto": "60",
+            "tipo": "Aire"
+          },
+          {
+            "nombre": "Bioshock",
+            "efecto": "80",
+            "tipo": "Rayo"
+          }
+        ],
+        "tipo": "Aire"
+      },
+      {
+        "id": 12,
+        "trainer_id": 0,
+        "nombre": "Dragrum",
+        "PS": 150,
+        "n_grumpidex": "012",
+        "clase": "evolucion",
+        "img": "http://localhost:3000/uploads/grumpis/012.1.png",
+        "descripcion": "Forma evolucionada de Dragreen. Adquiere un gran tamaño y hace uso de su poder sobre las plantas para atacar con ellas o hacerlas brotar en lugares inhóspitos.",
+        "Ciclo1": "Pagar 3 energías de vida. Hacer un trabajo de algo visto en ciencias de la naturaleza. Tener a Dragreen.",
+        "Ciclo2": "Pagar 3 energías de vida. Hacer un trabajo de algo visto en ciencias de la naturaleza. Tener a Dragreen.",
+        "Ciclo3": "Pagar 3 energías de vida. Hacer un trabajo de algo visto en ciencias de la naturaleza. Tener a Dragreen.",
+        "ataques": [
+          {
+            "nombre": "Goga-hoja",
+            "efecto": "40",
+            "tipo": "Vida"
+          },
+          {
+            "nombre": "Crecimiento salvaje",
+            "efecto": "50",
+            "tipo": "Vida"
+          }
+        ],
+        "tipo": "Vida"
+      },
+      {
+        "id": 17,
+        "trainer_id": 0,
+        "nombre": "Celedge",
+        "PS": 120,
+        "n_grumpidex": "017",
+        "clase": "evolucion",
+        "img": "http://localhost:3000/uploads/grumpis/017.1.png",
+        "descripcion": "Forma evolucionada de Fulge. Es un gran amante de la naturaleza, pues vela por ella constantemente. Cambia al evolucionar las ramas por unas hojas fluorescentes, las cuales le permiten canalizar la energía de la tierra para sanar a otros Grumpis.",
+        "ataques": [
+          {
+            "nombre": "Cornada",
+            "efecto": "30",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Escudo santo",
+            "efecto": "No recibirá daño el próximo turno.",
+            "tipo": "Luz"
+          }
+        ],
+        "tipo": "Luz"
+      }
+    ],
+    "grumpidolar": 530,
+    "marca_combate": "4",
+    "medallas": [
+      "http://localhost:3000/uploads/medals/Medalla_fuego.1.png",
+      "http://localhost:3000/uploads/medals/Medalla_luz.1.png",
+      "http://localhost:3000/uploads/medals/Medalla_normal.1.png",
+      "http://localhost:3000/uploads/medals/Medalla_oscuridad.1.png",
+      "http://localhost:3000/uploads/medals/Medalla_rayo.1.png",
+      "http://localhost:3000/uploads/medals/Medalla_Tierra.1.png",
+      "http://localhost:3000/uploads/medals/Medalla_vida.1.png",
+      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png",
+      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png"
+    ],
+    "energias": [
+      {
+        "id": 2,
+        "nombre": "Energía Aire",
+        "tipo": "Aire",
+        "imagen": "../../../../assets/energies/ENERGIA_AIRE.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      }
+    ],
+    "objetos_combate": [
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Poción",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Pocion.1.png",
+        "precio": 7
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Desfibrilador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Desfibrilador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Antídoto",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Antidoto.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Antídoto",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Antidoto.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      }
+    ],
+    "objetos_evolutivos": [
+      {
+        "id": 1,
+        "nombre": "Losa Agua",
+        "imagen": "http://localhost:3000/uploads/evoObjects/LOSA_AGUA.1.png",
+        "tipo": "agua",
+        "precio": 5
+      },
+      {
+        "id": 1,
+        "nombre": "Losa Agua",
+        "imagen": "http://localhost:3000/uploads/evoObjects/LOSA_AGUA.1.png",
+        "tipo": "agua",
+        "precio": 5
+      },
+      {
+        "id": 1,
+        "nombre": "Losa Agua",
+        "imagen": "http://localhost:3000/uploads/evoObjects/LOSA_AGUA.1.png",
+        "tipo": "agua",
+        "precio": 5
+      },
+      {
+        "id": 1,
+        "nombre": "Losa Agua",
+        "imagen": "http://localhost:3000/uploads/evoObjects/LOSA_AGUA.1.png",
+        "tipo": "agua",
+        "precio": 5
+      },
+      {
+        "id": 1,
+        "nombre": "Losa Agua",
+        "imagen": "http://localhost:3000/uploads/evoObjects/LOSA_AGUA.1.png",
+        "tipo": "agua",
+        "precio": 5
+      },
+      {
+        "id": 1,
+        "nombre": "Losa Agua",
+        "imagen": "http://localhost:3000/uploads/evoObjects/LOSA_AGUA.1.png",
+        "tipo": "agua",
+        "precio": 5
+      }
+    ],
+    "recompensas": [
+      {
+        "id": 1,
+        "nombre": "Recompensa 1",
+        "img": "http://localhost:3000/uploads/rewards/RECOMPENSA_1.1.png",
+        "condicion": "20",
+        "uso": ""
+      },
+      {
+        "id": 1,
+        "nombre": "Recompensa 1",
+        "img": "http://localhost:3000/uploads/rewards/RECOMPENSA_1.1.png",
+        "condicion": "20",
+        "uso": ""
+      },
+      {
+        "id": 1,
+        "nombre": "Recompensa 1",
+        "img": "http://localhost:3000/uploads/rewards/RECOMPENSA_1.1.png",
+        "condicion": "20",
+        "uso": ""
+      },
+      {
+        "id": 1,
+        "nombre": "Recompensa 1",
+        "img": "http://localhost:3000/uploads/rewards/RECOMPENSA_1.1.png",
+        "condicion": "20",
+        "uso": ""
+      }
+    ],
+    "energies": [],
+    "distintivos_liga": [
+      "http://localhost:3000/uploads/leagueBadges/COPA_GRUMPI.1.png",
+      "http://localhost:3000/uploads/leagueBadges/COPA_GRUMPI.1.png"
+    ]
+  },
+  {
+    "name": "Nuevo",
+    "password": "344423",
+    "id": 3,
+    "rol": "entrenador",
+    "id_profesor": 2,
+    "grumpis": [
+      "http://localhost:3000/uploads/grumpis/001.1.png",
+      "http://localhost:3000/uploads/grumpis/001.1.png",
+      "http://localhost:3000/uploads/grumpis/020.1.png"
+    ],
+    "medallas": [],
+    "objetos_combate": [],
+    "objetos_evolutivos": [],
+    "marca_combate": "4",
+    "grumpidolar": "4",
+    "recompensas": [],
+    "energies": []
+  },
+  {
+    "name": "Josete",
+    "password": "1111",
+    "id": 5,
+    "rol": "entrenador",
+    "id_profesor": 1,
+    "medallas": [
+      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png",
+      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png",
+      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png",
+      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png",
+      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png"
+    ],
+    "objetos_combate": [
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Gafas de sol",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Gafas_de_sol.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      },
+      {
+        "nombre": "Despertador",
+        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "precio": 5
+      }
+    ],
+    "objetos_evolutivos": [],
+    "marca_combate": 0,
+    "recompensas": [],
+    "grumpis": [
+      {
+        "id": 1,
+        "trainer_id": 0,
+        "nombre": "Bugi",
+        "n_grumpidex": "001",
+        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
+        "ataques": [
+          {
+            "nombre": "Placaje",
+            "efecto": "10",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Espora seta",
+            "efecto": "30",
+            "tipo": "Vida"
+          }
+        ],
+        "tipo": "Vida"
+      },
+      {
+        "id": 1,
+        "trainer_id": 0,
+        "nombre": "Bugi",
+        "n_grumpidex": "001",
+        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
+        "ataques": [
+          {
+            "nombre": "Placaje",
+            "efecto": "10",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Espora seta",
+            "efecto": "30",
+            "tipo": "Vida"
+          }
+        ],
+        "tipo": "Vida"
+      },
+      {
+        "id": 1,
+        "trainer_id": 0,
+        "nombre": "Bugi",
+        "n_grumpidex": "001",
+        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
+        "ataques": [
+          {
+            "nombre": "Placaje",
+            "efecto": "10",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Espora seta",
+            "efecto": "30",
+            "tipo": "Vida"
+          }
+        ],
+        "tipo": "Vida"
+      },
+      {
+        "id": 1,
+        "trainer_id": 0,
+        "nombre": "Bugi",
+        "n_grumpidex": "001",
+        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
+        "ataques": [
+          {
+            "nombre": "Placaje",
+            "efecto": "10",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Espora seta",
+            "efecto": "30",
+            "tipo": "Vida"
+          }
+        ],
+        "tipo": "Vida"
+      }
+    ],
+    "grumpidolar": 207,
+    "energias": [
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 2,
+        "nombre": "Energía Aire",
+        "tipo": "Aire",
+        "imagen": "../../../../assets/energies/ENERGIA_AIRE.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      }
+    ],
+    "energies": []
+  },
+  {
+    "name": "Manuela",
+    "password": "1111",
+    "id": 5,
+    "rol": "entrenador",
+    "id_profesor": 2,
+    "medallas": [
+      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png"
+    ],
+    "objetos_combate": [],
+    "objetos_evolutivos": [],
+    "marca_combate": 0,
+    "recompensas": [],
+    "energies": [],
+    "grumpis": [
+      {
+        "id": 2,
+        "trainer_id": 0,
+        "nombre": "Bolibugi",
+        "n_grumpidex": "002",
+        "img": "http://localhost:3000/uploads/grumpis/002.1.png",
+        "descripcion": "Forma evolucionada de Bugi. Recubre su cuerpo con una protección para defenderse de los atacantes mientras consigue su forma definitiva. Se dice que rueda felizmente por los bosques.",
+        "ataques": [
+          {
+            "nombre": "Protección",
+            "efecto": "Anula un ataque. Ataca en primer lugar siguiente turno.",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Rodar",
+            "efecto": "40",
+            "tipo": "Normal"
+          }
+        ],
+        "tipo": "Vida"
+      }
+    ]
+  },
+  {
+    "name": "Abelardo",
+    "password": "1111",
+    "id": 6,
+    "recompensas": [],
+    "energies": [],
+    "grumpis": [
+      {
+        "id": 31,
+        "trainer_id": 0,
+        "nombre": "Lightibi",
+        "n_grumpidex": "031",
+        "img": "http://localhost:3000/uploads/grumpis/031.1.png",
+        "descripcion": "Descripción: Forma evolucionada de Eggtelio al exponerse a una Losa Rayo. Tiene un plumaje que recuerda a los rayos en los días de tormenta. Está muy cargado de electricidad estática.",
+        "ataques": [
+          {
+            "nombre": "Picotazo",
+            "efecto": "20",
+            "tipo": "Aire"
+          },
+          {
+            "nombre": "Electricidad estática",
+            "efecto": "40",
+            "tipo": "Rayo"
+          }
+        ],
+        "tipo": "Rayo"
+      },
+      {
+        "id": 1,
+        "trainer_id": 0,
+        "nombre": "Bugi",
+        "n_grumpidex": "001",
+        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
+        "ataques": [
+          {
+            "nombre": "Placaje",
+            "efecto": "10",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Espora seta",
+            "efecto": "30",
+            "tipo": "Vida"
+          }
+        ],
+        "tipo": "Vida"
+      }
+    ],
+    "energias": []
+  },
+  {
+    "name": "Josefina",
+    "password": "333",
+    "id_profesor": 1,
+    "id": 7,
+    "grumpidolar": "100",
+    "marca_combate": "2",
+    "recompensas": [],
+    "energies": [],
+    "medallas": [
+      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png",
+      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png",
+      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png",
+      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png",
+      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png"
+    ],
+    "energias": [
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png"
+      },
+      {
+        "id": 2,
+        "nombre": "Energía Aire",
+        "tipo": "Aire",
+        "imagen": "../../../../assets/energies/ENERGIA_AIRE.1.png"
+      }
+    ],
+    "grumpis": [
+      {
+        "id": 1,
+        "trainer_id": 0,
+        "nombre": "Bugi",
+        "n_grumpidex": "001",
+        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
+        "ataques": [
+          {
+            "nombre": "Placaje",
+            "efecto": "10",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Espora seta",
+            "efecto": "30",
+            "tipo": "Vida"
+          }
+        ],
+        "tipo": "Vida"
+      },
+      {
+        "id": 1,
+        "trainer_id": 0,
+        "nombre": "Bugi",
+        "n_grumpidex": "001",
+        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
+        "ataques": [
+          {
+            "nombre": "Placaje",
+            "efecto": "10",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Espora seta",
+            "efecto": "30",
+            "tipo": "Vida"
+          }
+        ],
+        "tipo": "Vida"
+      }
+    ]
+  },
+  {
+    "name": "Abelardo",
+    "password": "444",
+    "id_profesor": 2,
+    "id": 8,
+    "recompensas": [],
+    "energies": []
+  },
+  {
+    "name": "Esutaquia",
+    "password": "111",
+    "id_profesor": 2,
+    "id": 9,
+    "grumpidolar": "",
+    "recompensas": [],
+    "energies": []
+  },
+  {
+    "name": "Profundo",
+    "password": "0",
+    "id_profesor": 2,
+    "id": 10,
+    "recompensas": [],
+    "energies": []
+  },
+  {
+    "name": "Eleuterio",
+    "password": "123",
+    "id_profesor": 1,
+    "id": 11,
+    "recompensas": [],
+    "energies": [],
+    "grumpidolar": 10,
+    "grumpis": [
+      {
+        "id": 1,
+        "trainer_id": 0,
+        "nombre": "Bugi",
+        "n_grumpidex": "001",
+        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
+        "ataques": [
+          {
+            "nombre": "Placaje",
+            "efecto": "10",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Espora seta",
+            "efecto": "30",
+            "tipo": "Vida"
+          }
+        ],
+        "tipo": "Vida"
+      }
+    ],
+    "medallas": [
+      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png",
+      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png"
+    ]
+  },
+  {
+    "name": "Wasabi",
+    "password": "123",
+    "id_profesor": 1,
+    "id": 12,
+    "recompensas": [],
+    "energies": [],
+    "grumpis": [
+      {
+        "id": 1,
+        "trainer_id": 0,
+        "nombre": "Bugi",
+        "n_grumpidex": "001",
+        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
+        "ataques": [
+          {
+            "nombre": "Placaje",
+            "efecto": "10",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Espora seta",
+            "efecto": "30",
+            "tipo": "Vida"
+          }
+        ],
+        "tipo": "Vida"
+      }
+    ]
+  },
+  {
+    "name": "Memento",
+    "password": "123",
+    "id_profesor": 1,
+    "id": 13,
+    "recompensas": [],
+    "energies": [],
+    "grumpis": [
+      {
+        "id": 30,
+        "trainer_id": 0,
+        "nombre": "Flamebi",
+        "n_grumpidex": "030",
+        "img": "http://localhost:3000/uploads/grumpis/030.1.png",
+        "descripcion": "Forma evolucionada de Eggtelio al exponerse a una Losa Agua. Su cuerpo adopta un color azul que recuerda al mismo mar.",
+        "ataques": [
+          {
+            "nombre": "Placaje",
+            "efecto": "10",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Escupe fuego",
+            "efecto": "50",
+            "tipo": "Fuego"
+          }
+        ],
+        "tipo": "Fuego"
+      },
+      {
+        "id": 1,
+        "trainer_id": 0,
+        "nombre": "Bugi",
+        "PS": 100,
+        "n_grumpidex": "001",
+        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
+        "Ciclo1": "Realizar un trabajo de algo visto en la asignatura de ciencias de la naturaleza.",
+        "Ciclo2": "Realizar un trabajo de algo visto en la asignatura de ciencias de la naturaleza.",
+        "Ciclo3": "Realizar un trabajo de algo visto en la asignatura de ciencias de la naturaleza.",
+        "ataques": [
+          {
+            "nombre": "Placaje",
+            "efecto": "10",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Espora seta",
+            "efecto": "30",
+            "tipo": "Vida"
+          }
+        ],
+        "tipo": "Vida"
+      }
+    ]
+  },
+  {
+    "name": "Mimoko",
+    "password": "1234",
+    "id_profesor": 1,
+    "id": 15,
+    "recompensas": [],
+    "energies": [],
+    "grumpis": [
+      {
+        "id": 25,
+        "trainer_id": 0,
+        "nombre": "Chatty",
+        "n_grumpidex": "025",
+        "img": "http://localhost:3000/uploads/grumpis/025.1.png",
+        "descripcion": "Ser adorable que vive junto a los seres humanos, llenándoles de amor y alegría.",
+        "ataques": [
+          {
+            "nombre": "Arañazo",
+            "efecto": "30",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Lametón",
+            "efecto": "50",
+            "tipo": "Oscuridad"
+          }
+        ],
+        "tipo": "Oscuridad"
+      },
+      {
+        "id": 1,
+        "trainer_id": 0,
+        "nombre": "Bugi",
+        "n_grumpidex": "001",
+        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
+        "ataques": [
+          {
+            "nombre": "Placaje",
+            "efecto": "10",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Espora seta",
+            "efecto": "30",
+            "tipo": "Vida"
+          }
+        ],
+        "tipo": "Vida"
+      }
+    ],
+    "grumpidolar": "500",
+    "marca_combate": "7",
+    "medallas": []
+  },
+  {
+    "name": "Pepa pig",
+    "password": "666",
+    "rol": "entrenador",
+    "id_profesor": 1,
+    "id": 16,
+    "recompensas": [],
+    "energies": [],
+    "grumpis": [
+      {
+        "id": 1,
+        "trainer_id": 0,
+        "nombre": "Bugi",
+        "PS": 100,
+        "n_grumpidex": "001",
+        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
+        "Ciclo1": "Realizar un trabajo de algo visto en la asignatura de ciencias de la naturaleza.",
+        "Ciclo2": "Realizar un trabajo de algo visto en la asignatura de ciencias de la naturaleza.",
+        "Ciclo3": "Realizar un trabajo de algo visto en la asignatura de ciencias de la naturaleza.",
+        "ataques": [
+          {
+            "nombre": "Placaje",
+            "efecto": "10",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Espora seta",
+            "efecto": "30",
+            "tipo": "Vida"
+          }
+        ],
+        "tipo": "Vida"
+      }
+    ]
+  },
+  {
+    "name": "Setoca",
+    "password": "1",
+    "rol": "entrenador",
+    "id_profesor": 1,
+    "id": 17,
+    "grumpidolar": "1000",
+    "marca_combate": "1",
+    "recompensas": [],
+    "energies": []
+  }
+]
