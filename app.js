@@ -518,6 +518,7 @@ app.put("/trainers/update/:name", (req, res) => {
     grumpidolar,
     combatMark,
     medalsToRemove,
+    objetosAEliminar, // Nuevo parámetro para los objetos a eliminar
   } = req.body;
 
   fs.readFile(filePath, "utf8", (err, data) => {
@@ -548,6 +549,46 @@ app.put("/trainers/update/:name", (req, res) => {
           (_, index) => !medalsToRemove.includes(index)
         );
       }
+      if (objetosAEliminar && objetosAEliminar.length > 0) {
+        // Eliminar objetos según el tipo y cantidad
+        for (const objeto of objetosAEliminar) {
+          switch (objeto.tipo) {
+            case "energia":
+              updatedTrainer.energias = updatedTrainer.energias.filter(
+                (e) =>
+                  e.nombre !== objeto.nombre || e.cantidad > objeto.cantidad
+              );
+              break;
+            case "medalla":
+              updatedTrainer.medallas = updatedTrainer.medallas.filter(
+                (m) => m !== objeto.nombre
+              );
+              break;
+            case "combate":
+              updatedTrainer.combatObjects =
+                updatedTrainer.combatObjects.filter(
+                  (c) =>
+                    c.nombre !== objeto.nombre || c.cantidad > objeto.cantidad
+                );
+              break;
+            case "evolutivo":
+              updatedTrainer.evolutionObjects =
+                updatedTrainer.evolutionObjects.filter(
+                  (e) =>
+                    e.nombre !== objeto.nombre || e.cantidad > objeto.cantidad
+                );
+              break;
+            case "recompensa":
+              updatedTrainer.rewards = updatedTrainer.rewards.filter(
+                (r) =>
+                  r.nombre !== objeto.nombre || r.cantidad > objeto.cantidad
+              );
+              break;
+            default:
+              break;
+          }
+        }
+      }
 
       fs.writeFile(filePath, JSON.stringify(trainers, null, 2), (err) => {
         if (err) {
@@ -565,6 +606,7 @@ app.put("/trainers/update/:name", (req, res) => {
     }
   });
 });
+
 
 /********************************************************************
  *
