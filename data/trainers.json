@@ -1109,6 +1109,9 @@
         ],
         "tipo": "Vida"
       }
+    ],
+    "medallas": [
+      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png"
     ]
   },
   {
