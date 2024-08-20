@@ -523,79 +523,113 @@ app.put("/trainers/update/:name", (req, res) => {
 
   fs.readFile(filePath, "utf8", (err, data) => {
     if (err) {
-      res.status(500).json({ error: `Error al leer el fichero [${filePath}]` });
-      return;
+      return res
+        .status(500)
+        .json({ error: `Error al leer el fichero [${filePath}]` });
     }
 
     let trainers = JSON.parse(data);
     let trainerIndex = trainers.findIndex((t) => t.name === trainerName);
+
     if (trainerIndex !== -1) {
       let updatedTrainer = trainers[trainerIndex];
-      if (trainer_name !== undefined) {
-        updatedTrainer.name = trainer_name;
-      }
-      if (trainer_pass !== undefined) {
-        updatedTrainer.password = trainer_pass;
-      }
-      if (grumpidolar !== undefined) {
-        updatedTrainer.grumpidolar = grumpidolar;
-      }
-      if (combatMark !== undefined) {
-        updatedTrainer.marca_combate = combatMark;
-      }
+
+      // Actualización de datos del entrenador
+      if (trainer_name !== undefined) updatedTrainer.name = trainer_name;
+      if (trainer_pass !== undefined) updatedTrainer.password = trainer_pass;
+      if (grumpidolar !== undefined) updatedTrainer.grumpidolar = grumpidolar;
+      if (combatMark !== undefined) updatedTrainer.marca_combate = combatMark;
+
+      // Eliminación de medallas
       if (medalsToRemove && medalsToRemove.length > 0) {
-        // Filtrar medallas a eliminar basado en índices
         updatedTrainer.medallas = updatedTrainer.medallas.filter(
           (_, index) => !medalsToRemove.includes(index)
         );
       }
+
+      // Eliminación de objetos
       if (objetosAEliminar && objetosAEliminar.length > 0) {
-        // Eliminar objetos según el tipo y cantidad
-        for (const objeto of objetosAEliminar) {
+        objetosAEliminar.forEach((objeto) => {
           switch (objeto.tipo) {
             case "energia":
-              updatedTrainer.energias = updatedTrainer.energias.filter(
-                (e) =>
-                  e.nombre !== objeto.nombre || e.cantidad > objeto.cantidad
-              );
+              updatedTrainer.energias = updatedTrainer.energias
+                .map((e) => {
+                  if (e.nombre === objeto.nombre) {
+                    const cantidadRestante = e.cantidad - objeto.cantidad;
+                    if (cantidadRestante > 0) {
+                      return { ...e, cantidad: cantidadRestante };
+                    } else if (cantidadRestante < 0) {
+                      return { ...e, cantidad: 0 }; // No eliminará pero pondrá cantidad a 0
+                    }
+                    return null; // Eliminar si la cantidad restante es 0
+                  }
+                  return e;
+                })
+                .filter((e) => e !== null);
               break;
-            case "medalla":
-              updatedTrainer.medallas = updatedTrainer.medallas.filter(
-                (m) => m !== objeto.nombre
-              );
-              break;
+
             case "combate":
-              updatedTrainer.combatObjects =
-                updatedTrainer.combatObjects.filter(
-                  (c) =>
-                    c.nombre !== objeto.nombre || c.cantidad > objeto.cantidad
-                );
+              updatedTrainer.combatObjects = updatedTrainer.combatObjects
+                .map((c) => {
+                  if (c.nombre === objeto.nombre) {
+                    const cantidadRestante = c.cantidad - objeto.cantidad;
+                    if (cantidadRestante > 0) {
+                      return { ...c, cantidad: cantidadRestante };
+                    } else if (cantidadRestante < 0) {
+                      return { ...c, cantidad: 0 }; // No eliminará pero pondrá cantidad a 0
+                    }
+                    return null; // Eliminar si la cantidad restante es 0
+                  }
+                  return c;
+                })
+                .filter((c) => c !== null);
               break;
+
             case "evolutivo":
-              updatedTrainer.evolutionObjects =
-                updatedTrainer.evolutionObjects.filter(
-                  (e) =>
-                    e.nombre !== objeto.nombre || e.cantidad > objeto.cantidad
-                );
+              updatedTrainer.evolutionObjects = updatedTrainer.evolutionObjects
+                .map((e) => {
+                  if (e.nombre === objeto.nombre) {
+                    const cantidadRestante = e.cantidad - objeto.cantidad;
+                    if (cantidadRestante > 0) {
+                      return { ...e, cantidad: cantidadRestante };
+                    } else if (cantidadRestante < 0) {
+                      return { ...e, cantidad: 0 }; // No eliminará pero pondrá cantidad a 0
+                    }
+                    return null; // Eliminar si la cantidad restante es 0
+                  }
+                  return e;
+                })
+                .filter((e) => e !== null);
               break;
+
             case "recompensa":
-              updatedTrainer.rewards = updatedTrainer.rewards.filter(
-                (r) =>
-                  r.nombre !== objeto.nombre || r.cantidad > objeto.cantidad
-              );
+              updatedTrainer.rewards = updatedTrainer.rewards
+                .map((r) => {
+                  if (r.nombre === objeto.nombre) {
+                    const cantidadRestante = r.cantidad - objeto.cantidad;
+                    if (cantidadRestante > 0) {
+                      return { ...r, cantidad: cantidadRestante };
+                    } else if (cantidadRestante < 0) {
+                      return { ...r, cantidad: 0 }; // No eliminará pero pondrá cantidad a 0
+                    }
+                    return null; // Eliminar si la cantidad restante es 0
+                  }
+                  return r;
+                })
+                .filter((r) => r !== null);
               break;
+
             default:
               break;
           }
-        }
+        });
       }
 
       fs.writeFile(filePath, JSON.stringify(trainers, null, 2), (err) => {
         if (err) {
-          res
+          return res
             .status(500)
             .json({ error: `Error al escribir en el fichero [${filePath}]` });
-          return;
         }
         res
           .status(200)
@@ -606,6 +640,10 @@ app.put("/trainers/update/:name", (req, res) => {
     }
   });
 });
+
+
+
+
 
 
 /********************************************************************
