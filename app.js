@@ -532,6 +532,8 @@ app.put("/trainers/update/:name", (req, res) => {
     }
 
     let trainers = JSON.parse(data);
+    console.log('Lista de entrenadores: ', data);
+    
     let trainerIndex = trainers.findIndex((t) => t.name === trainerName);
 
     if (trainerIndex !== -1) {
@@ -562,6 +564,8 @@ app.put("/trainers/update/:name", (req, res) => {
       // Eliminación de objetos
       if (Array.isArray(objetosAEliminar) && objetosAEliminar.length > 0) {
         objetosAEliminar.forEach((objeto) => {
+          console.log('Tipos de objetos del entrenador: ', objeto);
+          
           switch (objeto.tipo) {
             case "energia":
               updatedTrainer.energias = updatedTrainer.energias
