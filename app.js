@@ -515,13 +515,17 @@ app.put("/trainers/update/:name", (req, res) => {
   const {
     trainer_name,
     trainer_pass,
+    id_profesor,
     grumpidolar,
     combatMark,
+    grumpis,
     medalsToRemove,
+    energias,
     objetosAEliminar,
   } = req.body;
-  console.log('Inventario a editar: ', req.body);
-  
+
+  console.log("Inventario a editar: ", req.body);
+
   fs.readFile(filePath, "utf8", (err, data) => {
     if (err) {
       return res
@@ -535,11 +539,15 @@ app.put("/trainers/update/:name", (req, res) => {
     if (trainerIndex !== -1) {
       let updatedTrainer = trainers[trainerIndex];
 
-      // Actualización de datos del entrenador
+      // Actualización de datos básicos del entrenador
       if (trainer_name !== undefined) updatedTrainer.name = trainer_name;
       if (trainer_pass !== undefined) updatedTrainer.password = trainer_pass;
+      if (id_profesor !== undefined) updatedTrainer.id_profesor = id_profesor;
       if (grumpidolar !== undefined) updatedTrainer.grumpidolar = grumpidolar;
       if (combatMark !== undefined) updatedTrainer.marca_combate = combatMark;
+
+      // Actualización de los Grumpis
+      if (grumpis !== undefined) updatedTrainer.grumpis = grumpis;
 
       // Eliminación de medallas
       if (medalsToRemove && medalsToRemove.length > 0) {
@@ -547,6 +555,9 @@ app.put("/trainers/update/:name", (req, res) => {
           (_, index) => !medalsToRemove.includes(index)
         );
       }
+
+      // Actualización de energías
+      if (energias !== undefined) updatedTrainer.energias = energias;
 
       // Eliminación de objetos
       if (objetosAEliminar && objetosAEliminar.length > 0) {
@@ -559,7 +570,7 @@ app.put("/trainers/update/:name", (req, res) => {
                     const cantidadRestante = e.cantidad - objeto.cantidad;
                     if (cantidadRestante > 0) {
                       return { ...e, cantidad: cantidadRestante };
-                    } else if (cantidadRestante <= 0) {
+                    } else {
                       return null; // Eliminar si la cantidad restante es 0 o negativa
                     }
                   }
@@ -575,7 +586,7 @@ app.put("/trainers/update/:name", (req, res) => {
                     const cantidadRestante = c.cantidad - objeto.cantidad;
                     if (cantidadRestante > 0) {
                       return { ...c, cantidad: cantidadRestante };
-                    } else if (cantidadRestante <= 0) {
+                    } else {
                       return null; // Eliminar si la cantidad restante es 0 o negativa
                     }
                   }
@@ -591,7 +602,7 @@ app.put("/trainers/update/:name", (req, res) => {
                     const cantidadRestante = e.cantidad - objeto.cantidad;
                     if (cantidadRestante > 0) {
                       return { ...e, cantidad: cantidadRestante };
-                    } else if (cantidadRestante <= 0) {
+                    } else {
                       return null; // Eliminar si la cantidad restante es 0 o negativa
                     }
                   }
@@ -607,7 +618,7 @@ app.put("/trainers/update/:name", (req, res) => {
                     const cantidadRestante = r.cantidad - objeto.cantidad;
                     if (cantidadRestante > 0) {
                       return { ...r, cantidad: cantidadRestante };
-                    } else if (cantidadRestante <= 0) {
+                    } else {
                       return null; // Eliminar si la cantidad restante es 0 o negativa
                     }
                   }
