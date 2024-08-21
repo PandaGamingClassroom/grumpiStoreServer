@@ -2330,7 +2330,8 @@
     "PS": 150,
     "n_grumpidex": "096",
     "clase":"legendario",
-    "img": "http://localhost:3000/uploads/grumpis/096.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/096.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/096.1.png",
     "descripcion": "Criatura legendaria. León imperial que es capaz de controlar las brumas y la oscuridad a su antojo. Es conocido como el Señor Oscuro.",
     "ataques": [
       {
@@ -2353,7 +2354,8 @@
     "PS": 150,
     "n_grumpidex": "097",
     "clase":"legendario",
-    "img": "http://localhost:3000/uploads/grumpis/097.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/097.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/097.1.png",
     "descripcion": "Criatura legendaria. Ser de otro planeta que ha llegado al nuestro mediante un portal mágico. Es capaz de controlar las tormentas y la electricidad a su antojo.",
     "ataques": [
       {
@@ -2376,7 +2378,8 @@
     "PS": 100,
     "n_grumpidex": "098",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/098.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/098.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/098.1.png",
     "descripcion": "Tiburón de pequeño tamaño que se alimenta principalmente de peces de pequeño tamaño. Le encanta saltar por las olas. ",
     "ataques": [
       {
@@ -2399,7 +2402,8 @@
     "PS": 120,
     "n_grumpidex": "099",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/099.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/099.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/099.1.png",
     "descripcion": "Forma evolucionada de Tibu.  Su cuerpo se endurece. Usa su fuerte cabeza para golpear los barcos que se encuentra para demostrar su fuerza.",
     "ataques": [
       {
@@ -2422,7 +2426,8 @@
     "PS": 150,
     "n_grumpidex": "100",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/100.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/100.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/100.1.png",
     "descripcion": "Forma evolucionada de Tintorer. Es conocido como el rey de los mares. Tiene un punzante cuerpo con el que puede desgarrar a sus adversarios.",
     "ataques": [
       {
@@ -2445,7 +2450,8 @@
     "PS": 100,
     "n_grumpidex": "101",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/101.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/101.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/101.1.png",
     "descripcion": "Gusano escurridizo que le gusta comer hojas con forma extraña.",
     "ataques": [
       {
@@ -2468,7 +2474,8 @@
     "PS": 120,
     "n_grumpidex": "102",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/102.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/102.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/102.1.png",
     "descripcion": "Forma evolucionada de Wormy. Protege su cuerpo para prepararse para la metamorfosis y así convertirse en un Grumpi poderoso. Puede dar mordiscos muy poderosos.",
     "ataques": [
       {
@@ -2491,7 +2498,8 @@
     "PS": 150,
     "n_grumpidex": "103",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/103.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/103.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/103.1.png",
     "descripcion": "Forma evolucionada de Wormy. Protege su cuerpo para prepararse para la metamorfosis y así convertirse en un Grumpi poderoso. Puede dar mordiscos muy poderosos.",
     "ataques": [
       {
@@ -2514,7 +2522,8 @@
     "PS": 120,
     "n_grumpidex": "104",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/104.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/104.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/104.1.png",
     "descripcion": "Forma evolucionada de Wormy. Protege su cuerpo para prepararse para la metamorfosis y así convertirse en un Grumpi poderoso. Puede dar mordiscos muy poderosos.",
     "ataques": [
       {
@@ -2537,7 +2546,8 @@
     "PS": 120,
     "n_grumpidex": "105",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/105.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/105.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/105.1.png",
     "descripcion": "Sabueso mecánico que es capaz de lanzar rayos láser por sus ojos y lanzar misiles por diferentes partes de su cuerpo.",
     "ataques": [
       {
@@ -2560,7 +2570,8 @@
     "PS": 120,
     "n_grumpidex": "106",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/106.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/106.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/106.1.png",
     "descripcion": "Ratón cuyo cuerpo parece hecho de gelatina. Es muy simpático y juguetón. Pero si se enfada puede ser muy poderoso.",
     "ataques": [
       {
@@ -2583,7 +2594,8 @@
     "PS": 100,
     "n_grumpidex": "107",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/107.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/107.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/107.1.png",
     "descripcion": "Cachorro nacido en el interior de los volcanes. Su cuerpo es capaz de soportar grandes temperaturas.",
     "ataques": [
       {
@@ -2606,7 +2618,8 @@
     "PS": 120,
     "n_grumpidex": "108",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/108.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/108.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/108.1.png",
     "descripcion": "Forma evolucionada de Lutty. Al crecer, su cuerpo se enfría y endurece, pudiendo controlar el poder de la oscuridad.",
     "ataques": [
       {
@@ -2629,7 +2642,8 @@
     "PS": 120,
     "n_grumpidex": "109",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/109.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/109.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/109.1.png",
     "descripcion": "A pesar de su sonrisa tan alegre, es capaz de lanzar lava por los orificios de su cuerpo y así derretir a sus enemigos.",
     "ataques": [
       {
@@ -2652,7 +2666,8 @@
     "PS": 100,
     "n_grumpidex": "110",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/110.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/110.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/110.1.png",
     "descripcion": "Animal juguetón que vive en las profundidades del océano. Es un animal bastante raro, ya que parece un gato-sirena.",
     "ataques": [
       {
@@ -2675,7 +2690,8 @@
     "PS": 120,
     "n_grumpidex": "111",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/111.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/111.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/111.1.png",
     "descripcion": "Forma evolucionada de Bubble. Es capaz de crear pequeñas criaturas a partir de burbujas de agua y así poder jugar con ellas.",
     "ataques": [
       {
@@ -2698,7 +2714,8 @@
     "PS": 150,
     "n_grumpidex": "112",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/112.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/112.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/112.1.png",
     "descripcion": "Forma evolucionada de Oceant. Su apariencia se asemeja a la de un dragón, el cual es capaz de crear una gran cantidad de compañeros burbuja que le ayudan a combatir y controlar su territorio.",
     "ataques": [
       {
