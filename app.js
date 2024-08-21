@@ -531,9 +531,7 @@ app.put("/trainers/update/:name", (req, res) => {
         .json({ error: `Error al leer el fichero [${filePath}]` });
     }
 
-    let trainers = JSON.parse(data);
-    console.log('Lista de entrenadores: ', data);
-    
+    let trainers = JSON.parse(data);    
     let trainerIndex = trainers.findIndex((t) => t.name === trainerName);
 
     if (trainerIndex !== -1) {
