@@ -524,8 +524,6 @@ app.put("/trainers/update/:name", (req, res) => {
     objetosAEliminar,
   } = req.body;
 
-  console.log("Inventario a editar: ", req.body);
-
   fs.readFile(filePath, "utf8", (err, data) => {
     if (err) {
       return res
@@ -550,17 +548,19 @@ app.put("/trainers/update/:name", (req, res) => {
       if (grumpis !== undefined) updatedTrainer.grumpis = grumpis;
 
       // Eliminación de medallas
-      if (medalsToRemove && medalsToRemove.length > 0) {
+      if (Array.isArray(medalsToRemove) && medalsToRemove.length > 0) {
         updatedTrainer.medallas = updatedTrainer.medallas.filter(
           (_, index) => !medalsToRemove.includes(index)
         );
       }
 
       // Actualización de energías
-      if (energias !== undefined) updatedTrainer.energias = energias;
+      if (Array.isArray(energias) && energias.length > 0) {
+        updatedTrainer.energias = energias;
+      }
 
       // Eliminación de objetos
-      if (objetosAEliminar && objetosAEliminar.length > 0) {
+      if (Array.isArray(objetosAEliminar) && objetosAEliminar.length > 0) {
         objetosAEliminar.forEach((objeto) => {
           switch (objeto.tipo) {
             case "energia":
@@ -633,6 +633,7 @@ app.put("/trainers/update/:name", (req, res) => {
         });
       }
 
+      // Guardar cambios en el archivo JSON
       fs.writeFile(filePath, JSON.stringify(trainers, null, 2), (err) => {
         if (err) {
           return res
@@ -648,6 +649,7 @@ app.put("/trainers/update/:name", (req, res) => {
     }
   });
 });
+
 
 
 
