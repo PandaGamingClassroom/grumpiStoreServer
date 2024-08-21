@@ -3338,7 +3338,8 @@
     "PS": 150,
     "n_grumpidex": "138",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/138.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/138.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/138.1.png",
     "descripcion": "Forma evolucionada de Hiely. Se crea un cuerpo con la nieve, cobrando vida, permitiéndole usar sus extremidades para luchar.",
     "ataques": [
       {
@@ -3361,7 +3362,8 @@
     "PS": 120,
     "n_grumpidex": "139",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/139.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/139.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/139.1.png",
     "descripcion": "Estrella caída del cielo que es capaz de moverse por tierra firme gracias a sus fuertes piernas. Puede controlar el poder de la luz.",
     "ataques": [
       {
@@ -3384,7 +3386,8 @@
     "PS": 120,
     "n_grumpidex": "140",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/140.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/140.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/140.1.png",
     "descripcion": "Gárgola de piedra que ha vuelto a la vida gracias a un poder especial de un Grumpi legendario. Es muy fuerte y raro de ver.",
     "ataques": [
       {
@@ -3407,7 +3410,8 @@
     "PS": 100,
     "n_grumpidex": "141",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/141.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/141.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/141.1.png",
     "descripcion": "Ave ancestral que puede evolucionar a un Grumpi de cualquier elemento, en función del objeto al que se exponga. Es muy difícil de encontrar.",
     "ataques": [
       {
@@ -3430,7 +3434,8 @@
     "PS": 120,
     "n_grumpidex": "142",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/142.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/142.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/142.1.png",
     "descripcion": "Forma evolucionada de Hugin al someterse a una losa normal. Es un ave de gran belleza que busca que equilibrio entre el bien y el mal.",
     "ataques": [
       {
@@ -3453,7 +3458,8 @@
     "PS": 120,
     "n_grumpidex": "143",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/143.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/143.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/143.1.png",
     "descripcion": "Forma evolucionada de Hugin al someterse a una losa fuego. Es un ave que puede crear llamar por todas sus plumas, usándolas incluso para pelear.",
     "ataques": [
       {
@@ -3476,7 +3482,8 @@
     "PS": 120,
     "n_grumpidex": "144",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/144.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/144.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/144.1.png",
     "descripcion": "Forma evolucionada de Hugin al someterse a una losa Tierra. Ave que suele habitar en hábitat desiertos y muy rocosos. Puede endurecer sus plumas tanto como una roca.",
     "ataques": [
       {
@@ -3499,7 +3506,8 @@
     "PS": 120,
     "n_grumpidex": "145",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/145.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/145.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/145.1.png",
     "descripcion": "Forma evolucionada de Hugin al someterse a una losa luz. Ave que augura un buen futuro. Trae suerte y paz allá a donde va.",
     "ataques": [
       {
@@ -3522,7 +3530,8 @@
     "PS": 120,
     "n_grumpidex": "146",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/146.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/146.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/146.1.png",
     "descripcion": "Forma evolucionada de Hugin al someterse a una losa rayo. Ave de la tormenta. Es capaz de generar rayos desde sus plumas tan cortantes como espadas.",
     "ataques": [
       {
@@ -3545,7 +3554,8 @@
     "PS": 120,
     "n_grumpidex": "147",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/147.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/147.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/147.1.png",
     "descripcion": "Forma evolucionada de Hugin al someterse a una losa oscuridad. Ave mensajero de la muerte. Trae junto a ella augurios de guerra y destrucción.",
     "ataques": [
       {
@@ -3568,7 +3578,8 @@
     "PS": 120,
     "n_grumpidex": "148",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/148.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/148.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/148.1.png",
     "descripcion": "Forma evolucionada de Hugin al someterse a una losa agua. Ave que habita en grandes lagos, mares u océanos. Tras su visita, suele aparecer también Bennu, ya que son los grandes creadores de vida.",
     "ataques": [
       {
@@ -3591,7 +3602,8 @@
     "PS": 120,
     "n_grumpidex": "149",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/149.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/149.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/149.1.png",
     "descripcion": "Forma evolucionada de Hugin al someterse a una losa aire. Es capaz de controlar los vientos a su antojo y ocultarse entre ellos para que nadie pueda alcanzarle y así salir airoso de las batallas.",
     "ataques": [
       {
@@ -3614,7 +3626,8 @@
     "PS": 120,
     "n_grumpidex": "150",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/150.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/150.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/150.1.png",
     "descripcion": "Forma evolucionada de Hugin al someterse a una losa vida. Ave no voladora que trabaja junto a Hansa para crear vida. Suele servir de apoyo a sus compañeros en la batalla.",
     "ataques": [
       {
@@ -3637,7 +3650,8 @@
     "PS": 100,
     "n_grumpidex": "151",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/151.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/151.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/151.1.png",
     "descripcion": " A pesar de sus rasgos, es un grumpi del elemento fuego, siendo capaz de crear grandes llamaradas desde su boca o lanzar rocas recubiertas de fuego con sus grandes garras.",
     "ataques": [
       {
@@ -3660,7 +3674,8 @@
     "PS": 120,
     "n_grumpidex": "152",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/152.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/152.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/152.1.png",
     "descripcion": "Forma evolucionada de Claw. Al evolucionar crea dos cañones de fuego en su espalda, a partir de los cuales, puede crear llamaradas capaces de derretir un edificio.",
     "ataques": [
       {
@@ -3683,7 +3698,8 @@
     "PS": 150,
     "n_grumpidex": "153",
     "clase":"legendario",
-    "img": "http://localhost:3000/uploads/grumpis/153.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/153.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/153.1.png",
     "descripcion": "Grumpi legendario. Cachorro que posee el poder de la luz. Siempre se ha pensado que es una cría de un Phanleo, pero no es así, nacen cuando alguien se sacrifica por un ser querido.",
     "ataques": [
       {
@@ -3706,7 +3722,8 @@
     "PS": 150,
     "n_grumpidex": "154",
     "clase":"legendario",
-    "img": "http://localhost:3000/uploads/grumpis/154.1.png",
+  "img_general": "http://localhost:3000/uploads/grumpis/general/154.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/154.1.png",
     "descripcion": " Grumpi legendario. Es la encargada de traer la vida al mundo, junto a sus compañeros Bennu y Hansa. Representa la vida de nuestro planeta y de todos los seres vivos.",
     "ataques": [
       {
@@ -3729,7 +3746,8 @@
     "PS": 150,
     "n_grumpidex": "155",
     "clase":"legendario",
-    "img": "http://localhost:3000/uploads/grumpis/155.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/155.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/155.1.png",
     "descripcion": "Grumpi legendario. Es un caballo de tipo normal del que fluyen nebulosas. Es capaz de cambiar de apariencia a su antojo.",
     "ataques": [
       {
@@ -3752,7 +3770,8 @@
     "PS": 150,
     "n_grumpidex": "156",
     "clase":"legendario",
-    "img": "http://localhost:3000/uploads/grumpis/156.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/156.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/156.1.png",
     "descripcion": "Grumpi legendario. Dragón legendario de elemento rayo. Es el creador de todos los seres eléctricos.",
     "ataques": [
       {
@@ -3775,7 +3794,8 @@
     "PS": 150,
     "n_grumpidex": "157",
     "clase":"legendario",
-    "img": "http://localhost:3000/uploads/grumpis/157.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/157.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/157.1.png",
     "descripcion": "Grumpi legendario. Serpiente ígnea que habita en el núcleo de la Tierra. Si no existiera su núcleo no giraría y crearía el caos en nuestras vidas.",
     "ataques": [
       {
@@ -3798,7 +3818,8 @@
     "PS": 150,
     "n_grumpidex": "158",
     "clase":"legendario",
-    "img": "http://localhost:3000/uploads/grumpis/158.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/158.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/158.1.png",
     "descripcion": "Grumpi legendario. Es el encargado del movimiento de las placas tectónicas. Se puede encontrar tanto en fosas como en fallas cuando hay grandes seísmos.",
     "ataques": [
       {
@@ -3821,7 +3842,8 @@
     "PS": 150,
     "n_grumpidex": "159",
     "clase":"legendario",
-    "img": "http://localhost:3000/uploads/grumpis/159.1.png",
+   "img_general": "http://localhost:3000/uploads/grumpis/general/159.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/159.1.png",
     "descripcion": "Grumpi legendario. Allá dónde va es capaz de crear vida. De su cuerpo expulsa semillas de plantas de todo tipo, para así, poblar tanto la tierra como los océanos de vegetación.",
     "ataques": [
       {
@@ -3844,7 +3866,8 @@
     "PS": 150,
     "n_grumpidex": "160",
     "clase":"legendario",
-    "img": "http://localhost:3000/uploads/grumpis/160.1.png",
+   "img_general": "http://localhost:3000/uploads/grumpis/general/160.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/160.1.png",
     "descripcion": "Grumpi legendario. Cachorro ígneo que es muy juguetón. Cuando se aburre y quiere llamar la atención hace que algún volcán entre en erupción.",
     "ataques": [
       {
