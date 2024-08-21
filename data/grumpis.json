@@ -33,7 +33,8 @@
     "PS": 120,
     "n_grumpidex": "002",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/002.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/002.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/002.1.png",
     "descripcion": "Forma evolucionada de Bugi. Recubre su cuerpo con una protección para defenderse de los atacantes mientras consigue su forma definitiva. Se dice que rueda felizmente por los bosques.",
     "Ciclo1": "Pagar 3 energías de vida y tener a Bugi.",
     "Ciclo2": "Pagar 3 energías de vida y tener a Bugi.",
@@ -59,7 +60,8 @@
     "PS": 150,
     "n_grumpidex": "003",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/003.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/003.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/003.1.png",
     "descripcion": "Forma evolucionada de Bolibugi. Una vez roto su cascarón usa parte de él como espada y como escudo para batallar con los enemigos.",
     "Ciclo1": "Pagar 3 energías de vida. Hacer un trabajo de algo visto en ciencias de la naturaleza. Tener a Bolibugi.",
     "Ciclo2": "Pagar 3 energías de vida. Hacer un trabajo de algo visto en ciencias de la naturaleza. Tener a Bolibugi.",
@@ -85,7 +87,8 @@
     "PS": 100,
     "n_grumpidex": "004",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/004.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/004.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/004.1.png",
     "descripcion": "FTiene forma de gota de agua. Estos grumpis nacen de las tormentas de verano. Son muy miedosos y difíciles de encontrar, ya que viven en lagos y no se les puede ver con facilidad.",
     "Ciclo1": "Hacer un trabajo sobre algo visto en ciencias sociales.",
     "Ciclo2": "Hacer un trabajo sobre algo visto en ciencias sociales.",
@@ -110,7 +113,8 @@
     "PS": 120,
     "n_grumpidex": "005",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/005.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/005.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/005.1.png",
     "descripcion": "Forma evolucionada de Goti. Se crea en la ciudad al esconderse de los humanos en cubos para no ser vistos. Dicen que se pueden ver algunos de ellos en los lagos.",
     "Ciclo1": "Pagar 3 energías de agua y tener a Goti.",
     "Ciclo2": "Pagar 3 energías de agua y tener a Goti.",
@@ -136,7 +140,8 @@
     "PS": 150,
     "n_grumpidex": "006",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/006.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/006.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/006.1.png",
     "descripcion": "Forma evolucionada de Cubi. Cuando Cubi sale del cubo en el que se encuentra adopta la forma de Goser, una serpiente de agua gracias a su cuerpo moldeable.",
     "Ciclo1": "Pagar 3 energías de agua. Hacer un trabajo sobre algo visto en ciencias sociales. Tener a Cubi.",
     "Ciclo2": "Pagar 3 energías de agua. Hacer un trabajo sobre algo visto en ciencias sociales. Tener a Cubi.",
@@ -162,7 +167,8 @@
     "PS": 100,
     "n_grumpidex": "007",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/007.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/007.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/007.1.png",
     "descripcion": "Puercoespín cuyas espinas están forjadas por el mismo rayo. Se les puede ver corriendo por las praderas.",
     "Ciclo1": "Realizar una ficha de ejercicios de matemáticas sobre un tema trabajado o que estemos trabajando.",
     "Ciclo2": "Realizar una ficha de ejercicios de matemáticas sobre un tema trabajado o que estemos trabajando.",
@@ -188,7 +194,8 @@
     "PS": 120,
     "n_grumpidex": "008",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/008.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/008.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/008.1.png",
     "descripcion": "Forma evolucionada de Elekspoke. Recubre su cuerpo con nuevas púas que le permite almacenar una mayor cantidad de electricidad. Es capaz de dar electricidad a un hogar solo con la energía que almacena en un día.",
     "Ciclo1": "Pagar 3 energías de rayo y tener a Elekspoke.",
     "Ciclo2": "Pagar 3 energías de rayo y tener a Elekspoke.",
@@ -214,7 +221,8 @@
     "PS": 150,
     "n_grumpidex": "009",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/003.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/009.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/009.1.png",
     "descripcion": "Forma evolucionada de Elekspike. Como bien indica su nombre, es el señor del rayo. Es capaz de convertir la energía cinética del batir de sus alas en grandes descargas eléctricas. A pesar de su aspecto, son muy amigables. Suelen ayudar a las personas en las centrales eléctricas.",
     "Ciclo1": "Pagar 5 energías de rayo. Hacer un dibujo de Elekspoke. Tener a Elekspike.",
     "Ciclo2": "Pagar 5 energías de rayo. Hacer un dibujo de Elekspoke. Tener a Elekspike.",
@@ -240,7 +248,8 @@
     "PS": 100,
     "n_grumpidex": "010",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/010.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/010.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/010.1.png",
     "descripcion": "Pequeño reptil que le gusta mucho morder. Expresa su amor por los demás mordiendo. Suele vivir en parques o jardines muy verdes.",
     "Ciclo1": "Realizar una manualidad relacionada con algo visto en ciencias de la naturaleza.",
     "Ciclo2": "Realizar una manualidad relacionada con algo visto en ciencias de la naturaleza.",
@@ -266,7 +275,8 @@
     "PS": 120,
     "n_grumpidex": "011",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/011.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/011.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/011.1.png",
     "descripcion": "Forma evolucionada de Draguni. En su cambio, comienza a adoptar una pose sobre 2 patas. De este modo se le conoce como el lagarto bípedo.",
     "Ciclo1": "Pagar 3 energías de vida. Tener a Draguni.",
     "Ciclo2": "Pagar 3 energías de vida. Tener a Draguni.",
@@ -292,7 +302,8 @@
     "PS": 150,
     "n_grumpidex": "012",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/012.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/012.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/012.1.png",
     "descripcion": "Forma evolucionada de Dragreen. Adquiere un gran tamaño y hace uso de su poder sobre las plantas para atacar con ellas o hacerlas brotar en lugares inhóspitos.",
     "Ciclo1": "Pagar 3 energías de vida. Hacer un trabajo de algo visto en ciencias de la naturaleza. Tener a Dragreen.",
     "Ciclo2": "Pagar 3 energías de vida. Hacer un trabajo de algo visto en ciencias de la naturaleza. Tener a Dragreen.",
@@ -318,7 +329,8 @@
     "PS": 100,
     "n_grumpidex": "013",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/013.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/013.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/013.1.png",
     "descripcion": "Ave rosada de la familia de los patos. Su color rosado proviene de los pigmentos de las plantas que adora comer. A pesar de su aspecto, su plumaje es muy venenoso.",
     "Ciclo1": "Hacer un cuento breve y dibujarlo.",
     "Ciclo2": "Escribir un pequeño cuento e ilustrarlo.",
@@ -344,7 +356,8 @@
     "PS": 120,
     "n_grumpidex": "014",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/014.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/014.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/014.1.png",
     "descripcion": "Forma evolucionada de Cuacky. Ave de gran tamaño. Le encanta comer y si es tu compañero, intentará comer toda la comida que lleves encima.",
     "Ciclo1": "Pagar 3 energías de aire. Tener a Cuacky.",
     "Ciclo2": "Pagar 3 energías de aire. Tener a Cuacky.",
@@ -370,7 +383,8 @@
     "PS": 150,
     "n_grumpidex": "015",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/015.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/015.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/015.1.png",
     "descripcion": "Forma evolucionada de Duckin. Al evolucionar adopta una postura más señorial cambiando también su personalidad. Esta forma evolucionada ha aprendido a controlar su apetito.",
     "Ciclo1": "Pagar 3 energías de aire. Hacer un trabajo sobre algo visto en lengua. Tener a Duckin.",
     "Ciclo2": "Pagar 3 energías de aire. Hacer un trabajo sobre algo visto en lengua. Tener a Duckin.",
@@ -396,7 +410,8 @@
     "PS": 100,
     "n_grumpidex": "016",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/016.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/016.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/016.1.png",
     "descripcion": "Pequeño mamífero del que brotan unas grandes y frondosas ramas. Este pequeño es capaz de camuflarse entre la vegetación fácilmente. Es muy asustadizo.",
     "ataques": [
       {
@@ -419,7 +434,8 @@
     "PS": 120,
     "n_grumpidex": "017",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/017.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/017.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/017.1.png",
     "descripcion": "Forma evolucionada de Fulge. Es un gran amante de la naturaleza, pues vela por ella constantemente. Cambia al evolucionar las ramas por unas hojas fluorescentes, las cuales le permiten canalizar la energía de la tierra para sanar a otros Grumpis.",
     "ataques": [
       {
@@ -442,7 +458,8 @@
     "PS": 150,
     "n_grumpidex": "018",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/018.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/018.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/018.1.png",
     "descripcion": "Forma evolucionada de Celelge. Es considerado uno de los guardianes de los bosques. Protege toda la biocenosis de los bosques.",
     "ataques": [
       {
@@ -465,7 +482,8 @@
     "PS": 100,
     "n_grumpidex": "019",
     "clase":"legendario",
-    "img": "http://localhost:3000/uploads/grumpis/019.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/019.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/019.1.png",
     "descripcion": "Es un ser difícil de encontrar y controlar. No se conoce mucho sobre su pasado. Se sabe que hay ciertos objetos que le permiten adoptar formas singulares.",
     "ataques": [
       {
@@ -488,7 +506,8 @@
     "PS": 180,
     "n_grumpidex": "020",
     "clase":"legendario",
-    "img": "http://localhost:3000/uploads/grumpis/020.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/020.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/020.1.png",
     "descripcion": "Forma evolucionada de Shapegru tras la exposición a una Pluma Celestial. Simboliza la alegría y la felicidad contenida en Shapegru hacia los demás.",
     "ataques": [
       {
@@ -511,7 +530,8 @@
     "PS": 180,
     "n_grumpidex": "021",
     "clase":"legendario",
-    "img": "http://localhost:3000/uploads/grumpis/021.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/021.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/021.1.png",
     "descripcion": "Forma evolucionada de Shapegru tras la exposición a una Pluma Oscura. Simboliza la tristeza y maldad contenida en Shapegru hacia él mismo y los demás.",
     "ataques": [
       {
@@ -534,7 +554,8 @@
     "PS": 180,
     "n_grumpidex": "022",
     "clase":"legendario",
-    "img": "http://localhost:3000/uploads/grumpis/022.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/022.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/022.1.png",
     "descripcion": "Forma evolucionada de Shapegru tras la exposición a la Balanza del Orden. Simboliza el equilibrio entre el bien y el mal.",
     "ataques": [
       {
@@ -557,7 +578,8 @@
     "PS": 100,
     "n_grumpidex": "023",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/023.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/023.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/023.1.png",
     "descripcion": "Pequeño ser marino que habita en zonas gélidas. Cuando está a punto de evolucionar se mueve hacía aguas más cálidas. Es juguetón y travieso.",
     "ataques": [
       {
@@ -580,7 +602,8 @@
     "PS": 120,
     "n_grumpidex": "024",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/024.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/024.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/024.1.png",
     "descripcion": "Forma evolucionada de Seally. A este ser le comienzan a nacer unas pequeñas extremidades como si quisiera abandonar el agua Los grandes cuernos que le cuelgan alrededor de su cabeza son sus branquias.",
     "ataques": [
       {
@@ -603,7 +626,8 @@
     "PS": 120,
     "n_grumpidex": "025",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/025.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/025.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/025.1.png",
     "descripcion": "Ser adorable que vive junto a los seres humanos, llenándoles de amor y alegría.",
     "ataques": [
       {
@@ -626,7 +650,8 @@
     "PS": 100,
     "n_grumpidex": "026",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/026.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/026.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/026.1.png",
     "descripcion": "Marsupial cuyo cuerpo está recubierto de toxinas. Se dice que su arañazo es muy venenoso.",
     "ataques": [
       {
@@ -649,7 +674,8 @@
     "PS": 120,
     "n_grumpidex": "027",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/027.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/027.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/027.1.png",
     "descripcion": "Forma evolucionada de Poisony. Tiene aspecto de dragón y su elemento estrella es el veneno. Su aliento es capaz de infectar todo un bosque.",
     "ataques": [
       {
@@ -672,7 +698,8 @@
     "PS": 100,
     "n_grumpidex": "028",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/028.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/028.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/028.1.png",
     "descripcion": "Criatura bebé que puede dar origen a diferentes Grumpis según el objeto al que se le exponga.",
     "ataques": [
       {
@@ -695,7 +722,8 @@
     "PS": 120,
     "n_grumpidex": "029",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/029.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/029.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/029.1.png",
     "descripcion": "Forma evolucionada de Eggtelio al exponerse a una Losa Agua. Su cuerpo adopta un color azul que recuerda al mismo mar.",
     "ataques": [
       {
@@ -718,7 +746,8 @@
     "PS": 120,
     "n_grumpidex": "030",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/030.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/030.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/030.1.png",
     "descripcion": "Forma evolucionada de Eggtelio al exponerse a una Losa Agua. Su cuerpo adopta un color azul que recuerda al mismo mar.",
     "ataques": [
       {
@@ -741,7 +770,8 @@
     "PS": 120,
     "n_grumpidex": "031",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/031.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/031.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/031.1.png",
     "descripcion": "Descripción: Forma evolucionada de Eggtelio al exponerse a una Losa Rayo. Tiene un plumaje que recuerda a los rayos en los días de tormenta. Está muy cargado de electricidad estática.",
     "ataques": [
       {
@@ -764,7 +794,8 @@
     "PS": 100,
     "n_grumpidex": "032",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/032.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/032.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/032.1.png",
     "descripcion": "Simpático dinosaurio que vive en ríos y lagos. Le encanta nadar junto a los peces.",
     "ataques": [
       {
@@ -787,7 +818,8 @@
     "PS": 120,
     "n_grumpidex": "033",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/033.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/033.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/033.1.png",
     "descripcion": "Forma evolucionada de Dino. Al evolucionar le aparece un gran cuerno con forma de espada, se dice que es el acero más poderoso.",
     "ataques": [
       {
@@ -810,7 +842,8 @@
     "PS": 120,
     "n_grumpidex": "034",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/034.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/034.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/034.1.png",
     "descripcion": "Gatita adorable y juguetona que engaña por su apariencia. Esconde un poder muy destructivo.",
     "ataques": [
       {
@@ -833,7 +866,8 @@
     "PS": 100,
     "n_grumpidex": "035",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/035.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/035.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/035.1.png",
     "descripcion": "Grumpi de pequeño tamaño que es capaz de controlar los elementos del agua y del rayo. Por suerte, suele ser muy tranquilo y amigable.",
     "ataques": [
       {
@@ -856,7 +890,8 @@
     "PS": 120,
     "n_grumpidex": "036",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/036.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/036.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/036.1.png",
     "descripcion": "Forma evolucionada de Babektry. Esta pequeña criatura consigue su nueva forma de zorro eléctrico al aprender a combinar el poder del agua con la electricidad.",
     "ataques": [
       {
@@ -879,7 +914,8 @@
     "PS": 100,
     "n_grumpidex": "037",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/037.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/037.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/037.1.png",
     "descripcion": "Reptil con un tono verdoso que utiliza para camuflarse entre la vegetación. Cuando crece de algunas de sus escamas brotan algunas hojas.",
     "ataques": [
       {
@@ -902,7 +938,8 @@
     "PS": 120,
     "n_grumpidex": "038",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/038.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/038.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/038.1.png",
     "descripcion": "Forma evolucionada de Gecko. Este Grumpi aumenta bastante su tamaño al evolucionar adquiriendo una gran fuerza. En su espalda llegan a crecer unos grandes pinchos rojos cargados de veneno que utiliza para defenderse.",
     "ataques": [
       {
@@ -925,7 +962,8 @@
     "PS": 100,
     "n_grumpidex": "039",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/039.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/039.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/039.1.png",
     "descripcion": "Grumpi que se utiliza como criatura de compañía. Se caracterizan por ser muy dóciles y protectores de sus compañeros humanos.",
     "ataques": [
       {
@@ -948,7 +986,8 @@
     "PS": 120,
     "n_grumpidex": "040",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/040.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/040.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/040.1.png",
     "descripcion": "Forma evolucionada de Thunderbolt. Al evolucionar desarrolla unas grandes alas que le permiten volar y captar mejor la electricidad del ambiente.",
     "ataques": [
       {
@@ -971,7 +1010,8 @@
     "PS": 150,
     "n_grumpidex": "041",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/041.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/041.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/041.1.png",
     "descripcion": "Forma evolucionada de Thunderfly. Algunas historias dicen que más que una evolución es una fusión entre sus predecesores, de ahí su nombre.",
     "ataques": [
       {
@@ -994,7 +1034,8 @@
     "PS": 120,
     "n_grumpidex": "042",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/042.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/042.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/042.1.png",
     "descripcion": "Es familiar de los puercoespín, sin embargo, en lugar de crear gran cantidad de púas,este Grumpi se cubre de hojas por todo el cuerpo.",
     "ataques": [
       {
@@ -1017,7 +1058,8 @@
     "PS": 120,
     "n_grumpidex": "043",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/043.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/043.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/043.1.png",
     "descripcion": "Es bastante difícil de ver, ya que este vive casi siempre bajo tierra y pocas veces se le ve en la superficie.",
     "ataques": [
       {
@@ -1040,7 +1082,8 @@
     "PS": 100,
     "n_grumpidex": "044",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/044.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/044.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/044.1.png",
     "descripcion": "Pequeño reptil creado de la oscuridad. A pesar de su apariencia, no es nada agresivo.",
     "ataques": [
       {
@@ -1063,7 +1106,8 @@
     "PS": 150,
     "n_grumpidex": "045",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/045.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/045.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/045..1.png",
     "descripcion": "Forma evolucionada de Blacky. Posee dos cabezas que le permiten atacar por el frente y por la espalda, lo que le hace ser un ser muy cauto e inteligente.",
     "ataques": [
       {
@@ -1086,7 +1130,8 @@
     "PS": 100,
     "n_grumpidex": "046",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/046.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/046.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/046.1.png",
     "descripcion": "Grumpi misterioso del que se sabe muy poco. Se cree que su existencia está relacionada con los seres celestiales.",
     "ataques": [
       {
@@ -1109,7 +1154,8 @@
     "PS": 120,
     "n_grumpidex": "047",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/047.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/047.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/047.1.png",
     "descripcion": "Forma evolucionada de Bliko. Tiene un cuerpo cubierto por un metal muy poderoso que le permite reflejar y controlar la luz a su antojo.",
     "ataques": [
       {
@@ -1132,7 +1178,8 @@
     "PS": 150,
     "n_grumpidex": "048",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/048.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/048.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/048.1.png",
     "descripcion": "Forma evolucionada de Blikonix. Al evolucionar adopta una postura erguida que le permite usar las extremidades superiores para portar espadas de luz",
     "ataques": [
       {
@@ -1155,7 +1202,8 @@
     "PS": 100,
     "n_grumpidex": "049",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/049.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/049.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/049.1.png",
     "descripcion": "A pesar de su apariencia azul que se podría realccionar con el agua, este Grumpi, es capaz de dominar las llamas de fuego de color azul, o fuego fatuo.",
     "ataques": [
       {
@@ -1178,7 +1226,8 @@
     "PS": 120,
     "n_grumpidex": "050",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/050.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/050.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/050.1.png",
     "descripcion": "Forma evolucionada de Tortulio. Tiene la capacidad de lanzar llamas con gran potencia por su boca.",
     "ataques": [
       {
@@ -1201,7 +1250,8 @@
     "PS": 100,
     "n_grumpidex": "051",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/051.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/051.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/051.1.png",
     "descripcion": "Pequeño insecto que controla distintos estilos de artes marciales. A pesar de su tamaño puede derribar todo un edificio con un solo golpe.",
     "ataques": [
       {
@@ -1224,7 +1274,8 @@
     "PS": 150,
     "n_grumpidex": "052",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/052.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/052.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/052.1.png",
     "descripcion": "Forma evolucionada de Lediby. Posee un cuerpo de puro acero capaz de dar puñetazos ultrasónicos.",
     "ataques": [
       {
@@ -1247,7 +1298,8 @@
     "PS": 150,
     "n_grumpidex": "053",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/053.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/053.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/053.1.png",
     "descripcion": "Pequeña serpiente con un aspecto muy adorable, pero con mucho poder que no duda en utilizar para proteger a su compañero humano.",
     "ataques": [
       {
@@ -1270,7 +1322,8 @@
     "PS": 100,
     "n_grumpidex": "054",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/054.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/054.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/054.1.png",
     "descripcion": "Pequeña criatura que dicen que es capaz de controlar el tiempo a su antojo, pudiendo viajar al pasado o al futuro.",
     "ataques": [
       {
@@ -1293,7 +1346,8 @@
     "PS": 150,
     "n_grumpidex": "055",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/055.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/055.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/055.1.png",
     "descripcion": "Forma evolucionada de Cronos. Al evolucionar su cuerpo se recubre de una armadura metálica que le da un gran poder de ataque y defensivo.",
     "ataques": [
       {
@@ -1316,7 +1370,8 @@
     "PS": 120,
     "n_grumpidex": "056",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/056.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/056.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/056.1.png",
     "descripcion": "Se conocen pocos datos sobre este tipo de Grumpi. Suelen vivir en ruinas de pirámides y templos antiguos. A pesar de su apariencia, esconde un gran poder.",
     "ataques": [
       {
@@ -1339,7 +1394,8 @@
     "PS": 120,
     "n_grumpidex": "057",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/057.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/057.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/057.1.png",
     "descripcion": "Posee un cuerpo cubierto de metal. Su cuerno actúa de pararrayos, lo que le permite captarlos y controlar su poder para fortalecerse.",
     "ataques": [
       {
@@ -1362,7 +1418,8 @@
     "PS": 120,
     "n_grumpidex": "058",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/058.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/058.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/058.1.png",
     "descripcion": "Habita en bosques donde no pueda encontrarlo nadie. Pasa las horas del día entrenando para ser el Grumpi más fuerte del lugar.",
     "ataques": [
       {
@@ -1385,7 +1442,8 @@
     "PS": 150,
     "n_grumpidex": "059",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/059.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/059.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/059.1.png",
     "descripcion": "Forma evolucionada de Warbeet. De su caparazón brotan unas grandes alas y su cuerno se convierte en la lanza que porta.",
     "ataques": [
       {
@@ -1408,7 +1466,8 @@
     "PS": 100,
     "n_grumpidex": "060",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/060.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/060.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/060.1.png",
     "descripcion": "Ser de la oscuridad con apariencia entre un perro y un gato. Aunque parezca muy adorable, puede llegar a ser muy agresivo.",
     "ataques": [
       {
@@ -1431,7 +1490,8 @@
     "PS": 120,
     "n_grumpidex": "061",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/061.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/061.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/061.1.png",
     "descripcion": "Forma evolucionada de Darky. Aunque parezca tener dos cabezas, una de ellas es un efecto de su pelaje para asustar a sus enemigos y parecer más fuerte.",
     "ataques": [
       {
@@ -1454,7 +1514,8 @@
     "PS": 150,
     "n_grumpidex": "062",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/062.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/062.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/062.1.png",
     "descripcion": "Forma evolucionada de Bidark. Gracias a su casco puede entrar en la mente de sus adversarios para conocer sus miedos y usarlos en su contra.",
     "ataques": [
       {
@@ -1477,7 +1538,8 @@
     "PS": 100,
     "n_grumpidex": "063",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/063.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/063.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/063.1.png",
     "descripcion": "Zorrito muy amigable. Debido a sus genes, es capaz de evolucionar a diferentes criaturas. Su evolución depende del objeto al que se exponga.",
     "ataques": [
       {
@@ -1500,7 +1562,8 @@
     "PS": 120,
     "n_grumpidex": "064",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/064.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/064.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/064.1.png",
     "descripcion": "Forma evolucionada de Foxie. Al exponerse a una Losa Agua adopta dicho elemento, pudiendo controlar así crear grandes diluvios gracias a su poder de aumentar la condensación del agua de la atmósfera o grandes ventiscas.",
     "ataques": [
       {
@@ -1523,7 +1586,8 @@
     "PS": 120,
     "n_grumpidex": "065",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/065.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/065.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/065.1.png",
     "descripcion": "Forma evolucionada de Foxie. Al exponerse a una Losa Rayo adopta dicho elemento. Al batir sus alas es capaz de generar una gran cantidad de energía, pudiendo lanzar rayos a sus rivales.",
     "ataques": [
       {
@@ -1546,7 +1610,8 @@
     "PS": 120,
     "n_grumpidex": "066",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/066.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/066.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/066.1.png",
     "descripcion": "Forma evolucionada de Foxie. Al exponerse a una Losa Fuego adopta dicho elemento. Es capaz de controlar las llamas que haya a su alrededor, así como lanzar grandes llamaradas por su boca.",
     "ataques": [
       {
@@ -1569,7 +1634,8 @@
     "PS": 120,
     "n_grumpidex": "067",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/067.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/067.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/067.1.png",
     "descripcion": "Forma evolucionada de Foxie. Al exponerse a una Losa Aire adopta dicho elemento. Al batir sus alas es capaz de generar grandes corrientes de aire y remolinos.",
     "ataques": [
       {
@@ -1592,7 +1658,8 @@
     "PS": 120,
     "n_grumpidex": "068",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/068.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/068.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/068.1.png",
     "descripcion": "Forma evolucionada de Foxie. Al exponerse a una Losa Vida adopta dicho elemento. Es capaz de generar vida y controlar el crecimiento de las plantas para que le ayuden en su propósito.",
     "ataques": [
       {
@@ -1615,7 +1682,8 @@
     "PS": 120,
     "n_grumpidex": "069",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/069.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/069.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/069.1.png",
     "descripcion": "Forma evolucionada de Foxie. Al exponerse a una Losa Tierra adopta dicho elemento. Es capaz de crear grandes movimientos en la tierra o crear tormentas de arena batiendo sus alas.",
     "ataques": [
       {
@@ -1638,7 +1706,8 @@
     "PS": 120,
     "n_grumpidex": "070",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/070.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/070.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/070.1.png",
     "descripcion": "Forma evolucionada de Foxie. Al exponerse a una Losa Luz adopta dicho elemento. Es capaz de controlar la luz solar a su antojo, pudiendo cegar a sus enemigos y reducirlos a cenizas con el poder solar.",
     "ataques": [
       {
@@ -1661,7 +1730,8 @@
     "PS": 120,
     "n_grumpidex": "071",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/071.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/071.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/071.1.png",
     "descripcion": "Forma evolucionada de Foxie. Al exponerse a una Losa Oscuridad adopta dicho elemento. Es capaz de controlar el poder de las sombras para atacar a sus enemigos.",
     "ataques": [
       {
@@ -1684,7 +1754,8 @@
     "PS": 100,
     "n_grumpidex": "072",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/072.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/072.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/072.1.png",
     "descripcion": "Grumpi activo. Le encanta la actividad física y el deporte, sobre todo el boxeo. Cuando logra un alto rango en dicho deporte, evoluciona.",
     "ataques": [
       {
@@ -1707,7 +1778,8 @@
     "PS": 150,
     "n_grumpidex": "073",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/073.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/073.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/073.1.png",
     "descripcion": "Forma evolucionada de Claw. Ha adquirido una gran cantidad de destrezas físicas y mentales para poder vencer a los enemigos con sus puños.",
     "ataques": [
       {
@@ -1730,7 +1802,8 @@
     "PS": 100,
     "n_grumpidex": "074",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/074.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/074.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/074.1.png",
     "descripcion": "Grumpi feliz y risueño formado a partir de vapor de agua y otros gases. Cuando se enfada puede crear chubascos. Su evolución cambia según a qué objeto se exponga.",
     "ataques": [
       {
@@ -1753,7 +1826,8 @@
     "PS": 150,
     "n_grumpidex": "075",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/075.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/075.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/075.1.png",
     "descripcion": "Forma evolucionada de Kapua mediante una losa rayo. Es capaz de generar tormentas eléctricas gracias a la composición de sus partículas.",
     "ataques": [
       {
@@ -1776,7 +1850,8 @@
     "PS": 150,
     "n_grumpidex": "076",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/076.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/076.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/076.1.png",
     "descripcion": "Forma evolucionada de Kapua mediante una losa aire. Es capaz de crear grandes corrientes de aire.",
     "ataques": [
       {
@@ -1799,7 +1874,8 @@
     "PS": 100,
     "n_grumpidex": "077",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/077.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/077.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/077.1.png",
     "descripcion": "Grumpi cargado de un líquido bastante volátil. Dicen que al exponerse a algunos objetos cambia la composición del líquido.",
     "ataques": [
       {
@@ -1822,7 +1898,8 @@
     "PS": 120,
     "n_grumpidex": "078",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/078.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/078.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/078.1.png",
     "descripcion": "Forma evolucionada de Oko al exponerse a una losa oscuridad.Su líquido se vuelve oscuro y venoso capaz de aniquilar cualquier ser vivo.",
     "ataques": [
       {
@@ -1845,7 +1922,8 @@
     "PS": 150,
     "n_grumpidex": "079",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/079.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/079.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/079.1.png",
     "descripcion": "Forma evolucionada de Oko al exponerse a una losa vida. A pesar de su aspecto maligno, es un guardián y creador de la la vida de los bosques.",
     "ataques": [
       {
@@ -1868,7 +1946,8 @@
     "PS": 100,
     "n_grumpidex": "080",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/080.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/080.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/080.1.png",
     "descripcion": "Conejo de planta feliz que le encanta hacer deporte y saltar por el campo.",
     "ataques": [
       {
@@ -1891,7 +1970,8 @@
     "PS": 120,
     "n_grumpidex": "081",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/081.1.png",
+   "img_general": "http://localhost:3000/uploads/grumpis/general/081.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/081.1.png",
     "descripcion": "Forma evolucionada de Rapetti. Le encanta reflexionar y observar el mundo que le rodea, así como los problemas que se plantean.",
     "ataques": [
       {
@@ -1914,7 +1994,8 @@
     "PS": 150,
     "n_grumpidex": "082",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/082.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/082.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/082.1.png",
     "descripcion": "Forma evolucionada de Rapett. Su pasión por los números y los deportes hacen de él un adversario muy calculador y fuerte.",
     "ataques": [
       {
@@ -1937,7 +2018,8 @@
     "PS": 100,
     "n_grumpidex": "083",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/083.1.png",
+   "img_general": "http://localhost:3000/uploads/grumpis/general/083.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/083.1.png",
     "descripcion": "Simio travieso que le encanta hacer agujeros y taparlos para que la gente y otros Grumpis tropiecen en ellos.",
     "ataques": [
       {
@@ -1960,7 +2042,8 @@
     "PS": 120,
     "n_grumpidex": "084",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/084.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/084.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/084.1.png",
     "descripcion": "Forma evolucionada de Kopere. Al evolucionar se vuelve más serio y comienza a ayudar a los demás Grumpis en sus labores.",
     "ataques": [
       {
@@ -1983,7 +2066,8 @@
     "PS": 150,
     "n_grumpidex": "085",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/085.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/085.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/085.1.png",
     "descripcion": "Forma evolucionada de Kopekanga. Poderoso Grumpi que presta su fuerza para proteger a los más débiles. Son los guardianes de los Grumpis más necesitados.",
     "ataques": [
       {
@@ -2006,7 +2090,8 @@
     "PS": 120,
     "n_grumpidex": "086",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/086.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/086.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/086.1.png",
     "descripcion": "Nadie ha visto jamás que hay detrás del disfraz que porta este Grupo. Muchos han querido descubrir que esconde sin mucha suerte, pues es muy poderoso.",
     "ataques": [
       {
@@ -2029,7 +2114,8 @@
     "PS": 120,
     "n_grumpidex": "087",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/087.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/087.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/087.1.png",
     "descripcion": "Pequeña y simpática criatura que vive en las sombras y lugares oscuros. Es muy juguetona.",
     "ataques": [
       {
@@ -2052,7 +2138,8 @@
     "PS": 150,
     "n_grumpidex": "088",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/088.1.png",
+   "img_general": "http://localhost:3000/uploads/grumpis/general/088.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/088.1.png",
     "descripcion": "Forma evolucionada de Pokehina. Viven en lugares oscuros o en la sombra. A veces se les confunden con el monstruo del armario. Sin embargo, son muy cariñosos y buenos.",
     "ataques": [
       {
@@ -2075,7 +2162,8 @@
     "PS": 120,
     "n_grumpidex": "089",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/089.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/089.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/089.1.png",
     "descripcion": " Robot creado con materiales reciclados de otros robots y de basura espacial. Tiene un gran control de la luz.",
     "ataques": [
       {
@@ -2098,7 +2186,8 @@
     "PS": 120,
     "n_grumpidex": "090",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/090.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/090.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/090.1.png",
     "descripcion": "Robot creado para soportar grandes corrientes eléctricas. Dicen que es capaz de controlar el rayo.",
     "ataques": [
       {
@@ -2121,7 +2210,8 @@
     "PS": 120,
     "n_grumpidex": "091",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/091.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/091.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/091.1.png",
     "descripcion": "Robot con altas capacidades magnéticas. Puede controlar los metales a su antojo.",
     "ataques": [
       {
@@ -2144,7 +2234,8 @@
     "PS": 120,
     "n_grumpidex": "092",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/092.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/092.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/092.1.png",
     "descripcion": "Guerrero que controla las artes marciales y el fuego. Es capaz de dar puñetazos tan fuertes como balas de cañón.",
     "ataques": [
       {
@@ -2167,7 +2258,8 @@
     "PS": 120,
     "n_grumpidex": "093",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/093.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/093.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/093.1.png",
     "descripcion": "Pequeña criatura de la oscuridad que vive en casas y lugares abandonados. Molesta a la gente que se acerca a estos sitios como si fuera un fantasma.",
     "ataques": [
       {
@@ -2190,7 +2282,8 @@
     "PS": 150,
     "n_grumpidex": "094",
     "clase":"legendario",
-    "img": "http://localhost:3000/uploads/grumpis/094.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/094.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/094.1.png",
     "descripcion": "Criatura legendaria. Poderoso anfibio que es capaz de surcar los mares y océanos a gran velocidad y controlar sus corrientes. Es el guardián de los mares y los océanos.",
     "ataques": [
       {
@@ -2213,7 +2306,8 @@
     "PS": 150,
     "n_grumpidex": "095",
     "clase":"legendario",
-    "img": "http://localhost:3000/uploads/grumpis/095.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/095.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/095.1.png",
     "descripcion": "Criatura legendaria. Licántropo con forma humana que es capaz de controlar la tierra.",
     "ataques": [
       {
@@ -2236,7 +2330,8 @@
     "PS": 150,
     "n_grumpidex": "096",
     "clase":"legendario",
-    "img": "http://localhost:3000/uploads/grumpis/096.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/096.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/096.1.png",
     "descripcion": "Criatura legendaria. León imperial que es capaz de controlar las brumas y la oscuridad a su antojo. Es conocido como el Señor Oscuro.",
     "ataques": [
       {
@@ -2259,7 +2354,8 @@
     "PS": 150,
     "n_grumpidex": "097",
     "clase":"legendario",
-    "img": "http://localhost:3000/uploads/grumpis/097.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/097.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/097.1.png",
     "descripcion": "Criatura legendaria. Ser de otro planeta que ha llegado al nuestro mediante un portal mágico. Es capaz de controlar las tormentas y la electricidad a su antojo.",
     "ataques": [
       {
@@ -2282,7 +2378,8 @@
     "PS": 100,
     "n_grumpidex": "098",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/098.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/098.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/098.1.png",
     "descripcion": "Tiburón de pequeño tamaño que se alimenta principalmente de peces de pequeño tamaño. Le encanta saltar por las olas. ",
     "ataques": [
       {
@@ -2305,7 +2402,8 @@
     "PS": 120,
     "n_grumpidex": "099",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/099.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/099.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/099.1.png",
     "descripcion": "Forma evolucionada de Tibu.  Su cuerpo se endurece. Usa su fuerte cabeza para golpear los barcos que se encuentra para demostrar su fuerza.",
     "ataques": [
       {
@@ -2328,7 +2426,8 @@
     "PS": 150,
     "n_grumpidex": "100",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/100.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/100.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/100.1.png",
     "descripcion": "Forma evolucionada de Tintorer. Es conocido como el rey de los mares. Tiene un punzante cuerpo con el que puede desgarrar a sus adversarios.",
     "ataques": [
       {
@@ -2351,7 +2450,8 @@
     "PS": 100,
     "n_grumpidex": "101",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/101.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/101.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/101.1.png",
     "descripcion": "Gusano escurridizo que le gusta comer hojas con forma extraña.",
     "ataques": [
       {
@@ -2374,7 +2474,8 @@
     "PS": 120,
     "n_grumpidex": "102",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/102.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/102.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/102.1.png",
     "descripcion": "Forma evolucionada de Wormy. Protege su cuerpo para prepararse para la metamorfosis y así convertirse en un Grumpi poderoso. Puede dar mordiscos muy poderosos.",
     "ataques": [
       {
@@ -2397,7 +2498,8 @@
     "PS": 150,
     "n_grumpidex": "103",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/103.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/103.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/103.1.png",
     "descripcion": "Forma evolucionada de Wormy. Protege su cuerpo para prepararse para la metamorfosis y así convertirse en un Grumpi poderoso. Puede dar mordiscos muy poderosos.",
     "ataques": [
       {
@@ -2420,7 +2522,8 @@
     "PS": 120,
     "n_grumpidex": "104",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/104.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/104.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/104.1.png",
     "descripcion": "Forma evolucionada de Wormy. Protege su cuerpo para prepararse para la metamorfosis y así convertirse en un Grumpi poderoso. Puede dar mordiscos muy poderosos.",
     "ataques": [
       {
@@ -2443,7 +2546,8 @@
     "PS": 120,
     "n_grumpidex": "105",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/105.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/105.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/105.1.png",
     "descripcion": "Sabueso mecánico que es capaz de lanzar rayos láser por sus ojos y lanzar misiles por diferentes partes de su cuerpo.",
     "ataques": [
       {
@@ -2466,7 +2570,8 @@
     "PS": 120,
     "n_grumpidex": "106",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/106.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/106.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/106.1.png",
     "descripcion": "Ratón cuyo cuerpo parece hecho de gelatina. Es muy simpático y juguetón. Pero si se enfada puede ser muy poderoso.",
     "ataques": [
       {
@@ -2489,7 +2594,8 @@
     "PS": 100,
     "n_grumpidex": "107",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/107.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/107.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/107.1.png",
     "descripcion": "Cachorro nacido en el interior de los volcanes. Su cuerpo es capaz de soportar grandes temperaturas.",
     "ataques": [
       {
@@ -2512,7 +2618,8 @@
     "PS": 120,
     "n_grumpidex": "108",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/108.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/108.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/108.1.png",
     "descripcion": "Forma evolucionada de Lutty. Al crecer, su cuerpo se enfría y endurece, pudiendo controlar el poder de la oscuridad.",
     "ataques": [
       {
@@ -2535,7 +2642,8 @@
     "PS": 120,
     "n_grumpidex": "109",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/109.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/109.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/109.1.png",
     "descripcion": "A pesar de su sonrisa tan alegre, es capaz de lanzar lava por los orificios de su cuerpo y así derretir a sus enemigos.",
     "ataques": [
       {
@@ -2558,7 +2666,8 @@
     "PS": 100,
     "n_grumpidex": "110",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/110.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/110.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/110.1.png",
     "descripcion": "Animal juguetón que vive en las profundidades del océano. Es un animal bastante raro, ya que parece un gato-sirena.",
     "ataques": [
       {
@@ -2581,7 +2690,8 @@
     "PS": 120,
     "n_grumpidex": "111",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/111.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/111.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/111.1.png",
     "descripcion": "Forma evolucionada de Bubble. Es capaz de crear pequeñas criaturas a partir de burbujas de agua y así poder jugar con ellas.",
     "ataques": [
       {
@@ -2604,7 +2714,8 @@
     "PS": 150,
     "n_grumpidex": "112",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/112.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/112.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/112.1.png",
     "descripcion": "Forma evolucionada de Oceant. Su apariencia se asemeja a la de un dragón, el cual es capaz de crear una gran cantidad de compañeros burbuja que le ayudan a combatir y controlar su territorio.",
     "ataques": [
       {
@@ -2627,7 +2738,8 @@
     "PS": 120,
     "n_grumpidex": "113",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/113.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/113.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/113.1.png",
     "descripcion": "Grumpi muy escurridizo que le encanta observar a las personas desde las sombras. Tras ver las necesidades de cada persona, intenta ayudarles con sus poderes mentales.",
     "ataques": [
       {
@@ -2650,7 +2762,8 @@
     "PS": 120,
     "n_grumpidex": "114",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/114.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/114.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/114.1.png",
     "descripcion": "Grumpi sombra. Se esconde en las sombras de los distintos objetos y personas. Es capaz de controlar a otros grumpi usando moviendo su sombra.",
     "ataques": [
       {
@@ -2673,7 +2786,8 @@
     "PS": 100,
     "n_grumpidex": "115",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/115.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/115.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/115.1.png",
     "descripcion": "Gatito fantasma que es capaz de controlar el fuego a su antojo.",
     "ataques": [
       {
@@ -2696,7 +2810,8 @@
     "PS": 120,
     "n_grumpidex": "116",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/116.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/116.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/116.1.png",
     "descripcion": "Forma evolucionada de Phankitty. Desarrolla su cuerpo con unas grandes alas que le permiten volar y lanzar fuego desde las alturas.",
     "ataques": [
       {
@@ -2719,7 +2834,8 @@
     "PS": 150,
     "n_grumpidex": "117",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/117.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/117.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/117.1.png",
     "descripcion": "Forma evolucionada de Spiricat. Controla unas llamas azules que son capaces de consumir todo aquello que tocan. Dice la leyenda que es capaz de viajar entre el mundo de los vivos y de los muertos.",
     "ataques": [
       {
@@ -2742,7 +2858,8 @@
     "PS": 150,
     "n_grumpidex": "118",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/118.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/118.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/118.1.png",
     "descripcion": "Mezcla entre un dragón y un halcón, es capaz de dominar el viento y la oscuridad a su antojo.",
     "ataques": [
       {
@@ -2765,7 +2882,8 @@
     "PS": 150,
     "n_grumpidex": "119",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/119.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/119.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/119.1.png",
     "descripcion": "Zorro que ha adoptado una posición bípeda, logrando un gran control en las artes marciales, sobre todo, en aquellas en las que usa sus puños.",
     "ataques": [
       {
@@ -2788,7 +2906,8 @@
     "PS": 100,
     "n_grumpidex": "120",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/120.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/120.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/120.1.png",
     "descripcion": "Gato alado. Le encanta dormir sobre las nubes más oscuras y así cargarse de electricidad para luego dar calambres a sus enemigos.",
     "ataques": [
       {
@@ -2811,7 +2930,8 @@
     "PS": 120,
     "n_grumpidex": "121",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/121.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/121.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/121.1.png",
     "descripcion": "Forma evolucionada de Cait. Sus alas reducen su tamaño para centrarse en desarrollar un gran poder eléctrico extraído de las mismas tormentas a través de su cola pararrayos.",
     "ataques": [
       {
@@ -2834,7 +2954,8 @@
     "PS": 150,
     "n_grumpidex": "122",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/122.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/122.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/122.1.png",
     "descripcion": "Forma evolucionada de Sidhe. Su cuerpo sufre una metamorfósis dividiendo sus elementos en dos. Su parte izquierda controla el rayo, mientras que su parte derecha, controla la oscuridad.",
     "ataques": [
       {
@@ -2857,7 +2978,8 @@
     "PS": 150,
     "n_grumpidex": "123",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/123.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/123.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/123.1.png",
     "descripcion": "Rosa en forma de corazón que es capaz de usar sus espinas para paralizar a los enemigos mientras los daña y recupera su vitalidad.",
     "ataques": [
       {
@@ -2880,7 +3002,8 @@
     "PS": 150,
     "n_grumpidex": "124",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/124.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/124.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/124.1.png",
     "descripcion": "Cuenta la leyenda que cuando Lovely pierde la esperanza, se transforma en Lovelian. Es capaz de controlar la oscuridad a su alrededor.",
     "ataques": [
       {
@@ -2903,7 +3026,8 @@
     "PS": 100,
     "n_grumpidex": "125",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/125.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/125.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/125.1.png",
     "descripcion": "Cachorro juguetón que está recogiendo piedras constantemente para jugar cuando está aburrido.",
     "ataques": [
       {
@@ -2926,7 +3050,8 @@
     "PS": 120,
     "n_grumpidex": "126",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/126.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/126.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/126.1.png",
     "descripcion": " Forma evolucionada de Chien. Grumpi que le encanta hacer agujeros que posteriormente usa como escondites para evitar los ataques de sus rivales y asaltarlos desde ahí.",
     "ataques": [
       {
@@ -2949,7 +3074,8 @@
     "PS": 150,
     "n_grumpidex": "127",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/127.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/127.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/127.1.png",
     "descripcion": "Forma evolucionada de Houndy. Se dice que guarda parentesco con el mismo perro mitológico, siendo capaz de crear grandes terremotos y movimientos terrestres.",
     "ataques": [
       {
@@ -2972,7 +3098,8 @@
     "PS": 100,
     "n_grumpidex": "128",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/128.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/128.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/128.1.png",
     "descripcion": "Grumpi volador que usa sus garras para cazar a sus presas y desgarrarlas. Es bastante agresivo.",
     "ataques": [
       {
@@ -2995,7 +3122,8 @@
     "PS": 120,
     "n_grumpidex": "129",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/129.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/129.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/129.1.png",
     "descripcion": "Forma evolucionada de Baharí. Aumenta la fuerza en sus patas traseras, desarrollando aún más sus garras y así no dejar que haya presa que huya.",
     "ataques": [
       {
@@ -3018,7 +3146,8 @@
     "PS": 150,
     "n_grumpidex": "130",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/130.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/130.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/130.1.png",
     "descripcion": "Forma evolucionada de Stormswift. Posee un gran poder, siendo capaz de controlar tanto el agua como el aire a su antojo.",
     "ataques": [
       {
@@ -3041,7 +3170,8 @@
     "PS": 120,
     "n_grumpidex": "131",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/131.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/131.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/131.1.png",
     "descripcion": "Grumpi tipo ángel. Representa el amor y la esperanza.",
     "ataques": [
       {
@@ -3064,7 +3194,8 @@
     "PS": 120,
     "n_grumpidex": "132",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/132.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/132.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/132.1.png",
     "descripcion": "Grumpi tipo ángel. Representa la oscuridad y el dolor al perder a un ser querido.",
     "ataques": [
       {
@@ -3087,7 +3218,8 @@
     "PS": 120,
     "n_grumpidex": "133",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/133.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/133.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/133.1.png",
     "descripcion": "Grumpi de forma patatoide. Nació de un tubérculo abandonado en el campo, el cual desarrolló extremidades para poder valerse por sí mismo.",
     "ataques": [
       {
@@ -3110,7 +3242,8 @@
     "PS": 120,
     "n_grumpidex": "134",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/134.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/134.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/134.1.png",
     "descripcion": "Grumpi tipo ángel. Representa la luz del amanecer. Dicen que si no existiera, no podríamos tener luz solar cada mañana.",
     "ataques": [
       {
@@ -3133,7 +3266,8 @@
     "PS": 120,
     "n_grumpidex": "135",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/135.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/135.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/135.1.png",
     "descripcion": "Gato excavador. Tiene unas garras delanteras reforzadas que utiliza para hacer grandes agujeros.",
     "ataques": [
       {
@@ -3156,7 +3290,8 @@
     "PS": 120,
     "n_grumpidex": "136",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/136.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/136.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/136.1.png",
     "descripcion": "Animal curioso que vive dentro de una caja de música. Cuando se acercan sus presas es capaz de saltar para asustarlos y tomar la ventaja.",
     "ataques": [
       {
@@ -3179,7 +3314,8 @@
     "PS": 120,
     "n_grumpidex": "137",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/137.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/137.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/137.1.png",
     "descripcion": "Surgen cuando las burbujas de un Spiricat se congelan. Tienen un gran poder y son capaces de controlar el hielo.",
     "ataques": [
       {
