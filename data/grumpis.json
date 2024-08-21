@@ -2738,7 +2738,8 @@
     "PS": 120,
     "n_grumpidex": "113",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/113.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/113.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/113.1.png",
     "descripcion": "Grumpi muy escurridizo que le encanta observar a las personas desde las sombras. Tras ver las necesidades de cada persona, intenta ayudarles con sus poderes mentales.",
     "ataques": [
       {
@@ -2761,7 +2762,8 @@
     "PS": 120,
     "n_grumpidex": "114",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/114.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/114.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/114.1.png",
     "descripcion": "Grumpi sombra. Se esconde en las sombras de los distintos objetos y personas. Es capaz de controlar a otros grumpi usando moviendo su sombra.",
     "ataques": [
       {
@@ -2784,7 +2786,8 @@
     "PS": 100,
     "n_grumpidex": "115",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/115.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/115.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/115.1.png",
     "descripcion": "Gatito fantasma que es capaz de controlar el fuego a su antojo.",
     "ataques": [
       {
@@ -2807,7 +2810,8 @@
     "PS": 120,
     "n_grumpidex": "116",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/116.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/116.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/116.1.png",
     "descripcion": "Forma evolucionada de Phankitty. Desarrolla su cuerpo con unas grandes alas que le permiten volar y lanzar fuego desde las alturas.",
     "ataques": [
       {
@@ -2830,7 +2834,8 @@
     "PS": 150,
     "n_grumpidex": "117",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/117.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/117.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/117.1.png",
     "descripcion": "Forma evolucionada de Spiricat. Controla unas llamas azules que son capaces de consumir todo aquello que tocan. Dice la leyenda que es capaz de viajar entre el mundo de los vivos y de los muertos.",
     "ataques": [
       {
@@ -2853,7 +2858,8 @@
     "PS": 150,
     "n_grumpidex": "118",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/118.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/118.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/118.1.png",
     "descripcion": "Mezcla entre un dragón y un halcón, es capaz de dominar el viento y la oscuridad a su antojo.",
     "ataques": [
       {
@@ -2876,7 +2882,8 @@
     "PS": 150,
     "n_grumpidex": "119",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/119.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/119.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/119.1.png",
     "descripcion": "Zorro que ha adoptado una posición bípeda, logrando un gran control en las artes marciales, sobre todo, en aquellas en las que usa sus puños.",
     "ataques": [
       {
@@ -2899,7 +2906,8 @@
     "PS": 100,
     "n_grumpidex": "120",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/120.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/120.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/120.1.png",
     "descripcion": "Gato alado. Le encanta dormir sobre las nubes más oscuras y así cargarse de electricidad para luego dar calambres a sus enemigos.",
     "ataques": [
       {
@@ -2922,7 +2930,8 @@
     "PS": 120,
     "n_grumpidex": "121",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/121.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/121.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/121.1.png",
     "descripcion": "Forma evolucionada de Cait. Sus alas reducen su tamaño para centrarse en desarrollar un gran poder eléctrico extraído de las mismas tormentas a través de su cola pararrayos.",
     "ataques": [
       {
@@ -2945,7 +2954,8 @@
     "PS": 150,
     "n_grumpidex": "122",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/122.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/122.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/122.1.png",
     "descripcion": "Forma evolucionada de Sidhe. Su cuerpo sufre una metamorfósis dividiendo sus elementos en dos. Su parte izquierda controla el rayo, mientras que su parte derecha, controla la oscuridad.",
     "ataques": [
       {
@@ -2968,7 +2978,8 @@
     "PS": 150,
     "n_grumpidex": "123",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/123.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/123.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/123.1.png",
     "descripcion": "Rosa en forma de corazón que es capaz de usar sus espinas para paralizar a los enemigos mientras los daña y recupera su vitalidad.",
     "ataques": [
       {
@@ -2991,7 +3002,8 @@
     "PS": 150,
     "n_grumpidex": "124",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/124.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/124.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/124.1.png",
     "descripcion": "Cuenta la leyenda que cuando Lovely pierde la esperanza, se transforma en Lovelian. Es capaz de controlar la oscuridad a su alrededor.",
     "ataques": [
       {
@@ -3014,7 +3026,8 @@
     "PS": 100,
     "n_grumpidex": "125",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/125.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/125.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/125.1.png",
     "descripcion": "Cachorro juguetón que está recogiendo piedras constantemente para jugar cuando está aburrido.",
     "ataques": [
       {
@@ -3037,7 +3050,8 @@
     "PS": 120,
     "n_grumpidex": "126",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/126.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/126.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/126.1.png",
     "descripcion": " Forma evolucionada de Chien. Grumpi que le encanta hacer agujeros que posteriormente usa como escondites para evitar los ataques de sus rivales y asaltarlos desde ahí.",
     "ataques": [
       {
@@ -3060,7 +3074,8 @@
     "PS": 150,
     "n_grumpidex": "127",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/127.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/127.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/127.1.png",
     "descripcion": "Forma evolucionada de Houndy. Se dice que guarda parentesco con el mismo perro mitológico, siendo capaz de crear grandes terremotos y movimientos terrestres.",
     "ataques": [
       {
@@ -3083,7 +3098,8 @@
     "PS": 100,
     "n_grumpidex": "128",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/128.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/128.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/128.1.png",
     "descripcion": "Grumpi volador que usa sus garras para cazar a sus presas y desgarrarlas. Es bastante agresivo.",
     "ataques": [
       {
@@ -3106,7 +3122,8 @@
     "PS": 120,
     "n_grumpidex": "129",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/129.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/129.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/129.1.png",
     "descripcion": "Forma evolucionada de Baharí. Aumenta la fuerza en sus patas traseras, desarrollando aún más sus garras y así no dejar que haya presa que huya.",
     "ataques": [
       {
@@ -3129,7 +3146,8 @@
     "PS": 150,
     "n_grumpidex": "130",
     "clase":"evolucion",
-    "img": "http://localhost:3000/uploads/grumpis/130.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/130.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/130.1.png",
     "descripcion": "Forma evolucionada de Stormswift. Posee un gran poder, siendo capaz de controlar tanto el agua como el aire a su antojo.",
     "ataques": [
       {
@@ -3152,7 +3170,8 @@
     "PS": 120,
     "n_grumpidex": "131",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/131.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/131.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/131.1.png",
     "descripcion": "Grumpi tipo ángel. Representa el amor y la esperanza.",
     "ataques": [
       {
@@ -3175,7 +3194,8 @@
     "PS": 120,
     "n_grumpidex": "132",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/132.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/132.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/132.1.png",
     "descripcion": "Grumpi tipo ángel. Representa la oscuridad y el dolor al perder a un ser querido.",
     "ataques": [
       {
@@ -3198,7 +3218,8 @@
     "PS": 120,
     "n_grumpidex": "133",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/133.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/133.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/133.1.png",
     "descripcion": "Grumpi de forma patatoide. Nació de un tubérculo abandonado en el campo, el cual desarrolló extremidades para poder valerse por sí mismo.",
     "ataques": [
       {
@@ -3221,7 +3242,8 @@
     "PS": 120,
     "n_grumpidex": "134",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/134.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/134.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/134.1.png",
     "descripcion": "Grumpi tipo ángel. Representa la luz del amanecer. Dicen que si no existiera, no podríamos tener luz solar cada mañana.",
     "ataques": [
       {
@@ -3244,7 +3266,8 @@
     "PS": 120,
     "n_grumpidex": "135",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/135.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/135.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/135.1.png",
     "descripcion": "Gato excavador. Tiene unas garras delanteras reforzadas que utiliza para hacer grandes agujeros.",
     "ataques": [
       {
@@ -3267,7 +3290,8 @@
     "PS": 120,
     "n_grumpidex": "136",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/136.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/136.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/136.1.png",
     "descripcion": "Animal curioso que vive dentro de una caja de música. Cuando se acercan sus presas es capaz de saltar para asustarlos y tomar la ventaja.",
     "ataques": [
       {
@@ -3290,7 +3314,8 @@
     "PS": 120,
     "n_grumpidex": "137",
     "clase":"basico",
-    "img": "http://localhost:3000/uploads/grumpis/137.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/137.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/137.1.png",
     "descripcion": "Surgen cuando las burbujas de un Spiricat se congelan. Tienen un gran poder y son capaces de controlar el hielo.",
     "ataques": [
       {
