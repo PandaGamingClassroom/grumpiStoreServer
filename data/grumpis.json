@@ -3890,7 +3890,8 @@
     "PS": 120,
     "n_grumpidex": "E1",
     "clase":"evento",
-    "img": "http://localhost:3000/uploads/grumpis/E1.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/E1.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/E1.1.png",
     "descripcion": "Grumpi de evento de Halloween. Le encanta esta festividad y viene disfrazado para darnos sustos en esta noche tan tétrica.",
     "ataques": [
       {
@@ -3913,7 +3914,8 @@
     "PS": 120,
     "n_grumpidex": "E2",
     "clase":"evento",
-    "img": "http://localhost:3000/uploads/grumpis/E2.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/E2.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/E2.1.png",
     "descripcion": "Grumpi de evento de Navidad. Va siempre disfrazados de Papá Noel para traer felicidad y regalos a todo el mundo.",
     "ataques": [
       {
@@ -3936,7 +3938,8 @@
     "PS": 120,
     "n_grumpidex": "E3",
     "clase":"evento",
-    "img": "http://localhost:3000/uploads/grumpis/E3.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/E3.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/E3.1.png",
     "descripcion": "Grumpi de evento de Semana Cultural. Grumpi de tipo dinosaurio experto en las artes marciales. Es un gran luchador cuerpo a cuerpo.",
     "ataques": [
       {
@@ -3959,7 +3962,8 @@
     "PS": 120,
     "n_grumpidex": "E4",
     "clase":"evento",
-    "img": "http://localhost:3000/uploads/grumpis/E4.1.png",
+    "img_general": "http://localhost:3000/uploads/grumpis/general/E4.1.png",
+    "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/E4.1.png",
     "descripcion": "Grumpi de evento de Semana Cultural. Grumpi especialista en la danza. Es capaz de ejecutar desde movimiento de ballet a break dance.",
     "ataques": [
       {
