@@ -398,20 +398,6 @@
         "tipo": "Agua",
         "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png",
         "cantidad": 1
-      },
-      {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png",
-        "cantidad": 1
-      },
-      {
-        "id": 1,
-        "nombre": "Energía Agua",
-        "tipo": "Agua",
-        "imagen": "../../../../assets/energies/ENERGIA_AGUA.1.png",
-        "cantidad": 1
       }
     ],
     "objetos_combate": [
