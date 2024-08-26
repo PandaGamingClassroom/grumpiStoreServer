@@ -515,142 +515,104 @@ app.put("/trainers/update/:name", (req, res) => {
   const {
     trainer_name,
     trainer_pass,
-    id_profesor,
     grumpidolar,
     combatMark,
-    grumpis,
+    objetosAEliminar,  // Usar el nombre correcto
     medalsToRemove,
-    energias,
-    objetosAEliminar,
   } = req.body;
+
+  console.log('Objetos recibidos para editar: ', req.body);
 
   fs.readFile(filePath, "utf8", (err, data) => {
     if (err) {
-      return res
-        .status(500)
-        .json({ error: `Error al leer el fichero [${filePath}]` });
+      res.status(500).json({ error: `Error al leer el fichero [${filePath}]` });
+      return;
     }
 
-    let trainers = JSON.parse(data);    
+    let trainers = JSON.parse(data);
     let trainerIndex = trainers.findIndex((t) => t.name === trainerName);
 
     if (trainerIndex !== -1) {
       let updatedTrainer = trainers[trainerIndex];
 
-      // Actualización de datos básicos del entrenador
-      if (trainer_name !== undefined) updatedTrainer.name = trainer_name;
-      if (trainer_pass !== undefined) updatedTrainer.password = trainer_pass;
-      if (id_profesor !== undefined) updatedTrainer.id_profesor = id_profesor;
-      if (grumpidolar !== undefined) updatedTrainer.grumpidolar = grumpidolar;
-      if (combatMark !== undefined) updatedTrainer.marca_combate = combatMark;
-
-      // Actualización de los Grumpis
-      if (grumpis !== undefined) updatedTrainer.grumpis = grumpis;
-
-      // Eliminación de medallas
-      if (Array.isArray(medalsToRemove) && medalsToRemove.length > 0) {
-        updatedTrainer.medallas = updatedTrainer.medallas.filter(
-          (_, index) => !medalsToRemove.includes(index)
-        );
+      if (trainer_name !== undefined) {
+        updatedTrainer.name = trainer_name;
+      }
+      if (trainer_pass !== undefined) {
+        updatedTrainer.password = trainer_pass;
+      }
+      if (grumpidolar !== undefined) {
+        updatedTrainer.grumpidolar = grumpidolar;
+      }
+      if (combatMark !== undefined) {
+        updatedTrainer.marca_combate = combatMark;
       }
 
-      // Actualización de energías
-      if (Array.isArray(energias) && energias.length > 0) {
-        updatedTrainer.energias = energias;
-      }
+      // Añadir propiedad cantidad si no existe en las energías
+      updatedTrainer.energias.forEach(energia => {
+        if (energia.cantidad === undefined) {
+          energia.cantidad = 1; // Asignar un valor predeterminado si no está presente
+        }
+      });
 
-      // Eliminación de objetos
+      // Depuración: Log antes de la eliminación
+      console.log('Energías actuales en el entrenador: ', updatedTrainer.energias);
+      console.log('Energías a eliminar: ', objetosAEliminar);
+
+      // Verificación y eliminación de energías
       if (Array.isArray(objetosAEliminar) && objetosAEliminar.length > 0) {
-        objetosAEliminar.forEach((objeto) => {
-          console.log('Tipos de objetos del entrenador: ', objeto);
-          
-          switch (objeto.tipo) {
-            case "energia":
-              updatedTrainer.energias = updatedTrainer.energias
-                .map((e) => {
-                  if (e.nombre === objeto.nombre) {
-                    const cantidadRestante = e.cantidad - objeto.cantidad;
-                    if (cantidadRestante > 0) {
-                      return { ...e, cantidad: cantidadRestante };
-                    } else {
-                      return null; // Eliminar si la cantidad restante es 0 o negativa
-                    }
-                  }
-                  return e;
-                })
-                .filter((e) => e !== null);
-              break;
+        objetosAEliminar.forEach((energia) => {
+          console.log('Procesando energía para eliminar: ', energia);
 
-            case "combate":
-              updatedTrainer.combatObjects = updatedTrainer.combatObjects
-                .map((c) => {
-                  if (c.nombre === objeto.nombre) {
-                    const cantidadRestante = c.cantidad - objeto.cantidad;
-                    if (cantidadRestante > 0) {
-                      return { ...c, cantidad: cantidadRestante };
-                    } else {
-                      return null; // Eliminar si la cantidad restante es 0 o negativa
-                    }
-                  }
-                  return c;
-                })
-                .filter((c) => c !== null);
-              break;
+          // Buscar la energía existente en el entrenador
+          let existingEnergies = updatedTrainer.energias.filter(
+            (e) => e.nombre === energia.nombre
+          );
 
-            case "evolutivo":
-              updatedTrainer.evolutionObjects = updatedTrainer.evolutionObjects
-                .map((e) => {
-                  if (e.nombre === objeto.nombre) {
-                    const cantidadRestante = e.cantidad - objeto.cantidad;
-                    if (cantidadRestante > 0) {
-                      return { ...e, cantidad: cantidadRestante };
-                    } else {
-                      return null; // Eliminar si la cantidad restante es 0 o negativa
-                    }
-                  }
-                  return e;
-                })
-                .filter((e) => e !== null);
-              break;
+          let remainingAmount = energia.cantidad;
 
-            case "recompensa":
-              updatedTrainer.rewards = updatedTrainer.rewards
-                .map((r) => {
-                  if (r.nombre === objeto.nombre) {
-                    const cantidadRestante = r.cantidad - objeto.cantidad;
-                    if (cantidadRestante > 0) {
-                      return { ...r, cantidad: cantidadRestante };
-                    } else {
-                      return null; // Eliminar si la cantidad restante es 0 o negativa
-                    }
-                  }
-                  return r;
-                })
-                .filter((r) => r !== null);
-              break;
+          existingEnergies.forEach((existingEnergy, index) => {
+            if (remainingAmount <= 0) return;
 
-            default:
-              break;
+            let reduceAmount = Math.min(existingEnergy.cantidad, remainingAmount);
+
+            existingEnergy.cantidad -= reduceAmount;
+            remainingAmount -= reduceAmount;
+
+            // Eliminar la energía si la cantidad es menor o igual a 0
+            if (existingEnergy.cantidad <= 0) {
+              updatedTrainer.energias.splice(updatedTrainer.energias.indexOf(existingEnergy), 1);
+            }
+          });
+
+          if (remainingAmount > 0) {
+            console.log(`No se pudo eliminar toda la energía ${energia.nombre}. Quedaron ${remainingAmount} unidades sin eliminar.`);
           }
         });
+      } else {
+        console.log('No hay energías a eliminar o el formato de objetosAEliminar es incorrecto.');
       }
 
-      // Guardar cambios en el archivo JSON
+      console.log('Energías después de eliminación: ', updatedTrainer.energias);
+
       fs.writeFile(filePath, JSON.stringify(trainers, null, 2), (err) => {
         if (err) {
-          return res
-            .status(500)
-            .json({ error: `Error al escribir en el fichero [${filePath}]` });
+          res.status(500).json({ error: `Error al escribir en el fichero [${filePath}]` });
+          return;
         }
-        res
-          .status(200)
-          .json({ message: "Entrenador actualizado correctamente" });
+        res.status(200).json({ message: "Entrenador actualizado correctamente" });
       });
     } else {
       res.status(404).json({ error: "Entrenador no encontrado" });
     }
   });
 });
+
+
+
+
+
+
 
 
 
@@ -2006,8 +1968,8 @@ app.put("/profesors/update_all_data/:name", (req, res) => {
 
     // Actualizar los datos del profesor
     if (professor_name) professors[professorIndex].nombre = professor_name;
-    if (password) professors[professorIndex].password = password; 
-    if (usuario) professors[professorIndex].usuario = usuario; 
+    if (password) professors[professorIndex].password = password;
+    if (usuario) professors[professorIndex].usuario = usuario;
 
     // Guardar los datos actualizados en el archivo
     fs.writeFile(
@@ -2040,7 +2002,7 @@ app.delete("/professor_to_delete/:name", async (req, res) => {
   const userName = req.params.name;
 
   try {
-    const data = await fs.promises.readFile(filePathAmin, "utf8"); 
+    const data = await fs.promises.readFile(filePathAmin, "utf8");
     let profesor_list = JSON.parse(data);
 
     // Filtrar la lista de profesores para excluir el profesor seleccionado
