@@ -59,6 +59,30 @@
           }
         ],
         "tipo": "Rayo"
+      },
+      {
+        "id": 19,
+        "trainer_id": 0,
+        "nombre": "Shapegru",
+        "PS": 100,
+        "n_grumpidex": "019",
+        "clase": "legendario",
+        "img_general": "http://localhost:3000/uploads/grumpis/general/019.1.png",
+        "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/019.1.png",
+        "descripcion": "Es un ser difícil de encontrar y controlar. No se conoce mucho sobre su pasado. Se sabe que hay ciertos objetos que le permiten adoptar formas singulares.",
+        "ataques": [
+          {
+            "nombre": "Placaje",
+            "efecto": "10",
+            "tipo": "Normal"
+          },
+          {
+            "nombre": "Dormir",
+            "efecto": "Pierde el siguiente turno",
+            "tipo": "Luz"
+          }
+        ],
+        "tipo": "Normal"
       }
     ],
     "grumpidolar": 530,
