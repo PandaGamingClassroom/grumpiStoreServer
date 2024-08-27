@@ -713,10 +713,10 @@ function deleteMedalsFromTrainer(updatedTrainer, objetosAEliminar) {
  * @param {*} objetosAEliminar Recibe los Grumpis a editar de la lista del entrenador.
  */
 function editGrumpisFromTrainer(updatedTrainer, objetosAEliminar) {
-  // Añadir propiedad cantidad si no existe en las energías
+  // Añadir propiedad cantidad si no existe en los Grumpis
   updatedTrainer.grumpis.forEach(grumpi => {
-    if (grumpi.cantidad === undefined) {
-      grumpi.cantidad = 1; // Asignar un valor predeterminado si no está presente
+    if (!Number.isFinite(grumpi.cantidad)) {  // Verifica si cantidad no es un número
+      grumpi.cantidad = 1; // Asignar un valor predeterminado si no está presente o es inválido
     }
   });
 
@@ -724,19 +724,19 @@ function editGrumpisFromTrainer(updatedTrainer, objetosAEliminar) {
   console.log('Grumpis actuales en el entrenador: ', updatedTrainer.grumpis);
   console.log('Grumpis a eliminar: ', objetosAEliminar);
 
-  // Verificación y eliminación de energías
+  // Verificación y eliminación de Grumpis
   if (Array.isArray(objetosAEliminar) && objetosAEliminar.length > 0) {
     objetosAEliminar.forEach((grumpi) => {
       console.log('Procesando grumpi para eliminar: ', grumpi);
 
-      // Buscar la energía existente en el entrenador
+      // Buscar los Grumpis existentes en el entrenador
       let existingGrumpis = updatedTrainer.grumpis.filter(
         (e) => e.nombre === grumpi.nombre
       );
 
-      let remainingAmount = grumpi.cantidad;
+      let remainingAmount = grumpi.cantidad || 1;  // Aseguramos que haya un valor para cantidad
 
-      existingGrumpis.forEach((existingGrumpi, index) => {
+      existingGrumpis.forEach((existingGrumpi) => {
         if (remainingAmount <= 0) return;
 
         let reduceAmount = Math.min(existingGrumpi.cantidad, remainingAmount);
@@ -744,22 +744,27 @@ function editGrumpisFromTrainer(updatedTrainer, objetosAEliminar) {
         existingGrumpi.cantidad -= reduceAmount;
         remainingAmount -= reduceAmount;
 
-        // Eliminar la energía si la cantidad es menor o igual a 0
+        // Eliminar el Grumpi si la cantidad es menor o igual a 0
         if (existingGrumpi.cantidad <= 0) {
-          updatedTrainer.grumpis.splice(updatedTrainer.grumpis.indexOf(existingGrumpi), 1);
+          const index = updatedTrainer.grumpis.indexOf(existingGrumpi);
+          if (index > -1) {
+            updatedTrainer.grumpis.splice(index, 1);
+          }
         }
       });
 
       if (remainingAmount > 0) {
-        console.log(`No se pudo eliminar el grumpi ${grumpi.nombre}. Quedaron ${remainingAmount} unidades sin eliminar.`);
+        console.log(`No se pudo eliminar todo el grumpi ${grumpi.nombre}. Quedaron ${remainingAmount} unidades sin eliminar.`);
       }
     });
   } else {
     console.log('No hay grumpis a eliminar o el formato de objetosAEliminar es incorrecto.');
   }
 
+  // Depuración: Log después de la eliminación
   console.log('Grumpis después de la eliminación: ', updatedTrainer.grumpis);
 }
+
 
 /**
  * Función para editar los objetos de combate seleccionados.
