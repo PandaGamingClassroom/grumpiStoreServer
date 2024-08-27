@@ -758,7 +758,7 @@ function editGrumpisFromTrainer(updatedTrainer, objetosAEliminar) {
     console.log('No hay grumpis a eliminar o el formato de objetosAEliminar es incorrecto.');
   }
 
-  console.log('Grumpis después de la eliminación: ', updatedTrainer.energias);
+  console.log('Grumpis después de la eliminación: ', updatedTrainer.grumpis);
 }
 
 /**
