@@ -32,6 +32,33 @@
           }
         ],
         "tipo": "Vida"
+      },
+      {
+        "id": 8,
+        "trainer_id": 0,
+        "nombre": "Elekspike",
+        "PS": 120,
+        "n_grumpidex": "008",
+        "clase": "evolucion",
+        "img_general": "http://localhost:3000/uploads/grumpis/general/008.1.png",
+        "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/008.1.png",
+        "descripcion": "Forma evolucionada de Elekspoke. Recubre su cuerpo con nuevas púas que le permite almacenar una mayor cantidad de electricidad. Es capaz de dar electricidad a un hogar solo con la energía que almacena en un día.",
+        "Ciclo1": "Pagar 3 energías de rayo y tener a Elekspoke.",
+        "Ciclo2": "Pagar 3 energías de rayo y tener a Elekspoke.",
+        "Ciclo3": "Pagar 3 energías de rayo y tener a Elekspoke.",
+        "ataques": [
+          {
+            "nombre": "Púa Rayo",
+            "efecto": "20: Lanzar moneda: Cara paraliza, cruz, no hace nada",
+            "tipo": "Rayo"
+          },
+          {
+            "nombre": "Descarga",
+            "efecto": "40",
+            "tipo": "Rayo"
+          }
+        ],
+        "tipo": "Rayo"
       }
     ],
     "grumpidolar": 530,
