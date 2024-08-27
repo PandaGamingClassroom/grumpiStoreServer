@@ -31,7 +31,8 @@
             "tipo": "Vida"
           }
         ],
-        "tipo": "Vida"
+        "tipo": "Vida",
+        "cantidad": null
       },
       {
         "id": 8,
@@ -58,7 +59,8 @@
             "tipo": "Rayo"
           }
         ],
-        "tipo": "Rayo"
+        "tipo": "Rayo",
+        "cantidad": 1
       },
       {
         "id": 19,
@@ -82,7 +84,8 @@
             "tipo": "Luz"
           }
         ],
-        "tipo": "Normal"
+        "tipo": "Normal",
+        "cantidad": 1
       }
     ],
     "grumpidolar": 530,
