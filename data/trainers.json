@@ -35,8 +35,8 @@
         "cantidad": 1
       }
     ],
-    "grumpidolar": 530,
-    "marca_combate": "2",
+    "grumpidolar": "100",
+    "marca_combate": "3",
     "medallas": [
       "http://localhost:3000/uploads/medals/Medalla_luz.1.png",
       "http://localhost:3000/uploads/medals/Medalla_normal.1.png",
