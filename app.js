@@ -3,7 +3,6 @@ const app = express();
 const multer = require("multer");
 const cors = require("cors");
 const sqlite3 = require("sqlite3").verbose(); // Importa el módulo sqlite3
-// const port = process.env.PORT || 3000;
 const fs = require("fs");
 const PORT = process.env.PORT || 3000;
 
@@ -91,7 +90,7 @@ console.log(`Observando cambios en el directorio: ${watchDirectory}`);
  *
  */
 const corsOptions = {
-  origin: "http://localhost:4200", // Origen permitido
+  origin: "https://grumpi-store.vercel.app/", // Origen permitido
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Métodos permitidos
   credentials: true, // Permitir cookies y otros credenciales
   optionsSuccessStatus: 200, // Algunas navegadores (Safari) necesitan este ajuste
