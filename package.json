@@ -1,12 +1,12 @@
 {
   "name": "grumpistoreserver",
-  "version": "0.0.0",
-  
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "dev": "nodemon ./bin/www",
-    "heroku-postbuild": "npm run build"
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "heroku-postbuild": "npm run build",
+    "build": "echo 'No build step required'"
   },
   "dependencies": {
     "chokidar": "^3.6.0",
