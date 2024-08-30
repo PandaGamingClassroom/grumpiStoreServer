@@ -478,7 +478,7 @@ app.put("/user", (req, res) => {
  * Función para eliminar un entrenador
  *
  */
-app.delete("/user/:name", cors(corsOptions), (req, res) => {
+app.delete("/user/:name", (req, res) => {
   const userName = req.params.name;
 
   try {
