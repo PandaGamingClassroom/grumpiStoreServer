@@ -361,7 +361,7 @@ try {
   trainer_list = [];
 }
 
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json()); // Middleware para analizar el cuerpo de la solicitud como JSON
 // Servir las imágenes estáticas desde el directorio de uploads
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
