@@ -13,8 +13,8 @@
         "PS": 120,
         "n_grumpidex": "008",
         "clase": "evolucion",
-        "img_general": "http://localhost:3000/uploads/grumpis/general/008.1.png",
-        "img_conseguir": "http://localhost:3000/uploads/grumpis/howToGetGrumpis/008.1.png",
+        "img_general": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/grumpis/general/008.1.png",
+        "img_conseguir": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/grumpis/howToGetGrumpis/008.1.png",
         "descripcion": "Forma evolucionada de Elekspoke. Recubre su cuerpo con nuevas púas que le permite almacenar una mayor cantidad de electricidad. Es capaz de dar electricidad a un hogar solo con la energía que almacena en un día.",
         "Ciclo1": "Pagar 3 energías de rayo y tener a Elekspoke.",
         "Ciclo2": "Pagar 3 energías de rayo y tener a Elekspoke.",
@@ -38,12 +38,12 @@
     "grumpidolar": "100",
     "marca_combate": "3",
     "medallas": [
-      "http://localhost:3000/uploads/medals/Medalla_luz.1.png",
-      "http://localhost:3000/uploads/medals/Medalla_normal.1.png",
-      "http://localhost:3000/uploads/medals/Medalla_oscuridad.1.png",
-      "http://localhost:3000/uploads/medals/Medalla_rayo.1.png",
-      "http://localhost:3000/uploads/medals/Medalla_Tierra.1.png",
-      "http://localhost:3000/uploads/medals/Medalla_vida.1.png"
+      "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/medals/Medalla_luz.1.png",
+      "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/medals/Medalla_normal.1.png",
+      "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/medals/Medalla_oscuridad.1.png",
+      "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/medals/Medalla_rayo.1.png",
+      "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/medals/Medalla_Tierra.1.png",
+      "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/medals/Medalla_vida.1.png"
     ],
     "energias": [
       {
@@ -85,162 +85,162 @@
     "objetos_combate": [
       {
         "nombre": "Despertador",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Despertador.1.png",
         "precio": 5
       },
       {
         "nombre": "Despertador",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Despertador.1.png",
         "precio": 5
       },
       {
         "nombre": "Despertador",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Despertador.1.png",
         "precio": 5
       },
       {
         "nombre": "Poción",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Pocion.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Pocion.1.png",
         "precio": 7
       },
       {
         "nombre": "Despertador",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Despertador.1.png",
         "precio": 5
       },
       {
         "nombre": "Desfibrilador",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Desfibrilador.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Desfibrilador.1.png",
         "precio": 5
       },
       {
         "nombre": "Despertador",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Despertador.1.png",
         "precio": 5
       },
       {
         "nombre": "Despertador",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Despertador.1.png",
         "precio": 5
       },
       {
         "nombre": "Despertador",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Despertador.1.png",
         "precio": 5
       },
       {
         "nombre": "Despertador",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Despertador.1.png",
         "precio": 5
       },
       {
         "nombre": "Antídoto",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Antidoto.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Antidoto.1.png",
         "precio": 5
       },
       {
         "nombre": "Antídoto",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Antidoto.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Antidoto.1.png",
         "precio": 5
       },
       {
         "nombre": "Despertador",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Despertador.1.png",
         "precio": 5
       },
       {
         "nombre": "Despertador",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Despertador.1.png",
         "precio": 5
       },
       {
         "nombre": "Despertador",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Despertador.1.png",
         "precio": 5
       },
       {
         "nombre": "Despertador",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Despertador.1.png",
         "precio": 5
       },
       {
         "nombre": "Despertador",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Despertador.1.png",
         "precio": 5
       },
       {
         "nombre": "Despertador",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Despertador.1.png",
         "precio": 5
       },
       {
         "nombre": "Despertador",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Despertador.1.png",
         "precio": 5
       },
       {
         "nombre": "Despertador",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Despertador.1.png",
         "precio": 5
       },
       {
         "nombre": "Despertador",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Despertador.1.png",
         "precio": 5
       },
       {
         "nombre": "Despertador",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Despertador.1.png",
         "precio": 5
       },
       {
         "nombre": "Despertador",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Despertador.1.png",
         "precio": 5
       },
       {
         "nombre": "Despertador",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Despertador.1.png",
         "precio": 5
       },
       {
         "nombre": "Despertador",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Despertador.1.png",
         "precio": 5
       },
       {
         "nombre": "Despertador",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Despertador.1.png",
         "precio": 5
       },
       {
         "nombre": "Despertador",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Despertador.1.png",
         "precio": 5
       },
       {
         "nombre": "Despertador",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Despertador.1.png",
         "precio": 5
       },
       {
         "nombre": "Despertador",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Despertador.1.png",
         "precio": 5
       },
       {
         "nombre": "Despertador",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Despertador.1.png",
         "precio": 5
       },
       {
         "nombre": "Despertador",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Despertador.1.png",
         "precio": 5
       },
       {
         "nombre": "Despertador",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Despertador.1.png",
         "precio": 5
       }
     ],
@@ -248,42 +248,42 @@
       {
         "id": 1,
         "nombre": "Losa Agua",
-        "imagen": "http://localhost:3000/uploads/evoObjects/LOSA_AGUA.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/evoObjects/LOSA_AGUA.1.png",
         "tipo": "agua",
         "precio": 5
       },
       {
         "id": 1,
         "nombre": "Losa Agua",
-        "imagen": "http://localhost:3000/uploads/evoObjects/LOSA_AGUA.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/evoObjects/LOSA_AGUA.1.png",
         "tipo": "agua",
         "precio": 5
       },
       {
         "id": 1,
         "nombre": "Losa Agua",
-        "imagen": "http://localhost:3000/uploads/evoObjects/LOSA_AGUA.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/evoObjects/LOSA_AGUA.1.png",
         "tipo": "agua",
         "precio": 5
       },
       {
         "id": 1,
         "nombre": "Losa Agua",
-        "imagen": "http://localhost:3000/uploads/evoObjects/LOSA_AGUA.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/evoObjects/LOSA_AGUA.1.png",
         "tipo": "agua",
         "precio": 5
       },
       {
         "id": 1,
         "nombre": "Losa Agua",
-        "imagen": "http://localhost:3000/uploads/evoObjects/LOSA_AGUA.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/evoObjects/LOSA_AGUA.1.png",
         "tipo": "agua",
         "precio": 5
       },
       {
         "id": 1,
         "nombre": "Losa Agua",
-        "imagen": "http://localhost:3000/uploads/evoObjects/LOSA_AGUA.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/evoObjects/LOSA_AGUA.1.png",
         "tipo": "agua",
         "precio": 5
       }
@@ -292,36 +292,36 @@
       {
         "id": 1,
         "nombre": "Recompensa 1",
-        "img": "http://localhost:3000/uploads/rewards/RECOMPENSA_1.1.png",
+        "img": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/rewards/RECOMPENSA_1.1.png",
         "condicion": "20",
         "uso": ""
       },
       {
         "id": 1,
         "nombre": "Recompensa 1",
-        "img": "http://localhost:3000/uploads/rewards/RECOMPENSA_1.1.png",
+        "img": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/rewards/RECOMPENSA_1.1.png",
         "condicion": "20",
         "uso": ""
       },
       {
         "id": 1,
         "nombre": "Recompensa 1",
-        "img": "http://localhost:3000/uploads/rewards/RECOMPENSA_1.1.png",
+        "img": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/rewards/RECOMPENSA_1.1.png",
         "condicion": "20",
         "uso": ""
       },
       {
         "id": 1,
         "nombre": "Recompensa 1",
-        "img": "http://localhost:3000/uploads/rewards/RECOMPENSA_1.1.png",
+        "img": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/rewards/RECOMPENSA_1.1.png",
         "condicion": "20",
         "uso": ""
       }
     ],
     "energies": [],
     "distintivos_liga": [
-      "http://localhost:3000/uploads/leagueBadges/COPA_GRUMPI.1.png",
-      "http://localhost:3000/uploads/leagueBadges/COPA_GRUMPI.1.png"
+      "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/leagueBadges/COPA_GRUMPI.1.png",
+      "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/leagueBadges/COPA_GRUMPI.1.png"
     ]
   },
   {
@@ -331,9 +331,9 @@
     "rol": "entrenador",
     "id_profesor": 2,
     "grumpis": [
-      "http://localhost:3000/uploads/grumpis/001.1.png",
-      "http://localhost:3000/uploads/grumpis/001.1.png",
-      "http://localhost:3000/uploads/grumpis/020.1.png"
+      "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/grumpis/001.1.png",
+      "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/grumpis/001.1.png",
+      "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/grumpis/020.1.png"
     ],
     "medallas": [],
     "objetos_combate": [],
@@ -350,41 +350,41 @@
     "rol": "entrenador",
     "id_profesor": 1,
     "medallas": [
-      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png",
-      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png",
-      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png",
-      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png",
-      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png"
+      "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/medals/Medalla_Agua.1.png",
+      "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/medals/Medalla_Agua.1.png",
+      "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/medals/Medalla_Agua.1.png",
+      "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/medals/Medalla_Agua.1.png",
+      "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/medals/Medalla_Agua.1.png"
     ],
     "objetos_combate": [
       {
         "nombre": "Despertador",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Despertador.1.png",
         "precio": 5
       },
       {
         "nombre": "Gafas de sol",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Gafas_de_sol.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Gafas_de_sol.1.png",
         "precio": 5
       },
       {
         "nombre": "Despertador",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Despertador.1.png",
         "precio": 5
       },
       {
         "nombre": "Despertador",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Despertador.1.png",
         "precio": 5
       },
       {
         "nombre": "Despertador",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Despertador.1.png",
         "precio": 5
       },
       {
         "nombre": "Despertador",
-        "imagen": "http://localhost:3000/uploads/combatObjects/Despertador.1.png",
+        "imagen": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/combatObjects/Despertador.1.png",
         "precio": 5
       }
     ],
@@ -397,7 +397,7 @@
         "trainer_id": 0,
         "nombre": "Bugi",
         "n_grumpidex": "001",
-        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "img": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/grumpis/001.1.png",
         "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
         "ataques": [
           {
@@ -418,7 +418,7 @@
         "trainer_id": 0,
         "nombre": "Bugi",
         "n_grumpidex": "001",
-        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "img": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/grumpis/001.1.png",
         "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
         "ataques": [
           {
@@ -439,7 +439,7 @@
         "trainer_id": 0,
         "nombre": "Bugi",
         "n_grumpidex": "001",
-        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "img": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/grumpis/001.1.png",
         "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
         "ataques": [
           {
@@ -460,7 +460,7 @@
         "trainer_id": 0,
         "nombre": "Bugi",
         "n_grumpidex": "001",
-        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "img": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/grumpis/001.1.png",
         "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
         "ataques": [
           {
@@ -555,7 +555,7 @@
     "rol": "entrenador",
     "id_profesor": 2,
     "medallas": [
-      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png"
+      "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/medals/Medalla_Agua.1.png"
     ],
     "objetos_combate": [],
     "objetos_evolutivos": [],
@@ -568,7 +568,7 @@
         "trainer_id": 0,
         "nombre": "Bolibugi",
         "n_grumpidex": "002",
-        "img": "http://localhost:3000/uploads/grumpis/002.1.png",
+        "img": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/grumpis/002.1.png",
         "descripcion": "Forma evolucionada de Bugi. Recubre su cuerpo con una protección para defenderse de los atacantes mientras consigue su forma definitiva. Se dice que rueda felizmente por los bosques.",
         "ataques": [
           {
@@ -598,7 +598,7 @@
         "trainer_id": 0,
         "nombre": "Lightibi",
         "n_grumpidex": "031",
-        "img": "http://localhost:3000/uploads/grumpis/031.1.png",
+        "img": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/grumpis/031.1.png",
         "descripcion": "Descripción: Forma evolucionada de Eggtelio al exponerse a una Losa Rayo. Tiene un plumaje que recuerda a los rayos en los días de tormenta. Está muy cargado de electricidad estática.",
         "ataques": [
           {
@@ -619,7 +619,7 @@
         "trainer_id": 0,
         "nombre": "Bugi",
         "n_grumpidex": "001",
-        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "img": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/grumpis/001.1.png",
         "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
         "ataques": [
           {
@@ -648,11 +648,11 @@
     "recompensas": [],
     "energies": [],
     "medallas": [
-      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png",
-      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png",
-      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png",
-      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png",
-      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png"
+      "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/medals/Medalla_Agua.1.png",
+      "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/medals/Medalla_Agua.1.png",
+      "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/medals/Medalla_Agua.1.png",
+      "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/medals/Medalla_Agua.1.png",
+      "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/medals/Medalla_Agua.1.png"
     ],
     "energias": [
       {
@@ -686,7 +686,7 @@
         "trainer_id": 0,
         "nombre": "Bugi",
         "n_grumpidex": "001",
-        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "img": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/grumpis/001.1.png",
         "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
         "ataques": [
           {
@@ -707,7 +707,7 @@
         "trainer_id": 0,
         "nombre": "Bugi",
         "n_grumpidex": "001",
-        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "img": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/grumpis/001.1.png",
         "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
         "ataques": [
           {
@@ -764,7 +764,7 @@
         "trainer_id": 0,
         "nombre": "Bugi",
         "n_grumpidex": "001",
-        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "img": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/grumpis/001.1.png",
         "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
         "ataques": [
           {
@@ -782,8 +782,8 @@
       }
     ],
     "medallas": [
-      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png",
-      "http://localhost:3000/uploads/medals/Medalla_Agua.1.png"
+      "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/medals/Medalla_Agua.1.png",
+      "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/medals/Medalla_Agua.1.png"
     ]
   },
   {
@@ -799,7 +799,7 @@
         "trainer_id": 0,
         "nombre": "Flamebi",
         "n_grumpidex": "030",
-        "img": "http://localhost:3000/uploads/grumpis/030.1.png",
+        "img": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/grumpis/030.1.png",
         "descripcion": "Forma evolucionada de Eggtelio al exponerse a una Losa Agua. Su cuerpo adopta un color azul que recuerda al mismo mar.",
         "ataques": [
           {
@@ -821,7 +821,7 @@
         "nombre": "Bugi",
         "PS": 100,
         "n_grumpidex": "001",
-        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "img": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/grumpis/001.1.png",
         "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
         "Ciclo1": "Realizar un trabajo de algo visto en la asignatura de ciencias de la naturaleza.",
         "Ciclo2": "Realizar un trabajo de algo visto en la asignatura de ciencias de la naturaleza.",
@@ -855,7 +855,7 @@
         "trainer_id": 0,
         "nombre": "Chatty",
         "n_grumpidex": "025",
-        "img": "http://localhost:3000/uploads/grumpis/025.1.png",
+        "img": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/grumpis/025.1.png",
         "descripcion": "Ser adorable que vive junto a los seres humanos, llenándoles de amor y alegría.",
         "ataques": [
           {
@@ -876,7 +876,7 @@
         "trainer_id": 0,
         "nombre": "Bugi",
         "n_grumpidex": "001",
-        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "img": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/grumpis/001.1.png",
         "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
         "ataques": [
           {
@@ -912,7 +912,7 @@
         "nombre": "Bugi",
         "PS": 100,
         "n_grumpidex": "001",
-        "img": "http://localhost:3000/uploads/grumpis/001.1.png",
+        "img": "https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/grumpis/001.1.png",
         "descripcion": "Pequeño gusano con forma de seta, la cual utiliza para pasar inadvertido de sus depredadores.",
         "Ciclo1": "Realizar un trabajo de algo visto en la asignatura de ciencias de la naturaleza.",
         "Ciclo2": "Realizar un trabajo de algo visto en la asignatura de ciencias de la naturaleza.",
