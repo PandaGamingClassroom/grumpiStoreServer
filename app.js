@@ -90,11 +90,22 @@ console.log(`Observando cambios en el directorio: ${watchDirectory}`);
  *
  */
 const corsOptions = {
-  origin: "https://grumpi-store.vercel.app/", // Origen permitido
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Métodos permitidos
-  credentials: true, // Permitir cookies y otros credenciales
-  optionsSuccessStatus: 200, // Algunas navegadores (Safari) necesitan este ajuste
+  origin: function (origin, callback) {
+    const allowedOrigins = [
+      "https://grumpi-store.vercel.app",
+      "https://another-allowed-origin.com",
+    ];
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+  optionsSuccessStatus: 200,
 };
+app.options("*", cors(corsOptions));
 
 app.use(cors(corsOptions));
 
