@@ -105,8 +105,6 @@ const corsOptions = {
   credentials: true,
   optionsSuccessStatus: 200,
 };
-app.options("*", cors(corsOptions));
-
 app.use(cors(corsOptions));
 
 fs.mkdirSync(uploadDir, { recursive: true });
@@ -478,33 +476,35 @@ app.put("/user", (req, res) => {
  * Función para eliminar un entrenador
  *
  */
-app.delete("/user/:name", (req, res) => {
+app.delete("/user/:name", async (req, res) => {
   const userName = req.params.name;
 
   try {
-    const data = fs.promises.readFile(filePath, "utf8"); // Utiliza fs.promises para leer el archivo
+    // Lee el archivo y convierte el contenido en JSON
+    const data = await fs.promises.readFile(filePath, "utf8");
     let trainers = JSON.parse(data);
 
-    // Filtrar la lista de entrenadores para excluir el entrenador seleccionado
+    // Filtra la lista para excluir al entrenador con el nombre dado
     const updatedTrainerList = trainers.filter(
       (trainer) => trainer.name !== userName
     );
 
     if (updatedTrainerList.length === trainers.length) {
-      // El usuario no se encontró en la lista
+      // Si la longitud no cambia, el usuario no fue encontrado
       return res
         .status(404)
         .json({ error: `Usuario con nombre ${userName} no encontrado` });
     }
 
-    fs.promises.writeFile(
+    // Escribe el archivo actualizado
+    await fs.promises.writeFile(
       filePath,
       JSON.stringify(updatedTrainerList, null, 2)
     );
 
     console.log(`Usuario con nombre ${userName} eliminado correctamente`);
 
-    // Devolver la lista actualizada como respuesta
+    // Devuelve la lista actualizada como respuesta
     res.status(200).json({
       message: `Usuario con nombre ${userName} eliminado correctamente`,
       trainer_list: updatedTrainerList,
@@ -514,6 +514,7 @@ app.delete("/user/:name", (req, res) => {
     res.status(500).json({ error: "Error interno del servidor" });
   }
 });
+
 
 /**
  *
@@ -1981,7 +1982,7 @@ const readJsonFile = (filePathAmin) => {
  *  OBTENER UN PROFESOR POR SU NOMBRE
  *
  */
-app.get("/profesor/:nombre", cors(corsOptions), (req, res) => {
+app.get("/profesor/:nombre", (req, res) => {
   const nombre = req.params.nombre;
 
   // Lee los datos del archivo trainers.json
