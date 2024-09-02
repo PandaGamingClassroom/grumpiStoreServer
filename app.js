@@ -65,6 +65,9 @@ const commitAndPush = async (filePath) => {
     await git.push("origin", "main");
 
     console.log(`Commit y push realizados con éxito para: ${filePath}`);
+
+    // Aquí se hace el push, y si has configurado Heroku con auto-deploy desde GitHub,
+    // se hará automáticamente el despliegue en Heroku.
   } catch (error) {
     console.error("Error al hacer commit y push:", error);
   }
@@ -76,11 +79,8 @@ const watcher = chokidar.watch(watchDirectory, {
   ignoreInitial: true, // No hacer commit para archivos al iniciar
 });
 
-watcher
-  .on("change", (filePath) => commitAndPush(filePath))
-  .on("error", (error) =>
-    console.error("Error en el observador de archivos:", error)
-  );
+// Llama a commitAndPush en cambios
+watcher.on('change', commitAndPush);
 
 console.log(`Observando cambios en el directorio: ${watchDirectory}`);
 
