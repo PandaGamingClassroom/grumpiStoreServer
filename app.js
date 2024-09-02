@@ -26,6 +26,7 @@ const db = new sqlite3.Database(":memory:");
  * existe correctamente
  *
  */
+const path = require('path');
 const uploadDir = path.join(__dirname, "uploads", "grumpis");
 const uploadDirMedals = path.join(__dirname, "uploads", "medals");
 const uploadDirEnergies = path.join(__dirname, "uploads", "energies");
@@ -42,7 +43,6 @@ module.exports = app;
  ******************************/
 const chokidar = require('chokidar');
 const simpleGit = require('simple-git');
-const path = require('path');
 const fs = require('fs');
 
 const git = simpleGit();
