@@ -44,8 +44,11 @@ module.exports = app;
  *
  ******************************/
 
+// Ajusta el directorio base si es necesario
+const git = simpleGit({
+  baseDir: path.join(__dirname, '/apps/grumpi-app-server')
+});
 
-const git = simpleGit();
 const watchDirectory = path.join(__dirname, 'data');
 
 // Función para hacer commit y push
@@ -56,6 +59,13 @@ const commitAndPush = async (filePath) => {
     // Verifica que el archivo existe
     if (!fs.existsSync(filePath)) {
       console.error(`El archivo no existe: ${filePath}`);
+      return;
+    }
+
+    // Verifica que estamos en un repositorio Git
+    const status = await git.status();
+    if (status.current === '') {
+      console.error('No se encuentra en un repositorio Git. Verifica la configuración.');
       return;
     }
 
