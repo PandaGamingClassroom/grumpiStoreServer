@@ -26,7 +26,6 @@ const db = new sqlite3.Database(":memory:");
  * existe correctamente
  *
  */
-const path = require("path");
 const uploadDir = path.join(__dirname, "uploads", "grumpis");
 const uploadDirMedals = path.join(__dirname, "uploads", "medals");
 const uploadDirEnergies = path.join(__dirname, "uploads", "energies");
@@ -41,19 +40,24 @@ module.exports = app;
  *    CONFIGURACIÓN PARA GIT
  *
  ******************************/
-const chokidar = require("chokidar");
-const simpleGit = require("simple-git");
+const chokidar = require('chokidar');
+const simpleGit = require('simple-git');
+const path = require('path');
+const fs = require('fs');
 
-// Configura simple-git
 const git = simpleGit();
-
-// Configura el directorio a observar
-const watchDirectory = path.join(__dirname, "data");
+const watchDirectory = path.join(__dirname, 'data');
 
 // Función para hacer commit y push
 const commitAndPush = async (filePath) => {
   try {
     console.log(`Detectado cambio en: ${filePath}`);
+
+    // Verifica que el archivo existe
+    if (!fs.existsSync(filePath)) {
+      console.error(`El archivo no existe: ${filePath}`);
+      return;
+    }
 
     // Agregar archivos modificados
     await git.add(filePath);
@@ -62,14 +66,11 @@ const commitAndPush = async (filePath) => {
     await git.commit(`Actualización automática de ${path.basename(filePath)}`);
 
     // Hacer push
-    await git.push("origin", "main");
+    await git.push('origin', 'main');
 
     console.log(`Commit y push realizados con éxito para: ${filePath}`);
-
-    // Aquí se hace el push, y si has configurado Heroku con auto-deploy desde GitHub,
-    // se hará automáticamente el despliegue en Heroku.
   } catch (error) {
-    console.error("Error al hacer commit y push:", error);
+    console.error('Error al hacer commit y push:', error);
   }
 };
 
@@ -80,9 +81,13 @@ const watcher = chokidar.watch(watchDirectory, {
 });
 
 // Llama a commitAndPush en cambios
-watcher.on('change', commitAndPush);
+watcher.on('change', (filePath) => {
+  console.log(`Cambio detectado en: ${filePath}`);
+  commitAndPush(filePath);
+});
 
 console.log(`Observando cambios en el directorio: ${watchDirectory}`);
+
 
 /**
  *
