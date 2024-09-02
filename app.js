@@ -4,6 +4,8 @@ const multer = require("multer");
 const cors = require("cors");
 const sqlite3 = require("sqlite3").verbose(); // Importa el módulo sqlite3
 const fs = require("fs");
+const chokidar = require('chokidar');
+const simpleGit = require('simple-git');
 const PORT = process.env.PORT || 3000;
 
 /**********************
@@ -41,9 +43,7 @@ module.exports = app;
  *    CONFIGURACIÓN PARA GIT
  *
  ******************************/
-const chokidar = require('chokidar');
-const simpleGit = require('simple-git');
-const fs = require('fs');
+
 
 const git = simpleGit();
 const watchDirectory = path.join(__dirname, 'data');
