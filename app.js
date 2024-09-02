@@ -46,7 +46,7 @@ module.exports = app;
 
 // Ajusta el directorio base si es necesario
 const git = simpleGit({
-  baseDir: path.join(__dirname, '..')
+  baseDir: path.join(__dirname, '/app')
 });
 
 const watchDirectory = path.join(__dirname, 'data');
