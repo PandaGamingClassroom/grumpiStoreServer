@@ -46,7 +46,7 @@ module.exports = app;
 
 // Ajusta el directorio base si es necesario
 const git = simpleGit({
-  baseDir: path.join(__dirname, '/apps/grumpi-app-server')
+  baseDir: path.join(__dirname, '/apps')
 });
 
 const watchDirectory = path.join(__dirname, 'data');
