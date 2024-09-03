@@ -17,9 +17,9 @@
             <array>
                 <string>/Users/Shared/DBngin/mysql/8.0.33/bin/mysqld</string>
                 <string>--disable-log-bin</string>
-                <string>--socket=/tmp/mysql_3001.sock</string>
+                <string>--socket=/tmp/mysql_3306.sock</string>
                 <string>--user=_mysql</string>
-                <string>--port=3001</string>
+                <string>--port=3306</string>
                 <string>--basedir=/Users/Shared/DBngin/mysql/8.0.33</string>
                 <string>--datadir=/Users/danielgarciadiaz/Desktop/PROYECTO GRUMPIS/App/Server/grumpiStoreServer</string>
                 <string>--plugin-dir=/Users/Shared/DBngin/mysql/8.0.33/lib/plugin</string>
