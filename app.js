@@ -90,16 +90,15 @@ if (process.env.NODE_ENV !== 'production') {
     persistent: true,
     ignoreInitial: true, // No hacer commit para archivos al iniciar
   });
+  // Llama a commitAndPush en cambios
+  watcher.on('change', (filePath) => {
+    console.log(`Cambio detectado en: ${filePath}`);
+    commitAndPush(filePath);
+  });
+
 } else {
   console.log('Operaciones Git deshabilitadas en producción');
 }
-
-
-// Llama a commitAndPush en cambios
-watcher.on('change', (filePath) => {
-  console.log(`Cambio detectado en: ${filePath}`);
-  commitAndPush(filePath);
-});
 
 console.log(`Observando cambios en el directorio: ${watchDirectory}`);
 
