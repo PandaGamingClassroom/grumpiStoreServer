@@ -45,11 +45,12 @@ module.exports = app;
  *
  ******************************/
 const git = simpleGit({
-  baseDir: path.join(__dirname, '..')
+  baseDir: '/opt/render/project/src'
 });
-console.log('Directorio base de Git:', path.join(__dirname, '..'));
 
+// Directorio que se observa
 const watchDirectory = path.join(__dirname, 'data');
+
 // Función para hacer commit y push
 const commitAndPush = async (filePath) => {
   try {
@@ -62,8 +63,8 @@ const commitAndPush = async (filePath) => {
     }
 
     // Verifica que estamos en un repositorio Git
-    const status = await git.status();
-    if (status.current === '') {
+    const isRepo = await git.checkIsRepo();
+    if (!isRepo) {
       console.error('No se encuentra en un repositorio Git. Verifica la configuración.');
       return;
     }
@@ -87,16 +88,19 @@ const commitAndPush = async (filePath) => {
 const watcher = chokidar.watch(watchDirectory, {
   persistent: true,
   ignoreInitial: true, // No hacer commit para archivos al iniciar
+  // También observa subdirectorios si es necesario
+  ignorePermissionErrors: true
 });
+
 // Llama a commitAndPush en cambios
 watcher.on('change', (filePath) => {
+  // Normaliza la ruta para que se ajuste al formato del sistema de archivos
+  const normalizedPath = path.relative(watchDirectory, filePath);
   console.log(`Cambio detectado en: ${filePath}`);
   commitAndPush(filePath);
 });
 
-
 console.log(`Observando cambios en el directorio: ${watchDirectory}`);
-
 
 /**
  *
@@ -559,7 +563,7 @@ function editGrumpisFromTrainer(updatedTrainer, objetosAEliminar) {
       grumpi.cantidad = 1;
     }
   });
-  
+
   if (Array.isArray(objetosAEliminar) && objetosAEliminar.length > 0) {
     objetosAEliminar.forEach((grumpi) => {
       console.log("Procesando grumpi para eliminar: ", grumpi);
