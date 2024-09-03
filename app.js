@@ -75,7 +75,7 @@ const commitAndPush = async (filePath) => {
     // Configura la identidad del autor
     await setGitUserConfig();
 
-    // Verifica si el remoto `origin` está configurado y corrige la URL si es necesario
+    // Verifica si el remoto `origin` está configurado
     const remotes = await git.getRemotes(true);
     const hasOrigin = remotes.some(remote => remote.name === 'origin');
     
@@ -95,14 +95,14 @@ const commitAndPush = async (filePath) => {
     const status = await git.status();
     if (status.current === '') {
       console.error('Estás en un estado de "detached HEAD". Intentando hacer checkout a la rama principal.');
-      await git.checkout('main');
+      await git.checkout('main'); // Cambia a 'master' si tu rama principal es 'master'
     }
 
     // Hacer commit
     await git.commit(`Actualización automática de ${path.basename(filePath)}`);
 
     // Hacer push
-    await git.push('origin', 'main');
+    await git.push('origin', 'main'); // Cambia a 'master' si tu rama principal es 'master'
 
     console.log(`Commit y push realizados con éxito para: ${filePath}`);
   } catch (error) {
