@@ -77,6 +77,8 @@ const commitAndPush = async (filePath) => {
 
     // Verifica los remotos configurados
     const remotes = await git.getRemotes(true);
+    console.log('Remotos configurados:', remotes); // Añadido para diagnóstico
+
     if (remotes.length === 0) {
       console.error('No se ha configurado ningún remoto. Verifica la configuración de remotos.');
       return;
