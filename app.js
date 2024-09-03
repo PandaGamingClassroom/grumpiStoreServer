@@ -2,11 +2,13 @@ const express = require("express");
 const app = express();
 const multer = require("multer");
 const cors = require("cors");
-const sqlite3 = require("sqlite3").verbose(); // Importa el módulo sqlite3
+//const sqlite3 = require("sqlite3").verbose();
 const fs = require("fs");
 const chokidar = require('chokidar');
 const simpleGit = require('simple-git');
 const PORT = process.env.PORT || 3000;
+
+const Database = require('better-sqlite3');
 
 /**********************
  *  RUTAS DE ACCESO
@@ -20,7 +22,7 @@ const filePathRewards = "./data/rewards.json";
 const filePathAttacks = "./data/attacks.json";
 
 // Configuración de la base de datos
-const db = new sqlite3.Database(":memory:");
+const db = new Database('grumpi_data_base.db');
 
 /**
  * Comprobación de que el directorio
@@ -144,113 +146,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// Crea las tablas
-db.serialize(() => {
-  // Tabla principal de entrenadores
-  db.run(`
-    CREATE TABLE IF NOT EXISTS trainers (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      id_profesor INTEGER,
-      nombre TEXT,
-      password TEXT,
-      rol TEXT,
-      grumpidolar INTEGER,
-      marca_combate INTEGER,
-      medallas TEXT,
-      grumpis TEXT,
-      energias TEXT,
-      total_energias INTEGER,
-      objetos_combate TEXT,
-      objetos_evolutivos TEXT,
-      distintivos_liga TEXT,
-      recompensas TEXT,
-      FOREIGN KEY (id_profesor) REFERENCES profesores(id)
-    )
-  `);
-
-  db.run(`
-    CREATE TABLE IF NOT EXISTS profesores (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      nombre TEXT,
-      apellidos TEXT,
-      usuario TEXT,
-      password TEXT,
-      rol TEXT
-    )
-  `);
-
-  // Tabla de medallas
-  db.run(`
-    CREATE TABLE IF NOT EXISTS medallas (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      nombre TEXT,
-      imagen TEXT,
-      trainer_id INTEGER,
-      FOREIGN KEY (trainer_id) REFERENCES trainers(id)
-    )
-  `);
-
-  // Tabla de grumpis
-  db.run(`
-    CREATE TABLE IF NOT EXISTS grumpis (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      nombre TEXT,
-      imagen TEXT,
-      n_grumpidex TEXT,
-      descripcion TEXT,
-      trainer_id INTEGER,
-      ataques TEXT,
-      tipo TEXT,
-      FOREIGN KEY (trainer_id) REFERENCES trainers(id)
-    )
-  `);
-
-  // Tabla de energías
-  db.run(`
-    CREATE TABLE IF NOT EXISTS energias (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      nombre TEXT,
-      tipo TEXT,
-      imagen TEXT,
-      trainer_id INTEGER,
-      FOREIGN KEY (trainer_id) REFERENCES trainers(id)
-    )
-  `);
-
-  // Tabla de objetos de combate
-  db.run(`
-    CREATE TABLE IF NOT EXISTS objetos_combate (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      nombre TEXT,
-      imagen TEXT,
-      precio INTEGER,
-      trainer_id INTEGER,
-      FOREIGN KEY (trainer_id) REFERENCES trainers(id)
-    )
-  `);
-
-  // Tabla de objetos evolutivos
-  db.run(`
-    CREATE TABLE IF NOT EXISTS objetos_evolutivos (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      nombre TEXT,
-      imagen TEXT,
-      trainer_id INTEGER,
-      FOREIGN KEY (trainer_id) REFERENCES trainers(id)
-    )
-  `);
-
-  // Tabla de relación entre entrenadores y criaturas
-  db.run(`
-    CREATE TABLE IF NOT EXISTS trainer_creatures (
-      trainer_id INTEGER,
-      creature_id INTEGER,
-      FOREIGN KEY (trainer_id) REFERENCES trainers(id),
-      FOREIGN KEY (creature_id) REFERENCES grumpis(id)
-    )
-  `);
-});
-
 // Cerrando la base de datos
 db.close((err) => {
   if (err) {
@@ -259,107 +154,6 @@ db.close((err) => {
   console.log("Cerrado la conexión con la base de datos.");
 });
 
-// Ejemplo de inserción de datos
-db.serialize(() => {
-  // Inserción de un entrenador
-  db.run(
-    `
-    INSERT INTO trainers (nombre, password, grumpidolar)
-    VALUES (?, ?, ?)
-  `,
-    ["Ash Ketchum", "password123", 1000],
-    function (err) {
-      if (err) {
-        return console.error(err.message);
-      }
-
-      const trainer_id = this.lastID;
-
-      let medallas = [];
-      let grumpis = [];
-      let energias = [];
-      let objetos_combate = [];
-      let objetos_evolutivos = [];
-
-      // Inserción de medallas para el entrenador
-      db.run(
-        `
-      INSERT INTO medallas (nombre, imagen, trainer_id)
-      VALUES (?, ?, ?)
-    `,
-        ["Medalla Roca", "medalla_roca.png", trainer_id],
-        function () {
-          medallas.push(this.lastID);
-        }
-      );
-
-      // Inserción de grumpis para el entrenador
-      db.run(
-        `
-      INSERT INTO grumpis (nombre, imagen, trainer_id)
-      VALUES (?, ?, ?)
-    `,
-        ["Grumpi Fuego", "grumpi_fuego.png", trainer_id],
-        function () {
-          grumpis.push(this.lastID);
-        }
-      );
-
-      // Inserción de energías para el entrenador
-      db.run(
-        `
-      INSERT INTO energias (nombre, imagen, trainer_id)
-      VALUES (?, ?, ?)
-    `,
-        ["Energía Solar", "energia_solar.png", trainer_id],
-        function () {
-          energias.push(this.lastID);
-        }
-      );
-
-      // Inserción de objetos de combate para el entrenador
-      db.run(
-        `
-      INSERT INTO objetos_combate (nombre, imagen, trainer_id)
-      VALUES (?, ?, ?)
-    `,
-        ["Espada del Grumpi", "espada_grumpi.png", trainer_id],
-        function () {
-          objetos_combate.push(this.lastID);
-        }
-      );
-
-      // Inserción de objetos evolutivos para el entrenador
-      db.run(
-        `
-      INSERT INTO objetos_evolutivos (nombre, imagen, trainer_id)
-      VALUES (?, ?, ?)
-    `,
-        ["Piedra Evolutiva", "piedra_evolutiva.png", trainer_id],
-        function () {
-          objetos_evolutivos.push(this.lastID);
-        }
-      );
-
-      // Actualiza el entrenador con los datos de sus atributos en formato JSON
-      db.run(
-        `
-      UPDATE trainers
-      SET medallas = ?, grumpis = ?, energias = ?, objetos_combate = ?, objetos_evolutivos = ?
-      WHERE id = ?
-    `,
-        [
-          JSON.stringify(medallas),
-          JSON.stringify(grumpis),
-          JSON.stringify(energias),
-          JSON.stringify(objetos_combate),
-          JSON.stringify(objetos_evolutivos),
-          trainer_id,
-        ]
-      );
-    }
-  );
-});
 
 // Declara trainer_list como una variable global
 let trainer_list = [];

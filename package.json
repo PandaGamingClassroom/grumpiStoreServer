@@ -6,9 +6,11 @@
     "start": "node app.js",
     "dev": "nodemon app.js",
     "heroku-postbuild": "npm run build",
-    "build": "echo 'No build step required'"
+    "build": "echo 'No build step required'",
+    "postinstall": "npm rebuild sqlite3"
   },
   "dependencies": {
+    "better-sqlite3": "^11.2.1",
     "chokidar": "^3.6.0",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
