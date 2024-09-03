@@ -44,8 +44,15 @@ module.exports = app;
  *    CONFIGURACIÓN PARA GIT
  *
  ******************************/
+const token = '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'; 
+const repoUrl = `https://${token}@github.com/PandaGamingClassroom/grumpiStoreServer.git`;
+
 const git = simpleGit({
-  baseDir: path.resolve(__dirname)
+  baseDir: path.resolve(__dirname),
+  remote: {
+    name: 'origin',
+    url: repoUrl
+  }
 });
 
 
