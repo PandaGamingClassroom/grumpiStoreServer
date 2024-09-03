@@ -1,0 +1,99 @@
+2024-09-03T15:18:20.482265Z 0 [System] [MY-010116] [Server] /Users/Shared/DBngin/mysql/8.0.33/bin/mysqld (mysqld 8.0.33) starting as process 26877
+2024-09-03T15:18:20.484430Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /Users/danielgarciadiaz/Desktop/PROYECTO GRUMPIS/App/Server/grumpiStoreServer/ is case insensitive
+2024-09-03T15:18:20.487869Z 0 [Warning] [MY-010122] [Server] One can only use the --user switch if running as root
+2024-09-03T15:18:20.749820Z 0 [Warning] [MY-010075] [Server] No existing UUID has been found, so we assume that this is the first time that this server has been started. Generating a new UUID: c106274a-6a07-11ef-9ddf-495ae779a7dc.
+2024-09-03T15:18:23.128119Z 1 [ERROR] [MY-011011] [Server] Failed to find valid data directory.
+2024-09-03T15:18:23.128955Z 0 [ERROR] [MY-010020] [Server] Data Dictionary initialization failed.
+2024-09-03T15:18:23.129036Z 0 [ERROR] [MY-010119] [Server] Aborting
+2024-09-03T15:18:23.129742Z 0 [System] [MY-010910] [Server] /Users/Shared/DBngin/mysql/8.0.33/bin/mysqld: Shutdown complete (mysqld 8.0.33)  MySQL Community Server - GPL.
+2024-09-03T15:18:31.515839Z 0 [System] [MY-010116] [Server] /Users/Shared/DBngin/mysql/8.0.33/bin/mysqld (mysqld 8.0.33) starting as process 26912
+2024-09-03T15:18:31.519866Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /Users/danielgarciadiaz/Desktop/PROYECTO GRUMPIS/App/Server/grumpiStoreServer/ is case insensitive
+2024-09-03T15:18:31.521034Z 0 [Warning] [MY-010122] [Server] One can only use the --user switch if running as root
+2024-09-03T15:18:31.585181Z 1 [ERROR] [MY-011011] [Server] Failed to find valid data directory.
+2024-09-03T15:18:31.585273Z 0 [ERROR] [MY-010020] [Server] Data Dictionary initialization failed.
+2024-09-03T15:18:31.585302Z 0 [ERROR] [MY-010119] [Server] Aborting
+2024-09-03T15:18:31.586621Z 0 [System] [MY-010910] [Server] /Users/Shared/DBngin/mysql/8.0.33/bin/mysqld: Shutdown complete (mysqld 8.0.33)  MySQL Community Server - GPL.
+2024-09-03T15:18:41.910829Z 0 [System] [MY-010116] [Server] /Users/Shared/DBngin/mysql/8.0.33/bin/mysqld (mysqld 8.0.33) starting as process 26957
+2024-09-03T15:18:41.919036Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /Users/danielgarciadiaz/Desktop/PROYECTO GRUMPIS/App/Server/grumpiStoreServer/ is case insensitive
+2024-09-03T15:18:41.919547Z 0 [Warning] [MY-010122] [Server] One can only use the --user switch if running as root
+2024-09-03T15:18:41.988532Z 1 [ERROR] [MY-011011] [Server] Failed to find valid data directory.
+2024-09-03T15:18:41.988620Z 0 [ERROR] [MY-010020] [Server] Data Dictionary initialization failed.
+2024-09-03T15:18:41.988651Z 0 [ERROR] [MY-010119] [Server] Aborting
+2024-09-03T15:18:41.990122Z 0 [System] [MY-010910] [Server] /Users/Shared/DBngin/mysql/8.0.33/bin/mysqld: Shutdown complete (mysqld 8.0.33)  MySQL Community Server - GPL.
+2024-09-03T15:18:52.271227Z 0 [System] [MY-010116] [Server] /Users/Shared/DBngin/mysql/8.0.33/bin/mysqld (mysqld 8.0.33) starting as process 26993
+2024-09-03T15:18:52.274796Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /Users/danielgarciadiaz/Desktop/PROYECTO GRUMPIS/App/Server/grumpiStoreServer/ is case insensitive
+2024-09-03T15:18:52.275143Z 0 [Warning] [MY-010122] [Server] One can only use the --user switch if running as root
+2024-09-03T15:18:52.342653Z 1 [ERROR] [MY-011011] [Server] Failed to find valid data directory.
+2024-09-03T15:18:52.342748Z 0 [ERROR] [MY-010020] [Server] Data Dictionary initialization failed.
+2024-09-03T15:18:52.342776Z 0 [ERROR] [MY-010119] [Server] Aborting
+2024-09-03T15:18:52.343166Z 0 [System] [MY-010910] [Server] /Users/Shared/DBngin/mysql/8.0.33/bin/mysqld: Shutdown complete (mysqld 8.0.33)  MySQL Community Server - GPL.
+2024-09-03T15:19:02.582879Z 0 [System] [MY-010116] [Server] /Users/Shared/DBngin/mysql/8.0.33/bin/mysqld (mysqld 8.0.33) starting as process 27021
+2024-09-03T15:19:02.587147Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /Users/danielgarciadiaz/Desktop/PROYECTO GRUMPIS/App/Server/grumpiStoreServer/ is case insensitive
+2024-09-03T15:19:02.587489Z 0 [Warning] [MY-010122] [Server] One can only use the --user switch if running as root
+2024-09-03T15:19:02.642283Z 1 [ERROR] [MY-011011] [Server] Failed to find valid data directory.
+2024-09-03T15:19:02.642367Z 0 [ERROR] [MY-010020] [Server] Data Dictionary initialization failed.
+2024-09-03T15:19:02.642390Z 0 [ERROR] [MY-010119] [Server] Aborting
+2024-09-03T15:19:02.642742Z 0 [System] [MY-010910] [Server] /Users/Shared/DBngin/mysql/8.0.33/bin/mysqld: Shutdown complete (mysqld 8.0.33)  MySQL Community Server - GPL.
+2024-09-03T15:19:12.921547Z 0 [System] [MY-010116] [Server] /Users/Shared/DBngin/mysql/8.0.33/bin/mysqld (mysqld 8.0.33) starting as process 27034
+2024-09-03T15:19:12.925169Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /Users/danielgarciadiaz/Desktop/PROYECTO GRUMPIS/App/Server/grumpiStoreServer/ is case insensitive
+2024-09-03T15:19:12.925485Z 0 [Warning] [MY-010122] [Server] One can only use the --user switch if running as root
+2024-09-03T15:19:12.983941Z 1 [ERROR] [MY-011011] [Server] Failed to find valid data directory.
+2024-09-03T15:19:12.984028Z 0 [ERROR] [MY-010020] [Server] Data Dictionary initialization failed.
+2024-09-03T15:19:12.984055Z 0 [ERROR] [MY-010119] [Server] Aborting
+2024-09-03T15:19:12.984411Z 0 [System] [MY-010910] [Server] /Users/Shared/DBngin/mysql/8.0.33/bin/mysqld: Shutdown complete (mysqld 8.0.33)  MySQL Community Server - GPL.
+2024-09-03T15:19:23.253856Z 0 [System] [MY-010116] [Server] /Users/Shared/DBngin/mysql/8.0.33/bin/mysqld (mysqld 8.0.33) starting as process 27053
+2024-09-03T15:19:23.261510Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /Users/danielgarciadiaz/Desktop/PROYECTO GRUMPIS/App/Server/grumpiStoreServer/ is case insensitive
+2024-09-03T15:19:23.261984Z 0 [Warning] [MY-010122] [Server] One can only use the --user switch if running as root
+2024-09-03T15:19:23.329884Z 1 [ERROR] [MY-011011] [Server] Failed to find valid data directory.
+2024-09-03T15:19:23.329957Z 0 [ERROR] [MY-010020] [Server] Data Dictionary initialization failed.
+2024-09-03T15:19:23.329984Z 0 [ERROR] [MY-010119] [Server] Aborting
+2024-09-03T15:19:23.331657Z 0 [System] [MY-010910] [Server] /Users/Shared/DBngin/mysql/8.0.33/bin/mysqld: Shutdown complete (mysqld 8.0.33)  MySQL Community Server - GPL.
+2024-09-03T15:19:33.611928Z 0 [System] [MY-010116] [Server] /Users/Shared/DBngin/mysql/8.0.33/bin/mysqld (mysqld 8.0.33) starting as process 27084
+2024-09-03T15:19:33.615725Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /Users/danielgarciadiaz/Desktop/PROYECTO GRUMPIS/App/Server/grumpiStoreServer/ is case insensitive
+2024-09-03T15:19:33.616147Z 0 [Warning] [MY-010122] [Server] One can only use the --user switch if running as root
+2024-09-03T15:19:33.674583Z 1 [ERROR] [MY-011011] [Server] Failed to find valid data directory.
+2024-09-03T15:19:33.674676Z 0 [ERROR] [MY-010020] [Server] Data Dictionary initialization failed.
+2024-09-03T15:19:33.674704Z 0 [ERROR] [MY-010119] [Server] Aborting
+2024-09-03T15:19:33.675077Z 0 [System] [MY-010910] [Server] /Users/Shared/DBngin/mysql/8.0.33/bin/mysqld: Shutdown complete (mysqld 8.0.33)  MySQL Community Server - GPL.
+2024-09-03T15:19:43.963834Z 0 [System] [MY-010116] [Server] /Users/Shared/DBngin/mysql/8.0.33/bin/mysqld (mysqld 8.0.33) starting as process 27095
+2024-09-03T15:19:43.971534Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /Users/danielgarciadiaz/Desktop/PROYECTO GRUMPIS/App/Server/grumpiStoreServer/ is case insensitive
+2024-09-03T15:19:43.971927Z 0 [Warning] [MY-010122] [Server] One can only use the --user switch if running as root
+2024-09-03T15:19:44.037946Z 1 [ERROR] [MY-011011] [Server] Failed to find valid data directory.
+2024-09-03T15:19:44.038037Z 0 [ERROR] [MY-010020] [Server] Data Dictionary initialization failed.
+2024-09-03T15:19:44.038089Z 0 [ERROR] [MY-010119] [Server] Aborting
+2024-09-03T15:19:44.039595Z 0 [System] [MY-010910] [Server] /Users/Shared/DBngin/mysql/8.0.33/bin/mysqld: Shutdown complete (mysqld 8.0.33)  MySQL Community Server - GPL.
+2024-09-03T15:19:54.269933Z 0 [System] [MY-010116] [Server] /Users/Shared/DBngin/mysql/8.0.33/bin/mysqld (mysqld 8.0.33) starting as process 27100
+2024-09-03T15:19:54.273878Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /Users/danielgarciadiaz/Desktop/PROYECTO GRUMPIS/App/Server/grumpiStoreServer/ is case insensitive
+2024-09-03T15:19:54.274218Z 0 [Warning] [MY-010122] [Server] One can only use the --user switch if running as root
+2024-09-03T15:19:54.337344Z 1 [ERROR] [MY-011011] [Server] Failed to find valid data directory.
+2024-09-03T15:19:54.337439Z 0 [ERROR] [MY-010020] [Server] Data Dictionary initialization failed.
+2024-09-03T15:19:54.337468Z 0 [ERROR] [MY-010119] [Server] Aborting
+2024-09-03T15:19:54.337810Z 0 [System] [MY-010910] [Server] /Users/Shared/DBngin/mysql/8.0.33/bin/mysqld: Shutdown complete (mysqld 8.0.33)  MySQL Community Server - GPL.
+2024-09-03T15:20:04.598118Z 0 [System] [MY-010116] [Server] /Users/Shared/DBngin/mysql/8.0.33/bin/mysqld (mysqld 8.0.33) starting as process 27103
+2024-09-03T15:20:04.602308Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /Users/danielgarciadiaz/Desktop/PROYECTO GRUMPIS/App/Server/grumpiStoreServer/ is case insensitive
+2024-09-03T15:20:04.602723Z 0 [Warning] [MY-010122] [Server] One can only use the --user switch if running as root
+2024-09-03T15:20:04.661161Z 1 [ERROR] [MY-011011] [Server] Failed to find valid data directory.
+2024-09-03T15:20:04.661244Z 0 [ERROR] [MY-010020] [Server] Data Dictionary initialization failed.
+2024-09-03T15:20:04.661271Z 0 [ERROR] [MY-010119] [Server] Aborting
+2024-09-03T15:20:04.661575Z 0 [System] [MY-010910] [Server] /Users/Shared/DBngin/mysql/8.0.33/bin/mysqld: Shutdown complete (mysqld 8.0.33)  MySQL Community Server - GPL.
+2024-09-03T15:20:14.991836Z 0 [System] [MY-010116] [Server] /Users/Shared/DBngin/mysql/8.0.33/bin/mysqld (mysqld 8.0.33) starting as process 27110
+2024-09-03T15:20:14.999141Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /Users/danielgarciadiaz/Desktop/PROYECTO GRUMPIS/App/Server/grumpiStoreServer/ is case insensitive
+2024-09-03T15:20:14.999561Z 0 [Warning] [MY-010122] [Server] One can only use the --user switch if running as root
+2024-09-03T15:20:15.071164Z 1 [ERROR] [MY-011011] [Server] Failed to find valid data directory.
+2024-09-03T15:20:15.071254Z 0 [ERROR] [MY-010020] [Server] Data Dictionary initialization failed.
+2024-09-03T15:20:15.071282Z 0 [ERROR] [MY-010119] [Server] Aborting
+2024-09-03T15:20:15.072755Z 0 [System] [MY-010910] [Server] /Users/Shared/DBngin/mysql/8.0.33/bin/mysqld: Shutdown complete (mysqld 8.0.33)  MySQL Community Server - GPL.
+2024-09-03T15:20:25.322195Z 0 [System] [MY-010116] [Server] /Users/Shared/DBngin/mysql/8.0.33/bin/mysqld (mysqld 8.0.33) starting as process 27118
+2024-09-03T15:20:25.325906Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /Users/danielgarciadiaz/Desktop/PROYECTO GRUMPIS/App/Server/grumpiStoreServer/ is case insensitive
+2024-09-03T15:20:25.326460Z 0 [Warning] [MY-010122] [Server] One can only use the --user switch if running as root
+2024-09-03T15:20:25.389765Z 1 [ERROR] [MY-011011] [Server] Failed to find valid data directory.
+2024-09-03T15:20:25.389881Z 0 [ERROR] [MY-010020] [Server] Data Dictionary initialization failed.
+2024-09-03T15:20:25.389922Z 0 [ERROR] [MY-010119] [Server] Aborting
+2024-09-03T15:20:25.390400Z 0 [System] [MY-010910] [Server] /Users/Shared/DBngin/mysql/8.0.33/bin/mysqld: Shutdown complete (mysqld 8.0.33)  MySQL Community Server - GPL.
+2024-09-03T15:20:35.716067Z 0 [System] [MY-010116] [Server] /Users/Shared/DBngin/mysql/8.0.33/bin/mysqld (mysqld 8.0.33) starting as process 27132
+2024-09-03T15:20:35.724511Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /Users/danielgarciadiaz/Desktop/PROYECTO GRUMPIS/App/Server/grumpiStoreServer/ is case insensitive
+2024-09-03T15:20:35.725043Z 0 [Warning] [MY-010122] [Server] One can only use the --user switch if running as root
+2024-09-03T15:20:35.795493Z 1 [ERROR] [MY-011011] [Server] Failed to find valid data directory.
+2024-09-03T15:20:35.795577Z 0 [ERROR] [MY-010020] [Server] Data Dictionary initialization failed.
+2024-09-03T15:20:35.795602Z 0 [ERROR] [MY-010119] [Server] Aborting
+2024-09-03T15:20:35.797374Z 0 [System] [MY-010910] [Server] /Users/Shared/DBngin/mysql/8.0.33/bin/mysqld: Shutdown complete (mysqld 8.0.33)  MySQL Community Server - GPL.
