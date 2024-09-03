@@ -48,19 +48,27 @@ const git = simpleGit({
   baseDir: path.resolve(__dirname) 
 });
 
-(async () => {
+
+const configureGit = async () => {
   try {
+    // Configura la identidad del autor
+    await git.addConfig('user.name', 'PandaGamingClassroom');
+    await git.addConfig('user.email', 'gamificacionpanda@gmail.com');
+
+    // Verifica si el remoto `origin` está configurado
     const remotes = await git.getRemotes(true);
-    console.log('Remotos configurados:', remotes);
-    
     if (remotes.length === 0) {
-      console.error('No se ha configurado ningún remoto. Verifica la configuración de remotos.');
-      return;
+      console.log('No se ha configurado ningún remoto. Añadiendo remoto origin.');
+      await git.addRemote('origin', 'https://github.com/PandaGamingClassroom/grumpiStoreServer.git');
     }
+
+    console.log('Configuración de Git completa.');
   } catch (error) {
-    console.error('Error al obtener remotos:', error);
+    console.error('Error al configurar Git:', error);
   }
-})();
+};
+
+configureGit();
 
 // Configura la identidad del autor para los commits
 const setGitUserConfig = async () => {
