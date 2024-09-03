@@ -45,7 +45,7 @@ module.exports = app;
  *
  ******************************/
 const git = simpleGit({
-  baseDir: path.resolve(__dirname) 
+  baseDir: path.resolve(__dirname)
 });
 
 
@@ -55,7 +55,6 @@ const configureGit = async () => {
     await git.addConfig('user.name', 'PandaGamingClassroom');
     await git.addConfig('user.email', 'gamificacionpanda@gmail.com');
 
-    // Verifica si el remoto `origin` está configurado
     const remotes = await git.getRemotes(true);
     if (remotes.length === 0) {
       console.log('No se ha configurado ningún remoto. Añadiendo remoto origin.');
