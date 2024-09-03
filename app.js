@@ -75,14 +75,18 @@ const commitAndPush = async (filePath) => {
     // Configura la identidad del autor
     await setGitUserConfig();
 
-    // Verifica si el remoto `origin` está configurado
+    // Verifica si el remoto `origin` está configurado y corrige la URL si es necesario
     const remotes = await git.getRemotes(true);
     const hasOrigin = remotes.some(remote => remote.name === 'origin');
-
+    
     if (!hasOrigin) {
       console.error('El remoto `origin` no está configurado. Verifica la configuración del remoto.');
       return;
     }
+
+    // Verifica la URL del remoto origin
+    const remoteUrl = remotes.find(remote => remote.name === 'origin').refs.fetch;
+    console.log(`URL del remoto origin: ${remoteUrl}`);
 
     // Agregar archivos modificados
     await git.add(filePath);
@@ -107,6 +111,7 @@ const commitAndPush = async (filePath) => {
 };
 
 // Configura el observador de archivos
+const watchDirectory = path.join(__dirname, 'data');
 const watcher = chokidar.watch(watchDirectory, {
   persistent: true,
   ignoreInitial: true, // No hacer commit para archivos al iniciar
