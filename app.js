@@ -77,7 +77,7 @@ const commitAndPush = async (filePath) => {
 
     // Verifica si el remoto `origin` está configurado
     const remotes = await git.getRemotes(true);
-    const hasOrigin = remotes.some(remote => remote.name === 'origin');
+    const hasOrigin = remotes.some(remote => remote.name === 'main');
     
     if (!hasOrigin) {
       console.error('El remoto `origin` no está configurado. Verifica la configuración del remoto.');
@@ -114,7 +114,7 @@ const commitAndPush = async (filePath) => {
 const watchDirectory = path.join(__dirname, 'data');
 const watcher = chokidar.watch(watchDirectory, {
   persistent: true,
-  ignoreInitial: true, // No hacer commit para archivos al iniciar
+  ignoreInitial: true,
   ignorePermissionErrors: true
 });
 
