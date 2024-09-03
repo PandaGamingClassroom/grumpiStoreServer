@@ -7,7 +7,6 @@ const fs = require("fs");
 const chokidar = require('chokidar');
 const simpleGit = require('simple-git');
 const PORT = process.env.PORT || 3000;
-
 const Database = require('better-sqlite3');
 
 /**********************

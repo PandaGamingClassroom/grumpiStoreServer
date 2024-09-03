@@ -7,7 +7,7 @@
     "dev": "nodemon app.js",
     "heroku-postbuild": "npm run build",
     "build": "echo 'No build step required'",
-    "postinstall": "npm rebuild better-sqlite3"
+    "postinstall": "npm rebuild sqlite3"
   },
   "dependencies": {
     "better-sqlite3": "^11.2.1",
