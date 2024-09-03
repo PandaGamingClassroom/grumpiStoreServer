@@ -75,34 +75,39 @@ const commitAndPush = async (filePath) => {
     // Configura la identidad del autor
     await setGitUserConfig();
 
-    // Verifica si el remoto `origin` está configurado
+    // Verifica los remotos configurados
     const remotes = await git.getRemotes(true);
-    const hasOrigin = remotes.some(remote => remote.name === 'main');
-    
-    if (!hasOrigin) {
-      console.error('El remoto `origin` no está configurado. Verifica la configuración del remoto.');
+    if (remotes.length === 0) {
+      console.error('No se ha configurado ningún remoto. Verifica la configuración de remotos.');
       return;
     }
 
-    // Verifica la URL del remoto origin
-    const remoteUrl = remotes.find(remote => remote.name === 'origin').refs.fetch;
-    console.log(`URL del remoto origin: ${remoteUrl}`);
-
-    // Agregar archivos modificados
-    await git.add(filePath);
+    // Obtén el nombre del primer remoto configurado
+    const remoteName = remotes[0].name;
+    console.log(`Nombre del remoto configurado: ${remoteName}`);
 
     // Verifica el estado actual y maneja "detached HEAD"
     const status = await git.status();
     if (status.current === '') {
       console.error('Estás en un estado de "detached HEAD". Intentando hacer checkout a la rama principal.');
-      await git.checkout('main'); // Cambia a 'master' si tu rama principal es 'master'
+      await git.checkout('main'); // Cambia a 'develop' si deseas usar esa rama
     }
+
+    // Asegúrate de estar en la rama correcta
+    const branch = status.current;
+    if (branch !== 'main' && branch !== 'develop') {
+      console.error(`No estás en una rama válida. Cambiando a 'main'.`);
+      await git.checkout('main'); // Cambia a 'develop' si es la rama correcta
+    }
+
+    // Agregar archivos modificados
+    await git.add(filePath);
 
     // Hacer commit
     await git.commit(`Actualización automática de ${path.basename(filePath)}`);
 
     // Hacer push
-    await git.push('origin', 'main'); // Cambia a 'master' si tu rama principal es 'master'
+    await git.push(remoteName, branch); // Empuja a la rama actual en el remoto configurado
 
     console.log(`Commit y push realizados con éxito para: ${filePath}`);
   } catch (error) {
@@ -114,7 +119,7 @@ const commitAndPush = async (filePath) => {
 const watchDirectory = path.join(__dirname, 'data');
 const watcher = chokidar.watch(watchDirectory, {
   persistent: true,
-  ignoreInitial: true,
+  ignoreInitial: true, // No hacer commit para archivos al iniciar
   ignorePermissionErrors: true
 });
 
