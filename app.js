@@ -48,6 +48,12 @@ const git = simpleGit({
   baseDir: '/opt/render/project/src'
 });
 
+// Configura la identidad del autor para los commits
+const setGitUserConfig = async () => {
+  await git.addConfig('user.name', 'PandaGamingClassroom');
+  await git.addConfig('user.email', 'gamificacionpanda@gmail.com');
+};
+
 // Directorio que se observa
 const watchDirectory = path.join(__dirname, 'data');
 
@@ -69,6 +75,9 @@ const commitAndPush = async (filePath) => {
       return;
     }
 
+    // Configura la identidad del autor
+    await setGitUserConfig();
+
     // Agregar archivos modificados
     await git.add(filePath);
 
@@ -88,14 +97,11 @@ const commitAndPush = async (filePath) => {
 const watcher = chokidar.watch(watchDirectory, {
   persistent: true,
   ignoreInitial: true, // No hacer commit para archivos al iniciar
-  // También observa subdirectorios si es necesario
   ignorePermissionErrors: true
 });
 
 // Llama a commitAndPush en cambios
 watcher.on('change', (filePath) => {
-  // Normaliza la ruta para que se ajuste al formato del sistema de archivos
-  const normalizedPath = path.relative(watchDirectory, filePath);
   console.log(`Cambio detectado en: ${filePath}`);
   commitAndPush(filePath);
 });
