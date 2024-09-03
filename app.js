@@ -85,7 +85,7 @@ const commitAndPush = async (filePath) => {
     await git.commit(`Actualización automática de ${path.basename(filePath)}`);
 
     // Hacer push
-    await git.push('origin', 'main');
+    await git.push('main');
 
     console.log(`Commit y push realizados con éxito para: ${filePath}`);
   } catch (error) {
