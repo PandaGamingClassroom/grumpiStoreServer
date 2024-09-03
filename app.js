@@ -44,7 +44,23 @@ module.exports = app;
  *    CONFIGURACIÓN PARA GIT
  *
  ******************************/
-const git = simpleGit();
+const git = simpleGit({
+  baseDir: path.resolve(__dirname) 
+});
+
+(async () => {
+  try {
+    const remotes = await git.getRemotes(true);
+    console.log('Remotos configurados:', remotes);
+    
+    if (remotes.length === 0) {
+      console.error('No se ha configurado ningún remoto. Verifica la configuración de remotos.');
+      return;
+    }
+  } catch (error) {
+    console.error('Error al obtener remotos:', error);
+  }
+})();
 
 // Configura la identidad del autor para los commits
 const setGitUserConfig = async () => {
@@ -57,57 +73,45 @@ const commitAndPush = async (filePath) => {
   try {
     console.log(`Detectado cambio en: ${filePath}`);
 
-    // Verifica que el archivo existe
     if (!fs.existsSync(filePath)) {
       console.error(`El archivo no existe: ${filePath}`);
       return;
     }
 
-    // Verifica que estamos en un repositorio Git
     const isRepo = await git.checkIsRepo();
     if (!isRepo) {
       console.error('No se encuentra en un repositorio Git. Verifica la configuración.');
       return;
     }
 
-    // Configura la identidad del autor
     await setGitUserConfig();
 
-    // Verifica los remotos configurados
     const remotes = await git.getRemotes(true);
-    console.log('Remotos configurados:', remotes); // Añadido para diagnóstico
+    console.log('Remotos configurados:', remotes);
 
     if (remotes.length === 0) {
       console.error('No se ha configurado ningún remoto. Verifica la configuración de remotos.');
       return;
     }
 
-    // Obtén el nombre del primer remoto configurado
     const remoteName = remotes[0].name;
     console.log(`Nombre del remoto configurado: ${remoteName}`);
 
-    // Verifica el estado actual y maneja "detached HEAD"
     const status = await git.status();
     if (status.current === '') {
       console.error('Estás en un estado de "detached HEAD". Intentando hacer checkout a la rama principal.');
-      await git.checkout('main'); // Cambia a 'develop' si deseas usar esa rama
+      await git.checkout('main');
     }
 
-    // Asegúrate de estar en la rama correcta
     const branch = status.current;
     if (branch !== 'main' && branch !== 'develop') {
       console.error(`No estás en una rama válida. Cambiando a 'main'.`);
-      await git.checkout('main'); // Cambia a 'develop' si es la rama correcta
+      await git.checkout('main');
     }
 
-    // Agregar archivos modificados
     await git.add(filePath);
-
-    // Hacer commit
     await git.commit(`Actualización automática de ${path.basename(filePath)}`);
-
-    // Hacer push
-    await git.push(remoteName, branch); // Empuja a la rama actual en el remoto configurado
+    await git.push(remoteName, branch);
 
     console.log(`Commit y push realizados con éxito para: ${filePath}`);
   } catch (error) {
@@ -115,22 +119,19 @@ const commitAndPush = async (filePath) => {
   }
 };
 
-// Configura el observador de archivos
 const watchDirectory = path.join(__dirname, 'data');
 const watcher = chokidar.watch(watchDirectory, {
   persistent: true,
-  ignoreInitial: true, // No hacer commit para archivos al iniciar
+  ignoreInitial: true,
   ignorePermissionErrors: true
 });
 
-// Llama a commitAndPush en cambios
 watcher.on('change', (filePath) => {
   console.log(`Cambio detectado en: ${filePath}`);
   commitAndPush(filePath);
 });
 
 console.log(`Observando cambios en el directorio: ${watchDirectory}`);
-
 /**
  *
  * Configuración de CORS
