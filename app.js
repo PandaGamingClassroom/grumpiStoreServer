@@ -54,10 +54,6 @@ const setGitUserConfig = async () => {
   await git.addConfig('user.email', 'gamificacionpanda@gmail.com');
 };
 
-// Directorio que se observa
-const watchDirectory = path.join(__dirname, 'data');
-
-// Función para hacer commit y push
 // Función para hacer commit y push
 const commitAndPush = async (filePath) => {
   try {
@@ -78,6 +74,15 @@ const commitAndPush = async (filePath) => {
 
     // Configura la identidad del autor
     await setGitUserConfig();
+
+    // Verifica si el remoto `origin` está configurado
+    const remotes = await git.getRemotes(true);
+    const hasOrigin = remotes.some(remote => remote.name === 'origin');
+
+    if (!hasOrigin) {
+      console.error('El remoto `origin` no está configurado. Verifica la configuración del remoto.');
+      return;
+    }
 
     // Agregar archivos modificados
     await git.add(filePath);
