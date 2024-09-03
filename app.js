@@ -58,6 +58,7 @@ const setGitUserConfig = async () => {
 const watchDirectory = path.join(__dirname, 'data');
 
 // Función para hacer commit y push
+// Función para hacer commit y push
 const commitAndPush = async (filePath) => {
   try {
     console.log(`Detectado cambio en: ${filePath}`);
@@ -81,11 +82,18 @@ const commitAndPush = async (filePath) => {
     // Agregar archivos modificados
     await git.add(filePath);
 
+    // Verifica el estado actual y maneja "detached HEAD"
+    const status = await git.status();
+    if (status.current === '') {
+      console.error('Estás en un estado de "detached HEAD". Intentando hacer checkout a la rama principal.');
+      await git.checkout('main');
+    }
+
     // Hacer commit
     await git.commit(`Actualización automática de ${path.basename(filePath)}`);
 
     // Hacer push
-    await git.push('main');
+    await git.push('origin', 'main');
 
     console.log(`Commit y push realizados con éxito para: ${filePath}`);
   } catch (error) {
