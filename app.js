@@ -51,54 +51,50 @@ const git = simpleGit({
 
 
 const watchDirectory = path.join(__dirname, 'data');
-if (process.env.NODE_ENV !== 'production') {
-  // Función para hacer commit y push
-  const commitAndPush = async (filePath) => {
-    try {
-      console.log(`Detectado cambio en: ${filePath}`);
+// Función para hacer commit y push
+const commitAndPush = async (filePath) => {
+  try {
+    console.log(`Detectado cambio en: ${filePath}`);
 
-      // Verifica que el archivo existe
-      if (!fs.existsSync(filePath)) {
-        console.error(`El archivo no existe: ${filePath}`);
-        return;
-      }
-
-      // Verifica que estamos en un repositorio Git
-      const status = await git.status();
-      if (status.current === '') {
-        console.error('No se encuentra en un repositorio Git. Verifica la configuración.');
-        return;
-      }
-
-      // Agregar archivos modificados
-      await git.add(filePath);
-
-      // Hacer commit
-      await git.commit(`Actualización automática de ${path.basename(filePath)}`);
-
-      // Hacer push
-      await git.push('origin', 'main');
-
-      console.log(`Commit y push realizados con éxito para: ${filePath}`);
-    } catch (error) {
-      console.error('Error al hacer commit y push:', error);
+    // Verifica que el archivo existe
+    if (!fs.existsSync(filePath)) {
+      console.error(`El archivo no existe: ${filePath}`);
+      return;
     }
-  };
 
-  // Configura el observador de archivos
-  const watcher = chokidar.watch(watchDirectory, {
-    persistent: true,
-    ignoreInitial: true, // No hacer commit para archivos al iniciar
-  });
-  // Llama a commitAndPush en cambios
-  watcher.on('change', (filePath) => {
-    console.log(`Cambio detectado en: ${filePath}`);
-    commitAndPush(filePath);
-  });
+    // Verifica que estamos en un repositorio Git
+    const status = await git.status();
+    if (status.current === '') {
+      console.error('No se encuentra en un repositorio Git. Verifica la configuración.');
+      return;
+    }
 
-} else {
-  console.log('Operaciones Git deshabilitadas en producción');
-}
+    // Agregar archivos modificados
+    await git.add(filePath);
+
+    // Hacer commit
+    await git.commit(`Actualización automática de ${path.basename(filePath)}`);
+
+    // Hacer push
+    await git.push('origin', 'main');
+
+    console.log(`Commit y push realizados con éxito para: ${filePath}`);
+  } catch (error) {
+    console.error('Error al hacer commit y push:', error);
+  }
+};
+
+// Configura el observador de archivos
+const watcher = chokidar.watch(watchDirectory, {
+  persistent: true,
+  ignoreInitial: true, // No hacer commit para archivos al iniciar
+});
+// Llama a commitAndPush en cambios
+watcher.on('change', (filePath) => {
+  console.log(`Cambio detectado en: ${filePath}`);
+  commitAndPush(filePath);
+});
+
 
 console.log(`Observando cambios en el directorio: ${watchDirectory}`);
 
