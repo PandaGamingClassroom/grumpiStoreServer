@@ -44,12 +44,10 @@ module.exports = app;
  *    CONFIGURACIÓN PARA GIT
  *
  ******************************/
-
-// Ajusta el directorio base si es necesario
 const git = simpleGit({
   baseDir: path.join(__dirname, '..')
 });
-
+console.log('Directorio base de Git:', path.join(__dirname, '..'));
 
 const watchDirectory = path.join(__dirname, 'data');
 // Función para hacer commit y push
@@ -310,8 +308,6 @@ app.delete("/user/:name", async (req, res) => {
       JSON.stringify(updatedTrainerList, null, 2)
     );
 
-    console.log(`Usuario con nombre ${userName} eliminado correctamente`);
-
     // Devuelve la lista actualizada como respuesta
     res.status(200).json({
       message: `Usuario con nombre ${userName} eliminado correctamente`,
@@ -437,14 +433,9 @@ function deleteEnergiesFromTrainer(updatedTrainer, objetosAEliminar) {
     }
   });
 
-  // Depuración: Log antes de la eliminación
-  console.log("Energías actuales en el entrenador: ", updatedTrainer.energias);
-  console.log("Energías a eliminar: ", objetosAEliminar);
-
   // Verificación y eliminación de energías
   if (Array.isArray(objetosAEliminar) && objetosAEliminar.length > 0) {
     objetosAEliminar.forEach((energia) => {
-      console.log("Procesando energía para eliminar: ", energia);
 
       // Buscar la energía existente en el entrenador
       let existingEnergies = updatedTrainer.energias.filter(
@@ -568,10 +559,7 @@ function editGrumpisFromTrainer(updatedTrainer, objetosAEliminar) {
       grumpi.cantidad = 1;
     }
   });
-
-  console.log("Grumpis actuales en el entrenador: ", updatedTrainer.grumpis);
-  console.log("Grumpis a eliminar: ", objetosAEliminar);
-
+  
   if (Array.isArray(objetosAEliminar) && objetosAEliminar.length > 0) {
     objetosAEliminar.forEach((grumpi) => {
       console.log("Procesando grumpi para eliminar: ", grumpi);
