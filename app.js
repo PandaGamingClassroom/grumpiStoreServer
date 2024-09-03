@@ -44,9 +44,7 @@ module.exports = app;
  *    CONFIGURACIÓN PARA GIT
  *
  ******************************/
-const git = simpleGit({
-  baseDir: '/opt/render/project/src'
-});
+const git = simpleGit();
 
 // Configura la identidad del autor para los commits
 const setGitUserConfig = async () => {
