@@ -44,7 +44,7 @@ module.exports = app;
  *    CONFIGURACIÓN PARA GIT
  *
  ******************************/
-const repoUrl = `https://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@github.com/PandaGamingClassroom/grumpiStoreServer.git`;
+const repoUrl = 'git@github.com:PandaGamingClassroom/grumpiStoreServer.git';
 
 const git = simpleGit({
   baseDir: path.resolve(__dirname),
@@ -74,6 +74,8 @@ const configureGit = async () => {
     if (remotes.length === 0) {
       console.log('No se ha configurado ningún remoto. Añadiendo remoto origin.');
       await git.addRemote('origin', repoUrl);
+    } else {
+      console.log('Remoto origin ya configurado.');
     }
 
     console.log('Configuración de Git completa.');
@@ -125,8 +127,7 @@ const startWatching = async () => {
   console.log(`Observando cambios en el directorio: ${watchDirectory}`);
 };
 
-startWatching(); 
-
+startWatching();
 
 /**
  *
