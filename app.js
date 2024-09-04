@@ -55,6 +55,12 @@ const git = simpleGit({
   config: ['user.name=PandaGamingClassroom', 'user.email=gamificacionpanda@gmail.com'],
 });
 
+git.outputHandler((command, stdout, stderr) => {
+  console.log(`Ejecutando comando: ${command}`);
+  stdout.pipe(process.stdout);
+  stderr.pipe(process.stderr);
+});
+
 // Función para configurar Git
 const configureGit = async () => {
   try {
@@ -93,7 +99,7 @@ const commitAndPush = async (filePath) => {
     }
 
     await git.checkout('main');
-    await git.pull('origin', 'main');
+    await git.pull('origin', 'main');  // Aquí es donde ocurre el error
 
     await git.add(filePath);
     await git.commit(`Actualización automática de ${path.basename(filePath)}`);
