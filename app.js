@@ -49,15 +49,24 @@ const repoUrl = `https://${token}@github.com/PandaGamingClassroom/grumpiStoreSer
 
 const git = simpleGit({
   baseDir: path.resolve(__dirname),
+  binary: 'git',
+  maxConcurrentProcesses: 6,
+  config: ['user.name=PandaGamingClassroom', 'user.email=gamificacionpanda@gmail.com'],
   remote: {
     name: 'origin',
     url: repoUrl
   }
 });
 
-
+// Función para configurar Git
 const configureGit = async () => {
   try {
+    const isRepo = await git.checkIsRepo();
+    if (!isRepo) {
+      console.error('No se encuentra en un repositorio Git. Verifica la configuración.');
+      return;
+    }
+
     // Configura la identidad del autor
     await git.addConfig('user.name', 'PandaGamingClassroom');
     await git.addConfig('user.email', 'gamificacionpanda@gmail.com');
@@ -65,21 +74,13 @@ const configureGit = async () => {
     const remotes = await git.getRemotes(true);
     if (remotes.length === 0) {
       console.log('No se ha configurado ningún remoto. Añadiendo remoto origin.');
-      await git.addRemote('origin', 'https://github.com/PandaGamingClassroom/grumpiStoreServer.git');
+      await git.addRemote('origin', repoUrl);
     }
 
     console.log('Configuración de Git completa.');
   } catch (error) {
     console.error('Error al configurar Git:', error);
   }
-};
-
-configureGit();
-
-// Configura la identidad del autor para los commits
-const setGitUserConfig = async () => {
-  await git.addConfig('user.name', 'PandaGamingClassroom');
-  await git.addConfig('user.email', 'gamificacionpanda@gmail.com');
 };
 
 // Función para hacer commit y push
@@ -92,40 +93,12 @@ const commitAndPush = async (filePath) => {
       return;
     }
 
-    const isRepo = await git.checkIsRepo();
-    if (!isRepo) {
-      console.error('No se encuentra en un repositorio Git. Verifica la configuración.');
-      return;
-    }
-
-    await setGitUserConfig();
-
-    const remotes = await git.getRemotes(true);
-    console.log('Remotos configurados:', remotes);
-
-    if (remotes.length === 0) {
-      console.error('No se ha configurado ningún remoto. Verifica la configuración de remotos.');
-      return;
-    }
-
-    const remoteName = remotes[0].name;
-    console.log(`Nombre del remoto configurado: ${remoteName}`);
-
-    const status = await git.status();
-    if (status.current === '') {
-      console.error('Estás en un estado de "detached HEAD". Intentando hacer checkout a la rama principal.');
-      await git.checkout('main');
-    }
-
-    const branch = status.current;
-    if (branch !== 'main' && branch !== 'develop') {
-      console.error(`No estás en una rama válida. Cambiando a 'main'.`);
-      await git.checkout('main');
-    }
+    await git.checkout('main');
+    await git.pull('origin', 'main');
 
     await git.add(filePath);
     await git.commit(`Actualización automática de ${path.basename(filePath)}`);
-    await git.push(remoteName, branch);
+    await git.push('origin', 'main');
 
     console.log(`Commit y push realizados con éxito para: ${filePath}`);
   } catch (error) {
@@ -133,6 +106,7 @@ const commitAndPush = async (filePath) => {
   }
 };
 
+// Observador de cambios en el directorio
 const watchDirectory = path.join(__dirname, 'data');
 const watcher = chokidar.watch(watchDirectory, {
   persistent: true,
@@ -140,12 +114,21 @@ const watcher = chokidar.watch(watchDirectory, {
   ignorePermissionErrors: true
 });
 
-watcher.on('change', (filePath) => {
-  console.log(`Cambio detectado en: ${filePath}`);
-  commitAndPush(filePath);
-});
+// Llamada a configureGit antes de empezar a observar cambios
+const startWatching = async () => {
+  await configureGit();  // Configuramos Git antes de empezar a observar cambios
 
-console.log(`Observando cambios en el directorio: ${watchDirectory}`);
+  watcher.on('change', (filePath) => {
+    console.log(`Cambio detectado en: ${filePath}`);
+    commitAndPush(filePath);
+  });
+
+  console.log(`Observando cambios en el directorio: ${watchDirectory}`);
+};
+
+startWatching(); 
+
+
 /**
  *
  * Configuración de CORS
