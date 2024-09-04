@@ -44,7 +44,7 @@ module.exports = app;
  *    CONFIGURACIÓN PARA GIT
  *
  ******************************/
-const repoUrl = `https://github.com/PandaGamingClassroom/grumpiStoreServer.git`;
+const repoUrl = `https://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@github.com/PandaGamingClassroom/grumpiStoreServer.git`;
 
 const git = simpleGit({
   baseDir: path.resolve(__dirname),
