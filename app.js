@@ -99,11 +99,15 @@ const commitAndPush = async (filePath) => {
     }
 
     await git.checkout('main');
-    await git.pull('main');
+    
+    // Asegúrate de que la rama local esté configurada para rastrear la rama remota
+    await git.branch(['--set-upstream-to=origin/main', 'main']);
+    
+    await git.pull('origin', 'main');
 
     await git.add(filePath);
     await git.commit(`Actualización automática de ${path.basename(filePath)}`);
-    await git.push('main');
+    await git.push('origin', 'main');
 
     console.log(`Commit y push realizados con éxito para: ${filePath}`);
   } catch (error) {
