@@ -52,7 +52,11 @@ const git = simpleGit({
   baseDir: path.resolve(__dirname),
   binary: 'git',
   maxConcurrentProcesses: 6,
-  config: ['user.name=PandaGamingClassroom', 'user.email=gamificacionpanda@gmail.com'],
+  config: [
+    'user.name=PandaGamingClassroom',
+    'user.email=gamificacionpanda@gmail.com',
+    'credential.helper=cache', // Agrega el helper de credenciales
+  ],
 });
 
 git.outputHandler((command, stdout, stderr) => {
