@@ -46,7 +46,7 @@ module.exports = app;
  ******************************/
 
 // Define la URL del repositorio remoto
-const repoUrl = 'https://github.com/PandaGamingClassroom/grumpiStoreServer.git';
+const repoUrl = 'git@github.com:PandaGamingClassroom/grumpiStoreServer.git';
 
 const git = simpleGit({
   baseDir: path.resolve(__dirname),
@@ -55,7 +55,7 @@ const git = simpleGit({
   config: [
     'user.name=PandaGamingClassroom',
     'user.email=gamificacionpanda@gmail.com',
-    'credential.helper=cache', // Agrega el helper de credenciales
+    'credential.helper=cache',
   ],
 });
 
