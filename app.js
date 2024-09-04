@@ -49,10 +49,6 @@ const git = simpleGit({
   binary: 'git',
   maxConcurrentProcesses: 6,
   config: ['user.name=PandaGamingClassroom', 'user.email=gamificacionpanda@gmail.com'],
-  remote: {
-    name: 'origin',
-    url: 'git@github.com:PandaGamingClassroom/grumpiStoreServer.git'
-  }
 });
 
 // Función para configurar Git
