@@ -252,7 +252,6 @@ function createTables() {
 
 // Llama a esta función al inicio de tu aplicación para asegurarte de que las tablas existen
 createTables();
-addDefaultProfesor();
 
 // Declara trainer_list como una variable global
 let trainer_list = [];
@@ -315,6 +314,9 @@ function addDefaultProfesor() {
     console.error("Error al agregar el profesor predeterminado:", err);
   }
 }
+
+// Asegúrate de llamar a esta función en el inicio de tu aplicación
+addDefaultProfesor();
 
 
 /**************************************************
