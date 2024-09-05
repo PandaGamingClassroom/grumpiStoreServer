@@ -252,7 +252,7 @@ function createTables() {
 
 // Llama a esta función al inicio de tu aplicación para asegurarte de que las tablas existen
 createTables();
-
+addDefaultProfesor();
 
 // Declara trainer_list como una variable global
 let trainer_list = [];
@@ -271,6 +271,51 @@ app.use(cors(corsOptions));
 app.use(express.json()); // Middleware para analizar el cuerpo de la solicitud como JSON
 // Servir las imágenes estáticas desde el directorio de uploads
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+
+/**
+ * PROFESOR ADMINISTRADOR POR DEFECTO.
+ * Este profesor es añadido por defecto
+ * con el rol de administrador.
+ */
+const defaultProfesor = {
+  id: 1,
+  nombre: "Pablo",
+  apellidos: "Moreno Ortega",
+  usuario: "admin",
+  password: "1",
+  rol: "administrador"
+};
+
+function addDefaultProfesor() {
+  try {
+    // Verificar si el profesor ya existe
+    const existingProfesor = db.prepare(`
+      SELECT * FROM profesores WHERE id = ?
+    `).get(defaultProfesor.id);
+
+    if (!existingProfesor) {
+      // Insertar el profesor predeterminado si no existe
+      db.prepare(`
+        INSERT INTO profesores (id, nombre, apellidos, usuario, password, rol)
+        VALUES (?, ?, ?, ?, ?, ?)
+      `).run(
+        defaultProfesor.id,
+        defaultProfesor.nombre,
+        defaultProfesor.apellidos,
+        defaultProfesor.usuario,
+        defaultProfesor.password,
+        defaultProfesor.rol
+      );
+      console.log("Profesor predeterminado añadido correctamente.");
+    } else {
+      console.log("El profesor predeterminado ya existe.");
+    }
+  } catch (err) {
+    console.error("Error al agregar el profesor predeterminado:", err);
+  }
+}
+
 
 /**************************************************
  *
