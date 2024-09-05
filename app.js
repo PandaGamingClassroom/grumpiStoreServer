@@ -1877,27 +1877,34 @@ fs.readFile(filePathAmin, "utf8", (err, data) => {
   }
 });
 
+/**
+ * Función para obtener los datos de los profesores.
+ * Hace uso de la BD.
+ */
 app.get("/profesores", (req, res) => {
-  // Lee el contenido del archivo trainers.json
-  fs.readFile(filePathAmin, "utf8", (err, data) => {
-    if (err) {
-      // Manejar el error si no se puede leer el archivo
-      console.error("Error al leer el archivo admin.json:", err);
-      res.status(500).json({ error: "Error al leer el archivo admin.json" });
-    } else {
-      try {
-        // Parsea el contenido del archivo JSON a un objeto JavaScript
-        const prof_list = JSON.parse(data);
-        // Envía el listado completo de entrenadores como respuesta
-        res.json({ profesoresList: prof_list });
-      } catch (parseError) {
-        // Manejar el error si no se puede parsear el contenido JSON
-        console.error("Error al parsear el contenido JSON:", parseError);
-        res.status(500).json({ error: "Error al parsear el contenido JSON" });
-      }
+  try {
+    // Consultar la base de datos para obtener la lista de profesores
+    const profesoresDb = db.prepare(`
+      SELECT * FROM profesores
+    `).all();
+
+    // Verificar si se encontraron profesores
+    if (profesoresDb.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "No se encontraron profesores en la base de datos",
+      });
     }
-  });
+
+    // Devolver la lista de profesores encontrados en la base de datos
+    res.json({ profesoresList: profesoresDb });
+  } catch (err) {
+    console.error("Error al obtener la lista de profesores:", err);
+    res.status(500).json({ error: "Error interno del servidor" });
+  }
 });
+
+
 const readJsonFile = (filePathAmin) => {
   return new Promise((resolve, reject) => {
     fs.readFile(filePathAmin, "utf8", (err, data) => {
