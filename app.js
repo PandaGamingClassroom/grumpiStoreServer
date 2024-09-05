@@ -254,15 +254,6 @@ function createTables() {
 createTables();
 
 
-// Cerrando la base de datos
-db.close((err) => {
-  if (err) {
-    return console.error(err.message);
-  }
-  console.log("Cerrado la conexión con la base de datos.");
-});
-
-
 // Declara trainer_list como una variable global
 let trainer_list = [];
 let currentId = 1; // Inicialmente, el ID empieza en 1
