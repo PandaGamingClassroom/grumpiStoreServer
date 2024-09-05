@@ -1929,12 +1929,12 @@ fs.readFile(filePathAmin, "utf8", (err, data) => {
 app.get("/profesores", (req, res) => {
   try {
     // Consultar la base de datos para obtener la lista de profesores
-    const profesoresDb = db.prepare(`
+    const profesoresList = db.prepare(`
       SELECT * FROM profesores
     `).all();
 
     // Verificar si se encontraron profesores
-    if (profesoresDb.length === 0) {
+    if (profesoresList.length === 0) {
       return res.status(404).json({
         success: false,
         message: "No se encontraron profesores en la base de datos",
@@ -1942,7 +1942,7 @@ app.get("/profesores", (req, res) => {
     }
 
     // Devolver la lista de profesores encontrados en la base de datos
-    res.json({ profesoresList: profesoresDb });
+    res.json({ profesoresList: profesoresList });
   } catch (err) {
     console.error("Error al obtener la lista de profesores:", err);
     res.status(500).json({ error: "Error interno del servidor" });
