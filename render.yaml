@@ -5,5 +5,5 @@ services:
   buildCommand: npm install
   startCommand: npm start
   persistentDisk:
-    mountPath: /var/data
+    mountPath: /mnt/data
     sizeGB: 10
