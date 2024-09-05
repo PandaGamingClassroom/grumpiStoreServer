@@ -2107,76 +2107,89 @@ app.post("/profesores/:id/entrenadores", (req, res) => {
 /**
  *
  * Modificación de la contraseña del profesor
+ * Hace uso de BD
  *
  */
 app.put("/profesors/update/:name", (req, res) => {
-  const professorName = req.params.name; // Cambié 'nombre' por 'name' para coincidir con la ruta.
-  const { professor_name, password } = req.body; // Aquí obtienes tanto el nombre como la contraseña desde el cuerpo de la solicitud.
+  const professorName = req.params.name; // Nombre del profesor a actualizar
+  const { professor_name, password } = req.body; // Campos a actualizar
 
   console.log("Profesor que se va a editar: ", professorName);
   console.log("Atributos a editar del profesor: ", professor_name, password);
 
-  fs.readFile(filePathAmin, "utf8", (err, data) => {
-    if (err) {
-      res
-        .status(500)
-        .json({ error: `Error al leer el fichero [${filePathAmin}]` });
-      return;
+  // Actualización en la base de datos
+  try {
+    // Prepara la consulta de actualización
+    const updateQuery = db.prepare(`
+      UPDATE profesores
+      SET nombre = ?, password = ?
+      WHERE nombre = ?
+    `);
+
+    // Ejecuta la consulta de actualización
+    const result = updateQuery.run(professor_name || professorName, password || null, professorName);
+
+    // Verifica si se actualizó alguna fila
+    if (result.changes === 0) {
+      return res.status(404).json({ error: "Profesor no encontrado." });
     }
 
-    let professors;
-    try {
-      professors = JSON.parse(data);
-    } catch (parseErr) {
-      res
-        .status(500)
-        .json({ error: "Error al parsear los datos de los profesores." });
-      return;
-    }
+    console.log("Profesor actualizado en la base de datos.");
 
-    const professorIndex = professors.findIndex(
-      (prof) => prof.nombre === professorName
-    );
+    // Actualización en el archivo JSON
+    fs.readFile(filePathAmin, "utf8", (err, data) => {
+      if (err) {
+        return res.status(500).json({ error: `Error al leer el fichero [${filePathAmin}]` });
+      }
 
-    if (professorIndex === -1) {
-      res.status(404).json({ error: "Profesor no encontrado." });
-      return;
-    }
+      let professors;
+      try {
+        professors = JSON.parse(data);
+      } catch (parseErr) {
+        return res.status(500).json({ error: "Error al parsear los datos de los profesores." });
+      }
 
-    // Actualizar los datos del profesor
-    if (professor_name) professors[professorIndex].nombre = professor_name;
-    if (password) professors[professorIndex].password = password; // Aquí se actualiza la contraseña si está presente.
+      const professorIndex = professors.findIndex(
+        (prof) => prof.nombre === professorName
+      );
 
-    // Guardar los datos actualizados en el archivo
-    fs.writeFile(
-      filePathAmin,
-      JSON.stringify(professors, null, 2),
-      "utf8",
-      (writeErr) => {
+      if (professorIndex === -1) {
+        return res.status(404).json({ error: "Profesor no encontrado en el archivo." });
+      }
+
+      // Actualizar los datos del profesor en el archivo JSON
+      if (professor_name) professors[professorIndex].nombre = professor_name;
+      if (password) professors[professorIndex].password = password;
+
+      // Guardar los datos actualizados en el archivo
+      fs.writeFile(filePathAmin, JSON.stringify(professors, null, 2), "utf8", (writeErr) => {
         if (writeErr) {
-          res
-            .status(500)
-            .json({ error: "Error al guardar los datos actualizados." });
-          return;
+          return res.status(500).json({ error: "Error al guardar los datos actualizados en el archivo." });
         }
 
         res.status(200).json({
           message: "Profesor actualizado correctamente.",
           data: professors[professorIndex],
         });
-      }
-    );
-  });
+      });
+    });
+
+  } catch (dbError) {
+    console.error("Error al actualizar el profesor en la base de datos:", dbError);
+    res.status(500).json({ error: "Error interno del servidor" });
+  }
 });
+
 
 /**
  *
  * Modificación de todos los datos del profesor
- *
+ * Hace uso de la BD
+ * 
  */
 app.put("/profesors/update_all_data/:name", (req, res) => {
-  const professorName = req.params.name; // Cambié 'nombre' por 'name' para coincidir con la ruta.
-  const { usuario, professor_name, password } = req.body; // Aquí obtienes tanto el nombre como la contraseña desde el cuerpo de la solicitud.
+  const professorName = req.params.name; // Nombre del profesor a actualizar
+  const { usuario, professor_name, password } = req.body; // Campos a actualizar
 
   console.log("Profesor que se va a editar: ", professorName);
   console.log(
@@ -2186,69 +2199,96 @@ app.put("/profesors/update_all_data/:name", (req, res) => {
     password
   );
 
-  fs.readFile(filePathAmin, "utf8", (err, data) => {
-    if (err) {
-      res
-        .status(500)
-        .json({ error: `Error al leer el fichero [${filePathAmin}]` });
-      return;
-    }
+  try {
+    // Primero, actualiza en la base de datos
+    const updateQuery = db.prepare(`
+      UPDATE profesores
+      SET nombre = ?, password = ?, usuario = ?
+      WHERE nombre = ?
+    `);
 
-    let professors;
-    try {
-      professors = JSON.parse(data);
-    } catch (parseErr) {
-      res
-        .status(500)
-        .json({ error: "Error al parsear los datos de los profesores." });
-      return;
-    }
-
-    const professorIndex = professors.findIndex(
-      (prof) => prof.nombre === professorName
+    const result = updateQuery.run(
+      professor_name || professorName, // Usar el nombre nuevo si se proporciona
+      password || null, // Usar null si no se proporciona una nueva contraseña
+      usuario || null, // Usar null si no se proporciona un nuevo usuario
+      professorName // El nombre antiguo para encontrar al profesor
     );
 
-    if (professorIndex === -1) {
-      res.status(404).json({ error: "Profesor no encontrado." });
-      return;
+    // Verificar si se actualizó alguna fila en la base de datos
+    if (result.changes === 0) {
+      return res.status(404).json({ error: "Profesor no encontrado en la base de datos." });
     }
 
-    // Actualizar los datos del profesor
-    if (professor_name) professors[professorIndex].nombre = professor_name;
-    if (password) professors[professorIndex].password = password;
-    if (usuario) professors[professorIndex].usuario = usuario;
+    console.log("Profesor actualizado en la base de datos.");
 
-    // Guardar los datos actualizados en el archivo
-    fs.writeFile(
-      filePathAmin,
-      JSON.stringify(professors, null, 2),
-      "utf8",
-      (writeErr) => {
+    // Después de actualizar en la base de datos, actualizar en el archivo JSON
+    fs.readFile(filePathAmin, "utf8", (err, data) => {
+      if (err) {
+        return res.status(500).json({ error: `Error al leer el fichero [${filePathAmin}]` });
+      }
+
+      let professors;
+      try {
+        professors = JSON.parse(data);
+      } catch (parseErr) {
+        return res.status(500).json({ error: "Error al parsear los datos de los profesores." });
+      }
+
+      const professorIndex = professors.findIndex(
+        (prof) => prof.nombre === professorName
+      );
+
+      if (professorIndex === -1) {
+        return res.status(404).json({ error: "Profesor no encontrado en el archivo." });
+      }
+
+      // Actualizar los datos del profesor en el archivo JSON
+      if (professor_name) professors[professorIndex].nombre = professor_name;
+      if (password) professors[professorIndex].password = password;
+      if (usuario) professors[professorIndex].usuario = usuario;
+
+      // Guardar los datos actualizados en el archivo
+      fs.writeFile(filePathAmin, JSON.stringify(professors, null, 2), "utf8", (writeErr) => {
         if (writeErr) {
-          res
-            .status(500)
-            .json({ error: "Error al guardar los datos actualizados." });
-          return;
+          return res.status(500).json({ error: "Error al guardar los datos actualizados en el archivo." });
         }
 
         res.status(200).json({
           message: "Profesor actualizado correctamente.",
           data: professors[professorIndex],
         });
-      }
-    );
-  });
+      });
+    });
+
+  } catch (dbError) {
+    console.error("Error al actualizar el profesor en la base de datos:", dbError);
+    res.status(500).json({ error: "Error interno del servidor" });
+  }
 });
+
 
 /**
  *
  * Función para eliminar un profesor
- *
+ * Hace uso de la BD
  */
 app.delete("/professor_to_delete/:name", async (req, res) => {
   const userName = req.params.name;
 
   try {
+    // Eliminar el profesor de la base de datos
+    const deleteQuery = db.prepare(`DELETE FROM profesores WHERE nombre = ?`);
+    const result = deleteQuery.run(userName);
+
+    if (result.changes === 0) {
+      return res
+        .status(404)
+        .json({ error: `Profesor con nombre ${userName} no encontrado en la base de datos` });
+    }
+
+    console.log(`Profesor con nombre ${userName} eliminado de la base de datos`);
+
+    // Leer y actualizar el archivo JSON
     const data = await fs.promises.readFile(filePathAmin, "utf8");
     let profesor_list = JSON.parse(data);
 
@@ -2260,7 +2300,7 @@ app.delete("/professor_to_delete/:name", async (req, res) => {
     if (updatedProfessorList.length === profesor_list.length) {
       return res
         .status(404)
-        .json({ error: `Profesor con nombre ${userName} no encontrado` });
+        .json({ error: `Profesor con nombre ${userName} no encontrado en el archivo` });
     }
 
     await fs.promises.writeFile(
@@ -2268,7 +2308,7 @@ app.delete("/professor_to_delete/:name", async (req, res) => {
       JSON.stringify(updatedProfessorList, null, 2)
     );
 
-    console.log(`Profesor con nombre ${userName} eliminado correctamente`);
+    console.log(`Profesor con nombre ${userName} eliminado correctamente del archivo`);
 
     // Devolver la lista actualizada como respuesta
     res.status(200).json({
@@ -2276,10 +2316,11 @@ app.delete("/professor_to_delete/:name", async (req, res) => {
       profesor_list: updatedProfessorList,
     });
   } catch (err) {
-    console.error("Error al procesar el archivo JSON:", err);
+    console.error("Error al procesar el archivo JSON o la base de datos:", err);
     res.status(500).json({ error: "Error interno del servidor" });
   }
 });
+
 
 /**
  *
