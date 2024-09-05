@@ -2044,57 +2044,80 @@ app.post("/profesores/:id/entrenadores", (req, res) => {
   const profesorId = parseInt(req.params.id);
   const nuevoUsuario = req.body;
 
+  // Base de datos y ruta del archivo
+  let tableName;
   let filePath;
 
   if (nuevoUsuario.rol === "entrenador") {
+    tableName = "trainers";
     filePath = "./data/trainers.json";
   } else if (nuevoUsuario.rol === "profesor") {
+    tableName = "profesores"; // Añade la tabla de profesores en la base de datos
     filePath = "./data/admin.json";
   } else {
     return res.status(400).json({ message: "Rol no válido" });
   }
 
-  fs.readFile(filePath, "utf8", (err, data) => {
-    if (err) {
-      if (err.code === "ENOENT") {
-        // El archivo no existe, crear el archivo con el nuevo usuario
-        nuevoUsuario.id = 1;
-        nuevoUsuario.id_profesor = profesorId;
-        fs.writeFile(
-          filePath,
-          JSON.stringify([nuevoUsuario], null, 2),
-          (err) => {
-            if (err) {
-              return res
-                .status(500)
-                .json({ error: "Error al escribir el archivo" });
+  // Insertar en la base de datos
+  try {
+    const insertQuery = db.prepare(
+      `INSERT INTO ${tableName} (name, password, rol, id_profesor) VALUES (?, ?, ?, ?)`
+    );
+
+    insertQuery.run(
+      nuevoUsuario.name,
+      nuevoUsuario.password,
+      nuevoUsuario.rol,
+      profesorId
+    );
+
+    // Obtener el ID del último registro insertado
+    const lastInsertRowId = db.prepare("SELECT last_insert_rowid() as id").get().id;
+
+    // Asignar el ID generado al nuevo usuario
+    nuevoUsuario.id = lastInsertRowId;
+    nuevoUsuario.id_profesor = profesorId;
+
+    // Actualizar también el archivo JSON
+    fs.readFile(filePath, "utf8", (err, data) => {
+      if (err) {
+        if (err.code === "ENOENT") {
+          // El archivo no existe, crear el archivo con el nuevo usuario
+          fs.writeFile(
+            filePath,
+            JSON.stringify([nuevoUsuario], null, 2),
+            (err) => {
+              if (err) {
+                return res
+                  .status(500)
+                  .json({ error: "Error al escribir el archivo" });
+              }
+              return res.status(201).json(nuevoUsuario);
             }
-            return res.status(201).json(nuevoUsuario);
-          }
-        );
-      } else {
-        return res.status(500).json({ error: "Error al leer el archivo" });
-      }
-    } else {
-      const usuarios = JSON.parse(data);
-      nuevoUsuario.id = usuarios.length
-        ? usuarios[usuarios.length - 1].id + 1
-        : 1;
-      nuevoUsuario.id_profesor = profesorId;
-
-      usuarios.push(nuevoUsuario);
-
-      fs.writeFile(filePath, JSON.stringify(usuarios, null, 2), (err) => {
-        if (err) {
-          return res
-            .status(500)
-            .json({ error: "Error al escribir el archivo" });
+          );
+        } else {
+          return res.status(500).json({ error: "Error al leer el archivo" });
         }
-        res.status(201).json(nuevoUsuario);
-      });
-    }
-  });
+      } else {
+        const usuarios = JSON.parse(data);
+        usuarios.push(nuevoUsuario);
+
+        fs.writeFile(filePath, JSON.stringify(usuarios, null, 2), (err) => {
+          if (err) {
+            return res
+              .status(500)
+              .json({ error: "Error al escribir el archivo" });
+          }
+          res.status(201).json(nuevoUsuario);
+        });
+      }
+    });
+  } catch (dbError) {
+    console.error("Error al insertar en la base de datos:", dbError);
+    res.status(500).json({ error: "Error al insertar en la base de datos" });
+  }
 });
+
 
 // Obtener entrenadores por ID de profesor
 app.get("/profesor/:id/entrenadores", async (req, res) => {
