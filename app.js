@@ -228,13 +228,25 @@ function createTables() {
     );
   `;
 
+  const createProfesoresTable = `
+    CREATE TABLE IF NOT EXISTS profesores (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      nombre TEXT NOT NULL,
+      apellidos TEXT NOT NULL,
+      usuario TEXT NOT NULL,
+      password TEXT NOT NULL,
+      rol TEXT
+    );
+  `;
+
   try {
     db.exec(createTrainersTable);
     db.exec(createGrumpisTable);
     db.exec(createAtaquesTable);
+    db.exec(createProfesoresTable);
     console.log("Tablas creadas correctamente.");
   } catch (err) {
-    console.error("Error creating tables:", err.message);
+    console.error("Error creando tablas:", err.message);
   }
 }
 
@@ -347,28 +359,51 @@ app.post("/new-user", (req, res) => {
   nuevoUsuario.id = currentId++; // Obtener los datos del cuerpo de la solicitud POST
   trainer_list.push(nuevoUsuario); // Agregar el nuevo entrenador a la lista
 
-  if (nuevoUsuario.rol == "entrenador") {
-    fs.writeFile(filePath, JSON.stringify(trainer_list), (err) => {
-      if (err) {
-        res.status(500).json({ error: err.message });
-        return;
-      }
-      res.json({
-        message: "Entrenador agregado correctamente",
-        nuevoEntrenador,
+  let insertQuery;
+
+  try {
+    if (nuevoUsuario.rol == "entrenador") {
+      // Inserta en la tabla `trainers`
+      insertQuery = db.prepare(`
+        INSERT INTO trainers (name, password, rol, id_profesor) 
+        VALUES (?, ?, ?, ?)
+      `);
+      insertQuery.run(nuevoUsuario.name, nuevoUsuario.password, nuevoUsuario.rol, nuevoUsuario.id_profesor);
+
+      // Escribe en el archivo JSON correspondiente
+      fs.writeFile(filePath, JSON.stringify(trainer_list), (err) => {
+        if (err) {
+          res.status(500).json({ error: err.message });
+          return;
+        }
+        res.json({
+          message: "Entrenador agregado correctamente",
+          nuevoUsuario,
+        });
       });
-    });
-  } else if (nuevoUsuario.rol == "profesor") {
-    fs.writeFile(filePathAmin, JSON.stringify(trainer_list), (err) => {
-      if (err) {
-        res.status(500).json({ error: err.message });
-        return;
-      }
-      res.json({
-        message: "Entrenador agregado correctamente",
-        nuevoEntrenador,
+
+    } else if (nuevoUsuario.rol == "profesor") {
+      // Inserta en la tabla `profesores`
+      insertQuery = db.prepare(`
+        INSERT INTO profesores (nombre, apellidos, usuario, password, rol) 
+        VALUES (?, ?, ?, ?, ?)
+      `);
+      insertQuery.run(nuevoUsuario.nombre, nuevoUsuario.apellidos, nuevoUsuario.usuario, nuevoUsuario.password, nuevoUsuario.rol);
+
+      // Escribe en el archivo JSON correspondiente
+      fs.writeFile(filePathAmin, JSON.stringify(trainer_list), (err) => {
+        if (err) {
+          res.status(500).json({ error: err.message });
+          return;
+        }
+        res.json({
+          message: "Profesor agregado correctamente",
+          nuevoUsuario,
+        });
       });
-    });
+    }
+  } catch (err) {
+    res.status(500).json({ error: "Error al insertar en la base de datos: " + err.message });
   }
 });
 
