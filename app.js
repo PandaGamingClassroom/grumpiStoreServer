@@ -186,6 +186,62 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+/**
+ * Función para crear las tablas en BD
+ */
+function createTables() {
+  const createTrainersTable = `
+    CREATE TABLE IF NOT EXISTS trainers (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      password TEXT NOT NULL,
+      rol TEXT,
+      id_profesor INTEGER
+    );
+  `;
+
+  const createGrumpisTable = `
+    CREATE TABLE IF NOT EXISTS grumpis (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      trainer_id INTEGER,
+      nombre TEXT NOT NULL,
+      PS INTEGER,
+      n_grumpidex TEXT,
+      img TEXT,
+      descripcion TEXT,
+      Ciclo1 TEXT,
+      Ciclo2 TEXT,
+      Ciclo3 TEXT,
+      tipo TEXT,
+      FOREIGN KEY (trainer_id) REFERENCES trainers(id)
+    );
+  `;
+
+  const createAtaquesTable = `
+    CREATE TABLE IF NOT EXISTS ataques (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      grumpi_id INTEGER,
+      nombre TEXT NOT NULL,
+      efecto TEXT,
+      tipo TEXT,
+      FOREIGN KEY (grumpi_id) REFERENCES grumpis(id)
+    );
+  `;
+
+  try {
+    db.exec(createTrainersTable);
+    db.exec(createGrumpisTable);
+    db.exec(createAtaquesTable);
+    console.log("Tablas creadas correctamente.");
+  } catch (err) {
+    console.error("Error creating tables:", err.message);
+  }
+}
+
+// Llama a esta función al inicio de tu aplicación para asegurarte de que las tablas existen
+createTables();
+
+
 // Cerrando la base de datos
 db.close((err) => {
   if (err) {
