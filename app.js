@@ -409,56 +409,45 @@ app.post("/", (req, res) => {
  */
 app.post("/new-user", (req, res) => {
   const nuevoUsuario = req.body;
-  nuevoUsuario.id = currentId++; // Obtener los datos del cuerpo de la solicitud POST
-  trainer_list.push(nuevoUsuario); // Agregar el nuevo entrenador a la lista
+  nuevoUsuario.id = currentId++; // Asignar un nuevo ID al usuario
 
   let insertQuery;
 
   try {
-    if (nuevoUsuario.rol == "entrenador") {
+    if (nuevoUsuario.rol === "entrenador") {
       // Inserta en la tabla `trainers`
       insertQuery = db.prepare(`
-        INSERT INTO trainers (name, password, rol, id_profesor) 
-        VALUES (?, ?, ?, ?)
-      `);
-      insertQuery.run(nuevoUsuario.name, nuevoUsuario.password, nuevoUsuario.rol, nuevoUsuario.id_profesor);
-
-      // Escribe en el archivo JSON correspondiente
-      fs.writeFile(filePath, JSON.stringify(trainer_list), (err) => {
-        if (err) {
-          res.status(500).json({ error: err.message });
-          return;
-        }
-        res.json({
-          message: "Entrenador agregado correctamente",
-          nuevoUsuario,
-        });
-      });
-
-    } else if (nuevoUsuario.rol == "profesor") {
-      // Inserta en la tabla `profesores`
-      insertQuery = db.prepare(`
-        INSERT INTO profesores (nombre, apellidos, usuario, password, rol) 
+        INSERT INTO trainers (id, name, password, rol, id_profesor) 
         VALUES (?, ?, ?, ?, ?)
       `);
-      insertQuery.run(nuevoUsuario.nombre, nuevoUsuario.apellidos, nuevoUsuario.usuario, nuevoUsuario.password, nuevoUsuario.rol);
+      insertQuery.run(nuevoUsuario.id, nuevoUsuario.name, nuevoUsuario.password, nuevoUsuario.rol, nuevoUsuario.id_profesor);
 
-      // Escribe en el archivo JSON correspondiente
-      fs.writeFile(filePathAmin, JSON.stringify(trainer_list), (err) => {
-        if (err) {
-          res.status(500).json({ error: err.message });
-          return;
-        }
-        res.json({
-          message: "Profesor agregado correctamente",
-          nuevoUsuario,
-        });
+      res.json({
+        message: "Entrenador agregado correctamente",
+        nuevoUsuario,
       });
+
+    } else if (nuevoUsuario.rol === "profesor") {
+      // Inserta en la tabla `profesores`
+      insertQuery = db.prepare(`
+        INSERT INTO profesores (id, nombre, apellidos, usuario, password, rol) 
+        VALUES (?, ?, ?, ?, ?, ?)
+      `);
+      insertQuery.run(nuevoUsuario.id, nuevoUsuario.nombre, nuevoUsuario.apellidos, nuevoUsuario.usuario, nuevoUsuario.password, nuevoUsuario.rol);
+
+      res.json({
+        message: "Profesor agregado correctamente",
+        nuevoUsuario,
+      });
+    } else {
+      // Rol no válido
+      res.status(400).json({ error: "Rol no válido" });
     }
   } catch (err) {
     res.status(500).json({ error: "Error al insertar en la base de datos: " + err.message });
   }
 });
+
 
 app.put("/user", (req, res) => {
   res.send("Got a PUT request at /user");
