@@ -1980,57 +1980,52 @@ app.get("/profesor/:id", async (req, res) => {
   }
 });
 
-// Endpoint para obtener la lista de entrenadores de un profesor por su ID
+/**
+ * Obtiene la lista de enteenadores de un profesor.
+ * Hace uso de BD.
+ * 
+ */
 app.get("/profesor/:id/entrenadores", async (req, res) => {
   const profesorId = parseInt(req.params.id);
 
   try {
-    const entrenadores = await readJsonFile(filePath);
-    const entrenadoresAsignados = entrenadores.filter(
-      (t) => t.id_profesor === profesorId
-    );
+    // Consultar la base de datos para obtener entrenadores asignados al profesor
+    const entrenadoresDb = db.prepare(`
+      SELECT * FROM trainers WHERE id_profesor = ?
+    `).all(profesorId);
 
-    if (entrenadoresAsignados.length === 0) {
-      return res.status(404).json({
-        success: false,
-        message: "No se encontraron entrenadores para el profesor indicado",
-      });
+    if (entrenadoresDb.length === 0) {
+      // Si no hay entrenadores en la base de datos, intentar obtener del archivo JSON
+      const entrenadoresFile = await readJsonFile(filePath);
+      const entrenadoresAsignados = entrenadoresFile.filter(
+        (t) => t.id_profesor === profesorId
+      );
+
+      if (entrenadoresAsignados.length === 0) {
+        return res.status(404).json({
+          success: false,
+          message: "No se encontraron entrenadores para el profesor indicado",
+        });
+      }
+
+      res.json({ success: true, data: entrenadoresAsignados });
+    } else {
+      // Devolver los entrenadores encontrados en la base de datos
+      res.json({ success: true, data: entrenadoresDb });
     }
-
-    res.json({ success: true, data: entrenadoresAsignados });
   } catch (err) {
+    console.error("Error al obtener entrenadores:", err);
     res
       .status(500)
       .json({ success: false, error: "Error interno del servidor" });
   }
 });
 
-// Agregar un nuevo profesor
-app.post("/profesores", (req, res) => {
-  const nuevoProfesor = req.body;
 
-  fs.readFile(filePath, "utf8", (err, data) => {
-    if (err) {
-      return res.status(500).json({ error: "Error al leer el archivo" });
-    }
-
-    const adminData = JSON.parse(data);
-    nuevoProfesor.id = adminData.profesores.length
-      ? adminData.profesores[adminData.profesores.length - 1].id + 1
-      : 1;
-    adminData.profesores.push(nuevoProfesor);
-
-    fs.writeFile(filePath, JSON.stringify(adminData, null, 2), (err) => {
-      if (err) {
-        return res.status(500).json({ error: "Error al escribir el archivo" });
-      }
-
-      res.status(201).json(nuevoProfesor);
-    });
-  });
-});
-
-// Endpoint para agregar un nuevo entrenador
+/**
+ * Agrega un nuevo entrenador
+ * Hace uso de BD
+ */
 app.post("/profesores/:id/entrenadores", (req, res) => {
   const profesorId = parseInt(req.params.id);
   const nuevoUsuario = req.body;
@@ -2106,32 +2101,6 @@ app.post("/profesores/:id/entrenadores", (req, res) => {
   } catch (dbError) {
     console.error("Error al insertar en la base de datos:", dbError);
     res.status(500).json({ error: "Error al insertar en la base de datos" });
-  }
-});
-
-
-// Obtener entrenadores por ID de profesor
-app.get("/profesor/:id/entrenadores", async (req, res) => {
-  const profesorId = parseInt(req.params.id);
-
-  try {
-    const entrenadores = await readJsonFile(filePath);
-    const entrenadoresAsignados = entrenadores.filter(
-      (t) => t.id_profesor === profesorId
-    );
-
-    if (entrenadoresAsignados.length === 0) {
-      return res.status(404).json({
-        success: false,
-        message: "No se encontraron entrenadores para el profesor indicado",
-      });
-    }
-
-    res.json({ success: true, data: entrenadoresAsignados });
-  } catch (err) {
-    res
-      .status(500)
-      .json({ success: false, error: "Error interno del servidor" });
   }
 });
 
