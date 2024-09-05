@@ -22,13 +22,23 @@ const filePathAttacks = "./data/attacks.json";
 
 // Configuración de la base de datos
 const dbPath = '/mnt/data/grumpi_data_base.db';
+const dir = path.dirname(dbPath);
+
+// Asegúrate de que el directorio existe
+if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+}
+
+// Crear la base de datos
 const db = new Database(dbPath);
 
+// Verifica si el archivo de la base de datos existe
 if (fs.existsSync(dbPath)) {
   console.log(`El archivo de la base de datos existe en: ${dbPath}`);
 } else {
   console.log('No se encontró el archivo de la base de datos.');
 }
+
 /**
  * Comprobación de que el directorio
  * donde se están almacenando las imágenes
