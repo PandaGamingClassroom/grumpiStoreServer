@@ -22,7 +22,13 @@ const filePathAttacks = "./data/attacks.json";
 
 // Configuración de la base de datos
 const db = new Database('grumpi_data_base.db');
+const dbPath = '/var/data/grumpi_data_base.db';
 
+if (fs.existsSync(dbPath)) {
+  console.log(`El archivo de la base de datos existe en: ${dbPath}`);
+} else {
+  console.log('No se encontró el archivo de la base de datos.');
+}
 /**
  * Comprobación de que el directorio
  * donde se están almacenando las imágenes
