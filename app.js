@@ -410,15 +410,6 @@ app.post("/", (req, res) => {
 app.post("/new-user", (req, res) => {
   const nuevoUsuario = req.body;
 
-  // Verificar que se reciban todos los campos necesarios
-  if (!nuevoUsuario.rol || (nuevoUsuario.rol !== "entrenador" && nuevoUsuario.rol !== "profesor")) {
-    return res.status(400).json({ error: "Rol no válido" });
-  }
-
-  // Generar un nuevo ID si no se proporciona uno (esto es opcional, dependiendo de cómo gestionas los IDs)
-  // Puedes usar una estrategia de ID autoincremental en la base de datos
-  // nuevoUsuario.id = currentId++;
-
   try {
     if (nuevoUsuario.rol === "entrenador") {
       // Inserta en la tabla `trainers`
@@ -453,7 +444,6 @@ app.post("/new-user", (req, res) => {
     res.status(500).json({ error: "Error al insertar en la base de datos: " + err.message });
   }
 });
-
 
 
 app.put("/user", (req, res) => {
