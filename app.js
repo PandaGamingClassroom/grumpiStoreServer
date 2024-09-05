@@ -20,8 +20,6 @@ const filePathObjectsEvolution = "./data/evolutionObjects.json";
 const filePathRewards = "./data/rewards.json";
 const filePathAttacks = "./data/attacks.json";
 
-
-
 /**
  * Comprobación de que el directorio
  * donde se están almacenando las imágenes
@@ -39,10 +37,11 @@ const howToGetGrumpi = path.join(uploadDir, "howToGetGrumpis");
 module.exports = app;
 
 // Configuración de la base de datos
-const dbPath = path.join(__dirname, 'grumpi_data_base.db'); // Usa un directorio local
-const dir = path.dirname(dbPath);
+const dbPath = path.join('/mnt/data', 'grumpi_data_base.db');  // Usa un directorio local
+
 
 // Asegúrate de que el directorio existe
+const dir = path.dirname(dbPath);
 if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
 }
@@ -56,6 +55,7 @@ if (fs.existsSync(dbPath)) {
 } else {
   console.log('No se encontró el archivo de la base de datos.');
 }
+
 /******************************
  *
  *    CONFIGURACIÓN PARA GIT
