@@ -1995,31 +1995,20 @@ app.get("/profesor/:id/entrenadores", async (req, res) => {
     `).all(profesorId);
 
     if (entrenadoresDb.length === 0) {
-      // Si no hay entrenadores en la base de datos, intentar obtener del archivo JSON
-      const entrenadoresFile = await readJsonFile(filePath);
-      const entrenadoresAsignados = entrenadoresFile.filter(
-        (t) => t.id_profesor === profesorId
-      );
-
-      if (entrenadoresAsignados.length === 0) {
-        return res.status(404).json({
-          success: false,
-          message: "No se encontraron entrenadores para el profesor indicado",
-        });
-      }
-
-      res.json({ success: true, data: entrenadoresAsignados });
-    } else {
-      // Devolver los entrenadores encontrados en la base de datos
-      res.json({ success: true, data: entrenadoresDb });
+      return res.status(404).json({
+        success: false,
+        message: "No se encontraron entrenadores para el profesor indicado",
+      });
     }
+
+    // Devolver los entrenadores encontrados en la base de datos
+    res.json({ success: true, data: entrenadoresDb });
   } catch (err) {
     console.error("Error al obtener entrenadores:", err);
-    res
-      .status(500)
-      .json({ success: false, error: "Error interno del servidor" });
+    res.status(500).json({ success: false, error: "Error interno del servidor" });
   }
 });
+
 
 
 /**
