@@ -318,19 +318,34 @@ app.get("/", (req, res) => {
       console.error("Error al leer el archivo trainers.json:", err);
       res.status(500).json({ error: "Error al leer el archivo trainers.json" });
     } else {
+      let trainerListFromFile;
       try {
         // Parsea el contenido del archivo JSON a un objeto JavaScript
-        const trainerList = JSON.parse(data);
-        // Envía el listado completo de entrenadores como respuesta
-        res.json({ trainer_list: trainerList });
+        trainerListFromFile = JSON.parse(data);
       } catch (parseError) {
         // Manejar el error si no se puede parsear el contenido JSON
         console.error("Error al parsear el contenido JSON:", parseError);
         res.status(500).json({ error: "Error al parsear el contenido JSON" });
+        return;
+      }
+
+      try {
+        // Realiza la consulta a la base de datos para obtener todos los entrenadores
+        const trainerList = db.prepare("SELECT * FROM trainers").all();
+
+        // Envía el listado de entrenadores desde el archivo y la base de datos
+        res.json({
+          trainer_list: trainerList,
+        });
+      } catch (dbError) {
+        // Manejar el error si ocurre un problema al consultar la base de datos
+        console.error("Error al obtener los entrenadores de la base de datos:", dbError);
+        res.status(500).json({ error: "Error al obtener los entrenadores de la base de datos" });
       }
     }
   });
 });
+
 
 /**
  * Método para guardar un nuevo entrenador
