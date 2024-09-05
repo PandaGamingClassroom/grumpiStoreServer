@@ -20,6 +20,24 @@ const filePathObjectsEvolution = "./data/evolutionObjects.json";
 const filePathRewards = "./data/rewards.json";
 const filePathAttacks = "./data/attacks.json";
 
+
+
+/**
+ * Comprobación de que el directorio
+ * donde se están almacenando las imágenes
+ * existe correctamente
+ *
+ */
+const path = require('path');
+const uploadDir = path.join(__dirname, "uploads", "grumpis");
+const uploadDirMedals = path.join(__dirname, "uploads", "medals");
+const uploadDirEnergies = path.join(__dirname, "uploads", "energies");
+const uploadDirEncargados = path.join(__dirname, "uploads", "encargados");
+const uploadDirLeagueBadges = path.join(__dirname, "uploads", "leagueBadges");
+const howToGetGrumpi = path.join(uploadDir, "howToGetGrumpis");
+
+module.exports = app;
+
 // Configuración de la base de datos
 const dbPath = '/mnt/data/grumpi_data_base.db';
 const dir = path.dirname(dbPath);
@@ -38,22 +56,6 @@ if (fs.existsSync(dbPath)) {
 } else {
   console.log('No se encontró el archivo de la base de datos.');
 }
-
-/**
- * Comprobación de que el directorio
- * donde se están almacenando las imágenes
- * existe correctamente
- *
- */
-const path = require('path');
-const uploadDir = path.join(__dirname, "uploads", "grumpis");
-const uploadDirMedals = path.join(__dirname, "uploads", "medals");
-const uploadDirEnergies = path.join(__dirname, "uploads", "energies");
-const uploadDirEncargados = path.join(__dirname, "uploads", "encargados");
-const uploadDirLeagueBadges = path.join(__dirname, "uploads", "leagueBadges");
-const howToGetGrumpi = path.join(uploadDir, "howToGetGrumpis");
-
-module.exports = app;
 
 /******************************
  *
