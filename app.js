@@ -39,7 +39,7 @@ const howToGetGrumpi = path.join(uploadDir, "howToGetGrumpis");
 module.exports = app;
 
 // Configuración de la base de datos
-const dbPath = '/mnt/data/grumpi_data_base.db';
+const dbPath = path.join(__dirname, 'grumpi_data_base.db'); // Usa un directorio local
 const dir = path.dirname(dbPath);
 
 // Asegúrate de que el directorio existe
@@ -56,7 +56,6 @@ if (fs.existsSync(dbPath)) {
 } else {
   console.log('No se encontró el archivo de la base de datos.');
 }
-
 /******************************
  *
  *    CONFIGURACIÓN PARA GIT
