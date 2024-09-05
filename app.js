@@ -21,7 +21,7 @@ const filePathRewards = "./data/rewards.json";
 const filePathAttacks = "./data/attacks.json";
 
 // Configuración de la base de datos
-const db = new Database('grumpi_data_base.db');
+const db = new Database('/var/data/grumpi_data_base.db');
 const dbPath = '/var/data/grumpi_data_base.db';
 
 if (fs.existsSync(dbPath)) {
