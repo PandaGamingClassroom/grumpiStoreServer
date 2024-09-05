@@ -1,0 +1,9 @@
+services:
+- type: web
+  name: grumpistoreserver
+  env: node
+  buildCommand: npm install
+  startCommand: npm start
+  persistentDisk:
+    mountPath: /var/data
+    sizeGB: 10
