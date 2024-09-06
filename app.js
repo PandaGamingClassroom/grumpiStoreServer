@@ -883,12 +883,19 @@ app.post("/assign-grumpidolares", (req, res) => {
  */
 function assignGrumpidolaresAfterBuyToTrainer(trainerName, grumpidolar) {
   return new Promise((resolve, reject) => {
-    console.log("Cantidad de Grumpidólares recibida (original): ", grumpidolar);
+    console.log("Cantidad de Grumpidólares recibida (original):", grumpidolar);
+
+    // Verificar si grumpidolar es un número válido
+    if (grumpidolar === undefined || grumpidolar === null) {
+      console.log("Grumpidólares no definidos o nulos.");
+      return reject("Grumpidólares deben estar definidos.");
+    }
+
     const grumpidolaresNumber = Number(grumpidolar);
-    console.log("Cantidad de Grumpidólares convertida: ", grumpidolaresNumber);
+    console.log("Cantidad de Grumpidólares convertida:", grumpidolaresNumber);
 
     if (isNaN(grumpidolaresNumber) || grumpidolaresNumber < 0) {
-      console.log("Cantidad de Grumpidólares no válida: ", grumpidolaresNumber);
+      console.log("Cantidad de Grumpidólares no válida:", grumpidolaresNumber);
       return reject("Grumpidólares debe ser un número positivo.");
     }
 
@@ -910,17 +917,15 @@ function assignGrumpidolaresAfterBuyToTrainer(trainerName, grumpidolar) {
   });
 }
 
-
 app.post("/assignGrumpidolares-after-buy", (req, res) => {
   console.log("Datos de la solicitud:", req.body);
-  console.log(
-    "Cantidad de Grumpidólares para actualizar: ",
-    req.body.grumpidolares
-  );
-  assignGrumpidolaresAfterBuyToTrainer(
-    req.body.trainerName,
-    req.body.grumpidolares
-  )
+  
+  const { trainerName, grumpidolares } = req.body;
+
+  console.log("Cantidad de Grumpidólares para actualizar:", grumpidolares);
+
+  // Asegúrate de pasar correctamente los parámetros a la función
+  assignGrumpidolaresAfterBuyToTrainer(trainerName, grumpidolares)
     .then((message) => {
       res.status(200).json({ message: message });
     })
@@ -929,6 +934,7 @@ app.post("/assignGrumpidolares-after-buy", (req, res) => {
       res.status(400).json({ error: error });
     });
 });
+
 
 /**
  *
