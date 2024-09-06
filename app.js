@@ -36,24 +36,21 @@ const howToGetGrumpi = path.join(uploadDir, "howToGetGrumpis");
 
 module.exports = app;
 
-// Ruta de la base de datos en el disco persistente
-const dbPath = path.join('/mnt/data', 'grumpi_data_base.db'); // Usa el disco persistente
+// Determina la ruta del directorio en función del entorno
+const isProduction = process.env.NODE_ENV === 'production';
+const dbDirectory = isProduction ? '/mnt/data' : path.join(__dirname, 'mnt/data');
+const dbPath = path.join(dbDirectory, 'grumpi_data_base.db');
 
 // Asegúrate de que el directorio existe
-const dir = path.dirname(dbPath);
-
-try {
-    if (!fs.existsSync('/mnt/data')) {
-        console.error('El directorio de disco persistente /mnt/data no existe.');
-        process.exit(1);
-    }
-
-    if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir, { recursive: true });
-    }
-} catch (error) {
-    console.error('Error al crear el directorio:', error);
+if (!fs.existsSync(dbDirectory)) {
+    console.error(`El directorio de disco persistente ${dbDirectory} no existe.`);
     process.exit(1);
+}
+
+if (!fs.existsSync(dbPath)) {
+    // Crea el directorio si no existe
+    fs.mkdirSync(dbDirectory, { recursive: true });
+    console.log('Directorio creado:', dbDirectory);
 }
 
 // Crear la base de datos
