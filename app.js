@@ -999,23 +999,18 @@ app.get("/trainer/:nombre", (req, res) => {
  * OBTENCIÓN DE LOS GRUMPIS
  */
 app.get("/getGrumpis", (req, res) => {
-  fs.readFile(filePathGrumpis, "utf8", (err, data) => {
+  // Consulta SQL para obtener los datos de los grumpis
+  const query = 'SELECT * FROM grumpis';
+
+  db.all(query, [], (err, rows) => {
     if (err) {
-      // Manejar el error si no se puede leer el archivo
-      console.error("Error al leer el archivo grumpis.json:", err);
-      res.status(500).json({ error: "Error al leer el archivo grumpis.json" });
-    } else {
-      try {
-        // Parsea el contenido del archivo JSON a un objeto JavaScript
-        const grumpis_list = JSON.parse(data);
-        // Envía el listado completo de entrenadores como respuesta
-        res.json({ grumpis_list: grumpis_list });
-      } catch (parseError) {
-        // Manejar el error si no se puede parsear el contenido JSON
-        console.error("Error al parsear el contenido JSON:", parseError);
-        res.status(500).json({ error: "Error al parsear el contenido JSON" });
-      }
+      // Manejar el error si la consulta falla
+      console.error("Error al consultar la base de datos:", err);
+      res.status(500).json({ error: "Error al consultar la base de datos" });
+      return;
     }
+    // Envía el listado completo de grumpis como respuesta
+    res.json({ grumpis_list: rows });
   });
 });
 
