@@ -131,6 +131,7 @@ function createTables() {
       energies TEXT -- JSON como texto
     );
   `;
+  
   const createGrumpisTable = `
     CREATE TABLE IF NOT EXISTS grumpis (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -138,7 +139,9 @@ function createTables() {
       nombre TEXT NOT NULL,
       PS INTEGER,
       n_grumpidex TEXT,
-      img TEXT,
+      clase TEXT,
+      img_general TEXT,
+      img_conseguir TEXT,
       descripcion TEXT,
       Ciclo1 TEXT,
       Ciclo2 TEXT,
@@ -675,51 +678,48 @@ function editObjEvolution(trainerId, objetosAEliminar) {
  *            ASIGNACIÓN DE grumpis A LOS ENTRENADORES
  *
  *******************************************************************/
-// Cargar los datos de los entrenadores del archivo JSON al iniciar la aplicación
-let trainerData = [];
-try {
-  const data = fs.readFileSync(filePath, "utf8");
-  trainerData = JSON.parse(data);
-  // Inicializar la propiedad 'grumpis' si no está presente en cada objeto de entrenador
-  trainerData.forEach((trainer) => {
-    if (!trainer.grumpis) {
-      trainer.grumpis = [];
-    }
-  });
-  console.log("Datos de entrenadores cargados correctamente:", trainerData);
-} catch (err) {
-  console.error("Error al leer el archivo de entrenadores:", err);
-}
-
-// Función para actualizar y guardar los datos del entrenador en el archivo JSON
-function saveTrainerData() {
-  fs.writeFile(filePath, JSON.stringify(trainerData, null, 2), (err) => {
-    if (err) {
-      console.error("Error al guardar los datos del entrenador:", err);
-    } else {
-      console.log("Datos del entrenador guardados correctamente.", trainerData);
-    }
-  });
-}
-
-// Función para asignar una criatura a un entrenador
+// Función para asignar un grumpi a un entrenador
 function assignCreatureToTrainer(trainerName, creature) {
-  console.log("Grumpi para asignar al entrenador: ", creature);
-  const trainer = trainerData.find((trainer) => trainer.name === trainerName);
-  console.log("Entrenador buscado?: ", trainer);
-  if (trainer) {
-    // Asegurarse de que la propiedad 'grumpis' existe
-    if (!trainer.grumpis) {
-      trainer.grumpis = [];
+  return new Promise((resolve, reject) => {
+    // Buscar el entrenador en la base de datos
+    const trainer = db.prepare("SELECT * FROM trainers WHERE name = ?").get(trainerName);
+
+    if (trainer) {
+      // Verificar si el grumpi ya existe en la base de datos
+      const existingGrumpi = db.prepare("SELECT * FROM grumpis WHERE nombre = ? AND trainer_id = ?").get(creature.nombre, trainer.id);
+
+      if (existingGrumpi) {
+        // Si el grumpi ya existe, actualizar la cantidad de PS
+        const updateStmt = db.prepare("UPDATE grumpis SET PS = ? WHERE id = ?");
+        updateStmt.run(creature.PS, existingGrumpi.id);
+        console.log("Grumpi actualizado para el entrenador.");
+        resolve("Grumpi actualizado para el entrenador.");
+      } else {
+        // Si el grumpi no existe, insertarlo
+        const insertStmt = db.prepare(`
+          INSERT INTO grumpis (trainer_id, nombre, PS, n_grumpidex, img, descripcion, Ciclo1, Ciclo2, Ciclo3, tipo)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `);
+        insertStmt.run(
+          trainer.id,
+          creature.nombre,
+          creature.PS,
+          creature.n_grumpidex,
+          creature.img_general,
+          creature.img_conseguir,
+          creature.descripcion,
+          creature.Ciclo1,
+          creature.Ciclo2,
+          creature.Ciclo3,
+          creature.tipo
+        );
+        console.log("Grumpi asignado correctamente al entrenador.");
+        resolve("Grumpi asignado correctamente al entrenador.");
+      }
+    } else {
+      reject(new Error(`Entrenador con nombre ${trainerName} no encontrado.`));
     }
-    trainer.grumpis.push(creature); // Asignar la criatura
-    saveTrainerData(); // Guardar los cambios en los datos de los entrenadores
-    return Promise.resolve("Criatura asignada correctamente al entrenador.");
-  } else {
-    return Promise.reject(
-      new Error(`Entrenador con nombre ${trainerName} no encontrado.`)
-    );
-  }
+  });
 }
 
 // Ruta de asignación de grumpis
@@ -737,16 +737,17 @@ app.post("/assign-creature", (req, res) => {
     .then((messages) => {
       res.status(200).json({
         message: "Criatura asignada con éxito a todos los entrenadores.",
+        details: messages // Enviar mensajes detallados de éxito
       });
     })
     .catch((error) => {
       console.error("Error al asignar el grumpi:", error);
       res.status(500).json({
-        error:
-          "Error al asignar el grumpi a los entrenadores: " + error.message,
+        error: "Error al asignar el grumpi a los entrenadores: " + error.message,
       });
     });
 });
+
 
 /**************************************************************
  *
