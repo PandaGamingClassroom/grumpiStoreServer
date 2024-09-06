@@ -28,6 +28,11 @@ const uploadDirEncargados = path.join(__dirname, "uploads", "encargados");
 const uploadDirLeagueBadges = path.join(__dirname, "uploads", "leagueBadges");
 const howToGetGrumpi = path.join(uploadDir, "howToGetGrumpis");
 
+/****************************************************************************
+ *                                                                          *
+ *    CONFIGURACIÓN PARA MONTAR UN SISTEMA DE ALMACENAMIENTO PERSISTENTE    *
+ *                                                                          *
+ ****************************************************************************/
 // Determina la ruta del directorio de la base de datos en función del entorno
 const isProduction = process.env.NODE_ENV === 'production';
 const dbDirectory = isProduction ? '/mnt/data' : path.join(__dirname, 'mnt/data');
@@ -56,107 +61,6 @@ if (fs.existsSync(dbPath)) {
     console.log('No se encontró el archivo de la base de datos.');
 }
 
-/******************************
- *
- *    CONFIGURACIÓN PARA GIT
- *
- ******************************/
-
-// Define la URL del repositorio remoto
-const repoUrl = 'git@github.com:PandaGamingClassroom/grumpiStoreServer.git';
-
-const git = simpleGit({
-  baseDir: path.resolve(__dirname),
-  binary: 'git',
-  maxConcurrentProcesses: 6,
-  config: [
-    'user.name=PandaGamingClassroom',
-    'user.email=gamificacionpanda@gmail.com',
-    'credential.helper=cache',
-  ],
-});
-
-git.outputHandler((command, stdout, stderr) => {
-  console.log(`Ejecutando comando: ${command}`);
-  stdout.pipe(process.stdout);
-  stderr.pipe(process.stderr);
-});
-
-// Función para configurar Git
-const configureGit = async () => {
-  try {
-    const isRepo = await git.checkIsRepo();
-    if (!isRepo) {
-      console.error('No se encuentra en un repositorio Git. Verifica la configuración.');
-      return;
-    }
-
-    // Configura la identidad del autor
-    await git.addConfig('user.name', 'PandaGamingClassroom');
-    await git.addConfig('user.email', 'gamificacionpanda@gmail.com');
-
-    const remotes = await git.getRemotes(true);
-    if (remotes.length === 0) {
-      console.log('No se ha configurado ningún remoto. Añadiendo remoto origin.');
-      await git.addRemote('origin', repoUrl);
-    } else {
-      console.log('Remoto origin ya configurado.');
-    }
-
-    console.log('Configuración de Git completa.');
-  } catch (error) {
-    console.error('Error al configurar Git:', error);
-  }
-};
-
-// Función para hacer commit y push
-const commitAndPush = async (filePath) => {
-  try {
-    console.log(`Detectado cambio en: ${filePath}`);
-
-    if (!fs.existsSync(filePath)) {
-      console.error(`El archivo no existe: ${filePath}`);
-      return;
-    }
-
-    await git.checkout('main');
-    
-    // Asegúrate de que la rama local esté configurada para rastrear la rama remota
-    await git.branch(['--set-upstream-to=origin/main', 'main']);
-    
-    await git.pull('origin', 'main');
-
-    await git.add(filePath);
-    await git.commit(`Actualización automática de ${path.basename(filePath)}`);
-    await git.push('origin', 'main');
-
-    console.log(`Commit y push realizados con éxito para: ${filePath}`);
-  } catch (error) {
-    console.error('Error al hacer commit y push:', error);
-  }
-};
-
-// Observador de cambios en el directorio
-const watchDirectory = path.join(__dirname, 'data');
-const watcher = chokidar.watch(watchDirectory, {
-  persistent: true,
-  ignoreInitial: true,
-  ignorePermissionErrors: true
-});
-
-// Llamada a configureGit antes de empezar a observar cambios
-const startWatching = async () => {
-  await configureGit();  // Configuramos Git antes de empezar a observar cambios
-
-  watcher.on('change', (filePath) => {
-    console.log(`Cambio detectado en: ${filePath}`);
-    commitAndPush(filePath);
-  });
-
-  console.log(`Observando cambios en el directorio: ${watchDirectory}`);
-};
-
-startWatching();
 
 /**
  *
