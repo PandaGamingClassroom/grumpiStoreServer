@@ -40,25 +40,25 @@ const dbPath = path.join(dbDirectory, 'grumpi_data_base.db');
 
 // Verificar y crear el directorio de la base de datos si no existe
 if (!fs.existsSync(dbDirectory)) {
-    fs.mkdirSync(dbDirectory, { recursive: true });
-    console.log(`Directorio creado: ${dbDirectory}`);
+  fs.mkdirSync(dbDirectory, { recursive: true });
+  console.log(`Directorio creado: ${dbDirectory}`);
 }
 
 // Inicializar la base de datos
 let db;
 try {
-    db = new Database(dbPath);
-    console.log(`Conectado a la base de datos en: ${dbPath}`);
+  db = new Database(dbPath);
+  console.log(`Conectado a la base de datos en: ${dbPath}`);
 } catch (error) {
-    console.error('Error al conectar con la base de datos:', error);
-    process.exit(1); // Salir si hay un error crítico al inicializar la base de datos
+  console.error('Error al conectar con la base de datos:', error);
+  process.exit(1); // Salir si hay un error crítico al inicializar la base de datos
 }
 
 // Verificar si el archivo de la base de datos existe
 if (fs.existsSync(dbPath)) {
-    console.log(`El archivo de la base de datos existe en: ${dbPath}`);
+  console.log(`El archivo de la base de datos existe en: ${dbPath}`);
 } else {
-    console.log('No se encontró el archivo de la base de datos.');
+  console.log('No se encontró el archivo de la base de datos.');
 }
 
 
@@ -118,12 +118,19 @@ function createTables() {
     CREATE TABLE IF NOT EXISTS trainers (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
-      password TEXT NOT NULL,
+      password TEXT,
       rol TEXT,
-      id_profesor INTEGER
+      id_profesor INTEGER,
+      grumpis TEXT, -- JSON como texto
+      medallas TEXT, -- JSON como texto
+      objetos_combate TEXT, -- JSON como texto
+      objetos_evolutivos TEXT, -- JSON como texto
+      marca_combate TEXT,
+      grumpidolar TEXT,
+      recompensas TEXT, -- JSON como texto
+      energies TEXT -- JSON como texto
     );
   `;
-
   const createGrumpisTable = `
     CREATE TABLE IF NOT EXISTS grumpis (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -291,7 +298,7 @@ app.get("/", (req, res) => {
  * 
  */
 app.post("/", (req, res) => {
-  const nuevoEntrenador = req.body; 
+  const nuevoEntrenador = req.body;
   try {
     const insert = db.prepare("INSERT INTO trainers (name, age, experience) VALUES (?, ?, ?)");
     insert.run(nuevoEntrenador.name, nuevoEntrenador.age, nuevoEntrenador.experience);
