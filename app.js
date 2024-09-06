@@ -1073,37 +1073,38 @@ app.post("/grumpis", upload.single("image"), (req, res) => {
   try {
     const grumpiData = JSON.parse(req.body.grumpiData);
 
-    // Definir la ruta al archivo grumpis.json
-    const grumpisFile = path.join(__dirname, "data", "grumpis.json");
-
-    let grumpis = [];
-    if (fs.existsSync(grumpisFile)) {
-      // Leer el archivo grumpis.json (si existe)
-      grumpis = JSON.parse(fs.readFileSync(grumpisFile, "utf8"));
-    } else {
-      console.log("El archivo grumpis.json no existe, se creará uno nuevo.");
+    // Verificar que el archivo ha sido cargado
+    if (!req.file) {
+      return res.status(400).json({ message: "No se ha cargado ninguna imagen" });
     }
-    // Asignar un ID único
-    grumpiData.id = grumpis.length + 1;
 
-    // Actualizar la URL de la imagen
+    // Definir la ruta a la imagen y actualizar la URL de la imagen
     const fileExt = path.extname(req.file.originalname);
-    grumpiData.img = `https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/grumpis/${grumpiData.numero}${fileExt}`;
+    const imageUrl = `https://grumpistoreserver.onrender.com/uploads/grumpis/${req.file.filename}${fileExt}`;
 
-    // Agregar el nuevo Grumpi a la lista
-    grumpis.push(grumpiData);
+    // Asignar la URL de la imagen al objeto grumpiData
+    grumpiData.img = imageUrl;
 
-    // Escribir los datos actualizados de vuelta al archivo grumpis.json
-    fs.writeFileSync(grumpisFile, JSON.stringify(grumpis, null, 2));
-    console.log("Grumpi guardado en grumpis.json:", grumpiData);
-    res
-      .status(201)
-      .json({ message: "Grumpi guardado correctamente", grumpi: grumpiData });
+    // Preparar la consulta SQL para insertar el nuevo grumpi
+    const query = `
+      INSERT INTO grumpis (nombre, PS,n_grumpidex, clase, img_general, img_conseguir, descripcion, Ciclo1, Ciclo2, Ciclo3, tipo, trainer_id )
+      VALUES (?, ?, ?, ?)
+    `;
+    const params = [grumpiData.numero, grumpiData.name, grumpiData.description, grumpiData.img];
+
+    db.run(query, params, function(err) {
+      if (err) {
+        console.error("Error al guardar el Grumpi en la base de datos:", err);
+        return res.status(500).json({ message: "Error al guardar el Grumpi", error: err.message });
+      }
+      
+      // Devolver una respuesta exitosa
+      console.log("Grumpi guardado en la base de datos:", grumpiData);
+      res.status(201).json({ message: "Grumpi guardado correctamente", grumpi: grumpiData });
+    });
   } catch (err) {
-    console.error("Error al guardar el Grumpi en grumpis.json", err); // Log the error details
-    res
-      .status(500)
-      .json({ message: "Error al guardar el Grumpi", error: err.message });
+    console.error("Error al procesar la solicitud de Grumpi", err);
+    res.status(500).json({ message: "Error al guardar el Grumpi", error: err.message });
   }
 });
 
