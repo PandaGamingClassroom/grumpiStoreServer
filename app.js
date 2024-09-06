@@ -1064,7 +1064,7 @@ app.get("/getAllAttacks", (req, res) => {
  */
 app.get("/getImageUrls", (req, res) => {
   // Lee todos los archivos en el directorio de imágenes
-  fs.readdir(uploadDir, (err, files) => {
+  fs.readdir(howToGetGrumpi, (err, files) => {
     if (err) {
       console.error("Error al leer el directorio de imágenes:", err);
       return res.status(500).json({ error: "Error interno del servidor" });
