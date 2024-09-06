@@ -432,22 +432,26 @@ app.put("/trainers/update/:name", (req, res) => {
     if (Array.isArray(objetosAEliminar)) {
       const energiasAEliminar = objetosAEliminar.filter(objeto => objeto.tipo === "energia");
       const medallasAEliminar = objetosAEliminar.filter(objeto => objeto.tipo === "medalla");
-      const grumpisAElimnar = objetosAEliminar.filter(objeto => objeto.tipo === "grumpi");
+      const grumpisAEliminar = objetosAEliminar.filter(objeto => objeto.tipo === "grumpi");
       const objCombateAEliminar = objetosAEliminar.filter(objeto => objeto.tipo === "combate");
       const objEvolutivoAEliminar = objetosAEliminar.filter(objeto => objeto.tipo === "evolutivo");
 
-      console.log('Objetos a eliminar:', { energiasAEliminar, medallasAEliminar, grumpisAElimnar, objCombateAEliminar, objEvolutivoAEliminar });
+      console.log('Objetos a eliminar:', { energiasAEliminar, medallasAEliminar, grumpisAEliminar, objCombateAEliminar, objEvolutivoAEliminar });
 
       if (energiasAEliminar.length > 0) {
-        deleteEnergiesFromTrainer(trainer, energiasAEliminar);
-      } else if (medallasAEliminar.length > 0) {
-        deleteMedalsFromTrainer(trainer, medallasAEliminar);
-      } else if (grumpisAElimnar.length > 0) {
-        editGrumpisFromTrainer(trainer, grumpisAElimnar);
-      } else if (objCombateAEliminar.length > 0) {
-        editObjCombat(trainer, objCombateAEliminar);
-      } else if (objEvolutivoAEliminar.length > 0) {
-        editObjEvolution(trainer, objEvolutivoAEliminar);
+        deleteEnergiesFromTrainer(trainer.id, energiasAEliminar);
+      }
+      if (medallasAEliminar.length > 0) {
+        deleteMedalsFromTrainer(trainer.id, medallasAEliminar);
+      }
+      if (grumpisAEliminar.length > 0) {
+        editGrumpisFromTrainer(trainer.id, grumpisAEliminar);
+      }
+      if (objCombateAEliminar.length > 0) {
+        editObjCombat(trainer.id, objCombateAEliminar);
+      }
+      if (objEvolutivoAEliminar.length > 0) {
+        editObjEvolution(trainer.id, objEvolutivoAEliminar);
       }
     }
 
@@ -459,6 +463,7 @@ app.put("/trainers/update/:name", (req, res) => {
 });
 
 
+
 /**
  * Función para eliminar solo las energías seleccionadas
  * de la lista de energías del entrenador.
@@ -466,56 +471,21 @@ app.put("/trainers/update/:name", (req, res) => {
  * @param {*} updatedTrainer Recibe los datos del enetrenador a editar.
  * @param {*} objetosAEliminar Recibe los datos del objeto a editar.
  */
-function deleteEnergiesFromTrainer(updatedTrainer, objetosAEliminar) {
-  // Añadir propiedad cantidad si no existe en las energías
-  updatedTrainer.energias.forEach((energia) => {
-    if (energia.cantidad === undefined) {
-      energia.cantidad = 1; // Asignar un valor predeterminado si no está presente
-    }
-  });
-
-  // Verificación y eliminación de energías
+function deleteEnergiesFromTrainer(trainerId, objetosAEliminar) {
   if (Array.isArray(objetosAEliminar) && objetosAEliminar.length > 0) {
     objetosAEliminar.forEach((energia) => {
-
-      // Buscar la energía existente en el entrenador
-      let existingEnergies = updatedTrainer.energias.filter(
-        (e) => e.nombre === energia.nombre
-      );
-
-      let remainingAmount = energia.cantidad;
-
-      existingEnergies.forEach((existingEnergy, index) => {
-        if (remainingAmount <= 0) return;
-
-        let reduceAmount = Math.min(existingEnergy.cantidad, remainingAmount);
-
-        existingEnergy.cantidad -= reduceAmount;
-        remainingAmount -= reduceAmount;
-
-        // Eliminar la energía si la cantidad es menor o igual a 0
-        if (existingEnergy.cantidad <= 0) {
-          updatedTrainer.energias.splice(
-            updatedTrainer.energias.indexOf(existingEnergy),
-            1
-          );
-        }
-      });
-
-      if (remainingAmount > 0) {
-        console.log(
-          `No se pudo eliminar toda la energía ${energia.nombre}. Quedaron ${remainingAmount} unidades sin eliminar.`
-        );
-      }
+      const deleteStmt = db.prepare(`
+        DELETE FROM energies
+        WHERE trainer_id = ? AND nombre = ?
+        LIMIT ?
+      `);
+      deleteStmt.run(trainerId, energia.nombre, energia.cantidad);
     });
   } else {
-    console.log(
-      "No hay energías a eliminar o el formato de objetosAEliminar es incorrecto."
-    );
+    console.log("No hay energías a eliminar o el formato de objetosAEliminar es incorrecto.");
   }
-
-  console.log("Energías después de eliminación: ", updatedTrainer.energias);
 }
+
 
 /**
  * Función para editar las medallas seleccionadas
@@ -524,69 +494,21 @@ function deleteEnergiesFromTrainer(updatedTrainer, objetosAEliminar) {
  * @param {*} updatedTrainer Recibe los datos del entrenador seleccionado.
  * @param {*} objetosAEliminar Recibe las medallas que se quieren editar del entrenador.
  */
-function deleteMedalsFromTrainer(updatedTrainer, objetosAEliminar) {
-  // Convertir updatedTrainer.medallas en un mapa para un acceso más eficiente
-  const medalMap = new Map();
-
-  updatedTrainer.medallas.forEach((medalla) => {
-    // Asignar un valor predeterminado si no está presente
-    medalMap.set(medalla, (medalMap.get(medalla) || 0) + 1);
-  });
-
-  // Depuración: Log antes de la eliminación
-  console.log(
-    "Medallas actuales en el entrenador: ",
-    Array.from(medalMap.entries())
-  );
-  console.log("Medallas a eliminar: ", objetosAEliminar);
-
-  // Verificación y eliminación de medallas
+function deleteMedalsFromTrainer(trainerId, objetosAEliminar) {
   if (Array.isArray(objetosAEliminar) && objetosAEliminar.length > 0) {
     objetosAEliminar.forEach((medalla) => {
-      console.log("Procesando medalla para eliminar: ", medalla);
-
-      // Buscar la medalla existente en el mapa
-      if (medalMap.has(medalla.nombre)) {
-        let remainingAmount = medalla.cantidad;
-        let currentAmount = medalMap.get(medalla.nombre);
-
-        if (remainingAmount >= currentAmount) {
-          // Si la cantidad a eliminar es mayor o igual a la cantidad actual, eliminar todas las instancias
-          medalMap.delete(medalla.nombre);
-        } else {
-          // Reducir la cantidad actual
-          medalMap.set(medalla.nombre, currentAmount - remainingAmount);
-        }
-
-        console.log(
-          `Medalla ${medalla.nombre} procesada. Cantidad restante: ${remainingAmount}`
-        );
-      } else {
-        console.log(
-          `Medalla ${medalla.nombre} no encontrada en el inventario.`
-        );
-      }
+      const deleteStmt = db.prepare(`
+        DELETE FROM medallas
+        WHERE trainer_id = ? AND nombre = ?
+        LIMIT ?
+      `);
+      deleteStmt.run(trainerId, medalla.nombre, medalla.cantidad);
     });
   } else {
-    console.log(
-      "No hay medallas a eliminar o el formato de objetosAEliminar es incorrecto."
-    );
+    console.log("No hay medallas a eliminar o el formato de objetosAEliminar es incorrecto.");
   }
-
-  // Actualizar updatedTrainer.medallas con las medallas restantes
-  updatedTrainer.medallas = Array.from(medalMap.entries()).flatMap(
-    ([url, count]) => {
-      // Verificar que count es un número válido antes de usarlo
-      if (typeof count === "number" && count > 0) {
-        return Array(count).fill(url);
-      } else {
-        return [];
-      }
-    }
-  );
-
-  console.log("Medallas después de eliminación: ", updatedTrainer.medallas);
 }
+
 
 /**
  * Función para editar los Grumpis seleccionados del entrenador.
@@ -594,52 +516,53 @@ function deleteMedalsFromTrainer(updatedTrainer, objetosAEliminar) {
  * @param {*} updatedTrainer Recibe la información del entrenador seleccionado.
  * @param {*} objetosAEliminar Recibe los Grumpis a editar de la lista del entrenador.
  */
-function editGrumpisFromTrainer(updatedTrainer, objetosAEliminar) {
-  updatedTrainer.grumpis.forEach((grumpi) => {
-    if (!Number.isFinite(grumpi.cantidad)) {
-      grumpi.cantidad = 1;
-    }
-  });
-
+function editGrumpisFromTrainer(trainerId, objetosAEliminar) {
   if (Array.isArray(objetosAEliminar) && objetosAEliminar.length > 0) {
     objetosAEliminar.forEach((grumpi) => {
       console.log("Procesando grumpi para eliminar: ", grumpi);
 
-      let existingGrumpis = updatedTrainer.grumpis.filter(
-        (e) => e.nombre === grumpi.nombre
-      );
+      // Convertir la cantidad a un valor numérico si es necesario
+      let cantidadAEliminar = grumpi.cantidad || 1;
 
-      let remainingAmount = grumpi.cantidad || 1;
+      // Buscar grumpis del entrenador que coincidan con el nombre
+      const existingGrumpis = db.prepare(`
+        SELECT id, cantidad FROM grumpis
+        WHERE trainer_id = ? AND nombre = ?
+      `).all(trainerId, grumpi.nombre);
 
       existingGrumpis.forEach((existingGrumpi) => {
-        if (remainingAmount <= 0) return;
+        if (cantidadAEliminar <= 0) return;
 
-        let reduceAmount = Math.min(existingGrumpi.cantidad, remainingAmount);
+        // Reducir la cantidad y actualizar o eliminar si es necesario
+        let reduceAmount = Math.min(existingGrumpi.cantidad, cantidadAEliminar);
 
-        existingGrumpi.cantidad -= reduceAmount;
-        remainingAmount -= reduceAmount;
+        if (existingGrumpi.cantidad <= reduceAmount) {
+          db.prepare(`
+            DELETE FROM grumpis
+            WHERE id = ?
+          `).run(existingGrumpi.id);
+        } else {
+          db.prepare(`
+            UPDATE grumpis
+            SET cantidad = ?
+            WHERE id = ?
+          `).run(existingGrumpi.cantidad - reduceAmount, existingGrumpi.id);
+        }
 
-        if (existingGrumpi.cantidad <= 0) {
-          const index = updatedTrainer.grumpis.indexOf(existingGrumpi);
-          if (index > -1) {
-            updatedTrainer.grumpis.splice(index, 1);
-          }
+        cantidadAEliminar -= reduceAmount;
+
+        if (cantidadAEliminar > 0) {
+          console.log(
+            `No se pudo eliminar toda la cantidad del grumpi ${grumpi.nombre}. Quedaron ${cantidadAEliminar} unidades sin eliminar.`
+          );
         }
       });
-
-      if (remainingAmount > 0) {
-        console.log(
-          `No se pudo eliminar todo el grumpi ${grumpi.nombre}. Quedaron ${remainingAmount} unidades sin eliminar.`
-        );
-      }
     });
   } else {
-    console.log(
-      "No hay grumpis a eliminar o el formato de objetosAEliminar es incorrecto."
-    );
+    console.log("No hay grumpis a eliminar o el formato de objetosAEliminar es incorrecto.");
   }
-  console.log("Grumpis después de la eliminación: ", updatedTrainer.grumpis);
 }
+
 
 /**
  * Función para editar los objetos de combate seleccionados.
@@ -647,63 +570,51 @@ function editGrumpisFromTrainer(updatedTrainer, objetosAEliminar) {
  * @param {*} updatedTrainer Recibe los datos del entrenador seleccionado.
  * @param {*} objetosAEliminar Recibe los objetos de combate a editar del listado del entrenador.
  */
-function editObjCombat(updatedTrainer, objetosAEliminar) {
-  updatedTrainer.objetos_combate.forEach((objeto) => {
-    if (objeto.cantidad === undefined) {
-      objeto.cantidad = 1;
-    }
-  });
-
-  console.log(
-    "Objetos de combate actuales en el entrenador: ",
-    updatedTrainer.energias
-  );
-  console.log("Objetos de combate a eliminar: ", objetosAEliminar);
-
+function editObjCombat(trainerId, objetosAEliminar) {
   if (Array.isArray(objetosAEliminar) && objetosAEliminar.length > 0) {
     objetosAEliminar.forEach((objeto) => {
       console.log("Procesando objeto de combate para eliminar: ", objeto);
 
-      let existingObjCombats = updatedTrainer.objetos_combate.filter(
-        (e) => e.nombre === objeto.nombre
-      );
+      // Convertir la cantidad a un valor numérico si es necesario
+      let cantidadAEliminar = objeto.cantidad || 1;
 
-      let remainingAmount = objeto.cantidad;
+      // Buscar objetos de combate del entrenador que coincidan con el nombre
+      const existingObjCombats = db.prepare(`
+        SELECT id, cantidad FROM objetos_combate
+        WHERE trainer_id = ? AND nombre = ?
+      `).all(trainerId, objeto.nombre);
 
-      existingObjCombats.forEach((existingObjCombat, index) => {
-        if (remainingAmount <= 0) return;
+      existingObjCombats.forEach((existingObjCombat) => {
+        if (cantidadAEliminar <= 0) return;
 
-        let reduceAmount = Math.min(
-          existingObjCombat.cantidad,
-          remainingAmount
-        );
+        // Reducir la cantidad y actualizar o eliminar si es necesario
+        let reduceAmount = Math.min(existingObjCombat.cantidad, cantidadAEliminar);
 
-        existingObjCombat.cantidad -= reduceAmount;
-        remainingAmount -= reduceAmount;
+        if (existingObjCombat.cantidad <= reduceAmount) {
+          db.prepare(`
+            DELETE FROM objetos_combate
+            WHERE id = ?
+          `).run(existingObjCombat.id);
+        } else {
+          db.prepare(`
+            UPDATE objetos_combate
+            SET cantidad = ?
+            WHERE id = ?
+          `).run(existingObjCombat.cantidad - reduceAmount, existingObjCombat.id);
+        }
 
-        if (existingObjCombat.cantidad <= 0) {
-          updatedTrainer.objetos_combate.splice(
-            updatedTrainer.objetos_combate.indexOf(existingObjCombat),
-            1
+        cantidadAEliminar -= reduceAmount;
+
+        if (cantidadAEliminar > 0) {
+          console.log(
+            `No se pudo eliminar toda la cantidad del objeto de combate ${objeto.nombre}. Quedaron ${cantidadAEliminar} unidades sin eliminar.`
           );
         }
       });
-
-      if (remainingAmount > 0) {
-        console.log(
-          `No se pudo eliminar el objeto de combate ${objeto.nombre}. Quedaron ${remainingAmount} unidades sin eliminar.`
-        );
-      }
     });
   } else {
-    console.log(
-      "No hay objetos de combate a eliminar o el formato de objetosAEliminar es incorrecto."
-    );
+    console.log("No hay objetos de combate a eliminar o el formato de objetosAEliminar es incorrecto.");
   }
-  console.log(
-    "Objetos de combate después de eliminación: ",
-    updatedTrainer.objetos_combate
-  );
 }
 
 /**
@@ -711,64 +622,53 @@ function editObjCombat(updatedTrainer, objetosAEliminar) {
  * @param {*} updatedTrainer
  * @param {*} objetosAEliminar
  */
-function editObjEvolution(updatedTrainer, objetosAEliminar) {
-  updatedTrainer.objetos_evolutivos.forEach((objEvo) => {
-    if (objEvo.cantidad === undefined) {
-      objEvo.cantidad = 1;
-    }
-  });
-
-  console.log(
-    "Objetos evolutivos actuales en el entrenador: ",
-    updatedTrainer.objetos_evolutivos
-  );
-  console.log("Objetos evolutivos a eliminar: ", objetosAEliminar);
-
+function editObjEvolution(trainerId, objetosAEliminar) {
   if (Array.isArray(objetosAEliminar) && objetosAEliminar.length > 0) {
     objetosAEliminar.forEach((objEvolu) => {
       console.log("Procesando objeto evolutivo para eliminar: ", objEvolu);
 
-      let existingObjEvolutions = updatedTrainer.objetos_evolutivos.filter(
-        (e) => e.nombre === objEvolu.nombre
-      );
+      // Convertir la cantidad a un valor numérico si es necesario
+      let cantidadAEliminar = objEvolu.cantidad || 1;
 
-      let remainingAmount = objEvolu.cantidad;
+      // Buscar objetos evolutivos del entrenador que coincidan con el nombre
+      const existingObjEvolutions = db.prepare(`
+        SELECT id, cantidad FROM objetos_evolutivos
+        WHERE trainer_id = ? AND nombre = ?
+      `).all(trainerId, objEvolu.nombre);
 
-      existingObjEvolutions.forEach((existingObjEvolution, index) => {
-        if (remainingAmount <= 0) return;
+      existingObjEvolutions.forEach((existingObjEvolution) => {
+        if (cantidadAEliminar <= 0) return;
 
-        let reduceAmount = Math.min(
-          existingObjEvolution.cantidad,
-          remainingAmount
-        );
+        // Reducir la cantidad y actualizar o eliminar si es necesario
+        let reduceAmount = Math.min(existingObjEvolution.cantidad, cantidadAEliminar);
 
-        existingObjEvolution.cantidad -= reduceAmount;
-        remainingAmount -= reduceAmount;
+        if (existingObjEvolution.cantidad <= reduceAmount) {
+          db.prepare(`
+            DELETE FROM objetos_evolutivos
+            WHERE id = ?
+          `).run(existingObjEvolution.id);
+        } else {
+          db.prepare(`
+            UPDATE objetos_evolutivos
+            SET cantidad = ?
+            WHERE id = ?
+          `).run(existingObjEvolution.cantidad - reduceAmount, existingObjEvolution.id);
+        }
 
-        if (existingObjEvolution.cantidad <= 0) {
-          updatedTrainer.objetos_evolutivos.splice(
-            updatedTrainer.objetos_evolutivos.indexOf(existingObjEvolution),
-            1
+        cantidadAEliminar -= reduceAmount;
+
+        if (cantidadAEliminar > 0) {
+          console.log(
+            `No se pudo eliminar toda la cantidad del objeto evolutivo ${objEvolu.nombre}. Quedaron ${cantidadAEliminar} unidades sin eliminar.`
           );
         }
       });
-
-      if (remainingAmount > 0) {
-        console.log(
-          `No se pudo eliminar el objeto evolutivo ${objEvolu.nombre}. Quedaron ${remainingAmount} unidades sin eliminar.`
-        );
-      }
     });
   } else {
-    console.log(
-      "No hay objetos evolutivos a eliminar o el formato de objetosAEliminar es incorrecto."
-    );
+    console.log("No hay objetos evolutivos a eliminar o el formato de objetosAEliminar es incorrecto.");
   }
-  console.log(
-    "Objetos evolutivos después de eliminación: ",
-    updatedTrainer.objetos_evolutivos
-  );
 }
+
 
 /********************************************************************
  *
