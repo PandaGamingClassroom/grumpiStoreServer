@@ -970,37 +970,20 @@ app.post("/assignGrumpidolares-after-buy", (req, res) => {
 app.get("/trainer/:nombre", (req, res) => {
   const nombre = req.params.nombre;
 
-  // Lee los datos del archivo trainers.json
-  fs.readFile(filePath, "utf8", (err, data) => {
-    if (err) {
-      console.error("Error al leer el archivo trainers.json:", err);
-      return res
-        .status(500)
-        .json({ success: false, error: "Error interno del servidor" });
+  try {
+    const trainer = db.prepare("SELECT * FROM trainers WHERE name = ?").get(nombre);
+
+    if (!trainer) {
+      return res.status(200).json({ success: false, error: "Entrenador no encontrado" });
     }
 
-    try {
-      const trainerList = JSON.parse(data);
-      // Busca el entrenador por nombre en la lista
-      const trainer = trainerList.find((trainer) => trainer.name === nombre);
-
-      if (!trainer) {
-        // Si no se encuentra ningún entrenador con ese nombre, devuelve un mensaje de error
-        res
-          .status(200)
-          .json({ success: false, error: "Entrenador no encontrado" });
-      } else {
-        // Si se encuentra el entrenador, devuelve sus datos
-        res.json({ success: true, data: trainer });
-      }
-    } catch (error) {
-      console.error("Error al parsear el archivo trainers.json:", error);
-      res
-        .status(500)
-        .json({ success: false, error: "Error interno del servidor" });
-    }
-  });
+    res.json({ success: true, data: trainer });
+  } catch (error) {
+    console.error("Error al obtener la información del entrenador desde la base de datos:", error);
+    res.status(500).json({ success: false, error: "Error interno del servidor" });
+  }
 });
+
 
 /***************************************************************
  *                                                              *
