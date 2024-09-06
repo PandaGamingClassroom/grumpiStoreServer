@@ -397,12 +397,14 @@ app.put("/trainers/update/:name", (req, res) => {
   } = req.body;
 
   try {
+    // Obtener el entrenador
     const trainer = db.prepare("SELECT * FROM trainers WHERE name = ?").get(trainerName);
 
     if (!trainer) {
       return res.status(404).json({ error: "Entrenador no encontrado" });
     }
 
+    // Actualizar los campos del entrenador
     if (trainer_name !== undefined) {
       trainer.name = trainer_name;
     }
@@ -416,6 +418,7 @@ app.put("/trainers/update/:name", (req, res) => {
       trainer.marca_combate = combatMark;
     }
 
+    // Actualizar el entrenador en la base de datos
     const updateStmt = db.prepare(`
       UPDATE trainers 
       SET name = ?, password = ?, grumpidolar = ?, marca_combate = ? 
@@ -423,12 +426,17 @@ app.put("/trainers/update/:name", (req, res) => {
     `);
     updateStmt.run(trainer.name, trainer.password, trainer.grumpidolar, trainer.marca_combate, trainer.id);
 
+    console.log('Trainer actualizado:', trainer); // Log para depurar
+
+    // Manejo de objetosAEliminar
     if (Array.isArray(objetosAEliminar)) {
       const energiasAEliminar = objetosAEliminar.filter(objeto => objeto.tipo === "energia");
       const medallasAEliminar = objetosAEliminar.filter(objeto => objeto.tipo === "medalla");
       const grumpisAElimnar = objetosAEliminar.filter(objeto => objeto.tipo === "grumpi");
       const objCombateAEliminar = objetosAEliminar.filter(objeto => objeto.tipo === "combate");
       const objEvolutivoAEliminar = objetosAEliminar.filter(objeto => objeto.tipo === "evolutivo");
+
+      console.log('Objetos a eliminar:', { energiasAEliminar, medallasAEliminar, grumpisAElimnar, objCombateAEliminar, objEvolutivoAEliminar });
 
       if (energiasAEliminar.length > 0) {
         deleteEnergiesFromTrainer(trainer, energiasAEliminar);
@@ -449,6 +457,7 @@ app.put("/trainers/update/:name", (req, res) => {
     res.status(500).json({ error: "Error interno del servidor" });
   }
 });
+
 
 /**
  * Función para eliminar solo las energías seleccionadas
