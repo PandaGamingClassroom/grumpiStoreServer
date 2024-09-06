@@ -740,7 +740,7 @@ function editObjEvolution(trainerId, objetosAEliminar) {
 
 /********************************************************************
  *
- *            ASIGNACIÓN DE grumpis A LOS ENTRENADORES
+ *            ASIGNACIÓN DE GRUMPIS A LOS ENTRENADORES
  *
  *******************************************************************/
 
@@ -820,25 +820,6 @@ app.post("/assign-creature", (req, res) => {
  *    ASIGNACIÓN DE GRUMPIDOLARES A LOS ENTRENADORES
  *
  *************************************************************/
-try {
-  const data = fs.readFileSync(filePath, "utf8");
-  trainerData = JSON.parse(data);
-
-  if (!Array.isArray(trainerData)) {
-    throw new Error("Los datos de entrenadores no son un array.");
-  }
-
-  trainerData.forEach((trainer) => {
-    if (typeof trainer.grumpidolar === "undefined") {
-      trainer.grumpidolar = 0;
-    }
-  });
-
-  console.log("Datos de entrenadores cargados correctamente:", trainerData);
-} catch (err) {
-  console.error("Error al leer el archivo de entrenadores:", err);
-}
-
 function saveTrainerData() {
   fs.writeFile(filePath, JSON.stringify(trainerData, null, 2), (err) => {
     if (err) {
@@ -860,20 +841,18 @@ function assignGrumpidolaresToTrainer(trainerName, grumpidolar) {
       return reject("Grumpidólares debe ser un número positivo.");
     }
 
-    const trainer = trainerData.find((trainer) => trainer.name === trainerName);
+    const trainer = db.prepare("SELECT * FROM trainers WHERE name = ?").get(trainerName);
+
     if (trainer) {
       console.log("Entrenador encontrado:", trainer);
 
-      // Asegurarse de que trainer.grumpidolar es un número antes de sumar
-      trainer.grumpidolar = Number(trainer.grumpidolar) || 0;
-      trainer.grumpidolar += grumpidolaresNumber;
+      const currentGrumpidolares = Number(trainer.grumpidolar) || 0;
+      const newGrumpidolares = currentGrumpidolares + grumpidolaresNumber;
 
-      console.log(
-        "Cantidad de Grumpidólares después de la asignación:",
-        trainer.grumpidolar
-      );
+      const updateStmt = db.prepare("UPDATE trainers SET grumpidolar = ? WHERE id = ?");
+      updateStmt.run(newGrumpidolares, trainer.id);
 
-      saveTrainerData();
+      console.log("Cantidad de Grumpidólares después de la asignación:", newGrumpidolares);
       resolve("Grumpidólares asignados correctamente al entrenador.");
     } else {
       reject(`Entrenador con nombre ${trainerName} no encontrado.`);
@@ -884,7 +863,8 @@ function assignGrumpidolaresToTrainer(trainerName, grumpidolar) {
 app.post("/assign-grumpidolares", (req, res) => {
   const { trainerName, grumpidolar } = req.body;
   console.log("Datos de la solicitud:", req.body);
-  assignGrumpidolaresToTrainer(trainerName, req.body.grumpidolares)
+
+  assignGrumpidolaresToTrainer(trainerName, grumpidolar)
     .then((message) => {
       res.status(200).json({ message: message });
     })
@@ -893,6 +873,7 @@ app.post("/assign-grumpidolares", (req, res) => {
       res.status(400).json({ error: error });
     });
 });
+
 
 /**
  *
@@ -911,26 +892,24 @@ function assignGrumpidolaresAfterBuyToTrainer(trainerName, grumpidolar) {
       return reject("Grumpidólares debe ser un número positivo.");
     }
 
-    const trainer = trainerData.find((trainer) => trainer.name === trainerName);
+    // Buscar al entrenador en la base de datos
+    const trainer = db.prepare("SELECT * FROM trainers WHERE name = ?").get(trainerName);
+
     if (trainer) {
       console.log("Entrenador encontrado:", trainer);
 
-      // Asegurarse de que trainer.grumpidolar es un número antes de sumar
-      trainer.grumpidolar = Number(trainer.grumpidolar) || 0;
-      trainer.grumpidolar = grumpidolaresNumber;
+      // Actualizar la cantidad de Grumpidólares del entrenador en la base de datos
+      const updateStmt = db.prepare("UPDATE trainers SET grumpidolar = ? WHERE id = ?");
+      updateStmt.run(grumpidolaresNumber, trainer.id);
 
-      console.log(
-        "Cantidad de Grumpidólares después de la compra:",
-        trainer.grumpidolar
-      );
-
-      saveTrainerData();
+      console.log("Cantidad de Grumpidólares después de la compra:", grumpidolaresNumber);
       resolve("Grumpidólares asignados correctamente al entrenador.");
     } else {
       reject(`Entrenador con nombre ${trainerName} no encontrado.`);
     }
   });
 }
+
 
 app.post("/assignGrumpidolares-after-buy", (req, res) => {
   console.log("Datos de la solicitud:", req.body);
