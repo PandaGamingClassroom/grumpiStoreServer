@@ -35,7 +35,7 @@ const uploadDirLeagueBadges = path.join(__dirname, "uploads", "leagueBadges");
 const howToGetGrumpi = path.join(uploadDir, "howToGetGrumpis");
 
 module.exports = app;
-
+/*
 // Determina la ruta del directorio en función del entorno
 const isProduction = process.env.NODE_ENV === 'production';
 const dbDirectory = isProduction ? '/mnt/data' : path.join(__dirname, 'mnt/data');
@@ -61,7 +61,7 @@ if (fs.existsSync(dbPath)) {
   console.log(`El archivo de la base de datos existe en: ${dbPath}`);
 } else {
   console.log('No se encontró el archivo de la base de datos.');
-}
+}*/
 
 /******************************
  *
