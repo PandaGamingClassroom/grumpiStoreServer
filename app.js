@@ -2,16 +2,16 @@ const express = require("express");
 const app = express();
 const multer = require("multer");
 const cors = require("cors");
-//const sqlite3 = require("sqlite3").verbose();
 const fs = require("fs");
 const chokidar = require('chokidar');
 const simpleGit = require('simple-git');
-const PORT = process.env.PORT || 3000;
+const path = require('path');
 const Database = require('better-sqlite3');
+const PORT = process.env.PORT || 3000;
 
-/**********************
- *  RUTAS DE ACCESO
- *********************/
+module.exports = app;
+
+// RUTAS DE ACCESO
 const filePath = "./data/trainers.json";
 const filePathAmin = "./data/admin.json";
 const filePathGrumpis = "./data/grumpis.json";
@@ -20,13 +20,7 @@ const filePathObjectsEvolution = "./data/evolutionObjects.json";
 const filePathRewards = "./data/rewards.json";
 const filePathAttacks = "./data/attacks.json";
 
-/**
- * Comprobación de que el directorio
- * donde se están almacenando las imágenes
- * existe correctamente
- *
- */
-const path = require('path');
+// Directorios de almacenamiento de imágenes
 const uploadDir = path.join(__dirname, "uploads", "grumpis");
 const uploadDirMedals = path.join(__dirname, "uploads", "medals");
 const uploadDirEnergies = path.join(__dirname, "uploads", "energies");
@@ -34,33 +28,32 @@ const uploadDirEncargados = path.join(__dirname, "uploads", "encargados");
 const uploadDirLeagueBadges = path.join(__dirname, "uploads", "leagueBadges");
 const howToGetGrumpi = path.join(uploadDir, "howToGetGrumpis");
 
-module.exports = app;
-
-// Determina la ruta del directorio en función del entorno
+// Determina la ruta del directorio de la base de datos en función del entorno
 const isProduction = process.env.NODE_ENV === 'production';
 const dbDirectory = isProduction ? '/mnt/data' : path.join(__dirname, 'mnt/data');
 const dbPath = path.join(dbDirectory, 'grumpi_data_base.db');
 
-// Asegúrate de que el directorio existe
+// Verificar y crear el directorio de la base de datos si no existe
 if (!fs.existsSync(dbDirectory)) {
-    console.error(`El directorio de disco persistente ${dbDirectory} no existe.`);
-    process.exit(1);
-}
-
-if (!fs.existsSync(dbPath)) {
-    // Crea el directorio si no existe
     fs.mkdirSync(dbDirectory, { recursive: true });
-    console.log('Directorio creado:', dbDirectory);
+    console.log(`Directorio creado: ${dbDirectory}`);
 }
 
-// Crear la base de datos
-const db = new Database(dbPath);
+// Inicializar la base de datos
+let db;
+try {
+    db = new Database(dbPath);
+    console.log(`Conectado a la base de datos en: ${dbPath}`);
+} catch (error) {
+    console.error('Error al conectar con la base de datos:', error);
+    process.exit(1); // Salir si hay un error crítico al inicializar la base de datos
+}
 
-// Verifica si el archivo de la base de datos existe
+// Verificar si el archivo de la base de datos existe
 if (fs.existsSync(dbPath)) {
-  console.log(`El archivo de la base de datos existe en: ${dbPath}`);
+    console.log(`El archivo de la base de datos existe en: ${dbPath}`);
 } else {
-  console.log('No se encontró el archivo de la base de datos.');
+    console.log('No se encontró el archivo de la base de datos.');
 }
 
 /******************************
