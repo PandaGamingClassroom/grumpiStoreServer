@@ -750,7 +750,7 @@ function assignCreatureToTrainer(trainerName, creature) {
       } else {
         // Si el grumpi no existe, insertarlo
         const insertStmt = db.prepare(`
-          INSERT INTO grumpis (trainer_id, nombre, PS, n_grumpidex, img, descripcion, Ciclo1, Ciclo2, Ciclo3, tipo)
+          INSERT INTO grumpis (trainer_id, nombre, PS, n_grumpidex, img_general, img_conseguir, descripcion, Ciclo1, Ciclo2, Ciclo3, tipo)
           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `);
         insertStmt.run(
