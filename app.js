@@ -733,47 +733,63 @@ function editObjEvolution(trainerId, objetosAEliminar) {
  *******************************************************************/
 // Función para asignar un grumpi a un entrenador
 function assignCreatureToTrainer(trainerName, creature) {
-  return new Promise((resolve, reject) => {
-    // Buscar el entrenador en la base de datos
-    const trainer = db.prepare("SELECT * FROM trainers WHERE name = ?").get(trainerName);
+  console.log("Grumpi para asignar al entrenador: ", creature);
+  
+  // Obtener el entrenador
+  const trainer = db.prepare("SELECT * FROM trainers WHERE name = ?").get(trainerName);
 
-    if (trainer) {
-      // Verificar si el grumpi ya existe en la base de datos
-      const existingGrumpi = db.prepare("SELECT * FROM grumpis WHERE nombre = ? AND trainer_id = ?").get(creature.nombre, trainer.id);
+  if (trainer) {
+    // Verificar si el grumpi ya existe para el entrenador
+    const existingGrumpi = db.prepare("SELECT * FROM grumpis WHERE nombre = ? AND trainer_id = ?").get(creature.nombre, trainer.id);
 
-      if (existingGrumpi) {
-        // Si el grumpi ya existe, actualizar la cantidad de PS
-        const updateStmt = db.prepare("UPDATE grumpis SET PS = ? WHERE id = ?");
-        updateStmt.run(creature.PS, existingGrumpi.id);
-        console.log("Grumpi actualizado para el entrenador.");
-        resolve("Grumpi actualizado para el entrenador.");
-      } else {
-        // Si el grumpi no existe, insertarlo
-        const insertStmt = db.prepare(`
-          INSERT INTO grumpis (trainer_id, nombre, PS, n_grumpidex, img_general, img_conseguir, descripcion, Ciclo1, Ciclo2, Ciclo3, tipo)
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        `);
-        insertStmt.run(
-          trainer.id,
-          creature.nombre,
-          creature.PS,
-          creature.n_grumpidex,
-          creature.img_general,
-          creature.img_conseguir,
-          creature.descripcion,
-          creature.Ciclo1,
-          creature.Ciclo2,
-          creature.Ciclo3,
-          creature.tipo
-        );
-        console.log("Grumpi asignado correctamente al entrenador.");
-        resolve("Grumpi asignado correctamente al entrenador.");
-      }
+    if (existingGrumpi) {
+      // Actualizar el grumpi existente
+      const updateStmt = db.prepare(`
+        UPDATE grumpis
+        SET PS = ?, n_grumpidex = ?, img_general = ?, img_conseguir = ?, descripcion = ?, Ciclo1 = ?, Ciclo2 = ?, Ciclo3 = ?, tipo = ?
+        WHERE id = ?
+      `);
+      updateStmt.run(
+        creature.PS,
+        creature.n_grumpidex,
+        creature.img_general,
+        creature.img_conseguir,
+        creature.descripcion,
+        creature.Ciclo1,
+        creature.Ciclo2,
+        creature.Ciclo3,
+        creature.tipo,
+        existingGrumpi.id
+      );
+      console.log("Grumpi actualizado para el entrenador.");
     } else {
-      reject(new Error(`Entrenador con nombre ${trainerName} no encontrado.`));
+      // Insertar un nuevo grumpi
+      const insertStmt = db.prepare(`
+        INSERT INTO grumpis (trainer_id, nombre, PS, n_grumpidex, img_general, img_conseguir, descripcion, Ciclo1, Ciclo2, Ciclo3, tipo)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `);
+      insertStmt.run(
+        trainer.id,
+        creature.nombre,
+        creature.PS,
+        creature.n_grumpidex,
+        creature.img_general,
+        creature.img_conseguir,
+        creature.descripcion,
+        creature.Ciclo1,
+        creature.Ciclo2,
+        creature.Ciclo3,
+        creature.tipo
+      );
+      console.log("Grumpi asignado correctamente al entrenador.");
     }
-  });
+
+    return Promise.resolve("Criatura asignada correctamente al entrenador.");
+  } else {
+    return Promise.reject(new Error(`Entrenador con nombre ${trainerName} no encontrado.`));
+  }
 }
+
 
 // Ruta de asignación de grumpis
 app.post("/assign-creature", (req, res) => {
