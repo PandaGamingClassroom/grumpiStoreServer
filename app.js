@@ -386,90 +386,61 @@ app.put("/trainers/update/:name", (req, res) => {
     trainer_pass,
     grumpidolar,
     combatMark,
-    objetosAEliminar, // Usar el nombre correcto
-    medalsToRemove,
+    objetosAEliminar,
   } = req.body;
 
-  fs.readFile(filePath, "utf8", (err, data) => {
-    if (err) {
-      res.status(500).json({ error: `Error al leer el fichero [${filePath}]` });
-      return;
+  try {
+    const trainer = db.prepare("SELECT * FROM trainers WHERE name = ?").get(trainerName);
+
+    if (!trainer) {
+      return res.status(404).json({ error: "Entrenador no encontrado" });
     }
 
-    let trainers = JSON.parse(data);
-    let trainerIndex = trainers.findIndex((t) => t.name === trainerName);
-
-    if (trainerIndex !== -1) {
-      let updatedTrainer = trainers[trainerIndex];
-
-      if (trainer_name !== undefined) {
-        updatedTrainer.name = trainer_name;
-      }
-      if (trainer_pass !== undefined) {
-        updatedTrainer.password = trainer_pass;
-      }
-      if (grumpidolar !== undefined) {
-        updatedTrainer.grumpidolar = grumpidolar;
-      }
-      if (combatMark !== undefined) {
-        updatedTrainer.marca_combate = combatMark;
-      }
-
-      /**
-       *
-       * Se comprueba el tipo de objeto que se va a editar
-       * para hacer la llamada a su función correspondiente.
-       *
-       */
-      if (Array.isArray(objetosAEliminar)) {
-        const energiasAEliminar = objetosAEliminar.filter(
-          (objeto) => objeto.tipo === "energia"
-        );
-        const medallasAEliminar = objetosAEliminar.filter(
-          (objeto) => objeto.tipo === "medalla"
-        );
-        const grumpisAElimnar = objetosAEliminar.filter(
-          (objeto) => objeto.tipo === "grumpi"
-        );
-        const objCombateAEliminar = objetosAEliminar.filter(
-          (objeto) => objeto.tipo === "combate"
-        );
-        const objEvolutivoAEliminar = objetosAEliminar.filter(
-          (objeto) => objeto.tipo === "evolutivo"
-        );
-
-        if (energiasAEliminar.length > 0) {
-          deleteEnergiesFromTrainer(updatedTrainer, energiasAEliminar);
-        } else if (medallasAEliminar.length > 0) {
-          deleteMedalsFromTrainer(updatedTrainer, medallasAEliminar);
-        } else if (grumpisAElimnar.length > 0) {
-          editGrumpisFromTrainer(updatedTrainer, grumpisAElimnar);
-        } else if (objCombateAEliminar.length > 0) {
-          editObjCombat(updatedTrainer, objCombateAEliminar);
-        } else if (objEvolutivoAEliminar.length > 0) {
-          editObjEvolution(updatedTrainer, objEvolutivoAEliminar);
-        }
-      }
-
-      /**
-       * Si todo ha salido  bien, se actualiza el fichero
-       * donde está almacenada la información de los entrenadores.
-       */
-      fs.writeFile(filePath, JSON.stringify(trainers, null, 2), (err) => {
-        if (err) {
-          res
-            .status(500)
-            .json({ error: `Error al escribir en el fichero [${filePath}]` });
-          return;
-        }
-        res
-          .status(200)
-          .json({ message: "Entrenador actualizado correctamente" });
-      });
-    } else {
-      res.status(404).json({ error: "Entrenador no encontrado" });
+    if (trainer_name !== undefined) {
+      trainer.name = trainer_name;
     }
-  });
+    if (trainer_pass !== undefined) {
+      trainer.password = trainer_pass;
+    }
+    if (grumpidolar !== undefined) {
+      trainer.grumpidolar = grumpidolar;
+    }
+    if (combatMark !== undefined) {
+      trainer.marca_combate = combatMark;
+    }
+
+    const updateStmt = db.prepare(`
+      UPDATE trainers 
+      SET name = ?, password = ?, grumpidolar = ?, marca_combate = ? 
+      WHERE id = ?
+    `);
+    updateStmt.run(trainer.name, trainer.password, trainer.grumpidolar, trainer.marca_combate, trainer.id);
+
+    if (Array.isArray(objetosAEliminar)) {
+      const energiasAEliminar = objetosAEliminar.filter(objeto => objeto.tipo === "energia");
+      const medallasAEliminar = objetosAEliminar.filter(objeto => objeto.tipo === "medalla");
+      const grumpisAElimnar = objetosAEliminar.filter(objeto => objeto.tipo === "grumpi");
+      const objCombateAEliminar = objetosAEliminar.filter(objeto => objeto.tipo === "combate");
+      const objEvolutivoAEliminar = objetosAEliminar.filter(objeto => objeto.tipo === "evolutivo");
+
+      if (energiasAEliminar.length > 0) {
+        deleteEnergiesFromTrainer(trainer, energiasAEliminar);
+      } else if (medallasAEliminar.length > 0) {
+        deleteMedalsFromTrainer(trainer, medallasAEliminar);
+      } else if (grumpisAElimnar.length > 0) {
+        editGrumpisFromTrainer(trainer, grumpisAElimnar);
+      } else if (objCombateAEliminar.length > 0) {
+        editObjCombat(trainer, objCombateAEliminar);
+      } else if (objEvolutivoAEliminar.length > 0) {
+        editObjEvolution(trainer, objEvolutivoAEliminar);
+      }
+    }
+
+    res.status(200).json({ message: "Entrenador actualizado correctamente" });
+  } catch (dbError) {
+    console.error("Error al actualizar el entrenador en la base de datos:", dbError);
+    res.status(500).json({ error: "Error interno del servidor" });
+  }
 });
 
 /**
