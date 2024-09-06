@@ -62,11 +62,11 @@ if (fs.existsSync(dbPath)) {
 }
 
 
-/**
- *
- * Configuración de CORS
- *
- */
+/**************************************
+ *                                    *
+ *       Configuración de CORS        *
+ *                                    *
+ *************************************/
 const corsOptions = {
   origin: function (origin, callback) {
     const allowedOrigins = [
@@ -84,6 +84,7 @@ const corsOptions = {
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
+
 
 fs.mkdirSync(uploadDir, { recursive: true });
 fs.mkdirSync(uploadDirMedals, { recursive: true });
@@ -107,9 +108,11 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-/**
- * Función para crear las tablas en BD
- */
+/*********************************************
+ *                                           *
+ *            CREACIÓN DE TABLAS BD          *
+ *                                           *
+ *********************************************/
 function createTables() {
   const createTrainersTable = `
     CREATE TABLE IF NOT EXISTS trainers (
@@ -170,8 +173,6 @@ function createTables() {
     console.error("Error creando tablas:", err.message);
   }
 }
-
-// Llama a esta función al inicio de tu aplicación para asegurarte de que las tablas existen
 createTables();
 
 // Declara trainer_list como una variable global
@@ -236,9 +237,9 @@ function addDefaultProfesor() {
   }
 }
 
-// Asegúrate de llamar a esta función en el inicio de tu aplicación
 addDefaultProfesor();
 
+/** --------------------------------------------------------------------------------- */
 
 /**************************************************
  *
@@ -267,60 +268,39 @@ fs.readFile(filePath, "utf8", (err, data) => {
 });
 
 /**
+ * 
  * Método para obtener el listado de Entrenadores
+ * 
  */
 app.get("/", (req, res) => {
-  // Lee el contenido del archivo trainers.json
-  fs.readFile(filePath, "utf8", (err, data) => {
-    if (err) {
-      // Manejar el error si no se puede leer el archivo
-      console.error("Error al leer el archivo trainers.json:", err);
-      res.status(500).json({ error: "Error al leer el archivo trainers.json" });
-    } else {
-      let trainerListFromFile;
-      try {
-        // Parsea el contenido del archivo JSON a un objeto JavaScript
-        trainerListFromFile = JSON.parse(data);
-      } catch (parseError) {
-        // Manejar el error si no se puede parsear el contenido JSON
-        console.error("Error al parsear el contenido JSON:", parseError);
-        res.status(500).json({ error: "Error al parsear el contenido JSON" });
-        return;
-      }
-
-      try {
-        // Realiza la consulta a la base de datos para obtener todos los entrenadores
-        const trainerList = db.prepare("SELECT * FROM trainers").all();
-
-        // Envía el listado de entrenadores desde el archivo y la base de datos
-        res.json({
-          trainer_list: trainerList,
-        });
-      } catch (dbError) {
-        // Manejar el error si ocurre un problema al consultar la base de datos
-        console.error("Error al obtener los entrenadores de la base de datos:", dbError);
-        res.status(500).json({ error: "Error al obtener los entrenadores de la base de datos" });
-      }
-    }
-  });
+  try {
+    const trainerList = db.prepare("SELECT * FROM trainers").all();
+    res.json({
+      trainer_list: trainerList,
+    });
+  } catch (dbError) {
+    console.error("Error al obtener los entrenadores de la base de datos:", dbError);
+    res.status(500).json({ error: "Error al obtener los entrenadores de la base de datos" });
+  }
 });
 
 
 /**
+ * 
  * Método para guardar un nuevo entrenador
+ * 
  */
 app.post("/", (req, res) => {
-  const nuevoEntrenador = req.body;
-  nuevoEntrenador.id = currentId++; // Obtener los datos del cuerpo de la solicitud POST
-  trainer_list.push(nuevoEntrenador); // Agregar el nuevo entrenador a la lista
+  const nuevoEntrenador = req.body; 
+  try {
+    const insert = db.prepare("INSERT INTO trainers (name, age, experience) VALUES (?, ?, ?)");
+    insert.run(nuevoEntrenador.name, nuevoEntrenador.age, nuevoEntrenador.experience);
 
-  fs.writeFile(filePath, JSON.stringify(trainer_list), (err) => {
-    if (err) {
-      res.status(500).json({ error: err.message });
-      return;
-    }
     res.json({ message: "Entrenador agregado correctamente", nuevoEntrenador });
-  });
+  } catch (dbError) {
+    console.error("Error al agregar el entrenador a la base de datos:", dbError);
+    res.status(500).json({ error: "Error al agregar el entrenador a la base de datos" });
+  }
 });
 
 /**
@@ -367,51 +347,31 @@ app.post("/new-user", (req, res) => {
 });
 
 
-app.put("/user", (req, res) => {
-  res.send("Got a PUT request at /user");
-});
-
 /**
  *
  * Función para eliminar un entrenador
  *
  */
-app.delete("/user/:name", async (req, res) => {
+app.delete("/user/:name", (req, res) => {
   const userName = req.params.name;
 
   try {
-    // Lee el archivo y convierte el contenido en JSON
-    const data = await fs.promises.readFile(filePath, "utf8");
-    let trainers = JSON.parse(data);
+    const deleteStmt = db.prepare("DELETE FROM trainers WHERE name = ?");
+    const result = deleteStmt.run(userName);
 
-    // Filtra la lista para excluir al entrenador con el nombre dado
-    const updatedTrainerList = trainers.filter(
-      (trainer) => trainer.name !== userName
-    );
-
-    if (updatedTrainerList.length === trainers.length) {
-      // Si la longitud no cambia, el usuario no fue encontrado
-      return res
-        .status(404)
-        .json({ error: `Usuario con nombre ${userName} no encontrado` });
+    if (result.changes === 0) {
+      return res.status(404).json({ error: `Usuario con nombre ${userName} no encontrado` });
     }
 
-    // Escribe el archivo actualizado
-    await fs.promises.writeFile(
-      filePath,
-      JSON.stringify(updatedTrainerList, null, 2)
-    );
-
-    // Devuelve la lista actualizada como respuesta
     res.status(200).json({
-      message: `Usuario con nombre ${userName} eliminado correctamente`,
-      trainer_list: updatedTrainerList,
+      message: `Usuario con nombre ${userName} eliminado correctamente`
     });
-  } catch (err) {
-    console.error("Error al procesar el archivo JSON:", err);
+  } catch (dbError) {
+    console.error("Error al eliminar el entrenador de la base de datos:", dbError);
     res.status(500).json({ error: "Error interno del servidor" });
   }
 });
+
 
 
 /**
