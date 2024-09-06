@@ -150,6 +150,17 @@ function createTables() {
       FOREIGN KEY (trainer_id) REFERENCES trainers(id)
     );
   `;
+ 
+  const createTrainerGrumpisTable = `
+    CREATE TABLE IF NOT EXISTS trainer_grumpis (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      trainer_id INTEGER NOT NULL,
+      grumpi_id INTEGER NOT NULL,
+      FOREIGN KEY (trainer_id) REFERENCES trainers(id),
+      FOREIGN KEY (grumpi_id) REFERENCES grumpis(id),
+      UNIQUE(trainer_id, grumpi_id) -- Evita duplicados en la relación
+    );
+  `;
 
   const createAtaquesTable = `
     CREATE TABLE IF NOT EXISTS ataques (
@@ -176,6 +187,7 @@ function createTables() {
   try {
     db.exec(createTrainersTable);
     db.exec(createGrumpisTable);
+    db.exec(createTrainerGrumpisTable);
     db.exec(createAtaquesTable);
     db.exec(createProfesoresTable);
     console.log("Tablas creadas correctamente.");
@@ -731,7 +743,7 @@ function editObjEvolution(trainerId, objetosAEliminar) {
  *            ASIGNACIÓN DE grumpis A LOS ENTRENADORES
  *
  *******************************************************************/
-// Función para asignar un grumpi a un entrenador
+
 function assignCreatureToTrainer(trainerName, creature) {
   console.log("Grumpi para asignar al entrenador: ", creature);
   
@@ -739,18 +751,21 @@ function assignCreatureToTrainer(trainerName, creature) {
   const trainer = db.prepare("SELECT * FROM trainers WHERE name = ?").get(trainerName);
 
   if (trainer) {
-    // Verificar si el grumpi ya está asignado al entrenador en la tabla de relación
-    const existingRelation = db.prepare(`
-      SELECT * FROM trainer_grumpis WHERE trainer_id = ? AND grumpi_id = ?
-    `).get(trainer.id, creature.id);
+    // Obtener la lista actual de grumpis del entrenador
+    let trainerGrumpis = trainer.grumpis ? JSON.parse(trainer.grumpis) : [];
 
-    if (!existingRelation) {
-      // Insertar una nueva relación entre el entrenador y el grumpi
-      const insertStmt = db.prepare(`
-        INSERT INTO trainer_grumpis (trainer_id, grumpi_id)
-        VALUES (?, ?)
+    // Verificar si el grumpi ya está en la lista
+    if (!trainerGrumpis.includes(creature.id)) {
+      // Agregar el ID del grumpi a la lista
+      trainerGrumpis.push(creature.id);
+
+      // Actualizar la lista de grumpis en la base de datos
+      const updateStmt = db.prepare(`
+        UPDATE trainers
+        SET grumpis = ?
+        WHERE id = ?
       `);
-      insertStmt.run(trainer.id, creature.id);
+      updateStmt.run(JSON.stringify(trainerGrumpis), trainer.id);
 
       console.log("Grumpi asignado correctamente al entrenador.");
     } else {
