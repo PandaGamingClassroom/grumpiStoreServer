@@ -833,7 +833,9 @@ function saveTrainerData() {
 function assignGrumpidolaresToTrainer(trainerName, grumpidolar) {
   return new Promise((resolve, reject) => {
     console.log("Cantidad de Grumpidólares recibida (original): ", grumpidolar);
-    const grumpidolaresNumber = Number(grumpidolar);
+
+    // Asegúrate de que grumpidolar es un número válido
+    const grumpidolaresNumber = parseFloat(grumpidolar);
     console.log("Cantidad de Grumpidólares convertida: ", grumpidolaresNumber);
 
     if (isNaN(grumpidolaresNumber) || grumpidolaresNumber <= 0) {
@@ -841,19 +843,28 @@ function assignGrumpidolaresToTrainer(trainerName, grumpidolar) {
       return reject("Grumpidólares debe ser un número positivo.");
     }
 
+    // Buscar el entrenador en la base de datos
     const trainer = db.prepare("SELECT * FROM trainers WHERE name = ?").get(trainerName);
 
     if (trainer) {
       console.log("Entrenador encontrado:", trainer);
 
-      const currentGrumpidolares = Number(trainer.grumpidolar) || 0;
+      // Sumar los Grumpidólares actuales con los nuevos
+      const currentGrumpidolares = parseFloat(trainer.grumpidolar) || 0;
       const newGrumpidolares = currentGrumpidolares + grumpidolaresNumber;
 
+      // Actualizar la base de datos con la nueva cantidad de Grumpidólares
       const updateStmt = db.prepare("UPDATE trainers SET grumpidolar = ? WHERE id = ?");
-      updateStmt.run(newGrumpidolares, trainer.id);
+      const result = updateStmt.run(newGrumpidolares, trainer.id);
 
       console.log("Cantidad de Grumpidólares después de la asignación:", newGrumpidolares);
-      resolve("Grumpidólares asignados correctamente al entrenador.");
+
+      // Verificar si la actualización fue exitosa
+      if (result.changes > 0) {
+        resolve("Grumpidólares asignados correctamente al entrenador.");
+      } else {
+        reject("Error al actualizar los Grumpidólares en la base de datos.");
+      }
     } else {
       reject(`Entrenador con nombre ${trainerName} no encontrado.`);
     }
@@ -861,8 +872,14 @@ function assignGrumpidolaresToTrainer(trainerName, grumpidolar) {
 }
 
 app.post("/assign-grumpidolares", (req, res) => {
-  const { trainerName, grumpidolar } = req.body;
   console.log("Datos de la solicitud:", req.body);
+
+  const { trainerName, grumpidolar } = req.body;
+
+  // Verificar que se están recibiendo los datos correctamente
+  if (!trainerName || grumpidolar === undefined) {
+    return res.status(400).json({ error: "Faltan datos en la solicitud." });
+  }
 
   assignGrumpidolaresToTrainer(trainerName, grumpidolar)
     .then((message) => {
@@ -873,7 +890,6 @@ app.post("/assign-grumpidolares", (req, res) => {
       res.status(400).json({ error: error });
     });
 });
-
 
 /**
  *
