@@ -870,15 +870,14 @@ function assignGrumpidolaresToTrainer(trainerName, grumpidolar) {
     }
   });
 }
-
 app.post("/assign-grumpidolares", (req, res) => {
   console.log("Datos de la solicitud:", req.body);
 
   const { trainerName, grumpidolar } = req.body;
 
   // Verificar que se están recibiendo los datos correctamente
-  if (!trainerName || grumpidolar === undefined) {
-    return res.status(400).json({ error: "Faltan datos en la solicitud." });
+  if (typeof trainerName !== 'string' || trainerName.trim() === '' || grumpidolar === undefined || isNaN(Number(grumpidolar))) {
+    return res.status(400).json({ error: "Datos inválidos en la solicitud." });
   }
 
   assignGrumpidolaresToTrainer(trainerName, grumpidolar)
@@ -958,6 +957,7 @@ app.post("/assignGrumpidolares-after-buy", (req, res) => {
  *  DESPUÉS DE REALIZAR LA COMPRA DE OBJETOS.
  *
  */
+
 /**************************************************************
  *
  *    FIN DE ASIGNACIÓN DE GRUMPIDOLARES A LOS ENTRENADORES
