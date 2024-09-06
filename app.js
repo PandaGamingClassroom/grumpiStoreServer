@@ -1056,19 +1056,36 @@ app.get("/getAllAttacks", (req, res) => {
   });
 });
 
-// Ruta para obtener las URLs de todas las imágenes
+/**
+ * 
+ * Función para obtener las imágenes de los grumpis
+ * almacenadas en un archivo json.
+ * 
+ */
 app.get("/getImageUrls", (req, res) => {
-  // Lee todos los archivos en el directorio de imágenes
-  fs.readdir(uploadDir, (err, files) => {
+  // Ruta del archivo JSON con la información de los grumpis
+  const filePathGrumpis = path.join(__dirname, "data", "grumpis.json");
+
+  // Lee el archivo JSON
+  fs.readFile(filePathGrumpis, "utf8", (err, data) => {
     if (err) {
-      console.error("Error al leer el directorio de imágenes:", err);
+      console.error("Error al leer el archivo JSON de grumpis:", err);
       return res.status(500).json({ error: "Error interno del servidor" });
     }
 
-    // Construye las URLs de las imágenes
-    const imageUrls = files.map((file) => {
-      return `uploads/grumpis/howToGetGrumpis/${file}`;
-    });
+    let grumpis;
+    try {
+      grumpis = JSON.parse(data);
+    } catch (parseError) {
+      console.error("Error al parsear el archivo JSON de grumpis:", parseError);
+      return res.status(500).json({ error: "Error al procesar los datos de grumpis" });
+    }
+
+    // Extrae las URLs de las imágenes
+    const imageUrls = grumpis.map((grumpi) => ({
+      img_general: grumpi.img_general,
+      img_conseguir: grumpi.img_conseguir
+    }));
 
     // Devuelve las URLs de las imágenes como una respuesta JSON
     res.json({ imageUrls });
