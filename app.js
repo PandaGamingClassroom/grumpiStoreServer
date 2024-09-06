@@ -131,7 +131,7 @@ function createTables() {
       energies TEXT -- JSON como texto
     );
   `;
-  
+
   const createGrumpisTable = `
     CREATE TABLE IF NOT EXISTS grumpis (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -184,6 +184,59 @@ function createTables() {
   }
 }
 createTables();
+
+/**
+ * 
+ * FUNCIÓN PARA AÑADIR LOS GRUMPIS EXISTENTES 
+ * A LA BASE DE DATOS.
+ * 
+ * Estos están almacenados en el archivo: grumpis.json
+ * 
+ */
+function loadGrumpisFromFile() {
+  try {
+    const data = fs.readFileSync(filePathGrumpis, 'utf8');
+    const grumpis = JSON.parse(data);
+
+    const insertStmt = db.prepare(`
+      INSERT INTO grumpis (
+        trainer_id,
+        nombre,
+        PS,
+        n_grumpidex,
+        img_general,
+        img_conseguir,
+        descripcion,
+        Ciclo1,
+        Ciclo2,
+        Ciclo3,
+        tipo
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `);
+
+    grumpis.forEach(grumpi => {
+      insertStmt.run(
+        grumpi.trainer_id,
+        grumpi.nombre,
+        grumpi.PS,
+        grumpi.n_grumpidex,
+        grumpi.img_general,
+        grumpi.img_conseguir,
+        grumpi.descripcion,
+        grumpi.Ciclo1,
+        grumpi.Ciclo2,
+        grumpi.Ciclo3,
+        grumpi.tipo
+      );
+    });
+
+    console.log("Grumpis cargados e insertados correctamente en la base de datos.");
+  } catch (err) {
+    console.error("Error al cargar los grumpis desde el archivo:", err.message);
+  }
+}
+
+loadGrumpisFromFile();
 
 // Declara trainer_list como una variable global
 let trainer_list = [];
