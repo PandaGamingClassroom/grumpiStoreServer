@@ -479,9 +479,17 @@ app.put("/trainers/update/:name", (req, res) => {
     if (trainer_pass !== undefined) {
       trainer.password = trainer_pass;
     }
+
     if (grumpidolar !== undefined) {
-      trainer.grumpidolar += grumpidolar; // Sumar los nuevos grumpidolares a los existentes
+      if (grumpidolar === null || grumpidolar === 0) {
+        // Si grumpidolar está vacío, eliminar la cantidad existente
+        trainer.grumpidolar = 0;
+      } else {
+        // Sumar los nuevos grumpidolares a los existentes
+        trainer.grumpidolar += grumpidolar;
+      }
     }
+
     if (combatMark !== undefined) {
       trainer.marca_combate = combatMark;
     }
@@ -529,6 +537,7 @@ app.put("/trainers/update/:name", (req, res) => {
     res.status(500).json({ error: "Error interno del servidor" });
   }
 });
+
 
 
 
