@@ -480,7 +480,7 @@ app.put("/trainers/update/:name", (req, res) => {
       trainer.password = trainer_pass;
     }
     if (grumpidolar !== undefined) {
-      trainer.grumpidolar = grumpidolar;
+      trainer.grumpidolar += grumpidolar; // Sumar los nuevos grumpidolares a los existentes
     }
     if (combatMark !== undefined) {
       trainer.marca_combate = combatMark;
