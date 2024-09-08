@@ -995,16 +995,25 @@ app.get("/trainer/:nombre", (req, res) => {
  ***************************************************************/
 
 /**
+ * 
  * OBTENCIÓN DE LOS GRUMPIS
+ * Se obtienen desde el archivo JSON "grumpis.json"
  */
 app.get("/getGrumpis", (req, res) => {
-  try {
-    const rows = db.prepare('SELECT * FROM grumpis').all();
-    res.json({ grumpis_list: rows });
-  } catch (err) {
-    console.error("Error al consultar la base de datos:", err);
-    res.status(500).json({ error: "Error al consultar la base de datos" });
-  }
+  fs.readFile(filePathGrumpis, "utf8", (err, data) => {
+    if (err) {
+      console.error("Error al leer el archivo grumpis.json:", err);
+      res.status(500).json({ error: "Error al leer el archivo grumpis.json" });
+    } else {
+      try {
+        const grumpis_list = JSON.parse(data);
+        res.json({ grumpis_list: grumpis_list });
+      } catch (parseError) {
+        console.error("Error al parsear el contenido JSON:", parseError);
+        res.status(500).json({ error: "Error al parsear el contenido JSON" });
+      }
+    }
+  });
 });
 
 /**
@@ -1020,12 +1029,9 @@ app.get("/getAllAttacks", (req, res) => {
       res.status(500).json({ error: "Error al leer el archivo attacks.json" });
     } else {
       try {
-        // Parsea el contenido del archivo JSON a un objeto JavaScript
         const attacks_list = JSON.parse(data);
-        // Envía el listado completo de entrenadores como respuesta
         res.json({ attacks_list: attacks_list });
       } catch (parseError) {
-        // Manejar el error si no se puede parsear el contenido JSON
         console.error("Error al parsear el contenido JSON:", parseError);
         res.status(500).json({ error: "Error al parsear el contenido JSON" });
       }
