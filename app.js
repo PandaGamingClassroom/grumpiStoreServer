@@ -479,15 +479,9 @@ app.put("/trainers/update/:name", (req, res) => {
     if (trainer_pass !== undefined) {
       trainer.password = trainer_pass;
     }
-
-    if (grumpidolar === undefined || grumpidolar === null) {
-      // Si grumpidolar no está definido o es null, establecerlo a 0
-      trainer.grumpidolar = 0;
-    } else {
-      // Si se proporciona un valor de grumpidolar, actualizar sumando el valor nuevo
-      trainer.grumpidolar += grumpidolar;
+    if (grumpidolar !== undefined) {
+      trainer.grumpidolar = grumpidolar;
     }
-
     if (combatMark !== undefined) {
       trainer.marca_combate = combatMark;
     }
