@@ -33,7 +33,6 @@ const howToGetGrumpi = path.join(uploadDir, "howToGetGrumpis");
  *    CONFIGURACIÓN PARA MONTAR UN SISTEMA DE ALMACENAMIENTO PERSISTENTE    *
  *                                                                          *
  ****************************************************************************/
-
 // Determina la ruta del directorio de la base de datos en función del entorno
 const isProduction = process.env.NODE_ENV === 'production';
 const dbDirectory = isProduction ? '/mnt/data' : path.join(__dirname, 'mnt/data');
@@ -45,15 +44,15 @@ if (!fs.existsSync(dbDirectory)) {
   console.log(`Directorio creado: ${dbDirectory}`);
 }
 
-// Inicializar la base de datos SQLite
-const db = new sqlite3.Database(dbPath, (err) => {
-  if (err) {
-    console.error('Error al conectar con la base de datos:', err.message);
-    process.exit(1); // Salir si hay un error crítico al inicializar la base de datos
-  } else {
-    console.log(`Conectado a la base de datos en: ${dbPath}`);
-  }
-});
+// Inicializar la base de datos
+let db;
+try {
+  db = new Database(dbPath);
+  console.log(`Conectado a la base de datos en: ${dbPath}`);
+} catch (error) {
+  console.error('Error al conectar con la base de datos:', error);
+  process.exit(1); // Salir si hay un error crítico al inicializar la base de datos
+}
 
 // Verificar si el archivo de la base de datos existe
 if (fs.existsSync(dbPath)) {
@@ -90,10 +89,8 @@ app.use(cors(corsOptions));
 fs.mkdirSync(uploadDir, { recursive: true });
 fs.mkdirSync(uploadDirMedals, { recursive: true });
 
-// Define la configuración de multer para el almacenamiento de archivos
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    // Determina el directorio de destino en función de la ruta de la solicitud
     let uploadDir;
     if (req.path === "/upload") {
       uploadDir = "uploads/grumpis";
