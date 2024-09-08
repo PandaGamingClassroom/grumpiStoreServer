@@ -33,6 +33,7 @@ const howToGetGrumpi = path.join(uploadDir, "howToGetGrumpis");
  *    CONFIGURACIÓN PARA MONTAR UN SISTEMA DE ALMACENAMIENTO PERSISTENTE    *
  *                                                                          *
  ****************************************************************************/
+
 // Determina la ruta del directorio de la base de datos en función del entorno
 const isProduction = process.env.NODE_ENV === 'production';
 const dbDirectory = isProduction ? '/mnt/data' : path.join(__dirname, 'mnt/data');
@@ -44,15 +45,15 @@ if (!fs.existsSync(dbDirectory)) {
   console.log(`Directorio creado: ${dbDirectory}`);
 }
 
-// Inicializar la base de datos
-let db;
-try {
-  db = new Database(dbPath);
-  console.log(`Conectado a la base de datos en: ${dbPath}`);
-} catch (error) {
-  console.error('Error al conectar con la base de datos:', error);
-  process.exit(1); // Salir si hay un error crítico al inicializar la base de datos
-}
+// Inicializar la base de datos SQLite
+const db = new sqlite3.Database(dbPath, (err) => {
+  if (err) {
+    console.error('Error al conectar con la base de datos:', err.message);
+    process.exit(1); // Salir si hay un error crítico al inicializar la base de datos
+  } else {
+    console.log(`Conectado a la base de datos en: ${dbPath}`);
+  }
+});
 
 // Verificar si el archivo de la base de datos existe
 if (fs.existsSync(dbPath)) {
@@ -252,7 +253,6 @@ loadGrumpisFromFile();
 
 // Declara trainer_list como una variable global
 let trainer_list = [];
-let currentId = 1; // Inicialmente, el ID empieza en 1
 
 // Lee los datos del archivo trainers.json si existe
 try {
