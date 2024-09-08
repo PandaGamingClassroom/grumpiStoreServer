@@ -998,19 +998,13 @@ app.get("/trainer/:nombre", (req, res) => {
  * OBTENCIÓN DE LOS GRUMPIS
  */
 app.get("/getGrumpis", (req, res) => {
-  console.log("Consultando la base de datos...");
-  console.log("db instance:", db);
-
-  const query = 'SELECT * FROM grumpis';
-
-  db.all(query, [], (err, rows) => {
-    if (err) {
-      console.error("Error al consultar la base de datos:", err);
-      res.status(500).json({ error: "Error al consultar la base de datos" });
-      return;
-    }
+  try {
+    const rows = db.prepare('SELECT * FROM grumpis').all();
     res.json({ grumpis_list: rows });
-  });
+  } catch (err) {
+    console.error("Error al consultar la base de datos:", err);
+    res.status(500).json({ error: "Error al consultar la base de datos" });
+  }
 });
 
 /**
