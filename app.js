@@ -1131,7 +1131,7 @@ app.get("/getImageMedals", (req, res) => {
 
     // Construye las URLs de las imágenes
     const imageUrls = files.map((file) => {
-      return `https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/medals/${file}`;
+      return `https://grumpistoreserver.onrender.com/uploads/medals/${file}`;
     });
 
     // Devuelve las URLs de las imágenes como una respuesta JSON
@@ -1154,7 +1154,7 @@ app.get("/getImageEnergies", (req, res) => {
 
     // Construye las URLs de las imágenes
     const imageUrls = files.map((file) => {
-      return `https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/energies/${file}`;
+      return `https://grumpistoreserver.onrender.com/uploads/energies/${file}`;
     });
 
     // Devuelve las URLs de las imágenes como una respuesta JSON
@@ -1178,7 +1178,7 @@ app.get("/getImageGrumpiHowToGet", (req, res) => {
       return res.status(500).json({ error: "Error interno del servidor" });
     }
     const imageUrls = files.map((file) => {
-      return `https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/howToGetGrumpis/${file}`;
+      return `https://grumpistoreserver.onrender.com/uploads/howToGetGrumpis/${file}`;
     });
     res.json({ imageUrls });
   });
