@@ -1493,7 +1493,7 @@ app.post("/assign-combatObjects", (req, res) => {
         error:
           "Error al asignar el objeto de combate al entrenador: " +
           error.message,
-      }); // Enviar el mensaje de error como parte de un objeto JSON
+      }); 
     });
 });
 /***************************************************************
@@ -1580,7 +1580,7 @@ function assignEvoObjectsToTrainer(trainerName, evoObject) {
         });
         // Asignar el objeto evolutivo
         trainer.objetos_evolutivos.push(evoObject);
-        saveTrainerData(); // Guardar los cambios en el archivo JSON
+        saveTrainerData();
         resolve("Objeto evolutivo asignado correctamente al entrenador.");
       } else {
         reject(
@@ -1610,6 +1610,7 @@ app.post("/assign-evo-objects", (req, res) => {
       });
     });
 });
+
 /******************************************
  *
  *    FIN DE ASIGNAR OBJETOS EVOLUTIVOS
@@ -1764,6 +1765,7 @@ const readJsonFile = (filePathAmin) => {
     });
   });
 };
+
 /**
  *
  *  OBTENER UN PROFESOR POR SU NOMBRE
@@ -2316,7 +2318,7 @@ app.get("/getLeagueBadges", (req, res) => {
 
     // Construye las URLs de las imágenes
     const imageUrls = files.map((file) => {
-      return `https://grumpi-app-server-6bfd34c5eb89.herokuapp.com/uploads/leagueBadges/${file}`;
+      return `https://grumpistoreserver.onrender.com/uploads/leagueBadges/${file}`;
     });
 
     // Devuelve las URLs de las imágenes como una respuesta JSON
