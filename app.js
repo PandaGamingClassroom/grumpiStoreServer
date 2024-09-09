@@ -68,13 +68,28 @@ if (fs.existsSync(dbPath)) {
  *                                    *
  *************************************/
 const corsOptions = {
-  origin: '*',  // Permite todas las solicitudes temporalmente
+  origin: function (origin, callback) {
+    const allowedOrigins = [
+      "https://grumpi-store.vercel.app",
+      "https://another-allowed-origin.com",
+    ];
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  allowedHeaders: "Content-Type,Authorization",
   credentials: true,
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
+
+// Configuración de la política de referencia
+app.use((req, res, next) => {
+  res.setHeader('Referrer-Policy', 'no-referrer-when-downgrade');
+  next();
+});
 
 
 
