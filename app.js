@@ -68,22 +68,14 @@ if (fs.existsSync(dbPath)) {
  *                                    *
  *************************************/
 const corsOptions = {
-  origin: function (origin, callback) {
-    const allowedOrigins = [
-      "https://grumpi-store.vercel.app",
-      "https://another-allowed-origin.com",
-    ];
-    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
+  origin: '*',  // Permite todas las solicitudes temporalmente
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  allowedHeaders: "Content-Type,Authorization",
   credentials: true,
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
+
 
 
 fs.mkdirSync(uploadDir, { recursive: true });
