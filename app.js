@@ -745,20 +745,18 @@ function editObjEvolution(trainerId, objetosAEliminar) {
 
 function assignCreatureToTrainer(trainerName, creature) {
   console.log("Grumpi para asignar al entrenador: ", creature);
-  
+
   // Obtener el entrenador
   const trainer = db.prepare("SELECT * FROM trainers WHERE name = ?").get(trainerName);
 
   if (trainer) {
-    // Obtener la lista actual de grumpis del entrenador
     let trainerGrumpis = trainer.grumpis ? JSON.parse(trainer.grumpis) : [];
 
-    // Verificar si el grumpi ya está en la lista
-    if (!trainerGrumpis.includes(creature.id)) {
-      // Agregar el ID del grumpi a la lista
-      trainerGrumpis.push(creature.id);
+    const alreadyAssigned = trainerGrumpis.some(grumpi => grumpi.id === creature.id);
 
-      // Actualizar la lista de grumpis en la base de datos
+    if (!alreadyAssigned) {
+      trainerGrumpis.push(creature);
+
       const updateStmt = db.prepare(`
         UPDATE trainers
         SET grumpis = ?
@@ -776,6 +774,7 @@ function assignCreatureToTrainer(trainerName, creature) {
     return Promise.reject(new Error(`Entrenador con nombre ${trainerName} no encontrado.`));
   }
 }
+
 
 
 
