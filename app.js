@@ -975,12 +975,25 @@ app.get("/trainer/:nombre", (req, res) => {
       return res.status(200).json({ success: false, error: "Entrenador no encontrado" });
     }
 
+    // Parsear el campo grumpis si existe
+    if (trainer.grumpis && trainer.grumpis !== "undefined") {
+      try {
+        trainer.grumpis = JSON.parse(trainer.grumpis);
+      } catch (error) {
+        console.error("Error al parsear grumpis:", error);
+        trainer.grumpis = [];
+      }
+    } else {
+      trainer.grumpis = [];
+    }
+
     res.json({ success: true, data: trainer });
   } catch (error) {
     console.error("Error al obtener la información del entrenador desde la base de datos:", error);
     res.status(500).json({ success: false, error: "Error interno del servidor" });
   }
 });
+
 
 
 /***************************************************************
