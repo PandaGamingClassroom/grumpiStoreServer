@@ -1224,24 +1224,36 @@ try {
 }
 
 // Función para asignar una energía a un entrenador
-function assignEnergieToTrainer(trainerName, energia) {
-  // Aquí iría tu lógica para asignar la medalla al entrenador
-  // Buscar el entrenador por nombre y actualizar sus datos en memoria
-  const trainer = trainerData.find((trainer) => trainer.name === trainerName);
+
+function assignEnergyToTrainer(trainerName, energy) {
+  console.log("Energía para asignar al entrenador: ", energy);
+
+  // Obtener el entrenador
+  const trainer = db.prepare("SELECT * FROM trainers WHERE name = ?").get(trainerName);
+
   if (trainer) {
-    /**
-     * Se asegura que la propiedad 'medallas' existe en el entrenador.
-     */
-    if (!trainer.energias) {
-      trainer.energias = [];
+    let trainerEnergies = trainer.energies ? JSON.parse(trainer.energies) : [];
+
+    const alreadyAssigned = trainerEnergies.some(e => e.id === energy.id);
+
+    if (!alreadyAssigned) {
+      trainerEnergies.push(energy);
+
+      const updateStmt = db.prepare(`
+        UPDATE trainers
+        SET energies = ?
+        WHERE id = ?
+      `);
+      updateStmt.run(JSON.stringify(trainerEnergies), trainer.id);
+
+      console.log("Energía asignada correctamente al entrenador.");
+    } else {
+      console.log("La energía ya está asignada a este entrenador.");
     }
-    trainer.energias.push(energia); // Por ejemplo, asumiendo que tienes una propiedad 'medallas' en tu objeto de entrenador
-    saveTrainerData(); // Guardar los cambios en el archivo JSON
-    return Promise.resolve("Medalla asignada correctamente al entrenador.");
+
+    return Promise.resolve("Energía asignada correctamente al entrenador.");
   } else {
-    return Promise.reject(
-      `Entrenador con nombre ${trainerName} no encontrado.`
-    );
+    return Promise.reject(new Error(`Entrenador con nombre ${trainerName} no encontrado.`));
   }
 }
 
@@ -1261,26 +1273,26 @@ function saveTrainerData() {
  *
  ******************************************/
 app.post("/assign-energie", (req, res) => {
-  const { trainerNames, energie } = req.body;
+  const { trainerNames, energy } = req.body;
   console.log("Datos de la solicitud:", req.body);
 
   // Crea una promesa para cada entrenador en el array
   const promises = trainerNames.map((trainerName) =>
-    assignEnergieToTrainer(trainerName, energie)
+    assignEnergyToTrainer(trainerName, energy)
   );
 
   // Espera a que todas las promesas se completen
   Promise.all(promises)
     .then((messages) => {
       res.status(200).json({
-        message: "Medalla asignada con éxito a todos los entrenadores.",
+        message: "Energía asignada con éxito a todos los entrenadores.",
+        details: messages // Enviar mensajes detallados de éxito
       });
     })
     .catch((error) => {
-      console.error("Error al asignar la medalla:", error);
+      console.error("Error al asignar la energía:", error);
       res.status(500).json({
-        error:
-          "Error al asignar la medalla a los entrenadores: " + error.message,
+        error: "Error al asignar la energía a los entrenadores: " + error.message,
       });
     });
 });
