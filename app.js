@@ -983,7 +983,11 @@ app.get("/trainer/:nombre", (req, res) => {
       return res.status(200).json({ success: false, error: "Entrenador no encontrado" });
     }
 
-    // Parsear el campo grumpis si existe
+    /**
+     * 
+     * PARSEANDO LAS LISTAS DEL ENTRENADOR
+     * 
+     */
     if (trainer.grumpis && trainer.grumpis !== "undefined") {
       try {
         trainer.grumpis = JSON.parse(trainer.grumpis);
@@ -993,6 +997,17 @@ app.get("/trainer/:nombre", (req, res) => {
       }
     } else {
       trainer.grumpis = [];
+    }
+
+    if (trainer.energies && trainer.energies !== "undefined") {
+      try {
+        trainer.energies = JSON.parse(trainer.energies);
+      } catch (error) {
+        console.error("Error al parsear las energías:", error);
+        trainer.energies = [];
+      }
+    } else {
+      trainer.energies = [];
     }
 
     res.json({ success: true, data: trainer });
