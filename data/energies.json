@@ -1,0 +1,56 @@
+[
+    {
+        "id": 1,
+        "nombre": "Energía Agua",
+        "tipo": "Agua",
+        "imagen": "https://grumpistoreserver.onrender.com/uploads/energies/ENERGÍA_AGUA.1.png"
+    },
+    {
+        "id": 2,
+        "nombre": "Energía Aire",
+        "tipo": "Aire",
+        "imagen": "https://grumpistoreserver.onrender.com/uploads/energies/ENERGÍA_AIRE.1.png"
+    },
+    {
+        "id": 3,
+        "nombre": "Energía Fuego",
+        "tipo": "Fuego",
+        "imagen": "https://grumpistoreserver.onrender.com/uploads/energies/ENERGÍA_FUEGO.1.png"
+    },
+    {
+        "id": 4,
+        "nombre": "Energía Luz",
+        "tipo": "Luz",
+        "imagen": "https://grumpistoreserver.onrender.com/uploads/energies/ENERGÍA_LUZ.1.png"
+    },
+    {
+        "id": 5,
+        "nombre": "Energía Normal",
+        "tipo": "Normal",
+        "imagen": "https://grumpistoreserver.onrender.com/uploads/energies/ENERGÍA_NORMAL.1.png"
+    },
+    {
+        "id": 6,
+        "nombre": "Energía Oscuridad",
+        "tipo": "Oscuridad",
+        "imagen": "https://grumpistoreserver.onrender.com/uploads/energies/ENERGÍA_OSCURIDAD.1.png"
+    },
+    {
+        "id": 7,
+        "nombre": "Energía Rayo",
+        "tipo": "Rayo",
+        "imagen": "https://grumpistoreserver.onrender.com/uploads/energies/ENERGÍA_RAYO.1.png"
+    },
+    {
+        "id": 8,
+        "nombre": "Energía Tierra",
+        "tipo": "Tierra",
+        "imagen": "https://grumpistoreserver.onrender.com/uploads/energies/ENERGÍA_TIERRA.1.png"
+    },
+    {
+        "id": 9,
+        "nombre": "Energía Vida",
+        "tipo": "Vida",
+        "imagen": "https://grumpistoreserver.onrender.com/uploads/energies/ENERGÍA_VIDA.1.png"
+    }
+]
