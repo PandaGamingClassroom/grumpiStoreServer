@@ -1274,7 +1274,7 @@ app.post("/assign-energie", (req, res) => {
   const { trainerNames, energie } = req.body;
   console.log("Datos de la solicitud:", req.body);
 
-  if (!energie || !energie.imagen) {
+  if (!energie) {
     return res.status(400).json({
       error: "Datos de energía incompletos. Asegúrate de enviar una imagen.",
     });
@@ -1282,7 +1282,7 @@ app.post("/assign-energie", (req, res) => {
 
   // Crea una promesa para cada entrenador en el array
   const promises = trainerNames.map((trainerName) =>
-    assignEnergyToTrainer(trainerName, energie.imagen)
+    assignEnergyToTrainer(trainerName, energie)
   );
 
   // Espera a que todas las promesas se completen
