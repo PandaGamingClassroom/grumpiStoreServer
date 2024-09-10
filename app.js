@@ -20,6 +20,7 @@ const filePathObjectsEvolution = "./data/evolutionObjects.json";
 const filePathRewards = "./data/rewards.json";
 const filePathAttacks = "./data/attacks.json";
 const filePathEnergies = "./data/energies.json";
+const filePathMedals = "./data/medals..json"
 
 // Directorios de almacenamiento de imágenes
 const uploadDir = path.join(__dirname, "uploads", "grumpis");
@@ -1158,20 +1159,19 @@ app.post("/grumpis", upload.single("image"), (req, res) => {
  *
  */
 app.get("/getImageMedals", (req, res) => {
-  // Lee todos los archivos en el directorio de imágenes
-  fs.readdir(uploadDirMedals, (err, files) => {
+  fs.readFile(filePathMedals, "utf8", (err, data) => {
     if (err) {
-      console.error("Error al leer el directorio de imágenes:", err);
-      return res.status(500).json({ error: "Error interno del servidor" });
+      console.error("Error al leer el archivo medals.json:", err);
+      res.status(500).json({ error: "Error al leer el archivo medals.json" });
+    } else {
+      try {
+        const medals_list = JSON.parse(data);
+        res.json({ medals_list: medals_list });
+      } catch (parseError) {
+        console.error("Error al parsear el contenido JSON:", parseError);
+        res.status(500).json({ error: "Error al parsear el contenido JSON" });
+      }
     }
-
-    // Construye las URLs de las imágenes
-    const imageUrls = files.map((file) => {
-      return `https://grumpistoreserver.onrender.com/uploads/medals/${file}`;
-    });
-
-    // Devuelve las URLs de las imágenes como una respuesta JSON
-    res.json({ imageUrls });
   });
 });
 
