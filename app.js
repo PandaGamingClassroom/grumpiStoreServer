@@ -20,7 +20,7 @@ const filePathObjectsEvolution = "./data/evolutionObjects.json";
 const filePathRewards = "./data/rewards.json";
 const filePathAttacks = "./data/attacks.json";
 const filePathEnergies = "./data/energies.json";
-const filePathMedals = "./data/medals..json"
+const filePathMedals = "./data/medals.json"
 
 // Directorios de almacenamiento de imágenes
 const uploadDir = path.join(__dirname, "uploads", "grumpis");
