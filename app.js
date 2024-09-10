@@ -127,14 +127,15 @@ function createTables() {
       password TEXT,
       rol TEXT,
       id_profesor INTEGER,
-      grumpis TEXT, -- JSON como texto
-      medallas TEXT, -- JSON como texto
-      objetos_combate TEXT, -- JSON como texto
-      objetos_evolutivos TEXT, -- JSON como texto
+      avatar TEXT,
+      grumpis TEXT,
+      medallas TEXT,
+      objetos_combate TEXT,
+      objetos_evolutivos TEXT,
       marca_combate TEXT,
       grumpidolar TEXT,
-      recompensas TEXT, -- JSON como texto
-      energies TEXT -- JSON como texto
+      recompensas TEXT,
+      energies TEXT
     );
   `;
 
@@ -1926,15 +1927,15 @@ app.post("/profesores/:id/entrenadores", (req, res) => {
 
   try {
     if (nuevoUsuario.rol === "entrenador") {
-      // Inserta en la tabla `trainers`
       insertQuery = db.prepare(`
-        INSERT INTO trainers (name, password, rol, id_profesor) 
-        VALUES (?, ?, ?, ?)
+        INSERT INTO trainers (name, password, rol, avatar, id_profesor) 
+        VALUES (?, ?, ?, ?, ?)
       `);
       insertQuery.run(
         nuevoUsuario.name,
         nuevoUsuario.password,
         nuevoUsuario.rol,
+        nuevoUsuario.avatar,
         profesorId
       );
 
@@ -1975,6 +1976,7 @@ app.post("/profesores/:id/entrenadores", (req, res) => {
     res.status(500).json({ error: "Error al insertar en la base de datos" });
   }
 });
+
 
 
 /**
