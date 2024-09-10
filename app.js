@@ -1225,8 +1225,8 @@ try {
 
 // Función para asignar una energía a un entrenador
 
-function assignEnergyToTrainer(trainerName, energy) {
-  console.log("Energía para asignar al entrenador: ", energy);
+function assignEnergyToTrainer(trainerName, energyImagePath) {
+  console.log("Ruta de la energía para asignar al entrenador: ", energyImagePath);
 
   // Obtener el entrenador
   const trainer = db.prepare("SELECT * FROM trainers WHERE name = ?").get(trainerName);
@@ -1234,10 +1234,10 @@ function assignEnergyToTrainer(trainerName, energy) {
   if (trainer) {
     let trainerEnergies = trainer.energies ? JSON.parse(trainer.energies) : [];
 
-    const alreadyAssigned = trainerEnergies.some(e => e.id === energy.id);
+    const alreadyAssigned = trainerEnergies.includes(energyImagePath);
 
     if (!alreadyAssigned) {
-      trainerEnergies.push(energy);
+      trainerEnergies.push(energyImagePath);
 
       const updateStmt = db.prepare(`
         UPDATE trainers
@@ -1247,11 +1247,11 @@ function assignEnergyToTrainer(trainerName, energy) {
       updateStmt.run(JSON.stringify(trainerEnergies), trainer.id);
 
       console.log("Energía asignada correctamente al entrenador.");
+      return Promise.resolve("Energía asignada correctamente al entrenador.");
     } else {
       console.log("La energía ya está asignada a este entrenador.");
+      return Promise.resolve("La energía ya está asignada a este entrenador.");
     }
-
-    return Promise.resolve("Energía asignada correctamente al entrenador.");
   } else {
     return Promise.reject(new Error(`Entrenador con nombre ${trainerName} no encontrado.`));
   }
@@ -1273,12 +1273,18 @@ function saveTrainerData() {
  *
  ******************************************/
 app.post("/assign-energie", (req, res) => {
-  const { trainerNames, energy } = req.body;
+  const { trainerNames, energie } = req.body;
   console.log("Datos de la solicitud:", req.body);
+
+  if (!energie || !energie.imagen) {
+    return res.status(400).json({
+      error: "Datos de energía incompletos. Asegúrate de enviar una imagen.",
+    });
+  }
 
   // Crea una promesa para cada entrenador en el array
   const promises = trainerNames.map((trainerName) =>
-    assignEnergyToTrainer(trainerName, energy)
+    assignEnergyToTrainer(trainerName, energie.imagen)
   );
 
   // Espera a que todas las promesas se completen
@@ -1286,7 +1292,7 @@ app.post("/assign-energie", (req, res) => {
     .then((messages) => {
       res.status(200).json({
         message: "Energía asignada con éxito a todos los entrenadores.",
-        details: messages // Enviar mensajes detallados de éxito
+        details: messages, // Enviar mensajes detallados de éxito
       });
     })
     .catch((error) => {
