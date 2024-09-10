@@ -1296,12 +1296,10 @@ app.post("/assign-energie", (req, res) => {
     });
   }
 
-  // Crea una promesa para cada entrenador en el array
   const promises = trainerNames.map((trainerName) =>
     assignEnergyToTrainer(trainerName, energie)
   );
 
-  // Espera a que todas las promesas se completen
   Promise.all(promises)
     .then((messages) => {
       res.status(200).json({
@@ -1412,42 +1410,60 @@ function saveTrainerData() {
 }
 
 // Función para asignar una medalla a un entrenador
-function assignMedalToTrainer(trainerName, medalName) {
-  // Aquí iría tu lógica para asignar la medalla al entrenador
-  // Buscar el entrenador por nombre y actualizar sus datos en memoria
-  const trainer = trainerData.find((trainer) => trainer.name === trainerName);
+function assignMedalToTrainer(trainerName, medalImagePath) {
+  console.log("Ruta de la medalla para asignar al entrenador: ", medalImagePath);
+  const trainer = db.prepare("SELECT * FROM trainers WHERE name = ?").get(trainerName);
+
   if (trainer) {
-    /**
-     * Se asegura que la propiedad 'medallas' existe en el entrenador.
-     */
-    if (!trainer.medallas) {
-      trainer.medallas = [];
+    let trainerMedals = trainer.medallas ? JSON.parse(trainer.medallas) : [];
+
+    const alreadyAssigned = trainerMedals.includes(medalImagePath);
+
+    if (!alreadyAssigned) {
+      trainerMedals.push(medalImagePath);
+
+      const updateStmt = db.prepare(`
+        UPDATE trainers
+        SET medallas = ?
+        WHERE id = ?
+      `);
+      updateStmt.run(JSON.stringify(trainerMedals), trainer.id);
+
+      console.log("Medalla asignada correctamente al entrenador.");
+      return Promise.resolve("Medalla asignada correctamente al entrenador.");
+    } else {
+      console.log("La medalla ya está asignada a este entrenador.");
+      return Promise.resolve("La medalla ya está asignada a este entrenador.");
     }
-    trainer.medallas.push(medalName); // Por ejemplo, asumiendo que tienes una propiedad 'medallas' en tu objeto de entrenador
-    saveTrainerData(); // Guardar los cambios en el archivo JSON
-    return Promise.resolve("Medalla asignada correctamente al entrenador.");
   } else {
-    return Promise.reject(
-      `Entrenador con nombre ${trainerName} no encontrado.`
-    );
+    return Promise.reject(new Error(`Entrenador con nombre ${trainerName} no encontrado.`));
   }
 }
 
-// Ruta de asignación de medallas
+/**
+ * 
+ * Asignación de medallas al entrenador.
+ * 
+ */
 app.post("/assign-medal", (req, res) => {
   const { trainerNames, medal } = req.body;
   console.log("Datos de la solicitud:", req.body);
 
-  // Crea una promesa para cada entrenador en el array
+  if (!medal) {
+    return res.status(400).json({
+      error: "Datos de medalla incompletos. Asegúrate de enviar una imagen.",
+    });
+  }
+
   const promises = trainerNames.map((trainerName) =>
     assignMedalToTrainer(trainerName, medal)
   );
 
-  // Espera a que todas las promesas se completen
   Promise.all(promises)
     .then((messages) => {
       res.status(200).json({
         message: "Medalla asignada con éxito a todos los entrenadores.",
+        details: messages,
       });
     })
     .catch((error) => {
