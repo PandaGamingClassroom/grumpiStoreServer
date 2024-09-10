@@ -1919,15 +1919,16 @@ app.get("/profesor/:id/entrenadores", async (req, res) => {
  * Agrega un nuevo entrenador
  * Hace uso de BD
  */
-app.post("/profesores/:id/entrenadores", (req, res) => {
+app.post("/profesores/:id/entrenadores", upload.single("avatar"), (req, res) => {
   const profesorId = parseInt(req.params.id);
   const nuevoUsuario = req.body;
 
-  let insertQuery;
+  let avatarPath = req.file ? `/uploads/avatars/${req.file.filename}` : null;
 
   try {
     if (nuevoUsuario.rol === "entrenador") {
-      insertQuery = db.prepare(`
+      // Inserta en la tabla `trainers` con el avatar
+      const insertQuery = db.prepare(`
         INSERT INTO trainers (name, password, rol, avatar, id_profesor) 
         VALUES (?, ?, ?, ?, ?)
       `);
@@ -1935,13 +1936,13 @@ app.post("/profesores/:id/entrenadores", (req, res) => {
         nuevoUsuario.name,
         nuevoUsuario.password,
         nuevoUsuario.rol,
-        nuevoUsuario.avatar,
+        avatarPath,   // Añadir la ruta de la imagen aquí
         profesorId
       );
 
     } else if (nuevoUsuario.rol === "profesor") {
       // Inserta en la tabla `profesores`
-      insertQuery = db.prepare(`
+      const insertQuery = db.prepare(`
         INSERT INTO profesores (nombre, apellidos, usuario, password, rol) 
         VALUES (?, ?, ?, ?, ?)
       `);
@@ -1954,18 +1955,13 @@ app.post("/profesores/:id/entrenadores", (req, res) => {
       );
 
     } else {
-      // Si el rol no es válido
       return res.status(400).json({ message: "Rol no válido" });
     }
 
-    // Obtener el ID del último registro insertado
     const lastInsertRowId = db.prepare("SELECT last_insert_rowid() as id").get().id;
-
-    // Asignar el ID generado al nuevo usuario
     nuevoUsuario.id = lastInsertRowId;
     nuevoUsuario.id_profesor = profesorId;
 
-    // Respuesta con el nuevo usuario agregado
     res.status(201).json({
       message: `${nuevoUsuario.rol} agregado correctamente`,
       nuevoUsuario,
@@ -1976,6 +1972,7 @@ app.post("/profesores/:id/entrenadores", (req, res) => {
     res.status(500).json({ error: "Error al insertar en la base de datos" });
   }
 });
+
 
 
 
