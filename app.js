@@ -1919,16 +1919,15 @@ app.get("/profesor/:id/entrenadores", async (req, res) => {
  * Agrega un nuevo entrenador
  * Hace uso de BD
  */
-app.post("/profesores/:id/entrenadores", upload.single("avatar"), (req, res) => {
+app.post("/profesores/:id/entrenadores", (req, res) => {
   const profesorId = parseInt(req.params.id);
   const nuevoUsuario = req.body;
 
-  let avatarPath = req.file ? `/uploads/avatars/${req.file.filename}` : null;
+  let insertQuery;
 
   try {
     if (nuevoUsuario.rol === "entrenador") {
-      // Inserta en la tabla `trainers` con el avatar
-      const insertQuery = db.prepare(`
+      insertQuery = db.prepare(`
         INSERT INTO trainers (name, password, rol, avatar, id_profesor) 
         VALUES (?, ?, ?, ?, ?)
       `);
@@ -1936,13 +1935,13 @@ app.post("/profesores/:id/entrenadores", upload.single("avatar"), (req, res) => 
         nuevoUsuario.name,
         nuevoUsuario.password,
         nuevoUsuario.rol,
-        avatarPath,   // Añadir la ruta de la imagen aquí
+        nuevoUsuario.avatar,
         profesorId
       );
 
     } else if (nuevoUsuario.rol === "profesor") {
       // Inserta en la tabla `profesores`
-      const insertQuery = db.prepare(`
+      insertQuery = db.prepare(`
         INSERT INTO profesores (nombre, apellidos, usuario, password, rol) 
         VALUES (?, ?, ?, ?, ?)
       `);
@@ -1955,13 +1954,18 @@ app.post("/profesores/:id/entrenadores", upload.single("avatar"), (req, res) => 
       );
 
     } else {
+      // Si el rol no es válido
       return res.status(400).json({ message: "Rol no válido" });
     }
 
+    // Obtener el ID del último registro insertado
     const lastInsertRowId = db.prepare("SELECT last_insert_rowid() as id").get().id;
+
+    // Asignar el ID generado al nuevo usuario
     nuevoUsuario.id = lastInsertRowId;
     nuevoUsuario.id_profesor = profesorId;
 
+    // Respuesta con el nuevo usuario agregado
     res.status(201).json({
       message: `${nuevoUsuario.rol} agregado correctamente`,
       nuevoUsuario,
@@ -1972,7 +1976,6 @@ app.post("/profesores/:id/entrenadores", upload.single("avatar"), (req, res) => 
     res.status(500).json({ error: "Error al insertar en la base de datos" });
   }
 });
-
 
 
 
