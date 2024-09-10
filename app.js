@@ -1012,6 +1012,17 @@ app.get("/trainer/:nombre", (req, res) => {
       trainer.energies = [];
     }
 
+    if (trainer.medallas && trainer.medallas !== "undefined") {
+      try {
+        trainer.medallas = JSON.parse(trainer.medallas);
+      } catch (error) {
+        console.error("Error al parsear las medallas:", error);
+        trainer.medallas = [];
+      }
+    } else {
+      trainer.medallas = [];
+    }
+
     res.json({ success: true, data: trainer });
   } catch (error) {
     console.error("Error al obtener la información del entrenador desde la base de datos:", error);
