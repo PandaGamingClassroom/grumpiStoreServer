@@ -155,7 +155,7 @@ function createTables() {
       FOREIGN KEY (trainer_id) REFERENCES trainers(id)
     );
   `;
- 
+
   const createTrainerGrumpisTable = `
     CREATE TABLE IF NOT EXISTS trainer_grumpis (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -939,7 +939,7 @@ function assignGrumpidolaresAfterBuyToTrainer(trainerName, grumpidolar) {
 
 app.post("/assignGrumpidolares-after-buy", (req, res) => {
   console.log("Datos de la solicitud:", req.body);
-  
+
   const { trainerName, grumpidolares } = req.body;
 
   console.log("Cantidad de Grumpidólares para actualizar:", grumpidolares);
@@ -1110,12 +1110,12 @@ app.post("/grumpis", upload.single("image"), (req, res) => {
     `;
     const params = [grumpiData.numero, grumpiData.name, grumpiData.description, grumpiData.img];
 
-    db.run(query, params, function(err) {
+    db.run(query, params, function (err) {
       if (err) {
         console.error("Error al guardar el Grumpi en la base de datos:", err);
         return res.status(500).json({ message: "Error al guardar el Grumpi", error: err.message });
       }
-      
+
       // Devolver una respuesta exitosa
       console.log("Grumpi guardado en la base de datos:", grumpiData);
       res.status(201).json({ message: "Grumpi guardado correctamente", grumpi: grumpiData });
@@ -1227,8 +1227,6 @@ try {
 
 function assignEnergyToTrainer(trainerName, energyImagePath) {
   console.log("Ruta de la energía para asignar al entrenador: ", energyImagePath);
-
-  // Obtener el entrenador
   const trainer = db.prepare("SELECT * FROM trainers WHERE name = ?").get(trainerName);
 
   if (trainer) {
@@ -1292,7 +1290,7 @@ app.post("/assign-energie", (req, res) => {
     .then((messages) => {
       res.status(200).json({
         message: "Energía asignada con éxito a todos los entrenadores.",
-        details: messages, // Enviar mensajes detallados de éxito
+        details: messages,
       });
     })
     .catch((error) => {
@@ -1530,7 +1528,7 @@ app.post("/assign-combatObjects", (req, res) => {
         error:
           "Error al asignar el objeto de combate al entrenador: " +
           error.message,
-      }); 
+      });
     });
 });
 /***************************************************************
