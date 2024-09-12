@@ -756,8 +756,6 @@ function editObjEvolution(trainerId, objetosAEliminar) {
 
 function assignCreatureToTrainer(trainerName, creature) {
   console.log("Grumpi para asignar al entrenador: ", creature);
-
-  // Obtener el entrenador
   const trainer = db.prepare("SELECT * FROM trainers WHERE name = ?").get(trainerName);
 
   if (trainer) {
@@ -1584,31 +1582,45 @@ try {
 } catch (err) {
   console.error("Error al leer el archivo de entrenadores:", err);
 }
+
 // Función para asignar un objeto de combate a un entrenador
 function assignCombatObjectToTrainer(trainerName, combatObject) {
-  return new Promise((resolve, reject) => {
-    // Buscar el entrenador por nombre y actualizar sus datos en memoria
-    const trainer = trainerData.find((trainer) => trainer.name === trainerName);
-    if (trainer) {
-      console.log("Datos del entrenador: ", trainer);
-      console.log("Objeto a asignar al entrenador: ", combatObject);
-      trainer.objetos_combate.push(combatObject); // Asumiendo que tienes una propiedad 'objetos_combate' en tu objeto de entrenador
-      saveTrainerData(); // Guardar los cambios en el archivo JSON
-      resolve("Objeto de combate asignado correctamente al entrenador.");
+  console.log("Ruta del objeto de combate para asignar al entrenador: ", combatObject);
+  const trainer = db.prepare("SELECT * FROM trainers WHERE name = ?").get(trainerName);
+
+  if (trainer) {
+    let trainerCombatObj = trainer.objetos_combate ? JSON.parse(trainer.objetos_combate) : [];
+
+    const alreadyAssigned = trainerCombatObj.includes(combatObject);
+
+    if (!alreadyAssigned) {
+      trainerCombatObj.push(combatObject);
+
+      const updateStmt = db.prepare(`
+        UPDATE trainers
+        SET objetos_combate = ?
+        WHERE id = ?
+      `);
+      updateStmt.run(JSON.stringify(trainerCombatObj), trainer.id);
+
+      console.log("Objeto de combate asignado correctamente al entrenador.");
+      return Promise.resolve("Objeto de combate asignado correctamente al entrenador.");
     } else {
-      reject(new Error(`Entrenador con nombre ${trainerName} no encontrado.`));
+      console.log("El objeto de combate ya está asignado a este entrenador.");
+      return Promise.resolve("El objeto de combate ya está asignado a este entrenador.");
     }
-  });
+  } else {
+    return Promise.reject(new Error(`Entrenador con nombre ${trainerName} no encontrado.`));
+  }
 }
 
 // Ruta de asignación de objetos de combate
 app.post("/assign-combatObjects", (req, res) => {
   const { trainerName, combatObject } = req.body;
-  console.log("Datos de la solicitud:", req.body);
-  // Llamada a la función para asignar el objeto de combate al entrenador
+  console.log("assign-combatObjects:", req.body);
   assignCombatObjectToTrainer(trainerName, combatObject)
     .then((message) => {
-      res.status(200).json({ message: message }); // Enviar el mensaje como parte de un objeto JSON
+      res.status(200).json({ message: message });
     })
     .catch((error) => {
       console.error("Error al asignar el objeto de combate:", error);
@@ -1619,6 +1631,7 @@ app.post("/assign-combatObjects", (req, res) => {
       });
     });
 });
+
 /***************************************************************
  *                                                              *
  *                                                              *
@@ -1666,7 +1679,6 @@ app.get("/getEvoOBjects", (req, res) => {
 try {
   const data = fs.readFileSync(filePath, "utf8");
   trainerData = JSON.parse(data);
-  // Inicializar la propiedad 'energias' si no está presente en cada objeto de entrenador
   trainerData.forEach((trainer) => {
     if (!trainer.objetos_evolutivos) {
       trainer.objetos_evolutivos = [];
@@ -1679,49 +1691,39 @@ try {
 
 // Función para asignar una energía a un entrenador
 function assignEvoObjectsToTrainer(trainerName, evoObject) {
-  return new Promise((resolve, reject) => {
-    // Buscar el entrenador por nombre y actualizar sus datos en memoria
-    const trainer = trainerData.find((trainer) => trainer.name === trainerName);
-    if (trainer) {
-      console.log("Datos del entrenador:", trainer);
-      console.log("Objeto evolutivo a asignar al entrenador:", evoObject);
+  console.log("Ruta del objeto evolutivo para asignar al entrenador: ", evoObject);
+  const trainer = db.prepare("SELECT * FROM trainers WHERE name = ?").get(trainerName);
 
-      // Verificar si el entrenador tiene suficientes energías del tipo requerido
-      const energyType = evoObject.tipo;
-      const energyAmount = evoObject.precio;
+  if (trainer) {
+    let trainerEvolutionObjects = trainer.objetos_evolutivos ? JSON.parse(trainer.objetos_evolutivos) : [];
 
-      const availableEnergies = trainer.energias.filter(
-        (e) => e.tipo.toLowerCase() === energyType.toLowerCase()
-      );
-      if (availableEnergies.length >= energyAmount) {
-        // Descontar las energías del tipo requerido
-        trainer.energias = trainer.energias.filter((e, index) => {
-          return !(
-            e.tipo.toLowerCase() === energyType.toLowerCase() &&
-            index < energyAmount
-          );
-        });
-        // Asignar el objeto evolutivo
-        trainer.objetos_evolutivos.push(evoObject);
-        saveTrainerData();
-        resolve("Objeto evolutivo asignado correctamente al entrenador.");
-      } else {
-        reject(
-          new Error(
-            `El entrenador no tiene suficientes energías de tipo ${energyType}.`
-          )
-        );
-      }
+    const alreadyAssigned = trainerEvolutionObjects.includes(evoObject);
+
+    if (!alreadyAssigned) {
+      trainerEvolutionObjects.push(evoObject);
+
+      const updateStmt = db.prepare(`
+        UPDATE trainers
+        SET objetos_evolutivos = ?
+        WHERE id = ?
+      `);
+      updateStmt.run(JSON.stringify(trainerEvolutionObjects), trainer.id);
+
+      console.log("Objeto evolutivo asignado correctamente al entrenador.");
+      return Promise.resolve("Objeto evolutivo asignado correctamente al entrenador.");
     } else {
-      reject(new Error(`Entrenador con nombre ${trainerName} no encontrado.`));
+      console.log("El objeto evolutivo ya está asignado a este entrenador.");
+      return Promise.resolve("El objeto evolutivo ya está asignado a este entrenador.");
     }
-  });
+  } else {
+    return Promise.reject(new Error(`Entrenador con nombre ${trainerName} no encontrado.`));
+  }
 }
 
 // Ruta de asignación de los objetos evolutivos
 app.post("/assign-evo-objects", (req, res) => {
   const { trainerName, evoObject } = req.body;
-  console.log("Datos de la solicitud:", req.body);
+  console.log("assign-evo-objects:", req.body);
   assignEvoObjectsToTrainer(trainerName, evoObject)
     .then((message) => {
       res.status(200).json({ message: message });
