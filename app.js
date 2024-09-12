@@ -1884,38 +1884,17 @@ const readJsonFile = (filePathAmin) => {
  */
 app.get("/profesor/:nombre", (req, res) => {
   const nombre = req.params.nombre;
+  try{
+    const profesor = db.prepare("SELECT * FROM profesores WHERE name = ?").get(nombre);
 
-  // Lee los datos del archivo trainers.json
-  fs.readFile(filePathAmin, "utf8", (err, data) => {
-    if (err) {
-      console.error("Error al leer el archivo trainers.json:", err);
-      return res
-        .status(500)
-        .json({ success: false, error: "Error interno del servidor" });
+    if (!profesor) {
+      return res.status(200).json({ success: false, error: "Profesor no encontrado" });
     }
-
-    try {
-      const profe_list = JSON.parse(data);
-      // Busca el entrenador por nombre en la lista
-      console.log("Lista profesores: ", profe_list);
-      const profe = profe_list.find((profesor) => profesor.nombre === nombre);
-
-      if (!profe) {
-        // Si no se encuentra ningún entrenador con ese nombre, devuelve un mensaje de error
-        res
-          .status(200)
-          .json({ success: false, error: "Profesor no encontrado" });
-      } else {
-        // Si se encuentra el entrenador, devuelve sus datos
-        res.json({ success: true, data: profe });
-      }
-    } catch (error) {
-      console.error("Error al parsear el archivo admin.json:", error);
-      res
-        .status(500)
-        .json({ success: false, error: "Error interno del servidor" });
-    }
-  });
+    res.json({ success: true, data: profesor });
+  } catch (error) {
+    console.error("Error al obtener la información del profesor desde la base de datos:", error);
+    res.status(500).json({ success: false, error: "Error interno del servidor" });
+  }
 });
 
 app.get("/profesor/:id", async (req, res) => {
