@@ -921,7 +921,7 @@ function assignGrumpidolaresAfterBuyToTrainer(trainerName, grumpidolar) {
       }
 
       const updateStmt = db.prepare("UPDATE trainers SET grumpidolar = ? WHERE id = ?");
-      updateStmt.run(newGrumpidolares, trainer.id);
+      updateStmt.run(grumpidolaresToSubtract, trainer.id);
 
       console.log("Cantidad de Grumpidólares después de la compra:", newGrumpidolares);
       resolve("Grumpidólares restados correctamente al entrenador.");
