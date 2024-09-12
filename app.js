@@ -1023,6 +1023,39 @@ app.get("/trainer/:nombre", (req, res) => {
       trainer.medallas = [];
     }
 
+    if (trainer.objetos_combate && trainer.objetos_combate !== "undefined") {
+      try {
+        trainer.objetos_combate = JSON.parse(trainer.objetos_combate);
+      } catch (error) {
+        console.error("Error al parsear los objetos de combate:", error);
+        trainer.objetos_combate = [];
+      }
+    } else {
+      trainer.objetos_combate = [];
+    }
+
+    if (trainer.objetos_evolutivos && trainer.objetos_evolutivos !== "undefined") {
+      try {
+        trainer.objetos_evolutivos = JSON.parse(trainer.objetos_evolutivos);
+      } catch (error) {
+        console.error("Error al parsear los objetos evolutivos:", error);
+        trainer.objetos_evolutivos = [];
+      }
+    } else {
+      trainer.objetos_evolutivos = [];
+    }
+
+    if (trainer.recompensas && trainer.recompensas !== "undefined") {
+      try {
+        trainer.recompensas = JSON.parse(trainer.recompensas);
+      } catch (error) {
+        console.error("Error al parsear las recompensas:", error);
+        trainer.recompensas = [];
+      }
+    } else {
+      trainer.recompensas = [];
+    }
+
     res.json({ success: true, data: trainer });
   } catch (error) {
     console.error("Error al obtener la información del entrenador desde la base de datos:", error);
