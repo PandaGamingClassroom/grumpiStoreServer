@@ -915,8 +915,9 @@ function assignGrumpidolaresAfterBuyToTrainer(trainerName, grumpidolar) {
       const currentGrumpidolares = Math.floor(Number(trainer.grumpidolar)) || 0;
       console.log("Cantidad actual de Grumpidólares del entrenador:", currentGrumpidolares);
 
-      // Calcular los nuevos Grumpidólares después de restar
+      // Asegurarse de que la resta es correcta
       const newGrumpidolares = currentGrumpidolares - grumpidolaresToSubtract;
+      console.log(`Restando ${grumpidolaresToSubtract} a los ${currentGrumpidolares} actuales.`);
 
       if (newGrumpidolares < 0) {
         console.log("El entrenador no tiene suficientes Grumpidólares.");
@@ -2476,7 +2477,7 @@ function assignBadgeToTrainer(trainerName, badgeName) {
   const trainer = db.prepare("SELECT * FROM trainers WHERE name = ?").get(trainerName);
 
   if (trainer) {
-    let trainerLeagueBadges = trainer.medallas ? JSON.parse(trainer.medallas) : [];
+    let trainerLeagueBadges = trainer.distintivos_liga ? JSON.parse(trainer.distintivos_liga) : [];
 
     const alreadyAssigned = trainerLeagueBadges.includes(badgeName);
 
