@@ -1885,7 +1885,7 @@ const readJsonFile = (filePathAmin) => {
 app.get("/profesor/:nombre", (req, res) => {
   const nombre = req.params.nombre;
   try{
-    const profesor = db.prepare("SELECT * FROM profesores WHERE name = ?").get(nombre);
+    const profesor = db.prepare("SELECT * FROM profesores WHERE nombre = ?").get(nombre);
 
     if (!profesor) {
       return res.status(200).json({ success: false, error: "Profesor no encontrado" });
