@@ -827,46 +827,32 @@ app.post("/assign-creature", (req, res) => {
  *    ASIGNACIÓN DE GRUMPIDOLARES A LOS ENTRENADORES
  *
  *************************************************************/
-function saveTrainerData() {
-  fs.writeFile(filePath, JSON.stringify(trainerData, null, 2), (err) => {
-    if (err) {
-      console.error("Error al guardar los datos del entrenador:", err);
-    } else {
-      console.log("Datos del entrenador guardados correctamente.");
-    }
-  });
-}
 
 function assignGrumpidolaresToTrainer(trainerName, grumpidolar) {
   return new Promise((resolve, reject) => {
     console.log("Cantidad de Grumpidólares recibida (original): ", grumpidolar);
 
-    // Asegúrate de que grumpidolar es un número válido
-    const grumpidolaresNumber = parseFloat(grumpidolar);
-    console.log("Cantidad de Grumpidólares convertida: ", grumpidolaresNumber);
+    const grumpidolaresNumber = Math.round(parseFloat(grumpidolar));
+    console.log("Cantidad de Grumpidólares convertida (redondeada): ", grumpidolaresNumber);
 
     if (isNaN(grumpidolaresNumber) || grumpidolaresNumber <= 0) {
       console.log("Cantidad de Grumpidólares no válida: ", grumpidolaresNumber);
       return reject("Grumpidólares debe ser un número positivo.");
     }
 
-    // Buscar el entrenador en la base de datos
     const trainer = db.prepare("SELECT * FROM trainers WHERE name = ?").get(trainerName);
 
     if (trainer) {
       console.log("Entrenador encontrado:", trainer);
 
-      // Sumar los Grumpidólares actuales con los nuevos
       const currentGrumpidolares = parseFloat(trainer.grumpidolar) || 0;
-      const newGrumpidolares = currentGrumpidolares + grumpidolaresNumber;
+      const newGrumpidolares = Math.round(currentGrumpidolares + grumpidolaresNumber); // Redondear resultado final
 
-      // Actualizar la base de datos con la nueva cantidad de Grumpidólares
       const updateStmt = db.prepare("UPDATE trainers SET grumpidolar = ? WHERE id = ?");
       const result = updateStmt.run(newGrumpidolares, trainer.id);
 
       console.log("Cantidad de Grumpidólares después de la asignación:", newGrumpidolares);
 
-      // Verificar si la actualización fue exitosa
       if (result.changes > 0) {
         resolve("Grumpidólares asignados correctamente al entrenador.");
       } else {
@@ -877,16 +863,14 @@ function assignGrumpidolaresToTrainer(trainerName, grumpidolar) {
     }
   });
 }
+
 app.post("/assign-grumpidolares", (req, res) => {
-  console.log("Datos de la solicitud:", req.body);
+  console.log("assign-grumpidolares:", req.body);
 
   const { trainerName, grumpidolar } = req.body;
-
-  // Verificar que se están recibiendo los datos correctamente
   if (typeof trainerName !== 'string' || trainerName.trim() === '' || grumpidolar === undefined || isNaN(Number(grumpidolar))) {
     return res.status(400).json({ error: "Datos inválidos en la solicitud." });
   }
-
   assignGrumpidolaresToTrainer(trainerName, grumpidolar)
     .then((message) => {
       res.status(200).json({ message: message });
