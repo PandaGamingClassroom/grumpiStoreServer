@@ -896,7 +896,7 @@ function assignGrumpidolaresAfterBuyToTrainer(trainerName, grumpidolar) {
       return reject("Grumpidólares deben estar definidos.");
     }
 
-    const grumpidolaresToSubtract = Math.floor(Number(grumpidolar)); 
+    const grumpidolaresToSubtract = Math.floor(Number(grumpidolar));
     console.log("Cantidad de Grumpidólares a restar (entero):", grumpidolaresToSubtract);
 
     if (isNaN(grumpidolaresToSubtract) || grumpidolaresToSubtract < 0) {
@@ -909,11 +909,10 @@ function assignGrumpidolaresAfterBuyToTrainer(trainerName, grumpidolar) {
     if (trainer) {
       console.log("Entrenador encontrado:", trainer);
 
-      const currentGrumpidolares = trainer.grumpidolar;
+      const currentGrumpidolares = Math.floor(Number(trainer.grumpidolar)) || 0;
       console.log("Cantidad actual de Grumpidólares del entrenador:", currentGrumpidolares);
 
       const newGrumpidolares = currentGrumpidolares - grumpidolaresToSubtract;
-      console.log(`Restando ${grumpidolaresToSubtract} a los ${currentGrumpidolares} actuales.`);
 
       if (newGrumpidolares < 0) {
         console.log("El entrenador no tiene suficientes Grumpidólares.");
@@ -930,8 +929,6 @@ function assignGrumpidolaresAfterBuyToTrainer(trainerName, grumpidolar) {
     }
   });
 }
-
-
 
 app.post("/assignGrumpidolares-after-buy", (req, res) => {
   console.log("assignGrumpidolares-after-buy:", req.body);
