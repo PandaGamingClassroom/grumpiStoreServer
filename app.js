@@ -911,6 +911,7 @@ function assignGrumpidolaresAfterBuyToTrainer(trainerName, grumpidolar) {
 
       const currentGrumpidolares = trainer.grumpidolar;
       console.log("Cantidad actual de Grumpidólares del entrenador:", currentGrumpidolares);
+      console.log("Cantidad a restar al entrenador:", grumpidolaresToSubtract);
 
       const newGrumpidolares = currentGrumpidolares - grumpidolaresToSubtract;
 
