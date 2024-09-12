@@ -134,6 +134,7 @@ function createTables() {
       objetos_combate TEXT,
       objetos_evolutivos TEXT,
       marca_combate TEXT,
+      distintivos_liga TEXT,
       grumpidolar TEXT,
       recompensas TEXT,
       energies TEXT
@@ -1054,6 +1055,17 @@ app.get("/trainer/:nombre", (req, res) => {
       }
     } else {
       trainer.recompensas = [];
+    }
+
+    if (trainer.distintivos_liga && trainer.distintivos_liga !== "undefined") {
+      try {
+        trainer.distintivos_liga = JSON.parse(trainer.distintivos_liga);
+      } catch (error) {
+        console.error("Error al parsear los distintivos de liga:", error);
+        trainer.distintivos_liga = [];
+      }
+    } else {
+      trainer.distintivos_liga = [];
     }
 
     res.json({ success: true, data: trainer });
@@ -2424,7 +2436,7 @@ app.get("/getLeagueBadges", (req, res) => {
  */
 app.post("/assign-badge", (req, res) => {
   const { trainerNames, badge } = req.body;
-  console.log("Datos de la solicitud:", req.body);
+  console.log("assign-badge:", req.body);
 
   // Crea una promesa para cada entrenador en el array
   const promises = trainerNames.map((trainerName) =>
@@ -2437,7 +2449,8 @@ app.post("/assign-badge", (req, res) => {
       res.status(200).json({
         message:
           "Distintivo de liga asignado con éxito a todos los entrenadores.",
-      });
+          details: messages,
+        });
     })
     .catch((error) => {
       console.error("Error al asignar el distintivo de liga:", error);
@@ -2460,25 +2473,36 @@ app.post("/assign-badge", (req, res) => {
  * @returns
  */
 function assignBadgeToTrainer(trainerName, badgeName) {
-  // Aquí iría tu lógica para asignar el distintivo al entrenador
-  // Buscar el entrenador por nombre y actualizar sus datos en memoria
-  const trainer = trainerData.find((trainer) => trainer.name === trainerName);
+  console.log("Ruta del distintivo de liga para asignar al entrenador: ", badgeName);
+  const trainer = db.prepare("SELECT * FROM trainers WHERE name = ?").get(trainerName);
+
   if (trainer) {
-    // Se asegura que la propiedad 'distintivos' existe en el entrenador.
-    if (!trainer.distintivos_liga) {
-      trainer.distintivos_liga = [];
+    let trainerLeagueBadges = trainer.medallas ? JSON.parse(trainer.medallas) : [];
+
+    const alreadyAssigned = trainerLeagueBadges.includes(badgeName);
+
+    if (!alreadyAssigned) {
+      trainerLeagueBadges.push(badgeName);
+
+      const updateStmt = db.prepare(`
+        UPDATE trainers
+        SET distintivos_liga = ?
+        WHERE id = ?
+      `);
+      updateStmt.run(JSON.stringify(trainerLeagueBadges), trainer.id);
+
+      console.log("Distintivo de liga asignado correctamente al entrenador.");
+      return Promise.resolve("Distintivo de liga asignado correctamente al entrenador.");
+    } else {
+      console.log("El distintivo de liga ya está asignado a este entrenador.");
+      return Promise.resolve("El distintivo de liga ya está asignado a este entrenador.");
     }
-    trainer.distintivos_liga.push(badgeName); // Por ejemplo, asumiendo que tienes una propiedad 'distintivos' en tu objeto de entrenador
-    saveTrainerData(); // Guardar los cambios en el archivo JSON
-    return Promise.resolve(
-      "Distintivo de liga asignado correctamente al entrenador."
-    );
   } else {
-    return Promise.reject(
-      `Entrenador con nombre ${trainerName} no encontrado.`
-    );
+    return Promise.reject(new Error(`Entrenador con nombre ${trainerName} no encontrado.`));
   }
 }
+
+
 app.listen(PORT, () => {
   console.log(`Servidor GrumpiStore, iniciado en el puerto: ${PORT}`);
 });
