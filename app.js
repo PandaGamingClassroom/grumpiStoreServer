@@ -889,7 +889,7 @@ app.post("/assign-grumpidolares", (req, res) => {
  */
 function assignGrumpidolaresAfterBuyToTrainer(trainerName, grumpidolar) {
   return new Promise((resolve, reject) => {
-    console.log("Cantidad de Grumpidólares recibida (original):", grumpidolar);
+    console.log("Cantidad de Grumpidólares a restar:", grumpidolar);
 
     // Verificar si grumpidolar está definido y convertirlo en número entero
     if (grumpidolar === undefined || grumpidolar === null) {
@@ -897,11 +897,11 @@ function assignGrumpidolaresAfterBuyToTrainer(trainerName, grumpidolar) {
       return reject("Grumpidólares deben estar definidos.");
     }
 
-    const grumpidolaresNumber = Math.floor(Number(grumpidolar)); // Convertir a entero
-    console.log("Cantidad de Grumpidólares convertida (entera):", grumpidolaresNumber);
+    const grumpidolaresToSubtract = Math.floor(Number(grumpidolar)); // Convertir a entero
+    console.log("Cantidad de Grumpidólares a restar (entero):", grumpidolaresToSubtract);
 
-    if (isNaN(grumpidolaresNumber) || grumpidolaresNumber < 0) {
-      console.log("Cantidad de Grumpidólares no válida:", grumpidolaresNumber);
+    if (isNaN(grumpidolaresToSubtract) || grumpidolaresToSubtract < 0) {
+      console.log("Cantidad de Grumpidólares no válida:", grumpidolaresToSubtract);
       return reject("Grumpidólares debe ser un número positivo.");
     }
 
@@ -911,21 +911,21 @@ function assignGrumpidolaresAfterBuyToTrainer(trainerName, grumpidolar) {
     if (trainer) {
       console.log("Entrenador encontrado:", trainer);
 
-      // Obtener la cantidad actual de Grumpidólares y asegurarse de que sea un entero
+      // Obtener la cantidad actual de Grumpidólares
       const currentGrumpidolares = Math.floor(Number(trainer.grumpidolar)) || 0;
       console.log("Cantidad actual de Grumpidólares del entrenador:", currentGrumpidolares);
 
-      // Calcular los nuevos Grumpidólares después de la compra
-      const newGrumpidolares = currentGrumpidolares - grumpidolaresNumber;
+      // Calcular los nuevos Grumpidólares después de restar
+      const newGrumpidolares = currentGrumpidolares - grumpidolaresToSubtract;
 
       if (newGrumpidolares < 0) {
         console.log("El entrenador no tiene suficientes Grumpidólares.");
         return reject("El entrenador no tiene suficientes Grumpidólares.");
       }
 
-      // Actualizar los Grumpidólares en la base de datos con un valor entero
+      // Actualizar los Grumpidólares en la base de datos
       const updateStmt = db.prepare("UPDATE trainers SET grumpidolar = ? WHERE id = ?");
-      updateStmt.run(Math.floor(newGrumpidolares), trainer.id); // Asegurar que se guarde como entero
+      updateStmt.run(newGrumpidolares, trainer.id); // Guardar el nuevo valor
 
       console.log("Cantidad de Grumpidólares después de la compra:", newGrumpidolares);
       resolve("Grumpidólares restados correctamente al entrenador.");
