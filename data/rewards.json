@@ -2,32 +2,32 @@
   {
     "id": 1,
     "nombre": "Recompensa 1",
-    "img": "http://localhost:3000/uploads/rewards/RECOMPENSA_1.1.png",
+    "img": "https://grumpistoreserver.onrender.com/uploads/rewards/RECOMPENSA_1.1.png",
     "condicion": "20",
     "uso": ""
   },
   {
     "id": 2,
     "nombre": "Recompensa 2",
-    "img": "http://localhost:3000/uploads/rewards/RECOMPENSA_2.1.png",
+    "img": "https://grumpistoreserver.onrender.com/uploads/rewards/RECOMPENSA_2.1.png",
     "condicion": "25"
   },
   {
     "id": 3,
     "nombre": "Recompensa 3",
-    "img": "http://localhost:3000/uploads/rewards/RECOMPENSA_3.1.png",
+    "img": "https://grumpistoreserver.onrender.com/uploads/rewards/RECOMPENSA_3.1.png",
     "condicion": "35"
   },
   {
     "id": 4,
     "nombre": "Recompensa 4",
-    "img": "http://localhost:3000/uploads/rewards/RECOMPENSA_4.1.png",
+    "img": "https://grumpistoreserver.onrender.com/uploads/rewards/RECOMPENSA_4.1.png",
     "condicion": "300"
   },
   {
     "id": 5,
     "nombre": "Recompensa 5",
-    "img": "http://localhost:3000/uploads/rewards/RECOMPENSA_5.1.png",
+    "img": "https://grumpistoreserver.onrender.com/uploads/rewards/RECOMPENSA_5.1.png",
     "condicion": "300"
   }
 ]
