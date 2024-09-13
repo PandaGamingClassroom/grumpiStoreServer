@@ -1333,7 +1333,7 @@ function saveTrainerData() {
  ******************************************/
 app.post("/assign-energie", (req, res) => {
   const { trainerNames, energie } = req.body;
-  console.log("Datos de la solicitud:", req.body);
+  console.log("/assign-energie:", req.body);
 
   if (!energie) {
     return res.status(400).json({
@@ -1492,7 +1492,7 @@ function assignMedalToTrainer(trainerName, medalImagePath) {
  */
 app.post("/assign-medal", (req, res) => {
   const { trainerNames, medal } = req.body;
-  console.log("Datos de la solicitud:", req.body);
+  console.log("assign-medal:", req.body);
 
   if (!medal) {
     return res.status(400).json({
