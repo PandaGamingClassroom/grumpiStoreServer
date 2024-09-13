@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "nombre": "COPA GRUMPI",
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/leagueBadges/COPA_GRUMPI.1.png"
+  },
+  {
+    "id": 2,
+    "nombre": "LAYLA, LA CUIDADORA DE VIDA",
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/leagueBadges/LAYLA_LA_CUIDADORA_DE_VIDA.1.png"
+  },
+  {
+    "id": 3,
+    "nombre": "LIMBO, EL PORTADOR DE LUZ",
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/leagueBadges/LIMBO_EL_PORTADOR_DE_LUZ.1.png"
+  },
+  {
+    "id": 4,
+    "nombre": "LUCY, LA MÚSICA DE LA TORMENTA",
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/leagueBadges/LUCY_LA_MÚSICA_DE_LA_TORMENTA.1.png"
+  },
+  {
+    "id": 5,
+    "nombre": "MARCO, EL MAESTRO OSCURO",
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/leagueBadges/MARCO_EL_MAESTRO_OSCURO.1.png"
+  }
+]

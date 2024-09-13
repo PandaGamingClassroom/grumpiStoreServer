@@ -21,6 +21,7 @@ const filePathRewards = "./data/rewards.json";
 const filePathAttacks = "./data/attacks.json";
 const filePathEnergies = "./data/energies.json";
 const filePathMedals = "./data/medals.json";
+const filePathLeagueBadges = "./data/leagueBadges.json";
 
 // Directorios de almacenamiento de imágenes
 const uploadDir = path.join(__dirname, "uploads", "grumpis");
@@ -2689,19 +2690,21 @@ app.get("/getEncargados", (req, res) => {
  * Obtención de la lista de los distintivos de liga
  */
 app.get("/getLeagueBadges", (req, res) => {
-  fs.readdir(uploadDirLeagueBadges, (err, files) => {
+  fs.readFile(filePathLeagueBadges, "utf8", (err, data) => {
     if (err) {
-      console.error("Error al leer el directorio de imágenes:", err);
-      return res.status(500).json({ error: "Error interno del servidor" });
+      console.error("Error al leer el archivo leagueBadges.json:", err);
+      res
+        .status(500)
+        .json({ error: "Error al leer el archivo leagueBadges.json" });
+    } else {
+      try {
+        const leagueBadges_list = JSON.parse(data);
+        res.json({ leagueBadges_list: leagueBadges_list });
+      } catch (parseError) {
+        console.error("Error al parsear el contenido JSON:", parseError);
+        res.status(500).json({ error: "Error al parsear el contenido JSON" });
+      }
     }
-
-    // Construye las URLs de las imágenes
-    const imageUrls = files.map((file) => {
-      return `https://grumpistoreserver.onrender.com/uploads/leagueBadges/${file}`;
-    });
-
-    // Devuelve las URLs de las imágenes como una respuesta JSON
-    res.json({ imageUrls });
   });
 });
 
