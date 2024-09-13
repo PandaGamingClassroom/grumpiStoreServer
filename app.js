@@ -3,10 +3,10 @@ const app = express();
 const multer = require("multer");
 const cors = require("cors");
 const fs = require("fs");
-const chokidar = require('chokidar');
-const simpleGit = require('simple-git');
-const path = require('path');
-const Database = require('better-sqlite3');
+const chokidar = require("chokidar");
+const simpleGit = require("simple-git");
+const path = require("path");
+const Database = require("better-sqlite3");
 const PORT = process.env.PORT || 3001;
 
 module.exports = app;
@@ -20,7 +20,7 @@ const filePathObjectsEvolution = "./data/evolutionObjects.json";
 const filePathRewards = "./data/rewards.json";
 const filePathAttacks = "./data/attacks.json";
 const filePathEnergies = "./data/energies.json";
-const filePathMedals = "./data/medals.json"
+const filePathMedals = "./data/medals.json";
 
 // Directorios de almacenamiento de imágenes
 const uploadDir = path.join(__dirname, "uploads", "grumpis");
@@ -36,9 +36,11 @@ const howToGetGrumpi = path.join(uploadDir, "howToGetGrumpis");
  *                                                                          *
  ****************************************************************************/
 // Determina la ruta del directorio de la base de datos en función del entorno
-const isProduction = process.env.NODE_ENV === 'production';
-const dbDirectory = isProduction ? '/mnt/data' : path.join(__dirname, 'mnt/data');
-const dbPath = path.join(dbDirectory, 'grumpi_data_base.db');
+const isProduction = process.env.NODE_ENV === "production";
+const dbDirectory = isProduction
+  ? "/mnt/data"
+  : path.join(__dirname, "mnt/data");
+const dbPath = path.join(dbDirectory, "grumpi_data_base.db");
 
 // Verificar y crear el directorio de la base de datos si no existe
 if (!fs.existsSync(dbDirectory)) {
@@ -52,7 +54,7 @@ try {
   db = new Database(dbPath);
   console.log(`Conectado a la base de datos en: ${dbPath}`);
 } catch (error) {
-  console.error('Error al conectar con la base de datos:', error);
+  console.error("Error al conectar con la base de datos:", error);
   process.exit(1); // Salir si hay un error crítico al inicializar la base de datos
 }
 
@@ -60,9 +62,8 @@ try {
 if (fs.existsSync(dbPath)) {
   console.log(`El archivo de la base de datos existe en: ${dbPath}`);
 } else {
-  console.log('No se encontró el archivo de la base de datos.');
+  console.log("No se encontró el archivo de la base de datos.");
 }
-
 
 /**************************************
  *                                    *
@@ -89,11 +90,9 @@ app.use(cors(corsOptions));
 
 // Configuración de la política de referencia
 app.use((req, res, next) => {
-  res.setHeader('Referrer-Policy', 'no-referrer-when-downgrade');
+  res.setHeader("Referrer-Policy", "no-referrer-when-downgrade");
   next();
 });
-
-
 
 fs.mkdirSync(uploadDir, { recursive: true });
 fs.mkdirSync(uploadDirMedals, { recursive: true });
@@ -207,16 +206,16 @@ function createTables() {
 createTables();
 
 /**
- * 
- * FUNCIÓN PARA AÑADIR LOS GRUMPIS EXISTENTES 
+ *
+ * FUNCIÓN PARA AÑADIR LOS GRUMPIS EXISTENTES
  * A LA BASE DE DATOS.
- * 
+ *
  * Estos están almacenados en el archivo: grumpis.json
- * 
+ *
  */
 function loadGrumpisFromFile() {
   try {
-    const data = fs.readFileSync(filePathGrumpis, 'utf8');
+    const data = fs.readFileSync(filePathGrumpis, "utf8");
     const grumpis = JSON.parse(data);
 
     const insertStmt = db.prepare(`
@@ -235,7 +234,7 @@ function loadGrumpisFromFile() {
       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `);
 
-    grumpis.forEach(grumpi => {
+    grumpis.forEach((grumpi) => {
       insertStmt.run(
         grumpi.trainer_id,
         grumpi.nombre,
@@ -251,7 +250,9 @@ function loadGrumpisFromFile() {
       );
     });
 
-    console.log("Grumpis cargados e insertados correctamente en la base de datos.");
+    console.log(
+      "Grumpis cargados e insertados correctamente en la base de datos."
+    );
   } catch (err) {
     console.error("Error al cargar los grumpis desde el archivo:", err.message);
   }
@@ -276,7 +277,6 @@ app.use(express.json()); // Middleware para analizar el cuerpo de la solicitud c
 // Servir las imágenes estáticas desde el directorio de uploads
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-
 /**
  * PROFESOR ADMINISTRADOR POR DEFECTO.
  * Este profesor es añadido por defecto
@@ -288,22 +288,28 @@ const defaultProfesor = {
   apellidos: "Moreno Ortega",
   usuario: "admin",
   password: "1",
-  rol: "administrador"
+  rol: "administrador",
 };
 
 function addDefaultProfesor() {
   try {
     // Verificar si el profesor ya existe
-    const existingProfesor = db.prepare(`
+    const existingProfesor = db
+      .prepare(
+        `
       SELECT * FROM profesores WHERE id = ?
-    `).get(defaultProfesor.id);
+    `
+      )
+      .get(defaultProfesor.id);
 
     if (!existingProfesor) {
       // Insertar el profesor predeterminado si no existe
-      db.prepare(`
+      db.prepare(
+        `
         INSERT INTO profesores (id, nombre, apellidos, usuario, password, rol)
         VALUES (?, ?, ?, ?, ?, ?)
-      `).run(
+      `
+      ).run(
         defaultProfesor.id,
         defaultProfesor.nombre,
         defaultProfesor.apellidos,
@@ -351,9 +357,9 @@ fs.readFile(filePath, "utf8", (err, data) => {
 });
 
 /**
- * 
+ *
  * Método para obtener el listado de Entrenadores
- * 
+ *
  */
 app.get("/", (req, res) => {
   try {
@@ -362,27 +368,42 @@ app.get("/", (req, res) => {
       trainer_list: trainerList,
     });
   } catch (dbError) {
-    console.error("Error al obtener los entrenadores de la base de datos:", dbError);
-    res.status(500).json({ error: "Error al obtener los entrenadores de la base de datos" });
+    console.error(
+      "Error al obtener los entrenadores de la base de datos:",
+      dbError
+    );
+    res
+      .status(500)
+      .json({ error: "Error al obtener los entrenadores de la base de datos" });
   }
 });
 
-
 /**
- * 
+ *
  * Método para guardar un nuevo entrenador
- * 
+ *
  */
 app.post("/", (req, res) => {
   const nuevoEntrenador = req.body;
   try {
-    const insert = db.prepare("INSERT INTO trainers (name, age, experience) VALUES (?, ?, ?)");
-    insert.run(nuevoEntrenador.name, nuevoEntrenador.age, nuevoEntrenador.experience);
+    const insert = db.prepare(
+      "INSERT INTO trainers (name, age, experience) VALUES (?, ?, ?)"
+    );
+    insert.run(
+      nuevoEntrenador.name,
+      nuevoEntrenador.age,
+      nuevoEntrenador.experience
+    );
 
     res.json({ message: "Entrenador agregado correctamente", nuevoEntrenador });
   } catch (dbError) {
-    console.error("Error al agregar el entrenador a la base de datos:", dbError);
-    res.status(500).json({ error: "Error al agregar el entrenador a la base de datos" });
+    console.error(
+      "Error al agregar el entrenador a la base de datos:",
+      dbError
+    );
+    res
+      .status(500)
+      .json({ error: "Error al agregar el entrenador a la base de datos" });
   }
 });
 
@@ -401,20 +422,32 @@ app.post("/new-user", (req, res) => {
         INSERT INTO trainers (id, name, password, rol, id_profesor) 
         VALUES (?, ?, ?, ?, ?)
       `);
-      insertQuery.run(nuevoUsuario.id, nuevoUsuario.name, nuevoUsuario.password, nuevoUsuario.rol, nuevoUsuario.id_profesor);
+      insertQuery.run(
+        nuevoUsuario.id,
+        nuevoUsuario.name,
+        nuevoUsuario.password,
+        nuevoUsuario.rol,
+        nuevoUsuario.id_profesor
+      );
 
       res.json({
         message: "Entrenador agregado correctamente",
         nuevoUsuario,
       });
-
     } else if (nuevoUsuario.rol === "profesor") {
       // Inserta en la tabla `profesores`
       const insertQuery = db.prepare(`
         INSERT INTO profesores (id, nombre, apellidos, usuario, password, rol) 
         VALUES (?, ?, ?, ?, ?, ?)
       `);
-      insertQuery.run(nuevoUsuario.id, nuevoUsuario.nombre, nuevoUsuario.apellidos, nuevoUsuario.usuario, nuevoUsuario.password, nuevoUsuario.rol);
+      insertQuery.run(
+        nuevoUsuario.id,
+        nuevoUsuario.nombre,
+        nuevoUsuario.apellidos,
+        nuevoUsuario.usuario,
+        nuevoUsuario.password,
+        nuevoUsuario.rol
+      );
 
       res.json({
         message: "Profesor agregado correctamente",
@@ -425,10 +458,11 @@ app.post("/new-user", (req, res) => {
       res.status(400).json({ error: "Rol no válido" });
     }
   } catch (err) {
-    res.status(500).json({ error: "Error al insertar en la base de datos: " + err.message });
+    res
+      .status(500)
+      .json({ error: "Error al insertar en la base de datos: " + err.message });
   }
 });
-
 
 /**
  *
@@ -443,19 +477,22 @@ app.delete("/user/:name", (req, res) => {
     const result = deleteStmt.run(userName);
 
     if (result.changes === 0) {
-      return res.status(404).json({ error: `Usuario con nombre ${userName} no encontrado` });
+      return res
+        .status(404)
+        .json({ error: `Usuario con nombre ${userName} no encontrado` });
     }
 
     res.status(200).json({
-      message: `Usuario con nombre ${userName} eliminado correctamente`
+      message: `Usuario con nombre ${userName} eliminado correctamente`,
     });
   } catch (dbError) {
-    console.error("Error al eliminar el entrenador de la base de datos:", dbError);
+    console.error(
+      "Error al eliminar el entrenador de la base de datos:",
+      dbError
+    );
     res.status(500).json({ error: "Error interno del servidor" });
   }
 });
-
-
 
 /**
  *
@@ -474,7 +511,9 @@ app.put("/trainers/update/:name", (req, res) => {
 
   try {
     // Obtener el entrenador
-    const trainer = db.prepare("SELECT * FROM trainers WHERE name = ?").get(trainerName);
+    const trainer = db
+      .prepare("SELECT * FROM trainers WHERE name = ?")
+      .get(trainerName);
 
     if (!trainer) {
       return res.status(404).json({ error: "Entrenador no encontrado" });
@@ -500,19 +539,41 @@ app.put("/trainers/update/:name", (req, res) => {
       SET name = ?, password = ?, grumpidolar = ?, marca_combate = ? 
       WHERE id = ?
     `);
-    updateStmt.run(trainer.name, trainer.password, trainer.grumpidolar, trainer.marca_combate, trainer.id);
+    updateStmt.run(
+      trainer.name,
+      trainer.password,
+      trainer.grumpidolar,
+      trainer.marca_combate,
+      trainer.id
+    );
 
-    console.log('Trainer actualizado:', trainer); // Log para depurar
+    console.log("Trainer actualizado:", trainer); // Log para depurar
 
     // Manejo de objetosAEliminar
     if (Array.isArray(objetosAEliminar)) {
-      const energiasAEliminar = objetosAEliminar.filter(objeto => objeto.tipo === "energia");
-      const medallasAEliminar = objetosAEliminar.filter(objeto => objeto.tipo === "medalla");
-      const grumpisAEliminar = objetosAEliminar.filter(objeto => objeto.tipo === "grumpi");
-      const objCombateAEliminar = objetosAEliminar.filter(objeto => objeto.tipo === "combate");
-      const objEvolutivoAEliminar = objetosAEliminar.filter(objeto => objeto.tipo === "evolutivo");
+      const energiasAEliminar = objetosAEliminar.filter(
+        (objeto) => objeto.tipo === "energia"
+      );
+      const medallasAEliminar = objetosAEliminar.filter(
+        (objeto) => objeto.tipo === "medalla"
+      );
+      const grumpisAEliminar = objetosAEliminar.filter(
+        (objeto) => objeto.tipo === "grumpi"
+      );
+      const objCombateAEliminar = objetosAEliminar.filter(
+        (objeto) => objeto.tipo === "combate"
+      );
+      const objEvolutivoAEliminar = objetosAEliminar.filter(
+        (objeto) => objeto.tipo === "evolutivo"
+      );
 
-      console.log('Objetos a eliminar:', { energiasAEliminar, medallasAEliminar, grumpisAEliminar, objCombateAEliminar, objEvolutivoAEliminar });
+      console.log("Objetos a eliminar:", {
+        energiasAEliminar,
+        medallasAEliminar,
+        grumpisAEliminar,
+        objCombateAEliminar,
+        objEvolutivoAEliminar,
+      });
 
       if (energiasAEliminar.length > 0) {
         deleteEnergiesFromTrainer(trainer.id, energiasAEliminar);
@@ -533,14 +594,13 @@ app.put("/trainers/update/:name", (req, res) => {
 
     res.status(200).json({ message: "Entrenador actualizado correctamente" });
   } catch (dbError) {
-    console.error("Error al actualizar el entrenador en la base de datos:", dbError);
+    console.error(
+      "Error al actualizar el entrenador en la base de datos:",
+      dbError
+    );
     res.status(500).json({ error: "Error interno del servidor" });
   }
 });
-
-
-
-
 
 /**
  * Función para eliminar solo las energías seleccionadas
@@ -560,10 +620,11 @@ function deleteEnergiesFromTrainer(trainerId, objetosAEliminar) {
       deleteStmt.run(trainerId, energia.nombre, energia.cantidad);
     });
   } else {
-    console.log("No hay energías a eliminar o el formato de objetosAEliminar es incorrecto.");
+    console.log(
+      "No hay energías a eliminar o el formato de objetosAEliminar es incorrecto."
+    );
   }
 }
-
 
 /**
  * Función para editar las medallas seleccionadas
@@ -583,10 +644,11 @@ function deleteMedalsFromTrainer(trainerId, objetosAEliminar) {
       deleteStmt.run(trainerId, medalla.nombre, medalla.cantidad);
     });
   } else {
-    console.log("No hay medallas a eliminar o el formato de objetosAEliminar es incorrecto.");
+    console.log(
+      "No hay medallas a eliminar o el formato de objetosAEliminar es incorrecto."
+    );
   }
 }
-
 
 /**
  * Función para editar los Grumpis seleccionados del entrenador.
@@ -603,10 +665,14 @@ function editGrumpisFromTrainer(trainerId, objetosAEliminar) {
       let cantidadAEliminar = grumpi.cantidad || 1;
 
       // Buscar grumpis del entrenador que coincidan con el nombre
-      const existingGrumpis = db.prepare(`
+      const existingGrumpis = db
+        .prepare(
+          `
         SELECT id, cantidad FROM grumpis
         WHERE trainer_id = ? AND nombre = ?
-      `).all(trainerId, grumpi.nombre);
+      `
+        )
+        .all(trainerId, grumpi.nombre);
 
       existingGrumpis.forEach((existingGrumpi) => {
         if (cantidadAEliminar <= 0) return;
@@ -615,16 +681,20 @@ function editGrumpisFromTrainer(trainerId, objetosAEliminar) {
         let reduceAmount = Math.min(existingGrumpi.cantidad, cantidadAEliminar);
 
         if (existingGrumpi.cantidad <= reduceAmount) {
-          db.prepare(`
+          db.prepare(
+            `
             DELETE FROM grumpis
             WHERE id = ?
-          `).run(existingGrumpi.id);
+          `
+          ).run(existingGrumpi.id);
         } else {
-          db.prepare(`
+          db.prepare(
+            `
             UPDATE grumpis
             SET cantidad = ?
             WHERE id = ?
-          `).run(existingGrumpi.cantidad - reduceAmount, existingGrumpi.id);
+          `
+          ).run(existingGrumpi.cantidad - reduceAmount, existingGrumpi.id);
         }
 
         cantidadAEliminar -= reduceAmount;
@@ -637,10 +707,11 @@ function editGrumpisFromTrainer(trainerId, objetosAEliminar) {
       });
     });
   } else {
-    console.log("No hay grumpis a eliminar o el formato de objetosAEliminar es incorrecto.");
+    console.log(
+      "No hay grumpis a eliminar o el formato de objetosAEliminar es incorrecto."
+    );
   }
 }
-
 
 /**
  * Función para editar los objetos de combate seleccionados.
@@ -657,28 +728,42 @@ function editObjCombat(trainerId, objetosAEliminar) {
       let cantidadAEliminar = objeto.cantidad || 1;
 
       // Buscar objetos de combate del entrenador que coincidan con el nombre
-      const existingObjCombats = db.prepare(`
+      const existingObjCombats = db
+        .prepare(
+          `
         SELECT id, cantidad FROM objetos_combate
         WHERE trainer_id = ? AND nombre = ?
-      `).all(trainerId, objeto.nombre);
+      `
+        )
+        .all(trainerId, objeto.nombre);
 
       existingObjCombats.forEach((existingObjCombat) => {
         if (cantidadAEliminar <= 0) return;
 
         // Reducir la cantidad y actualizar o eliminar si es necesario
-        let reduceAmount = Math.min(existingObjCombat.cantidad, cantidadAEliminar);
+        let reduceAmount = Math.min(
+          existingObjCombat.cantidad,
+          cantidadAEliminar
+        );
 
         if (existingObjCombat.cantidad <= reduceAmount) {
-          db.prepare(`
+          db.prepare(
+            `
             DELETE FROM objetos_combate
             WHERE id = ?
-          `).run(existingObjCombat.id);
+          `
+          ).run(existingObjCombat.id);
         } else {
-          db.prepare(`
+          db.prepare(
+            `
             UPDATE objetos_combate
             SET cantidad = ?
             WHERE id = ?
-          `).run(existingObjCombat.cantidad - reduceAmount, existingObjCombat.id);
+          `
+          ).run(
+            existingObjCombat.cantidad - reduceAmount,
+            existingObjCombat.id
+          );
         }
 
         cantidadAEliminar -= reduceAmount;
@@ -691,7 +776,9 @@ function editObjCombat(trainerId, objetosAEliminar) {
       });
     });
   } else {
-    console.log("No hay objetos de combate a eliminar o el formato de objetosAEliminar es incorrecto.");
+    console.log(
+      "No hay objetos de combate a eliminar o el formato de objetosAEliminar es incorrecto."
+    );
   }
 }
 
@@ -709,28 +796,42 @@ function editObjEvolution(trainerId, objetosAEliminar) {
       let cantidadAEliminar = objEvolu.cantidad || 1;
 
       // Buscar objetos evolutivos del entrenador que coincidan con el nombre
-      const existingObjEvolutions = db.prepare(`
+      const existingObjEvolutions = db
+        .prepare(
+          `
         SELECT id, cantidad FROM objetos_evolutivos
         WHERE trainer_id = ? AND nombre = ?
-      `).all(trainerId, objEvolu.nombre);
+      `
+        )
+        .all(trainerId, objEvolu.nombre);
 
       existingObjEvolutions.forEach((existingObjEvolution) => {
         if (cantidadAEliminar <= 0) return;
 
         // Reducir la cantidad y actualizar o eliminar si es necesario
-        let reduceAmount = Math.min(existingObjEvolution.cantidad, cantidadAEliminar);
+        let reduceAmount = Math.min(
+          existingObjEvolution.cantidad,
+          cantidadAEliminar
+        );
 
         if (existingObjEvolution.cantidad <= reduceAmount) {
-          db.prepare(`
+          db.prepare(
+            `
             DELETE FROM objetos_evolutivos
             WHERE id = ?
-          `).run(existingObjEvolution.id);
+          `
+          ).run(existingObjEvolution.id);
         } else {
-          db.prepare(`
+          db.prepare(
+            `
             UPDATE objetos_evolutivos
             SET cantidad = ?
             WHERE id = ?
-          `).run(existingObjEvolution.cantidad - reduceAmount, existingObjEvolution.id);
+          `
+          ).run(
+            existingObjEvolution.cantidad - reduceAmount,
+            existingObjEvolution.id
+          );
         }
 
         cantidadAEliminar -= reduceAmount;
@@ -743,10 +844,11 @@ function editObjEvolution(trainerId, objetosAEliminar) {
       });
     });
   } else {
-    console.log("No hay objetos evolutivos a eliminar o el formato de objetosAEliminar es incorrecto.");
+    console.log(
+      "No hay objetos evolutivos a eliminar o el formato de objetosAEliminar es incorrecto."
+    );
   }
 }
-
 
 /********************************************************************
  *
@@ -756,12 +858,16 @@ function editObjEvolution(trainerId, objetosAEliminar) {
 
 function assignCreatureToTrainer(trainerName, creature) {
   console.log("Grumpi para asignar al entrenador: ", creature);
-  const trainer = db.prepare("SELECT * FROM trainers WHERE name = ?").get(trainerName);
+  const trainer = db
+    .prepare("SELECT * FROM trainers WHERE name = ?")
+    .get(trainerName);
 
   if (trainer) {
     let trainerGrumpis = trainer.grumpis ? JSON.parse(trainer.grumpis) : [];
 
-    const alreadyAssigned = trainerGrumpis.some(grumpi => grumpi.id === creature.id);
+    const alreadyAssigned = trainerGrumpis.some(
+      (grumpi) => grumpi.id === creature.id
+    );
 
     if (!alreadyAssigned) {
       trainerGrumpis.push(creature);
@@ -780,12 +886,11 @@ function assignCreatureToTrainer(trainerName, creature) {
 
     return Promise.resolve("Criatura asignada correctamente al entrenador.");
   } else {
-    return Promise.reject(new Error(`Entrenador con nombre ${trainerName} no encontrado.`));
+    return Promise.reject(
+      new Error(`Entrenador con nombre ${trainerName} no encontrado.`)
+    );
   }
 }
-
-
-
 
 // Ruta de asignación de grumpis
 app.post("/assign-creature", (req, res) => {
@@ -802,17 +907,17 @@ app.post("/assign-creature", (req, res) => {
     .then((messages) => {
       res.status(200).json({
         message: "Criatura asignada con éxito a todos los entrenadores.",
-        details: messages // Enviar mensajes detallados de éxito
+        details: messages, // Enviar mensajes detallados de éxito
       });
     })
     .catch((error) => {
       console.error("Error al asignar el grumpi:", error);
       res.status(500).json({
-        error: "Error al asignar el grumpi a los entrenadores: " + error.message,
+        error:
+          "Error al asignar el grumpi a los entrenadores: " + error.message,
       });
     });
 });
-
 
 /**************************************************************
  *
@@ -833,25 +938,37 @@ function assignGrumpidolaresToTrainer(trainerName, grumpidolar) {
     console.log("Cantidad de Grumpidólares recibida (original): ", grumpidolar);
 
     const grumpidolaresNumber = Math.round(parseFloat(grumpidolar));
-    console.log("Cantidad de Grumpidólares convertida (redondeada): ", grumpidolaresNumber);
+    console.log(
+      "Cantidad de Grumpidólares convertida (redondeada): ",
+      grumpidolaresNumber
+    );
 
     if (isNaN(grumpidolaresNumber) || grumpidolaresNumber <= 0) {
       console.log("Cantidad de Grumpidólares no válida: ", grumpidolaresNumber);
       return reject("Grumpidólares debe ser un número positivo.");
     }
 
-    const trainer = db.prepare("SELECT * FROM trainers WHERE name = ?").get(trainerName);
+    const trainer = db
+      .prepare("SELECT * FROM trainers WHERE name = ?")
+      .get(trainerName);
 
     if (trainer) {
       console.log("Entrenador encontrado:", trainer);
 
       const currentGrumpidolares = parseFloat(trainer.grumpidolar) || 0;
-      const newGrumpidolares = Math.round(currentGrumpidolares + grumpidolaresNumber); // Redondear resultado final
+      const newGrumpidolares = Math.round(
+        currentGrumpidolares + grumpidolaresNumber
+      ); // Redondear resultado final
 
-      const updateStmt = db.prepare("UPDATE trainers SET grumpidolar = ? WHERE id = ?");
+      const updateStmt = db.prepare(
+        "UPDATE trainers SET grumpidolar = ? WHERE id = ?"
+      );
       const result = updateStmt.run(newGrumpidolares, trainer.id);
 
-      console.log("Cantidad de Grumpidólares después de la asignación:", newGrumpidolares);
+      console.log(
+        "Cantidad de Grumpidólares después de la asignación:",
+        newGrumpidolares
+      );
 
       if (result.changes > 0) {
         resolve("Grumpidólares asignados correctamente al entrenador.");
@@ -868,7 +985,12 @@ app.post("/assign-grumpidolares", (req, res) => {
   console.log("assign-grumpidolares:", req.body);
 
   const { trainerName, grumpidolar } = req.body;
-  if (typeof trainerName !== 'string' || trainerName.trim() === '' || grumpidolar === undefined || isNaN(Number(grumpidolar))) {
+  if (
+    typeof trainerName !== "string" ||
+    trainerName.trim() === "" ||
+    grumpidolar === undefined ||
+    isNaN(Number(grumpidolar))
+  ) {
     return res.status(400).json({ error: "Datos inválidos en la solicitud." });
   }
   assignGrumpidolaresToTrainer(trainerName, grumpidolar)
@@ -897,20 +1019,31 @@ function assignGrumpidolaresAfterBuyToTrainer(trainerName, grumpidolar) {
     }
 
     const grumpidolaresToSubtract = grumpidolar;
-    console.log("Cantidad de Grumpidólares a restar (entero):", grumpidolaresToSubtract);
+    console.log(
+      "Cantidad de Grumpidólares a restar (entero):",
+      grumpidolaresToSubtract
+    );
 
     if (isNaN(grumpidolaresToSubtract) || grumpidolaresToSubtract < 0) {
-      console.log("Cantidad de Grumpidólares no válida:", grumpidolaresToSubtract);
+      console.log(
+        "Cantidad de Grumpidólares no válida:",
+        grumpidolaresToSubtract
+      );
       return reject("Grumpidólares debe ser un número positivo.");
     }
 
-    const trainer = db.prepare("SELECT * FROM trainers WHERE name = ?").get(trainerName);
+    const trainer = db
+      .prepare("SELECT * FROM trainers WHERE name = ?")
+      .get(trainerName);
 
     if (trainer) {
       console.log("Entrenador encontrado:", trainer);
 
       const currentGrumpidolares = trainer.grumpidolar;
-      console.log("Cantidad actual de Grumpidólares del entrenador:", currentGrumpidolares);
+      console.log(
+        "Cantidad actual de Grumpidólares del entrenador:",
+        currentGrumpidolares
+      );
       console.log("Cantidad a restar al entrenador:", grumpidolaresToSubtract);
 
       const newGrumpidolares = currentGrumpidolares - grumpidolaresToSubtract;
@@ -920,10 +1053,15 @@ function assignGrumpidolaresAfterBuyToTrainer(trainerName, grumpidolar) {
         return reject("El entrenador no tiene suficientes Grumpidólares.");
       }
 
-      const updateStmt = db.prepare("UPDATE trainers SET grumpidolar = ? WHERE id = ?");
+      const updateStmt = db.prepare(
+        "UPDATE trainers SET grumpidolar = ? WHERE id = ?"
+      );
       updateStmt.run(grumpidolaresToSubtract, trainer.id);
 
-      console.log("Cantidad de Grumpidólares después de la compra:", newGrumpidolares);
+      console.log(
+        "Cantidad de Grumpidólares después de la compra:",
+        newGrumpidolares
+      );
       resolve("Grumpidólares restados correctamente al entrenador.");
     } else {
       reject(`Entrenador con nombre ${trainerName} no encontrado.`);
@@ -948,7 +1086,6 @@ app.post("/assignGrumpidolares-after-buy", (req, res) => {
     });
 });
 
-
 /**
  *
  *  FIN DE LA ASIGNACIÓN DE GRUMPIDÓLARES AL ENTRENADOR
@@ -969,16 +1106,20 @@ app.get("/trainer/:nombre", (req, res) => {
   const nombre = req.params.nombre;
 
   try {
-    const trainer = db.prepare("SELECT * FROM trainers WHERE name = ?").get(nombre);
+    const trainer = db
+      .prepare("SELECT * FROM trainers WHERE name = ?")
+      .get(nombre);
 
     if (!trainer) {
-      return res.status(200).json({ success: false, error: "Entrenador no encontrado" });
+      return res
+        .status(200)
+        .json({ success: false, error: "Entrenador no encontrado" });
     }
 
     /**
-     * 
+     *
      * PARSEANDO LAS LISTAS DEL ENTRENADOR
-     * 
+     *
      */
     if (trainer.grumpis && trainer.grumpis !== "undefined") {
       try {
@@ -1024,7 +1165,10 @@ app.get("/trainer/:nombre", (req, res) => {
       trainer.objetos_combate = [];
     }
 
-    if (trainer.objetos_evolutivos && trainer.objetos_evolutivos !== "undefined") {
+    if (
+      trainer.objetos_evolutivos &&
+      trainer.objetos_evolutivos !== "undefined"
+    ) {
       try {
         trainer.objetos_evolutivos = JSON.parse(trainer.objetos_evolutivos);
       } catch (error) {
@@ -1059,12 +1203,15 @@ app.get("/trainer/:nombre", (req, res) => {
 
     res.json({ success: true, data: trainer });
   } catch (error) {
-    console.error("Error al obtener la información del entrenador desde la base de datos:", error);
-    res.status(500).json({ success: false, error: "Error interno del servidor" });
+    console.error(
+      "Error al obtener la información del entrenador desde la base de datos:",
+      error
+    );
+    res
+      .status(500)
+      .json({ success: false, error: "Error interno del servidor" });
   }
 });
-
-
 
 /***************************************************************
  *                                                              *
@@ -1077,7 +1224,7 @@ app.get("/trainer/:nombre", (req, res) => {
  ***************************************************************/
 
 /**
- * 
+ *
  * OBTENCIÓN DE LOS GRUMPIS
  * Se obtienen desde el archivo JSON "grumpis.json"
  */
@@ -1122,10 +1269,10 @@ app.get("/getAllAttacks", (req, res) => {
 });
 
 /**
- * 
+ *
  * Función para obtener las imágenes de los grumpis
  * almacenadas en un archivo json.
- * 
+ *
  */
 app.get("/getImageUrls", (req, res) => {
   // Lee todos los archivos en el directorio de imágenes
@@ -1156,7 +1303,9 @@ app.post("/grumpis", upload.single("image"), (req, res) => {
 
     // Verificar que el archivo ha sido cargado
     if (!req.file) {
-      return res.status(400).json({ message: "No se ha cargado ninguna imagen" });
+      return res
+        .status(400)
+        .json({ message: "No se ha cargado ninguna imagen" });
     }
 
     // Definir la ruta a la imagen y actualizar la URL de la imagen
@@ -1171,21 +1320,32 @@ app.post("/grumpis", upload.single("image"), (req, res) => {
       INSERT INTO grumpis (nombre, PS,n_grumpidex, clase, img_general, img_conseguir, descripcion, Ciclo1, Ciclo2, Ciclo3, tipo, trainer_id )
       VALUES (?, ?, ?, ?)
     `;
-    const params = [grumpiData.numero, grumpiData.name, grumpiData.description, grumpiData.img];
+    const params = [
+      grumpiData.numero,
+      grumpiData.name,
+      grumpiData.description,
+      grumpiData.img,
+    ];
 
     db.run(query, params, function (err) {
       if (err) {
         console.error("Error al guardar el Grumpi en la base de datos:", err);
-        return res.status(500).json({ message: "Error al guardar el Grumpi", error: err.message });
+        return res
+          .status(500)
+          .json({ message: "Error al guardar el Grumpi", error: err.message });
       }
 
       // Devolver una respuesta exitosa
       console.log("Grumpi guardado en la base de datos:", grumpiData);
-      res.status(201).json({ message: "Grumpi guardado correctamente", grumpi: grumpiData });
+      res
+        .status(201)
+        .json({ message: "Grumpi guardado correctamente", grumpi: grumpiData });
     });
   } catch (err) {
     console.error("Error al procesar la solicitud de Grumpi", err);
-    res.status(500).json({ message: "Error al guardar el Grumpi", error: err.message });
+    res
+      .status(500)
+      .json({ message: "Error al guardar el Grumpi", error: err.message });
   }
 });
 
@@ -1287,32 +1447,45 @@ try {
 // Función para asignar una energía a un entrenador
 
 function assignEnergyToTrainer(trainerName, energyImagePath) {
-  console.log("Ruta de la energía para asignar al entrenador: ", energyImagePath);
-  const trainer = db.prepare("SELECT * FROM trainers WHERE name = ?").get(trainerName);
+  console.log(
+    "Ruta de la energía para asignar al entrenador: ",
+    energyImagePath
+  );
+  const trainer = db
+    .prepare("SELECT * FROM trainers WHERE name = ?")
+    .get(trainerName);
 
   if (trainer) {
-    let trainerEnergies = trainer.energies ? JSON.parse(trainer.energies) : [];
+    let trainerEnergyObject = trainer.energies
+      ? JSON.parse(trainer.energies)
+      : [];
 
-    const alreadyAssigned = trainerEnergies.includes(energyImagePath);
+    const alreadyAssigned = trainerEnergyObject.includes(energyImagePath);
 
     if (!alreadyAssigned) {
-      trainerEnergies.push(energyImagePath);
+      trainerEnergyObject.push(energyImagePath);
 
       const updateStmt = db.prepare(`
         UPDATE trainers
         SET energies = ?
         WHERE id = ?
       `);
-      updateStmt.run(JSON.stringify(trainerEnergies), trainer.id);
+      updateStmt.run(JSON.stringify(trainerEnergyObject), trainer.id);
 
       console.log("Energía asignada correctamente al entrenador.");
-      return Promise.resolve("Energía asignada correctamente al entrenador.");
+      return Promise.resolve(
+        "Energía asignada correctamente al entrenador."
+      );
     } else {
       console.log("La energía ya está asignada a este entrenador.");
-      return Promise.resolve("La energía ya está asignada a este entrenador.");
+      return Promise.resolve(
+        "La energía ya está asignada a este entrenador."
+      );
     }
   } else {
-    return Promise.reject(new Error(`Entrenador con nombre ${trainerName} no encontrado.`));
+    return Promise.reject(
+      new Error(`Entrenador con nombre ${trainerName} no encontrado.`)
+    );
   }
 }
 
@@ -1332,30 +1505,18 @@ function saveTrainerData() {
  *
  ******************************************/
 app.post("/assign-energie", (req, res) => {
-  const { trainerNames, energie } = req.body;
-  console.log("/assign-energie:", req.body);
-
-  if (!energie) {
-    return res.status(400).json({
-      error: "Datos de energía incompletos. Asegúrate de enviar una imagen.",
-    });
-  }
-
-  const promises = trainerNames.map((trainerName) =>
-    assignEnergyToTrainer(trainerName, energie)
-  );
-
-  Promise.all(promises)
-    .then((messages) => {
-      res.status(200).json({
-        message: "Energía asignada con éxito a todos los entrenadores.",
-        details: messages,
-      });
+  const { trainerName, energie } = req.body;
+  console.log("assign-energie:", req.body);
+  assignEnergyToTrainer(trainerName, energie)
+    .then((message) => {
+      res.status(200).json({ message: message });
     })
     .catch((error) => {
       console.error("Error al asignar la energía:", error);
       res.status(500).json({
-        error: "Error al asignar la energía a los entrenadores: " + error.message,
+        error:
+          "Error al asignar la energía al entrenador: " +
+          error.message,
       });
     });
 });
@@ -1456,8 +1617,13 @@ function saveTrainerData() {
 
 // Función para asignar una medalla a un entrenador
 function assignMedalToTrainer(trainerName, medalImagePath) {
-  console.log("Ruta de la medalla para asignar al entrenador: ", medalImagePath);
-  const trainer = db.prepare("SELECT * FROM trainers WHERE name = ?").get(trainerName);
+  console.log(
+    "Ruta de la medalla para asignar al entrenador: ",
+    medalImagePath
+  );
+  const trainer = db
+    .prepare("SELECT * FROM trainers WHERE name = ?")
+    .get(trainerName);
 
   if (trainer) {
     let trainerMedals = trainer.medallas ? JSON.parse(trainer.medallas) : [];
@@ -1481,14 +1647,16 @@ function assignMedalToTrainer(trainerName, medalImagePath) {
       return Promise.resolve("La medalla ya está asignada a este entrenador.");
     }
   } else {
-    return Promise.reject(new Error(`Entrenador con nombre ${trainerName} no encontrado.`));
+    return Promise.reject(
+      new Error(`Entrenador con nombre ${trainerName} no encontrado.`)
+    );
   }
 }
 
 /**
- * 
+ *
  * Asignación de medallas al entrenador.
- * 
+ *
  */
 app.post("/assign-medal", (req, res) => {
   const { trainerNames, medal } = req.body;
@@ -1576,11 +1744,18 @@ try {
 
 // Función para asignar un objeto de combate a un entrenador
 function assignCombatObjectToTrainer(trainerName, combatObject) {
-  console.log("Ruta del objeto de combate para asignar al entrenador: ", combatObject);
-  const trainer = db.prepare("SELECT * FROM trainers WHERE name = ?").get(trainerName);
+  console.log(
+    "Ruta del objeto de combate para asignar al entrenador: ",
+    combatObject
+  );
+  const trainer = db
+    .prepare("SELECT * FROM trainers WHERE name = ?")
+    .get(trainerName);
 
   if (trainer) {
-    let trainerCombatObj = trainer.objetos_combate ? JSON.parse(trainer.objetos_combate) : [];
+    let trainerCombatObj = trainer.objetos_combate
+      ? JSON.parse(trainer.objetos_combate)
+      : [];
 
     const alreadyAssigned = trainerCombatObj.includes(combatObject);
 
@@ -1595,13 +1770,19 @@ function assignCombatObjectToTrainer(trainerName, combatObject) {
       updateStmt.run(JSON.stringify(trainerCombatObj), trainer.id);
 
       console.log("Objeto de combate asignado correctamente al entrenador.");
-      return Promise.resolve("Objeto de combate asignado correctamente al entrenador.");
+      return Promise.resolve(
+        "Objeto de combate asignado correctamente al entrenador."
+      );
     } else {
       console.log("El objeto de combate ya está asignado a este entrenador.");
-      return Promise.resolve("El objeto de combate ya está asignado a este entrenador.");
+      return Promise.resolve(
+        "El objeto de combate ya está asignado a este entrenador."
+      );
     }
   } else {
-    return Promise.reject(new Error(`Entrenador con nombre ${trainerName} no encontrado.`));
+    return Promise.reject(
+      new Error(`Entrenador con nombre ${trainerName} no encontrado.`)
+    );
   }
 }
 
@@ -1682,11 +1863,18 @@ try {
 
 // Función para asignar una energía a un entrenador
 function assignEvoObjectsToTrainer(trainerName, evoObject) {
-  console.log("Ruta del objeto evolutivo para asignar al entrenador: ", evoObject);
-  const trainer = db.prepare("SELECT * FROM trainers WHERE name = ?").get(trainerName);
+  console.log(
+    "Ruta del objeto evolutivo para asignar al entrenador: ",
+    evoObject
+  );
+  const trainer = db
+    .prepare("SELECT * FROM trainers WHERE name = ?")
+    .get(trainerName);
 
   if (trainer) {
-    let trainerEvolutionObjects = trainer.objetos_evolutivos ? JSON.parse(trainer.objetos_evolutivos) : [];
+    let trainerEvolutionObjects = trainer.objetos_evolutivos
+      ? JSON.parse(trainer.objetos_evolutivos)
+      : [];
 
     const alreadyAssigned = trainerEvolutionObjects.includes(evoObject);
 
@@ -1701,13 +1889,19 @@ function assignEvoObjectsToTrainer(trainerName, evoObject) {
       updateStmt.run(JSON.stringify(trainerEvolutionObjects), trainer.id);
 
       console.log("Objeto evolutivo asignado correctamente al entrenador.");
-      return Promise.resolve("Objeto evolutivo asignado correctamente al entrenador.");
+      return Promise.resolve(
+        "Objeto evolutivo asignado correctamente al entrenador."
+      );
     } else {
       console.log("El objeto evolutivo ya está asignado a este entrenador.");
-      return Promise.resolve("El objeto evolutivo ya está asignado a este entrenador.");
+      return Promise.resolve(
+        "El objeto evolutivo ya está asignado a este entrenador."
+      );
     }
   } else {
-    return Promise.reject(new Error(`Entrenador con nombre ${trainerName} no encontrado.`));
+    return Promise.reject(
+      new Error(`Entrenador con nombre ${trainerName} no encontrado.`)
+    );
   }
 }
 
@@ -1845,9 +2039,13 @@ fs.readFile(filePathAmin, "utf8", (err, data) => {
 app.get("/profesores", (req, res) => {
   try {
     // Consultar la base de datos para obtener la lista de profesores
-    const profesoresList = db.prepare(`
+    const profesoresList = db
+      .prepare(
+        `
       SELECT * FROM profesores
-    `).all();
+    `
+      )
+      .all();
 
     // Verificar si se encontraron profesores
     if (profesoresList.length === 0) {
@@ -1864,7 +2062,6 @@ app.get("/profesores", (req, res) => {
     res.status(500).json({ error: "Error interno del servidor" });
   }
 });
-
 
 const readJsonFile = (filePathAmin) => {
   return new Promise((resolve, reject) => {
@@ -1889,16 +2086,25 @@ const readJsonFile = (filePathAmin) => {
  */
 app.get("/profesor/:nombre", (req, res) => {
   const nombre = req.params.nombre;
-  try{
-    const profesor = db.prepare("SELECT * FROM profesores WHERE nombre = ?").get(nombre);
+  try {
+    const profesor = db
+      .prepare("SELECT * FROM profesores WHERE nombre = ?")
+      .get(nombre);
 
     if (!profesor) {
-      return res.status(200).json({ success: false, error: "Profesor no encontrado" });
+      return res
+        .status(200)
+        .json({ success: false, error: "Profesor no encontrado" });
     }
     res.json({ success: true, data: profesor });
   } catch (error) {
-    console.error("Error al obtener la información del profesor desde la base de datos:", error);
-    res.status(500).json({ success: false, error: "Error interno del servidor" });
+    console.error(
+      "Error al obtener la información del profesor desde la base de datos:",
+      error
+    );
+    res
+      .status(500)
+      .json({ success: false, error: "Error interno del servidor" });
   }
 });
 
@@ -1931,16 +2137,20 @@ app.get("/profesor/:id", async (req, res) => {
 /**
  * Obtiene la lista de enteenadores de un profesor.
  * Hace uso de BD.
- * 
+ *
  */
 app.get("/profesor/:id/entrenadores", async (req, res) => {
   const profesorId = parseInt(req.params.id);
 
   try {
     // Consultar la base de datos para obtener entrenadores asignados al profesor
-    const entrenadoresDb = db.prepare(`
+    const entrenadoresDb = db
+      .prepare(
+        `
       SELECT * FROM trainers WHERE id_profesor = ?
-    `).all(profesorId);
+    `
+      )
+      .all(profesorId);
 
     if (entrenadoresDb.length === 0) {
       return res.status(404).json({
@@ -1953,11 +2163,11 @@ app.get("/profesor/:id/entrenadores", async (req, res) => {
     res.json({ success: true, data: entrenadoresDb });
   } catch (err) {
     console.error("Error al obtener entrenadores:", err);
-    res.status(500).json({ success: false, error: "Error interno del servidor" });
+    res
+      .status(500)
+      .json({ success: false, error: "Error interno del servidor" });
   }
 });
-
-
 
 /**
  * Agrega un nuevo entrenador
@@ -1982,7 +2192,6 @@ app.post("/profesores/:id/entrenadores", (req, res) => {
         nuevoUsuario.avatar,
         profesorId
       );
-
     } else if (nuevoUsuario.rol === "profesor") {
       // Inserta en la tabla `profesores`
       insertQuery = db.prepare(`
@@ -1996,14 +2205,15 @@ app.post("/profesores/:id/entrenadores", (req, res) => {
         nuevoUsuario.password,
         nuevoUsuario.rol
       );
-
     } else {
       // Si el rol no es válido
       return res.status(400).json({ message: "Rol no válido" });
     }
 
     // Obtener el ID del último registro insertado
-    const lastInsertRowId = db.prepare("SELECT last_insert_rowid() as id").get().id;
+    const lastInsertRowId = db
+      .prepare("SELECT last_insert_rowid() as id")
+      .get().id;
 
     // Asignar el ID generado al nuevo usuario
     nuevoUsuario.id = lastInsertRowId;
@@ -2014,14 +2224,11 @@ app.post("/profesores/:id/entrenadores", (req, res) => {
       message: `${nuevoUsuario.rol} agregado correctamente`,
       nuevoUsuario,
     });
-
   } catch (dbError) {
     console.error("Error al insertar en la base de datos:", dbError);
     res.status(500).json({ error: "Error al insertar en la base de datos" });
   }
 });
-
-
 
 /**
  *
@@ -2046,7 +2253,11 @@ app.put("/profesors/update/:name", (req, res) => {
     `);
 
     // Ejecuta la consulta de actualización
-    const result = updateQuery.run(professor_name || professorName, password || null, professorName);
+    const result = updateQuery.run(
+      professor_name || professorName,
+      password || null,
+      professorName
+    );
 
     // Verifica si se actualizó alguna fila
     if (result.changes === 0) {
@@ -2058,14 +2269,18 @@ app.put("/profesors/update/:name", (req, res) => {
     // Actualización en el archivo JSON
     fs.readFile(filePathAmin, "utf8", (err, data) => {
       if (err) {
-        return res.status(500).json({ error: `Error al leer el fichero [${filePathAmin}]` });
+        return res
+          .status(500)
+          .json({ error: `Error al leer el fichero [${filePathAmin}]` });
       }
 
       let professors;
       try {
         professors = JSON.parse(data);
       } catch (parseErr) {
-        return res.status(500).json({ error: "Error al parsear los datos de los profesores." });
+        return res
+          .status(500)
+          .json({ error: "Error al parsear los datos de los profesores." });
       }
 
       const professorIndex = professors.findIndex(
@@ -2073,7 +2288,9 @@ app.put("/profesors/update/:name", (req, res) => {
       );
 
       if (professorIndex === -1) {
-        return res.status(404).json({ error: "Profesor no encontrado en el archivo." });
+        return res
+          .status(404)
+          .json({ error: "Profesor no encontrado en el archivo." });
       }
 
       // Actualizar los datos del profesor en el archivo JSON
@@ -2081,30 +2298,40 @@ app.put("/profesors/update/:name", (req, res) => {
       if (password) professors[professorIndex].password = password;
 
       // Guardar los datos actualizados en el archivo
-      fs.writeFile(filePathAmin, JSON.stringify(professors, null, 2), "utf8", (writeErr) => {
-        if (writeErr) {
-          return res.status(500).json({ error: "Error al guardar los datos actualizados en el archivo." });
+      fs.writeFile(
+        filePathAmin,
+        JSON.stringify(professors, null, 2),
+        "utf8",
+        (writeErr) => {
+          if (writeErr) {
+            return res
+              .status(500)
+              .json({
+                error: "Error al guardar los datos actualizados en el archivo.",
+              });
+          }
+
+          res.status(200).json({
+            message: "Profesor actualizado correctamente.",
+            data: professors[professorIndex],
+          });
         }
-
-        res.status(200).json({
-          message: "Profesor actualizado correctamente.",
-          data: professors[professorIndex],
-        });
-      });
+      );
     });
-
   } catch (dbError) {
-    console.error("Error al actualizar el profesor en la base de datos:", dbError);
+    console.error(
+      "Error al actualizar el profesor en la base de datos:",
+      dbError
+    );
     res.status(500).json({ error: "Error interno del servidor" });
   }
 });
-
 
 /**
  *
  * Modificación de todos los datos del profesor
  * Hace uso de la BD
- * 
+ *
  */
 app.put("/profesors/update_all_data/:name", (req, res) => {
   const professorName = req.params.name; // Nombre del profesor a actualizar
@@ -2135,7 +2362,9 @@ app.put("/profesors/update_all_data/:name", (req, res) => {
 
     // Verificar si se actualizó alguna fila en la base de datos
     if (result.changes === 0) {
-      return res.status(404).json({ error: "Profesor no encontrado en la base de datos." });
+      return res
+        .status(404)
+        .json({ error: "Profesor no encontrado en la base de datos." });
     }
 
     console.log("Profesor actualizado en la base de datos.");
@@ -2143,14 +2372,18 @@ app.put("/profesors/update_all_data/:name", (req, res) => {
     // Después de actualizar en la base de datos, actualizar en el archivo JSON
     fs.readFile(filePathAmin, "utf8", (err, data) => {
       if (err) {
-        return res.status(500).json({ error: `Error al leer el fichero [${filePathAmin}]` });
+        return res
+          .status(500)
+          .json({ error: `Error al leer el fichero [${filePathAmin}]` });
       }
 
       let professors;
       try {
         professors = JSON.parse(data);
       } catch (parseErr) {
-        return res.status(500).json({ error: "Error al parsear los datos de los profesores." });
+        return res
+          .status(500)
+          .json({ error: "Error al parsear los datos de los profesores." });
       }
 
       const professorIndex = professors.findIndex(
@@ -2158,7 +2391,9 @@ app.put("/profesors/update_all_data/:name", (req, res) => {
       );
 
       if (professorIndex === -1) {
-        return res.status(404).json({ error: "Profesor no encontrado en el archivo." });
+        return res
+          .status(404)
+          .json({ error: "Profesor no encontrado en el archivo." });
       }
 
       // Actualizar los datos del profesor en el archivo JSON
@@ -2167,24 +2402,34 @@ app.put("/profesors/update_all_data/:name", (req, res) => {
       if (usuario) professors[professorIndex].usuario = usuario;
 
       // Guardar los datos actualizados en el archivo
-      fs.writeFile(filePathAmin, JSON.stringify(professors, null, 2), "utf8", (writeErr) => {
-        if (writeErr) {
-          return res.status(500).json({ error: "Error al guardar los datos actualizados en el archivo." });
+      fs.writeFile(
+        filePathAmin,
+        JSON.stringify(professors, null, 2),
+        "utf8",
+        (writeErr) => {
+          if (writeErr) {
+            return res
+              .status(500)
+              .json({
+                error: "Error al guardar los datos actualizados en el archivo.",
+              });
+          }
+
+          res.status(200).json({
+            message: "Profesor actualizado correctamente.",
+            data: professors[professorIndex],
+          });
         }
-
-        res.status(200).json({
-          message: "Profesor actualizado correctamente.",
-          data: professors[professorIndex],
-        });
-      });
+      );
     });
-
   } catch (dbError) {
-    console.error("Error al actualizar el profesor en la base de datos:", dbError);
+    console.error(
+      "Error al actualizar el profesor en la base de datos:",
+      dbError
+    );
     res.status(500).json({ error: "Error interno del servidor" });
   }
 });
-
 
 /**
  *
@@ -2202,10 +2447,14 @@ app.delete("/professor_to_delete/:name", async (req, res) => {
     if (result.changes === 0) {
       return res
         .status(404)
-        .json({ error: `Profesor con nombre ${userName} no encontrado en la base de datos` });
+        .json({
+          error: `Profesor con nombre ${userName} no encontrado en la base de datos`,
+        });
     }
 
-    console.log(`Profesor con nombre ${userName} eliminado de la base de datos`);
+    console.log(
+      `Profesor con nombre ${userName} eliminado de la base de datos`
+    );
 
     // Leer y actualizar el archivo JSON
     const data = await fs.promises.readFile(filePathAmin, "utf8");
@@ -2219,7 +2468,9 @@ app.delete("/professor_to_delete/:name", async (req, res) => {
     if (updatedProfessorList.length === profesor_list.length) {
       return res
         .status(404)
-        .json({ error: `Profesor con nombre ${userName} no encontrado en el archivo` });
+        .json({
+          error: `Profesor con nombre ${userName} no encontrado en el archivo`,
+        });
     }
 
     await fs.promises.writeFile(
@@ -2227,7 +2478,9 @@ app.delete("/professor_to_delete/:name", async (req, res) => {
       JSON.stringify(updatedProfessorList, null, 2)
     );
 
-    console.log(`Profesor con nombre ${userName} eliminado correctamente del archivo`);
+    console.log(
+      `Profesor con nombre ${userName} eliminado correctamente del archivo`
+    );
 
     // Devolver la lista actualizada como respuesta
     res.status(200).json({
@@ -2239,7 +2492,6 @@ app.delete("/professor_to_delete/:name", async (req, res) => {
     res.status(500).json({ error: "Error interno del servidor" });
   }
 });
-
 
 /**
  *
@@ -2442,8 +2694,8 @@ app.post("/assign-badge", (req, res) => {
       res.status(200).json({
         message:
           "Distintivo de liga asignado con éxito a todos los entrenadores.",
-          details: messages,
-        });
+        details: messages,
+      });
     })
     .catch((error) => {
       console.error("Error al asignar el distintivo de liga:", error);
@@ -2466,11 +2718,18 @@ app.post("/assign-badge", (req, res) => {
  * @returns
  */
 function assignBadgeToTrainer(trainerName, badgeName) {
-  console.log("Ruta del distintivo de liga para asignar al entrenador: ", badgeName);
-  const trainer = db.prepare("SELECT * FROM trainers WHERE name = ?").get(trainerName);
+  console.log(
+    "Ruta del distintivo de liga para asignar al entrenador: ",
+    badgeName
+  );
+  const trainer = db
+    .prepare("SELECT * FROM trainers WHERE name = ?")
+    .get(trainerName);
 
   if (trainer) {
-    let trainerLeagueBadges = trainer.distintivos_liga ? JSON.parse(trainer.distintivos_liga) : [];
+    let trainerLeagueBadges = trainer.distintivos_liga
+      ? JSON.parse(trainer.distintivos_liga)
+      : [];
 
     const alreadyAssigned = trainerLeagueBadges.includes(badgeName);
 
@@ -2485,16 +2744,21 @@ function assignBadgeToTrainer(trainerName, badgeName) {
       updateStmt.run(JSON.stringify(trainerLeagueBadges), trainer.id);
 
       console.log("Distintivo de liga asignado correctamente al entrenador.");
-      return Promise.resolve("Distintivo de liga asignado correctamente al entrenador.");
+      return Promise.resolve(
+        "Distintivo de liga asignado correctamente al entrenador."
+      );
     } else {
       console.log("El distintivo de liga ya está asignado a este entrenador.");
-      return Promise.resolve("El distintivo de liga ya está asignado a este entrenador.");
+      return Promise.resolve(
+        "El distintivo de liga ya está asignado a este entrenador."
+      );
     }
   } else {
-    return Promise.reject(new Error(`Entrenador con nombre ${trainerName} no encontrado.`));
+    return Promise.reject(
+      new Error(`Entrenador con nombre ${trainerName} no encontrado.`)
+    );
   }
 }
-
 
 app.listen(PORT, () => {
   console.log(`Servidor GrumpiStore, iniciado en el puerto: ${PORT}`);
