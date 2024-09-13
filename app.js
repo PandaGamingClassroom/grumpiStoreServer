@@ -1473,14 +1473,10 @@ function assignEnergyToTrainer(trainerName, energyImagePath) {
       updateStmt.run(JSON.stringify(trainerEnergyObject), trainer.id);
 
       console.log("Energía asignada correctamente al entrenador.");
-      return Promise.resolve(
-        "Energía asignada correctamente al entrenador."
-      );
+      return Promise.resolve("Energía asignada correctamente al entrenador.");
     } else {
       console.log("La energía ya está asignada a este entrenador.");
-      return Promise.resolve(
-        "La energía ya está asignada a este entrenador."
-      );
+      return Promise.resolve("La energía ya está asignada a este entrenador.");
     }
   } else {
     return Promise.reject(
@@ -1514,13 +1510,10 @@ app.post("/assign-energie", (req, res) => {
     .catch((error) => {
       console.error("Error al asignar la energía:", error);
       res.status(500).json({
-        error:
-          "Error al asignar la energía al entrenador: " +
-          error.message,
+        error: "Error al asignar la energía al entrenador: " + error.message,
       });
     });
 });
-
 
 /******************************************
  *
@@ -1756,17 +1749,33 @@ function assignCombatObjectToTrainer(trainerName, combatObject) {
 
 // Ruta de asignación de objetos de combate
 app.post("/assign-combatObjects", (req, res) => {
-  const { trainerName, combatObject } = req.body;
+  const { trainerNames, combatObject } = req.body;
   console.log("assign-combatObjects:", req.body);
-  assignCombatObjectToTrainer(trainerName, combatObject)
-    .then((message) => {
-      res.status(200).json({ message: message });
+
+  if (!combatObject) {
+    return res.status(400).json({
+      error:
+        "Datos del objeto de combate incompletos. Asegúrate de enviar una imagen.",
+    });
+  }
+
+  const promises = trainerNames.map((trainerName) =>
+    assignCombatObjectToTrainer(trainerName, combatObject)
+  );
+
+  Promise.all(promises)
+    .then((messages) => {
+      res.status(200).json({
+        message:
+          "Objeto de combate asignado con éxito a todos los entrenadores.",
+        details: messages,
+      });
     })
     .catch((error) => {
       console.error("Error al asignar el objeto de combate:", error);
       res.status(500).json({
         error:
-          "Error al asignar el objeto de combate al entrenador: " +
+          "Error al asignar el objeto de combate a los entrenadores: " +
           error.message,
       });
     });
@@ -2272,11 +2281,9 @@ app.put("/profesors/update/:name", (req, res) => {
         "utf8",
         (writeErr) => {
           if (writeErr) {
-            return res
-              .status(500)
-              .json({
-                error: "Error al guardar los datos actualizados en el archivo.",
-              });
+            return res.status(500).json({
+              error: "Error al guardar los datos actualizados en el archivo.",
+            });
           }
 
           res.status(200).json({
@@ -2376,11 +2383,9 @@ app.put("/profesors/update_all_data/:name", (req, res) => {
         "utf8",
         (writeErr) => {
           if (writeErr) {
-            return res
-              .status(500)
-              .json({
-                error: "Error al guardar los datos actualizados en el archivo.",
-              });
+            return res.status(500).json({
+              error: "Error al guardar los datos actualizados en el archivo.",
+            });
           }
 
           res.status(200).json({
@@ -2413,11 +2418,9 @@ app.delete("/professor_to_delete/:name", async (req, res) => {
     const result = deleteQuery.run(userName);
 
     if (result.changes === 0) {
-      return res
-        .status(404)
-        .json({
-          error: `Profesor con nombre ${userName} no encontrado en la base de datos`,
-        });
+      return res.status(404).json({
+        error: `Profesor con nombre ${userName} no encontrado en la base de datos`,
+      });
     }
 
     console.log(
@@ -2434,11 +2437,9 @@ app.delete("/professor_to_delete/:name", async (req, res) => {
     );
 
     if (updatedProfessorList.length === profesor_list.length) {
-      return res
-        .status(404)
-        .json({
-          error: `Profesor con nombre ${userName} no encontrado en el archivo`,
-        });
+      return res.status(404).json({
+        error: `Profesor con nombre ${userName} no encontrado en el archivo`,
+      });
     }
 
     await fs.promises.writeFile(
@@ -2524,56 +2525,75 @@ function saveTrainerData() {
 }
 
 function assignRewardToTrainer(trainerName, reward) {
-  const trainer = trainerData.find((trainer) => trainer.name === trainerName);
+  console.log("Ruta de la recompensa para asignar al entrenador: ", reward);
+  const trainer = db
+    .prepare("SELECT * FROM trainers WHERE name = ?")
+    .get(trainerName);
+
   if (trainer) {
-    trainer.recompensas.push(reward);
-    saveTrainerData();
-    return Promise.resolve("Recompensa asignada correctamente al entrenador.");
+    let trainerRewards = trainer.recompensas
+      ? JSON.parse(trainer.recompensas)
+      : [];
+
+    const alreadyAssigned = trainerRewards.includes(reward);
+
+    if (!alreadyAssigned) {
+      trainerRewards.push(reward);
+
+      const updateStmt = db.prepare(`
+        UPDATE trainers
+        SET recompensas = ?
+        WHERE id = ?
+      `);
+      updateStmt.run(JSON.stringify(trainerRewards), trainer.id);
+
+      console.log("Recompensa asignada correctamente al entrenador.");
+      return Promise.resolve("Recompensa asignada correctamente al entrenador.");
+    } else {
+      console.log("La recompensa ya está asignada a este entrenador.");
+      return Promise.resolve("La recompensa ya está asignada a este entrenador.");
+    }
   } else {
     return Promise.reject(
-      `Entrenador con nombre ${trainerName} no encontrado.`
+      new Error(`Entrenador con nombre ${trainerName} no encontrado.`)
     );
   }
 }
 
-function spendEnergies(trainerName, energiesToSpend) {
-  const trainer = trainerData.find((trainer) => trainer.name === trainerName);
-  if (trainer) {
-    energiesToSpend.forEach((energyToSpend) => {
-      const index = trainer.energias.findIndex(
-        (energy) => energy.tipo === energyToSpend.type
-      );
-      if (index !== -1) {
-        trainer.energias.splice(index, energyToSpend.quantity);
-      }
-    });
-    saveTrainerData();
-    return Promise.resolve("Energías gastadas correctamente.");
-  } else {
-    return Promise.reject(
-      `Entrenador con nombre ${trainerName} no encontrado.`
-    );
-  }
-}
+
 
 app.post("/assign-rewards", (req, res) => {
-  const { trainerName, reward } = req.body;
-  console.log("Datos de la solicitud:", req.body);
-  assignRewardToTrainer(trainerName, reward)
-    .then((message) => {
-      res.status(200).json({ message: message });
+  const { trainerNames, reward } = req.body;
+  console.log("assign-rewards:", req.body);
+
+  if (!reward) {
+    return res.status(400).json({
+      error: "Datos de medalla incompletos. Asegúrate de enviar una imagen.",
+    });
+  }
+
+  const promises = trainerNames.map((trainerName) =>
+    assignRewardToTrainer(trainerName, reward)
+  );
+
+  Promise.all(promises)
+    .then((messages) => {
+      res.status(200).json({
+        message: "Recompensa asignada con éxito a todos los entrenadores.",
+        details: messages,
+      });
     })
     .catch((error) => {
       console.error("Error al asignar la recompensa:", error);
       res.status(500).json({
-        error: "Error al asignar la recompensa al entrenador: " + error,
+        error: "Error al asignar la recompensa al entrenador: " + error.message,
       });
     });
 });
 
 app.post("/spend-energies", (req, res) => {
   const { trainerName, energiesToSpend } = req.body;
-  console.log("Datos de la solicitud:", req.body);
+  console.log("spend-energies:", req.body);
   spendEnergies(trainerName, energiesToSpend)
     .then((message) => {
       res.status(200).json({ message: message });
@@ -2583,6 +2603,52 @@ app.post("/spend-energies", (req, res) => {
       res.status(500).json({ error: "Error al gastar energías: " + error });
     });
 });
+
+async function spendEnergies(
+  trainerName,
+  energiesToSpend
+) {
+  try {
+    const trainer = await db.get("SELECT * FROM trainers WHERE name = ?", [
+      trainerName,
+    ]);
+
+    if (!trainer) {
+      throw new Error(`Entrenador con nombre ${trainerName} no encontrado.`);
+    }
+
+    for (const energyToSpend of energiesToSpend) {
+      const currentEnergy = await db.get(
+        "SELECT * FROM energies WHERE trainer_id = ? AND type = ?",
+        [trainer.id, energyToSpend.type]
+      );
+
+      if (!currentEnergy) {
+        throw new Error(
+          `Energía de tipo ${energyToSpend.type} no encontrada para el entrenador.`
+        );
+      }
+
+      if (currentEnergy.quantity < energyToSpend.quantity) {
+        throw new Error(
+          `No tienes suficientes energías de tipo ${energyToSpend.type}. Tienes ${currentEnergy.quantity}, pero necesitas ${energyToSpend.quantity}.`
+        );
+      }
+
+      const newQuantity = currentEnergy.quantity - energyToSpend.quantity;
+
+      await db.run(
+        "UPDATE energies SET quantity = ? WHERE trainer_id = ? AND type = ?",
+        [newQuantity, trainer.id, energyToSpend.type]
+      );
+    }
+
+    return "Energías gastadas correctamente.";
+  } catch (error) {
+    return Promise.reject(error.message);
+  }
+}
+
 
 /***************************************************************
  *                                                              *
