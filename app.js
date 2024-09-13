@@ -1429,23 +1429,7 @@ app.get("/getImageGrumpiHowToGet", (req, res) => {
  * ASIGNAR ENERGÍAS
  *
  ******************************************/
-// Cargar los datos de los entrenadores del archivo JSON al iniciar la aplicación
-try {
-  const data = fs.readFileSync(filePath, "utf8");
-  trainerData = JSON.parse(data);
-  // Inicializar la propiedad 'energias' si no está presente en cada objeto de entrenador
-  trainerData.forEach((trainer) => {
-    if (!trainer.energias) {
-      trainer.energias = [];
-    }
-  });
-  console.log("Datos de entrenadores cargados correctamente:", trainerData);
-} catch (err) {
-  console.error("Error al leer el archivo de entrenadores:", err);
-}
-
 // Función para asignar una energía a un entrenador
-
 function assignEnergyToTrainer(trainerName, energyImagePath) {
   console.log(
     "Ruta de la energía para asignar al entrenador: ",
@@ -1501,16 +1485,31 @@ function saveTrainerData() {
  *
  ******************************************/
 app.post("/assign-energie", (req, res) => {
-  const { trainerName, energie } = req.body;
+  const { trainerNames, energie } = req.body;
   console.log("assign-energie:", req.body);
-  assignEnergyToTrainer(trainerName, energie)
-    .then((message) => {
-      res.status(200).json({ message: message });
+
+  if (!energie) {
+    return res.status(400).json({
+      error: "Datos de energía incompletos. Asegúrate de enviar una imagen.",
+    });
+  }
+
+  const promises = trainerNames.map((trainerName) =>
+    assignEnergyToTrainer(trainerName, energie)
+  );
+
+  Promise.all(promises)
+    .then((messages) => {
+      res.status(200).json({
+        message: "Energía asignada con éxito a todos los entrenadores.",
+        details: messages,
+      });
     })
     .catch((error) => {
       console.error("Error al asignar la energía:", error);
       res.status(500).json({
-        error: "Error al asignar la energía al entrenador: " + error.message,
+        error:
+          "Error al asignar la energía a los entrenadores: " + error.message,
       });
     });
 });
@@ -2548,10 +2547,14 @@ function assignRewardToTrainer(trainerName, reward) {
       updateStmt.run(JSON.stringify(trainerRewards), trainer.id);
 
       console.log("Recompensa asignada correctamente al entrenador.");
-      return Promise.resolve("Recompensa asignada correctamente al entrenador.");
+      return Promise.resolve(
+        "Recompensa asignada correctamente al entrenador."
+      );
     } else {
       console.log("La recompensa ya está asignada a este entrenador.");
-      return Promise.resolve("La recompensa ya está asignada a este entrenador.");
+      return Promise.resolve(
+        "La recompensa ya está asignada a este entrenador."
+      );
     }
   } else {
     return Promise.reject(
@@ -2559,8 +2562,6 @@ function assignRewardToTrainer(trainerName, reward) {
     );
   }
 }
-
-
 
 app.post("/assign-rewards", (req, res) => {
   const { trainerNames, reward } = req.body;
@@ -2604,10 +2605,7 @@ app.post("/spend-energies", (req, res) => {
     });
 });
 
-async function spendEnergies(
-  trainerName,
-  energiesToSpend
-) {
+async function spendEnergies(trainerName, energiesToSpend) {
   try {
     const trainer = await db.get("SELECT * FROM trainers WHERE name = ?", [
       trainerName,
@@ -2648,7 +2646,6 @@ async function spendEnergies(
     return Promise.reject(error.message);
   }
 }
-
 
 /***************************************************************
  *                                                              *
