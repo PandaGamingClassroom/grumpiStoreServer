@@ -503,15 +503,14 @@ app.delete("/user/:name", (req, res) => {
 app.put("/trainers/update/:name", (req, res) => {
   const trainerName = req.params.name;
   const {
-    trainer_name,
-    trainer_pass,
+    name,
+    password,
     grumpidolar,
     combatMark,
     objetosAEliminar,
   } = req.body;
 
   try {
-    // Obtener el entrenador
     const trainer = db
       .prepare("SELECT * FROM trainers WHERE name = ?")
       .get(trainerName);
@@ -520,21 +519,19 @@ app.put("/trainers/update/:name", (req, res) => {
       return res.status(404).json({ error: "Entrenador no encontrado" });
     }
 
-    // Actualizar los campos del entrenador
-    if (trainer_name !== undefined) {
-      trainer.name = trainer_name;
+    if (name !== undefined && name !== "") {
+      trainer.name = name;
     }
-    if (trainer_pass !== undefined) {
-      trainer.password = trainer_pass;
+    if (password !== undefined && password !== "") {
+      trainer.password = password;
     }
-    if (grumpidolar !== undefined) {
+    if (grumpidolar !== undefined && grumpidolar !== "") {
       trainer.grumpidolar = grumpidolar;
     }
-    if (combatMark !== undefined) {
+    if (combatMark !== undefined && combatMark !== null) {
       trainer.marca_combate = combatMark;
     }
 
-    // Actualizar el entrenador en la base de datos
     const updateStmt = db.prepare(`
       UPDATE trainers 
       SET name = ?, password = ?, grumpidolar = ?, marca_combate = ? 
@@ -548,9 +545,8 @@ app.put("/trainers/update/:name", (req, res) => {
       trainer.id
     );
 
-    console.log("Trainer actualizado:", trainer); // Log para depurar
+    console.log("Trainer actualizado:", trainer);
 
-    // Manejo de objetosAEliminar
     if (Array.isArray(objetosAEliminar)) {
       const energiasAEliminar = objetosAEliminar.filter(
         (objeto) => objeto.tipo === "energia"
@@ -602,6 +598,7 @@ app.put("/trainers/update/:name", (req, res) => {
     res.status(500).json({ error: "Error interno del servidor" });
   }
 });
+
 
 /**
  * Función para eliminar solo las energías seleccionadas
