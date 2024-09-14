@@ -1756,6 +1756,13 @@ app.post("/assign-combatObjects", (req, res) => {
     });
   }
 
+  if (!trainerNames) {
+    return res.status(400).json({
+      error:
+        "Lista de entrenadores no proporcionada. Debes enviar un nombre o una lista de nombres.",
+    });
+  }
+
   if (typeof trainerNames === "string") {
     trainerNames = [trainerNames];
   }
