@@ -1746,13 +1746,24 @@ function assignCombatObjectToTrainer(trainerName, combatObject) {
 
 // Ruta de asignación de objetos de combate
 app.post("/assign-combatObjects", (req, res) => {
-  const { trainerNames, combatObject } = req.body;
+  let { trainerNames, combatObject } = req.body;
   console.log("assign-combatObjects:", req.body);
 
   if (!combatObject) {
     return res.status(400).json({
       error:
         "Datos del objeto de combate incompletos. Asegúrate de enviar una imagen.",
+    });
+  }
+
+  if (typeof trainerNames === "string") {
+    trainerNames = [trainerNames];
+  }
+
+  if (!Array.isArray(trainerNames) || trainerNames.length === 0) {
+    return res.status(400).json({
+      error:
+        "Lista de entrenadores no válida. Debe ser un array de nombres de entrenadores.",
     });
   }
 
@@ -1777,6 +1788,7 @@ app.post("/assign-combatObjects", (req, res) => {
       });
     });
 });
+
 
 /***************************************************************
  *                                                              *
