@@ -1746,7 +1746,7 @@ function assignCombatObjectToTrainer(trainerName, combatObject) {
 
 // Ruta de asignación de objetos de combate
 app.post("/assign-combatObjects", (req, res) => {
-  let { trainerNames, combatObject } = req.body;
+  let { trainerName, trainerNames, combatObject } = req.body;
   console.log("assign-combatObjects:", req.body);
 
   if (!combatObject) {
@@ -1756,18 +1756,15 @@ app.post("/assign-combatObjects", (req, res) => {
     });
   }
 
-  if (!trainerNames) {
-    return res.status(400).json({
-      error:
-        "Lista de entrenadores no proporcionada. Debes enviar un nombre o una lista de nombres.",
-    });
+  if (trainerName) {
+    trainerNames = [trainerName];
   }
 
-  if (typeof trainerNames === "string") {
-    trainerNames = [trainerNames];
-  }
-
-  if (!Array.isArray(trainerNames) || trainerNames.length === 0) {
+  if (
+    !trainerNames ||
+    !Array.isArray(trainerNames) ||
+    trainerNames.length === 0
+  ) {
     return res.status(400).json({
       error:
         "Lista de entrenadores no válida. Debe ser un array de nombres de entrenadores.",
@@ -1795,6 +1792,7 @@ app.post("/assign-combatObjects", (req, res) => {
       });
     });
 });
+
 
 
 /***************************************************************
