@@ -2825,20 +2825,28 @@ function assignBadgeToTrainer(trainerName, badgeName) {
 }
 
 
-
-app.post("/trainers/order", async (req, res) => {
+app.post("/trainers/order", (req, res) => {
   const newOrder = req.body.trainers;
 
   try {
-    // Actualiza el campo 'order' en la base de datos
-    for (let i = 0; i < newOrder.length; i++) {
-      await Trainer.update({ order: i }, { where: { id: newOrder[i].id } });
-    }
+    const updateStmt = db.prepare(
+      'UPDATE trainers SET "order" = ? WHERE id = ?'
+    );
+
+    db.transaction(() => {
+      newOrder.forEach((trainer, index) => {
+        updateStmt.run(index, trainer.id);
+      });
+    })();
+
     res.status(200).send({ message: "Orden guardado con éxito" });
   } catch (error) {
+    console.error("Error al guardar el orden:", error);
     res.status(500).send({ message: "Error al guardar el orden" });
   }
 });
+
+
 
 app.listen(PORT, () => {
   console.log(`Servidor GrumpiStore, iniciado en el puerto: ${PORT}`);
