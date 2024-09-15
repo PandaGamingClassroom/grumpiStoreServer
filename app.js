@@ -66,6 +66,21 @@ if (fs.existsSync(dbPath)) {
   console.log("No se encontró el archivo de la base de datos.");
 }
 
+try {
+  db.prepare(
+    `
+    ALTER TABLE trainers ADD COLUMN "order" INTEGER;
+  `
+  ).run();
+  console.log("Columna 'order' agregada con éxito.");
+} catch (err) {
+  if (err.message.includes("duplicate column name")) {
+    console.log("La columna 'order' ya existe.");
+  } else {
+    console.error("Error al agregar la columna 'order':", err);
+  }
+}
+
 /**************************************
  *                                    *
  *       Configuración de CORS        *
@@ -137,7 +152,8 @@ function createTables() {
       distintivos_liga TEXT,
       grumpidolar INTEGER,
       recompensas TEXT,
-      energies TEXT
+      energies TEXT,
+      order INTEGER
     );
   `;
 
@@ -2134,11 +2150,11 @@ app.get("/profesor/:id/entrenadores", async (req, res) => {
   const profesorId = parseInt(req.params.id);
 
   try {
-    // Consultar la base de datos para obtener entrenadores asignados al profesor
+    // Consultar la base de datos para obtener entrenadores asignados al profesor, ordenados por el campo 'order'
     const entrenadoresDb = db
       .prepare(
         `
-      SELECT * FROM trainers WHERE id_profesor = ?
+      SELECT * FROM trainers WHERE id_profesor = ? ORDER BY "order" ASC
     `
       )
       .all(profesorId);
@@ -2807,6 +2823,22 @@ function assignBadgeToTrainer(trainerName, badgeName) {
     );
   }
 }
+
+
+
+app.post("/trainers/order", async (req, res) => {
+  const newOrder = req.body.trainers;
+
+  try {
+    // Actualiza el campo 'order' en la base de datos
+    for (let i = 0; i < newOrder.length; i++) {
+      await Trainer.update({ order: i }, { where: { id: newOrder[i].id } });
+    }
+    res.status(200).send({ message: "Orden guardado con éxito" });
+  } catch (error) {
+    res.status(500).send({ message: "Error al guardar el orden" });
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Servidor GrumpiStore, iniciado en el puerto: ${PORT}`);
