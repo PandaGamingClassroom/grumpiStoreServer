@@ -649,20 +649,34 @@ function deleteEnergiesFromTrainer(trainerId, objetosAEliminar) {
  */
 function deleteMedalsFromTrainer(trainerId, objetosAEliminar) {
   if (Array.isArray(objetosAEliminar) && objetosAEliminar.length > 0) {
-    objetosAEliminar.forEach((medalla) => {
-      const deleteStmt = db.prepare(`
-        DELETE FROM medallas
-        WHERE trainer_id = ? AND nombre = ?
-        LIMIT ?
-      `);
-      deleteStmt.run(trainerId, medalla.nombre, medalla.cantidad);
-    });
+    const trainerStmt = db.prepare(`SELECT * FROM trainers WHERE id = ?`);
+    const trainer = trainerStmt.get(trainerId);
+
+    if (trainer) {
+      let medallas = JSON.parse(trainer.medallas) || [];
+
+      objetosAEliminar.forEach((medalla) => {
+        if (medalla.tipo === "medalla") {
+          medallas = medallas.filter((m) => m.nombre !== medalla.nombre);
+        }
+      });
+
+      const updateStmt = db.prepare(
+        `UPDATE trainers SET medallas = ? WHERE id = ?`
+      );
+      updateStmt.run(JSON.stringify(medallas), trainerId);
+
+      console.log("Medallas actualizadas correctamente.");
+    } else {
+      console.log("Entrenador no encontrado.");
+    }
   } else {
     console.log(
       "No hay medallas a eliminar o el formato de objetosAEliminar es incorrecto."
     );
   }
 }
+
 
 /**
  * Función para editar los Grumpis seleccionados del entrenador.
