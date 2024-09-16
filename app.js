@@ -2654,29 +2654,30 @@ async function spendEnergies(trainerName, energiesToSpend) {
       throw new Error(`Entrenador con nombre ${trainerName} no encontrado.`);
     }
 
-    // Parseamos las energías del entrenador
+    // Parseamos las energías del entrenador (que es un array de objetos)
     let energies = JSON.parse(trainer.energies);
 
     for (const energyToSpend of energiesToSpend) {
-      // Buscamos la energía específica en la lista del entrenador
-      const currentEnergy = energies.find(
-        (energy) => energy.type === energyToSpend.type
+      // Filtramos las energías que coinciden con el tipo de energía seleccionada
+      const matchingEnergies = energies.filter(
+        (energy) => energy.tipo === energyToSpend.tipo
       );
 
-      if (!currentEnergy) {
+      if (matchingEnergies.length < energyToSpend.cantidad) {
         throw new Error(
-          `Energía de tipo ${energyToSpend.type} no encontrada para el entrenador.`
+          `No tienes suficientes energías de tipo ${energyToSpend.tipo}. Tienes ${matchingEnergies.length}, pero necesitas ${energyToSpend.cantidad}.`
         );
       }
 
-      if (currentEnergy.quantity < energyToSpend.quantity) {
-        throw new Error(
-          `No tienes suficientes energías de tipo ${energyToSpend.type}. Tienes ${currentEnergy.quantity}, pero necesitas ${energyToSpend.quantity}.`
-        );
-      }
-
-      // Restamos la cantidad de energía
-      currentEnergy.quantity -= energyToSpend.quantity;
+      // Eliminamos la cantidad de energías seleccionada del tipo correspondiente
+      let countToRemove = energyToSpend.cantidad;
+      energies = energies.filter((energy) => {
+        if (energy.tipo === energyToSpend.tipo && countToRemove > 0) {
+          countToRemove--;
+          return false; // Eliminamos la energía del array
+        }
+        return true; // Mantener las energías que no se eliminan
+      });
     }
 
     // Actualizamos las energías del entrenador en la base de datos
@@ -2691,6 +2692,8 @@ async function spendEnergies(trainerName, energiesToSpend) {
     return Promise.reject(error.message);
   }
 }
+
+
 
 
 /***************************************************************
