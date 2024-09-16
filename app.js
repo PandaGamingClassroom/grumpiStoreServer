@@ -2623,6 +2623,15 @@ app.post("/assign-rewards", (req, res) => {
     });
 });
 
+/**
+ * 
+ * Función que se utiliza para cuando un entrenador
+ * compra objetos que se pagan con energías.
+ * 
+ * Este método llama a la función {spendEnergies()}
+ * que es donde se trata toda la lógica.
+ * 
+ */
 app.post("/spend-energies", (req, res) => {
   const { trainerName, energiesToSpend } = req.body;
   console.log("spend-energies:", req.body);
@@ -2638,18 +2647,20 @@ app.post("/spend-energies", (req, res) => {
 
 async function spendEnergies(trainerName, energiesToSpend) {
   try {
-    const trainer = await db.get("SELECT * FROM trainers WHERE name = ?", [
-      trainerName,
-    ]);
+    const trainerStmt = db.prepare("SELECT * FROM trainers WHERE name = ?");
+    const trainer = trainerStmt.get(trainerName);
 
     if (!trainer) {
       throw new Error(`Entrenador con nombre ${trainerName} no encontrado.`);
     }
 
+    // Parseamos las energías del entrenador
+    let energies = JSON.parse(trainer.energies);
+
     for (const energyToSpend of energiesToSpend) {
-      const currentEnergy = await db.get(
-        "SELECT * FROM energies WHERE trainer_id = ? AND type = ?",
-        [trainer.id, energyToSpend.type]
+      // Buscamos la energía específica en la lista del entrenador
+      const currentEnergy = energies.find(
+        (energy) => energy.type === energyToSpend.type
       );
 
       if (!currentEnergy) {
@@ -2664,19 +2675,23 @@ async function spendEnergies(trainerName, energiesToSpend) {
         );
       }
 
-      const newQuantity = currentEnergy.quantity - energyToSpend.quantity;
-
-      await db.run(
-        "UPDATE energies SET quantity = ? WHERE trainer_id = ? AND type = ?",
-        [newQuantity, trainer.id, energyToSpend.type]
-      );
+      // Restamos la cantidad de energía
+      currentEnergy.quantity -= energyToSpend.quantity;
     }
+
+    // Actualizamos las energías del entrenador en la base de datos
+    const updatedEnergies = JSON.stringify(energies);
+    const updateStmt = db.prepare(
+      "UPDATE trainers SET energies = ? WHERE id = ?"
+    );
+    updateStmt.run(updatedEnergies, trainer.id);
 
     return "Energías gastadas correctamente.";
   } catch (error) {
     return Promise.reject(error.message);
   }
 }
+
 
 /***************************************************************
  *                                                              *
