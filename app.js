@@ -623,22 +623,59 @@ app.put("/trainers/update/:name", (req, res) => {
  * @param {*} updatedTrainer Recibe los datos del enetrenador a editar.
  * @param {*} objetosAEliminar Recibe los datos del objeto a editar.
  */
-function deleteEnergiesFromTrainer(trainerId, objetosAEliminar) {
+function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
   if (Array.isArray(objetosAEliminar) && objetosAEliminar.length > 0) {
-    objetosAEliminar.forEach((energia) => {
-      const deleteStmt = db.prepare(`
-        DELETE FROM energies
-        WHERE trainer_id = ? AND nombre = ?
-        LIMIT ?
-      `);
-      deleteStmt.run(trainerId, energia.nombre, energia.cantidad);
-    });
+    const trainerStmt = db.prepare(`SELECT * FROM trainers WHERE id = ?`);
+    const trainer = trainerStmt.get(trainerId);
+
+    if (trainer) {
+      let energies = JSON.parse(trainer.energies) || [];
+
+      objetosAEliminar.forEach((energia) => {
+        console.log("Procesando energía para eliminar: ", energia);
+
+        let cantidadAEliminar = energia.cantidad || 1;
+
+        energies = energies
+          .map((e) => {
+            if (e.nombre === energia.nombre) {
+              let reduceAmount = Math.min(e.cantidad, cantidadAEliminar);
+
+              if (e.cantidad <= reduceAmount) {
+                cantidadAEliminar -= e.cantidad;
+                return null;
+              } else {
+                cantidadAEliminar -= reduceAmount;
+                return { ...e, cantidad: e.cantidad - reduceAmount };
+              }
+            }
+            return e;
+          })
+          .filter((e) => e !== null); 
+
+        if (cantidadAEliminar > 0) {
+          console.log(
+            `No se pudo eliminar toda la cantidad de la energía ${energia.nombre}. Quedaron ${cantidadAEliminar} unidades sin eliminar.`
+          );
+        }
+      });
+
+      const updateStmt = db.prepare(
+        `UPDATE trainers SET energies = ? WHERE id = ?`
+      );
+      updateStmt.run(JSON.stringify(energies), trainerId);
+
+      console.log("Energías actualizadas correctamente.");
+    } else {
+      console.log("Entrenador no encontrado.");
+    }
   } else {
     console.log(
       "No hay energías a eliminar o el formato de objetosAEliminar es incorrecto."
     );
   }
 }
+
 
 /**
  * Función para editar las medallas seleccionadas
@@ -686,46 +723,33 @@ function deleteMedalsFromTrainer(trainerId, objetosAEliminar) {
  */
 function editGrumpisFromTrainer(trainerId, objetosAEliminar) {
   if (Array.isArray(objetosAEliminar) && objetosAEliminar.length > 0) {
-    objetosAEliminar.forEach((grumpi) => {
-      console.log("Procesando grumpi para eliminar: ", grumpi);
+    const trainerStmt = db.prepare(`SELECT * FROM trainers WHERE id = ?`);
+    const trainer = trainerStmt.get(trainerId);
 
-      // Convertir la cantidad a un valor numérico si es necesario
-      let cantidadAEliminar = grumpi.cantidad || 1;
+    if (trainer) {
+      let grumpis = JSON.parse(trainer.grumpis) || [];
 
-      // Buscar grumpis del entrenador que coincidan con el nombre
-      const existingGrumpis = db
-        .prepare(
-          `
-        SELECT id, cantidad FROM grumpis
-        WHERE trainer_id = ? AND nombre = ?
-      `
-        )
-        .all(trainerId, grumpi.nombre);
+      objetosAEliminar.forEach((grumpi) => {
+        console.log("Procesando grumpi para eliminar: ", grumpi);
 
-      existingGrumpis.forEach((existingGrumpi) => {
-        if (cantidadAEliminar <= 0) return;
+        let cantidadAEliminar = grumpi.cantidad || 1;
 
-        // Reducir la cantidad y actualizar o eliminar si es necesario
-        let reduceAmount = Math.min(existingGrumpi.cantidad, cantidadAEliminar);
+        grumpis = grumpis
+          .map((g) => {
+            if (g.nombre === grumpi.nombre) {
+              let reduceAmount = Math.min(g.cantidad, cantidadAEliminar);
 
-        if (existingGrumpi.cantidad <= reduceAmount) {
-          db.prepare(
-            `
-            DELETE FROM grumpis
-            WHERE id = ?
-          `
-          ).run(existingGrumpi.id);
-        } else {
-          db.prepare(
-            `
-            UPDATE grumpis
-            SET cantidad = ?
-            WHERE id = ?
-          `
-          ).run(existingGrumpi.cantidad - reduceAmount, existingGrumpi.id);
-        }
-
-        cantidadAEliminar -= reduceAmount;
+              if (g.cantidad <= reduceAmount) {
+                cantidadAEliminar -= g.cantidad;
+                return null;
+              } else {
+                cantidadAEliminar -= reduceAmount;
+                return { ...g, cantidad: g.cantidad - reduceAmount };
+              }
+            }
+            return g;
+          })
+          .filter((g) => g !== null); 
 
         if (cantidadAEliminar > 0) {
           console.log(
@@ -733,7 +757,16 @@ function editGrumpisFromTrainer(trainerId, objetosAEliminar) {
           );
         }
       });
-    });
+
+      const updateStmt = db.prepare(
+        `UPDATE trainers SET grumpis = ? WHERE id = ?`
+      );
+      updateStmt.run(JSON.stringify(grumpis), trainerId);
+
+      console.log("Grumpis actualizados correctamente.");
+    } else {
+      console.log("Entrenador no encontrado.");
+    }
   } else {
     console.log(
       "No hay grumpis a eliminar o el formato de objetosAEliminar es incorrecto."
@@ -749,52 +782,33 @@ function editGrumpisFromTrainer(trainerId, objetosAEliminar) {
  */
 function editObjCombat(trainerId, objetosAEliminar) {
   if (Array.isArray(objetosAEliminar) && objetosAEliminar.length > 0) {
-    objetosAEliminar.forEach((objeto) => {
-      console.log("Procesando objeto de combate para eliminar: ", objeto);
+    const trainerStmt = db.prepare(`SELECT * FROM trainers WHERE id = ?`);
+    const trainer = trainerStmt.get(trainerId);
 
-      // Convertir la cantidad a un valor numérico si es necesario
-      let cantidadAEliminar = objeto.cantidad || 1;
+    if (trainer) {
+      let objetosCombate = JSON.parse(trainer.objetos_combate) || [];
 
-      // Buscar objetos de combate del entrenador que coincidan con el nombre
-      const existingObjCombats = db
-        .prepare(
-          `
-        SELECT id, cantidad FROM objetos_combate
-        WHERE trainer_id = ? AND nombre = ?
-      `
-        )
-        .all(trainerId, objeto.nombre);
+      objetosAEliminar.forEach((objeto) => {
+        console.log("Procesando objeto de combate para eliminar: ", objeto);
 
-      existingObjCombats.forEach((existingObjCombat) => {
-        if (cantidadAEliminar <= 0) return;
+        let cantidadAEliminar = objeto.cantidad || 1;
 
-        // Reducir la cantidad y actualizar o eliminar si es necesario
-        let reduceAmount = Math.min(
-          existingObjCombat.cantidad,
-          cantidadAEliminar
-        );
+        objetosCombate = objetosCombate
+          .map((o) => {
+            if (o.nombre === objeto.nombre) {
+              let reduceAmount = Math.min(o.cantidad, cantidadAEliminar);
 
-        if (existingObjCombat.cantidad <= reduceAmount) {
-          db.prepare(
-            `
-            DELETE FROM objetos_combate
-            WHERE id = ?
-          `
-          ).run(existingObjCombat.id);
-        } else {
-          db.prepare(
-            `
-            UPDATE objetos_combate
-            SET cantidad = ?
-            WHERE id = ?
-          `
-          ).run(
-            existingObjCombat.cantidad - reduceAmount,
-            existingObjCombat.id
-          );
-        }
-
-        cantidadAEliminar -= reduceAmount;
+              if (o.cantidad <= reduceAmount) {
+                cantidadAEliminar -= o.cantidad;
+                return null;
+              } else {
+                cantidadAEliminar -= reduceAmount;
+                return { ...o, cantidad: o.cantidad - reduceAmount };
+              }
+            }
+            return o;
+          })
+          .filter((o) => o !== null); 
 
         if (cantidadAEliminar > 0) {
           console.log(
@@ -802,13 +816,23 @@ function editObjCombat(trainerId, objetosAEliminar) {
           );
         }
       });
-    });
+
+      const updateStmt = db.prepare(
+        `UPDATE trainers SET objetos_combate = ? WHERE id = ?`
+      );
+      updateStmt.run(JSON.stringify(objetosCombate), trainerId);
+
+      console.log("Objetos de combate actualizados correctamente.");
+    } else {
+      console.log("Entrenador no encontrado.");
+    }
   } else {
     console.log(
       "No hay objetos de combate a eliminar o el formato de objetosAEliminar es incorrecto."
     );
   }
 }
+
 
 /**
  * Función para editar los objetos evolutivos de un entrenador.
@@ -817,52 +841,33 @@ function editObjCombat(trainerId, objetosAEliminar) {
  */
 function editObjEvolution(trainerId, objetosAEliminar) {
   if (Array.isArray(objetosAEliminar) && objetosAEliminar.length > 0) {
-    objetosAEliminar.forEach((objEvolu) => {
-      console.log("Procesando objeto evolutivo para eliminar: ", objEvolu);
+    const trainerStmt = db.prepare(`SELECT * FROM trainers WHERE id = ?`);
+    const trainer = trainerStmt.get(trainerId);
 
-      // Convertir la cantidad a un valor numérico si es necesario
-      let cantidadAEliminar = objEvolu.cantidad || 1;
+    if (trainer) {
+      let objetosEvolutivos = JSON.parse(trainer.objetos_evolutivos) || [];
 
-      // Buscar objetos evolutivos del entrenador que coincidan con el nombre
-      const existingObjEvolutions = db
-        .prepare(
-          `
-        SELECT id, cantidad FROM objetos_evolutivos
-        WHERE trainer_id = ? AND nombre = ?
-      `
-        )
-        .all(trainerId, objEvolu.nombre);
+      objetosAEliminar.forEach((objEvolu) => {
+        console.log("Procesando objeto evolutivo para eliminar: ", objEvolu);
 
-      existingObjEvolutions.forEach((existingObjEvolution) => {
-        if (cantidadAEliminar <= 0) return;
+        let cantidadAEliminar = objEvolu.cantidad || 1;
 
-        // Reducir la cantidad y actualizar o eliminar si es necesario
-        let reduceAmount = Math.min(
-          existingObjEvolution.cantidad,
-          cantidadAEliminar
-        );
+        objetosEvolutivos = objetosEvolutivos
+          .map((o) => {
+            if (o.nombre === objEvolu.nombre) {
+              let reduceAmount = Math.min(o.cantidad, cantidadAEliminar);
 
-        if (existingObjEvolution.cantidad <= reduceAmount) {
-          db.prepare(
-            `
-            DELETE FROM objetos_evolutivos
-            WHERE id = ?
-          `
-          ).run(existingObjEvolution.id);
-        } else {
-          db.prepare(
-            `
-            UPDATE objetos_evolutivos
-            SET cantidad = ?
-            WHERE id = ?
-          `
-          ).run(
-            existingObjEvolution.cantidad - reduceAmount,
-            existingObjEvolution.id
-          );
-        }
-
-        cantidadAEliminar -= reduceAmount;
+              if (o.cantidad <= reduceAmount) {
+                cantidadAEliminar -= o.cantidad;
+                return null; 
+              } else {
+                cantidadAEliminar -= reduceAmount;
+                return { ...o, cantidad: o.cantidad - reduceAmount };
+              }
+            }
+            return o;
+          })
+          .filter((o) => o !== null); 
 
         if (cantidadAEliminar > 0) {
           console.log(
@@ -870,13 +875,23 @@ function editObjEvolution(trainerId, objetosAEliminar) {
           );
         }
       });
-    });
+
+      const updateStmt = db.prepare(
+        `UPDATE trainers SET objetos_evolutivos = ? WHERE id = ?`
+      );
+      updateStmt.run(JSON.stringify(objetosEvolutivos), trainerId);
+
+      console.log("Objetos evolutivos actualizados correctamente.");
+    } else {
+      console.log("Entrenador no encontrado.");
+    }
   } else {
     console.log(
       "No hay objetos evolutivos a eliminar o el formato de objetosAEliminar es incorrecto."
     );
   }
 }
+
 
 /********************************************************************
  *
