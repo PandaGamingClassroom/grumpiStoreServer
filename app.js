@@ -86,6 +86,14 @@ try {
  *       Configuración de CORS        *
  *                                    *
  *************************************/
+// Permitir CORS para todas las solicitudes a imágenes
+app.use("/uploads/grumpis", cors({
+  origin: "*", // Permitir cualquier origen
+  methods: "GET", // Solo permitir GET para las imágenes
+  optionsSuccessStatus: 200
+}));
+
+// Configuración CORS existente para las demás rutas
 const corsOptions = {
   origin: function (origin, callback) {
     const allowedOrigins = [
@@ -106,7 +114,7 @@ app.use(cors(corsOptions));
 
 // Configuración de la política de referencia
 app.use((req, res, next) => {
-  res.setHeader("Referrer-Policy", "no-referrer-when-downgrade");
+  res.setHeader("Referrer-Policy", "same-origin");
   next();
 });
 
@@ -289,7 +297,6 @@ try {
   trainer_list = [];
 }
 
-app.use(cors(corsOptions));
 app.use(express.json()); // Middleware para analizar el cuerpo de la solicitud como JSON
 // Servir las imágenes estáticas desde el directorio de uploads
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
@@ -310,7 +317,6 @@ const defaultProfesor = {
 
 function addDefaultProfesor() {
   try {
-    // Verificar si el profesor ya existe
     const existingProfesor = db
       .prepare(
         `
@@ -320,7 +326,6 @@ function addDefaultProfesor() {
       .get(defaultProfesor.id);
 
     if (!existingProfesor) {
-      // Insertar el profesor predeterminado si no existe
       db.prepare(
         `
         INSERT INTO profesores (id, nombre, apellidos, usuario, password, rol)
@@ -1279,6 +1284,7 @@ app.get("/getGrumpis", (req, res) => {
     } else {
       try {
         const grumpis_list = JSON.parse(data);
+        res.setHeader("Access-Control-Allow-Origin", "*");
         res.json({ grumpis_list: grumpis_list });
       } catch (parseError) {
         console.error("Error al parsear el contenido JSON:", parseError);
