@@ -1594,7 +1594,7 @@ app.post("/assign-energie", (req, res) => {
           error: "Error al asignar la energía: " + error.message,
         });
       });
-  } 
+  }
   // Si trainerIDs es un array, procesamos múltiples IDs
   else if (Array.isArray(trainerIDs) && trainerIDs.length > 0) {
     console.log("Trainer IDs recibidos:", trainerIDs);
@@ -1617,7 +1617,7 @@ app.post("/assign-energie", (req, res) => {
           error: "Error al asignar la energía a los entrenadores: " + error.message,
         });
       });
-  } 
+  }
   // Si no se recibe ni trainer_id ni trainerIDs válidos
   else {
     return res.status(400).json({
