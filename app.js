@@ -1562,16 +1562,6 @@ function assignEnergyToTrainer(trainer_id, energyImagePath) {
   }
 }
 
-// Función para guardar los datos de entrenadores en el archivo JSON
-function saveTrainerData() {
-  try {
-    fs.writeFileSync(filePath, JSON.stringify(trainerData, null, 2), "utf8");
-    console.log("Datos de entrenadores guardados correctamente.");
-  } catch (err) {
-    console.error("Error al guardar los datos de entrenadores:", err);
-  }
-}
-
 /*******************************************
  *
  *    ASIGNAR ENERGÍA A LOS ENTRENADORES
