@@ -1809,32 +1809,32 @@ function assignCombatObjectToTrainer(trainer_id, combatObject) {
 
 // Ruta de asignación de objetos de combate
 app.post("/assign-combatObjects", (req, res) => {
-  let { trainer_id, trainerNames, combatObject } = req.body;
-  console.log("assign-combatObjects:", req.body);
+  let { trainer_id, trainerIDs, combatObject } = req.body;
+  console.log("assign-combatObjects - Request body:", req.body);
 
-  if (!combatObject) {
+  // Validar si existe el objeto de combate
+  if (!combatObject || !combatObject.image || !combatObject.name) {
     return res.status(400).json({
       error:
-        "Datos del objeto de combate incompletos. Asegúrate de enviar una imagen.",
+        "Datos del objeto de combate incompletos. Asegúrate de enviar un nombre e imagen válidos.",
     });
   }
 
+  // Si se proporciona `trainer_id`, sobreescribe `trainerNames`
   if (trainer_id) {
-    trainerNames = [trainer_id];
+    trainerIDs = [trainer_id];
   }
 
-  if (
-    !trainerNames ||
-    !Array.isArray(trainerNames) ||
-    trainerNames.length === 0
-  ) {
+  // Verificar si la lista de nombres de entrenadores es válida
+  if (!trainerIDs || !Array.isArray(trainerIDs) || trainerIDs.length === 0) {
     return res.status(400).json({
       error:
-        "Lista de entrenadores no válida. Debe ser un array de nombres de entrenadores.",
+        "Lista de entrenadores no válida. Debe ser un array de nombres de entrenadores o un ID válido.",
     });
   }
 
-  const promises = trainerNames.map((trainer_id) =>
+  // Asignar el objeto de combate a cada entrenador
+  const promises = trainerIDs.map((trainer_id) =>
     assignCombatObjectToTrainer(trainer_id, combatObject)
   );
 
@@ -1855,6 +1855,7 @@ app.post("/assign-combatObjects", (req, res) => {
       });
     });
 });
+
 
 /***************************************************************
  *                                                              *
