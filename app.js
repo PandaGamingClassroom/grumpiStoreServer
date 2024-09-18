@@ -528,6 +528,7 @@ app.put("/trainers/update/:name", (req, res) => {
     password,
     grumpidolar,
     combatMark,
+    avatar,
     objetosAEliminar,
   } = req.body;
 
@@ -543,6 +544,9 @@ app.put("/trainers/update/:name", (req, res) => {
     if (name !== undefined && name !== "") {
       trainer.name = name;
     }
+    if (avatar !== undefined && avatar !== "") {
+      trainer.avatar = avatar;
+    }
     if (password !== undefined && password !== "") {
       trainer.password = password;
     }
@@ -555,7 +559,7 @@ app.put("/trainers/update/:name", (req, res) => {
 
     const updateStmt = db.prepare(`
       UPDATE trainers 
-      SET name = ?, password = ?, grumpidolar = ?, marca_combate = ? 
+      SET name = ?, password = ?, grumpidolar = ?, marca_combate = ?, avatar = ?
       WHERE id = ?
     `);
     updateStmt.run(
@@ -563,6 +567,7 @@ app.put("/trainers/update/:name", (req, res) => {
       trainer.password,
       trainer.grumpidolar,
       trainer.marca_combate,
+      trainer.avatar,
       trainer.id
     );
 
