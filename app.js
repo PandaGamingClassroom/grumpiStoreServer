@@ -1577,7 +1577,17 @@ app.post("/assign-energie", (req, res) => {
     });
   }
 
-  const promises = trainerIDs.map((trainer_id) =>
+  // Verifica si `trainerIDs` es un array, si no, lo convierte en uno
+  let trainerIdArray = Array.isArray(trainerIDs) ? trainerIDs : [trainerIDs];
+
+  if (!trainerIdArray || trainerIdArray.length === 0) {
+    return res.status(400).json({
+      error:
+        "Lista de entrenadores no válida. Debe ser un array de nombres de entrenadores o un ID válido.",
+    });
+  }
+
+  const promises = trainerIdArray.map((trainer_id) =>
     assignEnergyToTrainer(trainer_id, energie)
   );
 
@@ -1596,6 +1606,7 @@ app.post("/assign-energie", (req, res) => {
       });
     });
 });
+
 
 /******************************************
  *
