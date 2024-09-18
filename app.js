@@ -1198,15 +1198,22 @@ app.get("/trainer/:id", (req, res) => {
   }
 
   try {
+    // Verificar el ID recibido
+    console.log("ID recibido:", trainerId);
+
     const trainer = db
       .prepare("SELECT * FROM trainers WHERE id = ?")
       .get(trainerId);
 
     if (!trainer) {
+      console.log("Entrenador no encontrado en la base de datos.");
       return res
         .status(404)
         .json({ success: false, error: "Entrenador no encontrado" });
     }
+
+    // Verificar el contenido del entrenador
+    console.log("Entrenador encontrado:", trainer);
 
     // Parseando las listas del entrenador
     parseDataTrainer(trainer);
@@ -1222,6 +1229,7 @@ app.get("/trainer/:id", (req, res) => {
       .json({ success: false, error: "Error interno del servidor" });
   }
 });
+
 
 /**
  * Función para parsear las listas de la mochila del entrenador.
