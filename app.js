@@ -1204,15 +1204,11 @@ app.get("/trainer/:id", (req, res) => {
 
     if (!trainer) {
       return res
-        .status(200)
+        .status(404)
         .json({ success: false, error: "Entrenador no encontrado" });
     }
 
-    /**
-     *
-     * PARSEANDO LAS LISTAS DEL ENTRENADOR
-     *
-     */
+    // Parseando las listas del entrenador
     parseDataTrainer(trainer);
 
     res.json({ success: true, data: trainer });
