@@ -1065,7 +1065,7 @@ app.post("/assign-grumpidolares", (req, res) => {
  *  LA COMPRA DE OBJETOS.
  *
  */
-function assignGrumpidolaresAfterBuyToTrainer(trainerName, grumpidolar) {
+function assignGrumpidolaresAfterBuyToTrainer(trainer_id, grumpidolar) {
   return new Promise((resolve, reject) => {
     console.log("Cantidad de Grumpidólares a restar:", grumpidolar);
 
@@ -1089,8 +1089,8 @@ function assignGrumpidolaresAfterBuyToTrainer(trainerName, grumpidolar) {
     }
 
     const trainer = db
-      .prepare("SELECT * FROM trainers WHERE name = ?")
-      .get(trainerName);
+      .prepare("SELECT * FROM trainers WHERE id = ?")
+      .get(trainer_id);
 
     if (trainer) {
       console.log("Entrenador encontrado:", trainer);
@@ -1120,7 +1120,7 @@ function assignGrumpidolaresAfterBuyToTrainer(trainerName, grumpidolar) {
       );
       resolve("Grumpidólares restados correctamente al entrenador.");
     } else {
-      reject(`Entrenador con nombre ${trainerName} no encontrado.`);
+      reject(`Entrenador con nombre ${trainer_id} no encontrado.`);
     }
   });
 }
@@ -1128,11 +1128,11 @@ function assignGrumpidolaresAfterBuyToTrainer(trainerName, grumpidolar) {
 app.post("/assignGrumpidolares-after-buy", (req, res) => {
   console.log("assignGrumpidolares-after-buy:", req.body);
 
-  const { trainerName, grumpidolares } = req.body;
+  const { trainer_id, grumpidolares } = req.body;
 
   console.log("Cantidad de Grumpidólares para actualizar:", grumpidolares);
 
-  assignGrumpidolaresAfterBuyToTrainer(trainerName, grumpidolares)
+  assignGrumpidolaresAfterBuyToTrainer(trainer_id, grumpidolares)
     .then((message) => {
       res.status(200).json({ message: message });
     })
