@@ -1191,7 +1191,7 @@ app.get("/trainer/:nombre", (req, res) => {
   }
 });
 
-app.get("/trainer/:id", (req, res) => {
+app.get("/trainer_by_id/:id", (req, res) => {
   const trainerId = parseInt(req.params.id, 10);
 
   try {
