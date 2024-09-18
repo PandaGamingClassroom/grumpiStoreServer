@@ -1568,7 +1568,7 @@ function assignEnergyToTrainer(trainer_id, energyImagePath) {
  *
  ******************************************/
 app.post("/assign-energie", (req, res) => {
-  const { trainerIDs, energie } = req.body;
+  const { trainerIDs, trainer_id, energie } = req.body;
   console.log("assign-energie:", req.body);
 
   // Verifica si la energía es válida
@@ -1578,10 +1578,10 @@ app.post("/assign-energie", (req, res) => {
     });
   }
 
-  // Si trainerIDs no es un array, se convierte en uno para manejar un solo ID
-  if (!Array.isArray(trainerIDs) && trainerIDs) {
-    console.log("Se recibió un solo ID de entrenador:", trainerIDs);
-    assignEnergyToTrainer(trainerIDs, energie)
+  // Si trainer_id está presente, lo tratamos como un solo ID
+  if (trainer_id) {
+    console.log("Se recibió un solo ID de entrenador:", trainer_id);
+    assignEnergyToTrainer(trainer_id, energie)
       .then((message) => {
         res.status(200).json({
           message: "Energía asignada con éxito al entrenador.",
@@ -1594,16 +1594,16 @@ app.post("/assign-energie", (req, res) => {
           error: "Error al asignar la energía: " + error.message,
         });
       });
-  } else if (Array.isArray(trainerIDs) && trainerIDs.length > 0) {
+  } 
+  // Si trainerIDs es un array, procesamos múltiples IDs
+  else if (Array.isArray(trainerIDs) && trainerIDs.length > 0) {
     console.log("Trainer IDs recibidos:", trainerIDs);
 
-    // Si es un array de IDs, procesa cada uno
     const promises = trainerIDs.map((trainer_id) => {
       console.log("Asignando energía a entrenador con ID:", trainer_id);
       return assignEnergyToTrainer(trainer_id, energie);
     });
 
-    // Espera a que todas las promesas se completen
     Promise.all(promises)
       .then((messages) => {
         res.status(200).json({
@@ -1617,13 +1617,16 @@ app.post("/assign-energie", (req, res) => {
           error: "Error al asignar la energía a los entrenadores: " + error.message,
         });
       });
-  } else {
+  } 
+  // Si no se recibe ni trainer_id ni trainerIDs válidos
+  else {
     return res.status(400).json({
       error:
         "Lista de entrenadores no válida. Debe ser un array de IDs o un ID válido.",
     });
   }
 });
+
 
 /******************************************
  *
