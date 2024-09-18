@@ -526,25 +526,27 @@ app.delete("/user/:id", (req, res) => {
  * Actualiza los datos de un entrenador
  *
  */
-app.put("/trainers/update/:name", (req, res) => {
-  const trainerName = req.params.name;
-  const { name, password, grumpidolar, combatMark, avatar, objetosAEliminar } =
+app.put("/trainers/update/:id", (req, res) => {
+  const trainerId = parseInt(req.params.id, 10);
+  if (isNaN(trainerId)) {
+    return res.status(400).json({ error: "ID de entrenador inválido" });
+  }
+
+  const { name, password, grumpidolar, combatMark, objetosAEliminar } =
     req.body;
 
   try {
     const trainer = db
-      .prepare("SELECT * FROM trainers WHERE name = ?")
-      .get(trainerName);
+      .prepare("SELECT * FROM trainers WHERE id = ?")
+      .get(trainerId);
 
     if (!trainer) {
       return res.status(404).json({ error: "Entrenador no encontrado" });
     }
 
+    // Actualiza los campos si existen y no están vacíos
     if (name !== undefined && name !== "") {
       trainer.name = name;
-    }
-    if (avatar !== undefined && avatar !== "") {
-      trainer.avatar = avatar;
     }
     if (password !== undefined && password !== "") {
       trainer.password = password;
@@ -556,9 +558,10 @@ app.put("/trainers/update/:name", (req, res) => {
       trainer.marca_combate = combatMark;
     }
 
+    // Ejecutar la actualización
     const updateStmt = db.prepare(`
       UPDATE trainers 
-      SET name = ?, password = ?, grumpidolar = ?, marca_combate = ?, avatar = ?
+      SET name = ?, password = ?, grumpidolar = ?, marca_combate = ? 
       WHERE id = ?
     `);
     updateStmt.run(
@@ -566,52 +569,14 @@ app.put("/trainers/update/:name", (req, res) => {
       trainer.password,
       trainer.grumpidolar,
       trainer.marca_combate,
-      trainer.avatar,
       trainer.id
     );
 
     console.log("Trainer actualizado:", trainer);
 
+    // Manejar la eliminación de objetos
     if (Array.isArray(objetosAEliminar)) {
-      const energiasAEliminar = objetosAEliminar.filter(
-        (objeto) => objeto.tipo === "energia"
-      );
-      const medallasAEliminar = objetosAEliminar.filter(
-        (objeto) => objeto.tipo === "medalla"
-      );
-      const grumpisAEliminar = objetosAEliminar.filter(
-        (objeto) => objeto.tipo === "grumpi"
-      );
-      const objCombateAEliminar = objetosAEliminar.filter(
-        (objeto) => objeto.tipo === "combate"
-      );
-      const objEvolutivoAEliminar = objetosAEliminar.filter(
-        (objeto) => objeto.tipo === "evolutivo"
-      );
-
-      console.log("Objetos a eliminar:", {
-        energiasAEliminar,
-        medallasAEliminar,
-        grumpisAEliminar,
-        objCombateAEliminar,
-        objEvolutivoAEliminar,
-      });
-
-      if (energiasAEliminar.length > 0) {
-        deleteEnergiesFromTrainer(trainer.id, energiasAEliminar);
-      }
-      if (medallasAEliminar.length > 0) {
-        deleteMedalsFromTrainer(trainer.id, medallasAEliminar);
-      }
-      if (grumpisAEliminar.length > 0) {
-        editGrumpisFromTrainer(trainer.id, grumpisAEliminar);
-      }
-      if (objCombateAEliminar.length > 0) {
-        editObjCombat(trainer.id, objCombateAEliminar);
-      }
-      if (objEvolutivoAEliminar.length > 0) {
-        editObjEvolution(trainer.id, objEvolutivoAEliminar);
-      }
+      handleObjectDeletion(trainer.id, objetosAEliminar);
     }
 
     res.status(200).json({ message: "Entrenador actualizado correctamente" });
@@ -623,6 +588,51 @@ app.put("/trainers/update/:name", (req, res) => {
     res.status(500).json({ error: "Error interno del servidor" });
   }
 });
+
+// Función modularizada para manejar la eliminación de objetos
+function handleObjectDeletion(trainerId, objetosAEliminar) {
+  const energiasAEliminar = objetosAEliminar.filter(
+    (objeto) => objeto.tipo === "energia"
+  );
+  const medallasAEliminar = objetosAEliminar.filter(
+    (objeto) => objeto.tipo === "medalla"
+  );
+  const grumpisAEliminar = objetosAEliminar.filter(
+    (objeto) => objeto.tipo === "grumpi"
+  );
+  const objCombateAEliminar = objetosAEliminar.filter(
+    (objeto) => objeto.tipo === "combate"
+  );
+  const objEvolutivoAEliminar = objetosAEliminar.filter(
+    (objeto) => objeto.tipo === "evolutivo"
+  );
+
+  console.log("Objetos a eliminar:", {
+    energiasAEliminar,
+    medallasAEliminar,
+    grumpisAEliminar,
+    objCombateAEliminar,
+    objEvolutivoAEliminar,
+  });
+
+  // Elimina los objetos de cada tipo si existen
+  if (energiasAEliminar.length > 0) {
+    deleteEnergiesFromTrainer(trainerId, energiasAEliminar);
+  }
+  if (medallasAEliminar.length > 0) {
+    deleteMedalsFromTrainer(trainerId, medallasAEliminar);
+  }
+  if (grumpisAEliminar.length > 0) {
+    editGrumpisFromTrainer(trainerId, grumpisAEliminar);
+  }
+  if (objCombateAEliminar.length > 0) {
+    editObjCombat(trainerId, objCombateAEliminar);
+  }
+  if (objEvolutivoAEliminar.length > 0) {
+    editObjEvolution(trainerId, objEvolutivoAEliminar);
+  }
+}
+
 
 /**
  * Función para eliminar solo las energías seleccionadas
