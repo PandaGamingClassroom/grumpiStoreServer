@@ -1568,17 +1568,15 @@ function assignEnergyToTrainer(trainer_id, energyImagePath) {
  *
  ******************************************/
 app.post("/assign-energie", (req, res) => {
-  const { trainerIDs, trainer_id, energie } = req.body;
+  const { trainerNames, trainer_id, energie } = req.body;
   console.log("assign-energie:", req.body);
 
-  // Verifica si la energía es válida
   if (!energie) {
     return res.status(400).json({
       error: "Datos de energía incompletos. Asegúrate de enviar una imagen.",
     });
   }
 
-  // Si trainer_id está presente, lo tratamos como un solo ID
   if (trainer_id) {
     console.log("Se recibió un solo ID de entrenador:", trainer_id);
     assignEnergyToTrainer(trainer_id, energie)
@@ -1595,11 +1593,10 @@ app.post("/assign-energie", (req, res) => {
         });
       });
   }
-  // Si trainerIDs es un array, procesamos múltiples IDs
-  else if (Array.isArray(trainerIDs) && trainerIDs.length > 0) {
-    console.log("Trainer IDs recibidos:", trainerIDs);
+  else if (Array.isArray(trainerNames) && trainerNames.length > 0) {
+    console.log("Trainer IDs recibidos:", trainerNames);
 
-    const promises = trainerIDs.map((trainer_id) => {
+    const promises = trainerNames.map((trainer_id) => {
       console.log("Asignando energía a entrenador con ID:", trainer_id);
       return assignEnergyToTrainer(trainer_id, energie);
     });
@@ -1618,7 +1615,6 @@ app.post("/assign-energie", (req, res) => {
         });
       });
   }
-  // Si no se recibe ni trainer_id ni trainerIDs válidos
   else {
     return res.status(400).json({
       error:
@@ -1626,7 +1622,6 @@ app.post("/assign-energie", (req, res) => {
     });
   }
 });
-
 
 /******************************************
  *
