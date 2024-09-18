@@ -1523,14 +1523,14 @@ app.get("/getImageGrumpiHowToGet", (req, res) => {
  *
  ******************************************/
 // Función para asignar una energía a un entrenador
-function assignEnergyToTrainer(trainerName, energyImagePath) {
+function assignEnergyToTrainer(trainer_id, energyImagePath) {
   console.log(
     "Ruta de la energía para asignar al entrenador: ",
     energyImagePath
   );
   const trainer = db
-    .prepare("SELECT * FROM trainers WHERE name = ?")
-    .get(trainerName);
+    .prepare("SELECT * FROM trainers WHERE id = ?")
+    .get(trainer_id);
 
   if (trainer) {
     let trainerEnergyObject = trainer.energies
@@ -1557,7 +1557,7 @@ function assignEnergyToTrainer(trainerName, energyImagePath) {
     }
   } else {
     return Promise.reject(
-      new Error(`Entrenador con nombre ${trainerName} no encontrado.`)
+      new Error(`Entrenador con nombre ${trainer_id} no encontrado.`)
     );
   }
 }
@@ -1578,7 +1578,7 @@ function saveTrainerData() {
  *
  ******************************************/
 app.post("/assign-energie", (req, res) => {
-  const { trainerNames, energie } = req.body;
+  const { trainerIDs, energie } = req.body;
   console.log("assign-energie:", req.body);
 
   if (!energie) {
@@ -1587,8 +1587,8 @@ app.post("/assign-energie", (req, res) => {
     });
   }
 
-  const promises = trainerNames.map((trainerName) =>
-    assignEnergyToTrainer(trainerName, energie)
+  const promises = trainerIDs.map((trainer_id) =>
+    assignEnergyToTrainer(trainer_id, energie)
   );
 
   Promise.all(promises)
