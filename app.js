@@ -1577,8 +1577,9 @@ app.post("/assign-energie", (req, res) => {
     });
   }
 
-  // Verifica si `trainerIDs` es un array, si no, lo convierte en uno
   let trainerIdArray = Array.isArray(trainerIDs) ? trainerIDs : [trainerIDs];
+
+  console.log("Trainer IDs recibidos:", trainerIdArray); // Debugging log
 
   if (!trainerIdArray || trainerIdArray.length === 0) {
     return res.status(400).json({
@@ -1587,9 +1588,10 @@ app.post("/assign-energie", (req, res) => {
     });
   }
 
-  const promises = trainerIdArray.map((trainer_id) =>
-    assignEnergyToTrainer(trainer_id, energie)
-  );
+  const promises = trainerIdArray.map((trainer_id) => {
+    console.log("Asignando energía a entrenador con ID:", trainer_id); // Debugging log
+    return assignEnergyToTrainer(trainer_id, energie);
+  });
 
   Promise.all(promises)
     .then((messages) => {
@@ -1606,6 +1608,7 @@ app.post("/assign-energie", (req, res) => {
       });
     });
 });
+
 
 
 /******************************************
