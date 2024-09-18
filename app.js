@@ -1193,26 +1193,15 @@ app.get("/trainer/:nombre", (req, res) => {
 
 app.get("/trainer/:id", (req, res) => {
   const trainerId = parseInt(req.params.id, 10);
-  console.log("Request ID:", req.params.id); // Log ID recibido
-
-  if (isNaN(trainerId)) {
-    console.log("ID de entrenador inválido");
-    return res.status(400).json({ error: "ID de entrenador inválido" });
-  }
 
   try {
-    console.log("Buscando entrenador con ID:", trainerId); // Log antes de la consulta
-
     const trainer = db
       .prepare("SELECT * FROM trainers WHERE id = ?")
       .get(trainerId);
 
-    console.log("Resultado de la consulta:", trainer); // Log resultado de la consulta
-
     if (!trainer) {
-      console.log("Entrenador no encontrado en la base de datos.");
       return res
-        .status(404)
+        .status(200)
         .json({ success: false, error: "Entrenador no encontrado" });
     }
 
