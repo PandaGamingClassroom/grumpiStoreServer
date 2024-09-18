@@ -1764,14 +1764,14 @@ app.get("/getImageCombatObjects", (req, res) => {
  ***********************************************************/
 
 // Función para asignar un objeto de combate a un entrenador
-function assignCombatObjectToTrainer(trainerName, combatObject) {
+function assignCombatObjectToTrainer(trainer_id, combatObject) {
   console.log(
     "Ruta del objeto de combate para asignar al entrenador: ",
     combatObject
   );
   const trainer = db
-    .prepare("SELECT * FROM trainers WHERE name = ?")
-    .get(trainerName);
+    .prepare("SELECT * FROM trainers WHERE id = ?")
+    .get(trainer_id);
 
   if (trainer) {
     let trainerCombatObj = trainer.objetos_combate
@@ -1802,14 +1802,14 @@ function assignCombatObjectToTrainer(trainerName, combatObject) {
     }
   } else {
     return Promise.reject(
-      new Error(`Entrenador con nombre ${trainerName} no encontrado.`)
+      new Error(`Entrenador con nombre ${trainer_id} no encontrado.`)
     );
   }
 }
 
 // Ruta de asignación de objetos de combate
 app.post("/assign-combatObjects", (req, res) => {
-  let { trainerName, trainerNames, combatObject } = req.body;
+  let { trainer_id, trainerNames, combatObject } = req.body;
   console.log("assign-combatObjects:", req.body);
 
   if (!combatObject) {
@@ -1819,8 +1819,8 @@ app.post("/assign-combatObjects", (req, res) => {
     });
   }
 
-  if (trainerName) {
-    trainerNames = [trainerName];
+  if (trainer_id) {
+    trainerNames = [trainer_id];
   }
 
   if (
@@ -1834,8 +1834,8 @@ app.post("/assign-combatObjects", (req, res) => {
     });
   }
 
-  const promises = trainerNames.map((trainerName) =>
-    assignCombatObjectToTrainer(trainerName, combatObject)
+  const promises = trainerNames.map((trainer_id) =>
+    assignCombatObjectToTrainer(trainer_id, combatObject)
   );
 
   Promise.all(promises)
