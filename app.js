@@ -1643,19 +1643,6 @@ app.post("/upload-medal", upload.single("image"), (req, res) => {
  *            ASIGNACIÓN DE MEDALLAS A LOS ENTRENADORES             *
  *                                                                  *
  *******************************************************************/
-try {
-  const data = fs.readFileSync(filePath, "utf8");
-  trainerData = JSON.parse(data);
-  // Inicializar la propiedad 'medallas' si no está presente en cada objeto de entrenador
-  trainerData.forEach((trainer) => {
-    if (!trainer.medallas) {
-      trainer.medallas = [];
-    }
-  });
-  console.log("Datos de entrenadores cargados correctamente:", trainerData);
-} catch (err) {
-  console.error("Error al leer el archivo de entrenadores:", err);
-}
 
 // Función para actualizar y guardar los datos del entrenador en el archivo JSON
 function saveTrainerData() {
@@ -1775,25 +1762,6 @@ app.get("/getImageCombatObjects", (req, res) => {
  *
  *
  ***********************************************************/
-
-/**
- * Comprobación si la lista de objetos de combate existe
- * entre los atributos del entrenador.
- * Si no existe, se genera.
- */
-try {
-  const data = fs.readFileSync(filePath, "utf8");
-  trainerData = JSON.parse(data);
-  // Inicializar la propiedad 'objetos_combate' si no está presente en cada objeto de entrenador
-  trainerData.forEach((trainer) => {
-    if (!trainer.objetos_combate) {
-      trainer.objetos_combate = [];
-    }
-  });
-  console.log("Datos de entrenadores cargados correctamente:", trainerData);
-} catch (err) {
-  console.error("Error al leer el archivo de entrenadores:", err);
-}
 
 // Función para asignar un objeto de combate a un entrenador
 function assignCombatObjectToTrainer(trainerName, combatObject) {
@@ -1931,19 +1899,6 @@ app.get("/getEvoOBjects", (req, res) => {
  *       ASIGNAR OBJETOS EVOLUTIVOS
  *
  ******************************************/
-// Cargar los datos de los entrenadores del archivo JSON al iniciar la aplicación
-try {
-  const data = fs.readFileSync(filePath, "utf8");
-  trainerData = JSON.parse(data);
-  trainerData.forEach((trainer) => {
-    if (!trainer.objetos_evolutivos) {
-      trainer.objetos_evolutivos = [];
-    }
-  });
-  console.log("Datos de entrenadores cargados correctamente:", trainerData);
-} catch (err) {
-  console.error("Error al leer el archivo de entrenadores:", err);
-}
 
 // Función para asignar una energía a un entrenador
 function assignEvoObjectsToTrainer(trainerName, evoObject) {
@@ -2016,24 +1971,7 @@ app.post("/assign-evo-objects", (req, res) => {
  *    ASIGNAR MARCAS DE COMBATE
  *
  ******************************************/
-try {
-  const data = fs.readFileSync(filePath, "utf8");
-  trainerData = JSON.parse(data);
 
-  if (!Array.isArray(trainerData)) {
-    throw new Error("Los datos de entrenadores no son un array.");
-  }
-
-  trainerData.forEach((trainer) => {
-    if (typeof trainer.marca_combate === "undefined") {
-      trainer.marca_combate = 0;
-    }
-  });
-
-  console.log("Datos de entrenadores cargados correctamente:", trainerData);
-} catch (err) {
-  console.error("Error al leer el archivo de entrenadores:", err);
-}
 function assignCombatMarksToTrainer(trainerName, combatMark) {
   return new Promise((resolve, reject) => {
     console.log("Cantidad de Grumpidólares recibida (original): ", grumpidolar);
@@ -2611,21 +2549,6 @@ app.get("/getRewards", (req, res) => {
 /**
  * Asignación de recompensas al entrenador
  */
-try {
-  const data = fs.readFileSync(filePath, "utf8");
-  trainerData = JSON.parse(data);
-  trainerData.forEach((trainer) => {
-    if (!trainer.recompensas) {
-      trainer.recompensas = [];
-    }
-    if (!trainer.energies) {
-      trainer.energies = [];
-    }
-  });
-  console.log("Datos de entrenadores cargados correctamente:", trainerData);
-} catch (err) {
-  console.error("Error al leer el archivo de entrenadores:", err);
-}
 
 function saveTrainerData() {
   fs.writeFileSync(filePath, JSON.stringify(trainerData, null, 2), "utf8");
