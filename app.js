@@ -1571,45 +1571,59 @@ app.post("/assign-energie", (req, res) => {
   const { trainerIDs, energie } = req.body;
   console.log("assign-energie:", req.body);
 
+  // Verifica si la energía es válida
   if (!energie) {
     return res.status(400).json({
       error: "Datos de energía incompletos. Asegúrate de enviar una imagen.",
     });
   }
 
-  let trainerIdArray = Array.isArray(trainerIDs) ? trainerIDs : [trainerIDs];
+  // Si trainerIDs no es un array, se convierte en uno para manejar un solo ID
+  if (!Array.isArray(trainerIDs) && trainerIDs) {
+    console.log("Se recibió un solo ID de entrenador:", trainerIDs);
+    assignEnergyToTrainer(trainerIDs, energie)
+      .then((message) => {
+        res.status(200).json({
+          message: "Energía asignada con éxito al entrenador.",
+          details: message,
+        });
+      })
+      .catch((error) => {
+        console.error("Error al asignar la energía:", error);
+        res.status(500).json({
+          error: "Error al asignar la energía: " + error.message,
+        });
+      });
+  } else if (Array.isArray(trainerIDs) && trainerIDs.length > 0) {
+    console.log("Trainer IDs recibidos:", trainerIDs);
 
-  console.log("Trainer IDs recibidos:", trainerIdArray); // Debugging log
+    // Si es un array de IDs, procesa cada uno
+    const promises = trainerIDs.map((trainer_id) => {
+      console.log("Asignando energía a entrenador con ID:", trainer_id);
+      return assignEnergyToTrainer(trainer_id, energie);
+    });
 
-  if (!trainerIdArray || trainerIdArray.length === 0) {
+    // Espera a que todas las promesas se completen
+    Promise.all(promises)
+      .then((messages) => {
+        res.status(200).json({
+          message: "Energía asignada con éxito a todos los entrenadores.",
+          details: messages,
+        });
+      })
+      .catch((error) => {
+        console.error("Error al asignar la energía:", error);
+        res.status(500).json({
+          error: "Error al asignar la energía a los entrenadores: " + error.message,
+        });
+      });
+  } else {
     return res.status(400).json({
       error:
-        "Lista de entrenadores no válida. Debe ser un array de nombres de entrenadores o un ID válido.",
+        "Lista de entrenadores no válida. Debe ser un array de IDs o un ID válido.",
     });
   }
-
-  const promises = trainerIdArray.map((trainer_id) => {
-    console.log("Asignando energía a entrenador con ID:", trainer_id); // Debugging log
-    return assignEnergyToTrainer(trainer_id, energie);
-  });
-
-  Promise.all(promises)
-    .then((messages) => {
-      res.status(200).json({
-        message: "Energía asignada con éxito a todos los entrenadores.",
-        details: messages,
-      });
-    })
-    .catch((error) => {
-      console.error("Error al asignar la energía:", error);
-      res.status(500).json({
-        error:
-          "Error al asignar la energía a los entrenadores: " + error.message,
-      });
-    });
 });
-
-
 
 /******************************************
  *
