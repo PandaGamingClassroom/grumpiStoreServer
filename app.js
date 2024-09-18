@@ -2574,8 +2574,8 @@ function saveTrainerData() {
 function assignRewardToTrainer(trainerName, reward) {
   console.log("Ruta de la recompensa para asignar al entrenador: ", reward);
   const trainer = db
-    .prepare("SELECT * FROM trainers WHERE name = ?")
-    .get(trainerName);
+    .prepare("SELECT * FROM trainers WHERE id = ?")
+    .get(trainer_id);
 
   if (trainer) {
     let trainerRewards = trainer.recompensas
@@ -2612,7 +2612,7 @@ function assignRewardToTrainer(trainerName, reward) {
 }
 
 app.post("/assign-rewards", (req, res) => {
-  const { trainerNames, reward } = req.body;
+  const { trainer_id, reward } = req.body;
   console.log("assign-rewards:", req.body);
 
   if (!reward) {
@@ -2620,10 +2620,9 @@ app.post("/assign-rewards", (req, res) => {
       error: "Datos de medalla incompletos. Asegúrate de enviar una imagen.",
     });
   }
+    
+  assignRewardToTrainer(trainer_id, reward)
 
-  const promises = trainerNames.map((trainerName) =>
-    assignRewardToTrainer(trainerName, reward)
-  );
 
   Promise.all(promises)
     .then((messages) => {
