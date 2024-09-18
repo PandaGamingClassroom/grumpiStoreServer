@@ -87,11 +87,14 @@ try {
  *                                    *
  *************************************/
 // Permitir CORS para todas las solicitudes a imágenes
-app.use("/uploads/grumpis", cors({
-  origin: "*", // Permitir cualquier origen
-  methods: "GET", // Solo permitir GET para las imágenes
-  optionsSuccessStatus: 200
-}));
+app.use(
+  "/uploads/grumpis",
+  cors({
+    origin: "*", // Permitir cualquier origen
+    methods: "GET", // Solo permitir GET para las imágenes
+    optionsSuccessStatus: 200,
+  })
+);
 
 // Configuración CORS existente para las demás rutas
 const corsOptions = {
@@ -491,21 +494,23 @@ app.post("/new-user", (req, res) => {
  * Función para eliminar un entrenador
  *
  */
-app.delete("/user/:name", (req, res) => {
-  const userName = req.params.name;
-
+app.delete("/user/:id", (req, res) => {
+  const trainerId = parseInt(req.params.id, 10);
+  if (isNaN(trainerId)) {
+    return res.status(400).json({ error: "ID de entrenador inválido" });
+  }
   try {
-    const deleteStmt = db.prepare("DELETE FROM trainers WHERE name = ?");
-    const result = deleteStmt.run(userName);
+    const deleteStmt = db.prepare("DELETE FROM trainers WHERE id = ?");
+    const result = deleteStmt.run(trainerId);
 
     if (result.changes === 0) {
       return res
         .status(404)
-        .json({ error: `Usuario con nombre ${userName} no encontrado` });
+        .json({ error: `Usuario con id ${trainerId} no encontrado` });
     }
 
     res.status(200).json({
-      message: `Usuario con nombre ${userName} eliminado correctamente`,
+      message: `Usuario con id ${trainerId} eliminado correctamente`,
     });
   } catch (dbError) {
     console.error(
@@ -523,14 +528,8 @@ app.delete("/user/:name", (req, res) => {
  */
 app.put("/trainers/update/:name", (req, res) => {
   const trainerName = req.params.name;
-  const {
-    name,
-    password,
-    grumpidolar,
-    combatMark,
-    avatar,
-    objetosAEliminar,
-  } = req.body;
+  const { name, password, grumpidolar, combatMark, avatar, objetosAEliminar } =
+    req.body;
 
   try {
     const trainer = db
@@ -625,7 +624,6 @@ app.put("/trainers/update/:name", (req, res) => {
   }
 });
 
-
 /**
  * Función para eliminar solo las energías seleccionadas
  * de la lista de energías del entrenador.
@@ -661,7 +659,7 @@ function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
             }
             return e;
           })
-          .filter((e) => e !== null); 
+          .filter((e) => e !== null);
 
         if (cantidadAEliminar > 0) {
           console.log(
@@ -685,7 +683,6 @@ function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
     );
   }
 }
-
 
 /**
  * Función para editar las medallas seleccionadas
@@ -724,7 +721,6 @@ function deleteMedalsFromTrainer(trainerId, objetosAEliminar) {
   }
 }
 
-
 /**
  * Función para editar los Grumpis seleccionados del entrenador.
  *
@@ -759,7 +755,7 @@ function editGrumpisFromTrainer(trainerId, objetosAEliminar) {
             }
             return g;
           })
-          .filter((g) => g !== null); 
+          .filter((g) => g !== null);
 
         if (cantidadAEliminar > 0) {
           console.log(
@@ -818,7 +814,7 @@ function editObjCombat(trainerId, objetosAEliminar) {
             }
             return o;
           })
-          .filter((o) => o !== null); 
+          .filter((o) => o !== null);
 
         if (cantidadAEliminar > 0) {
           console.log(
@@ -842,7 +838,6 @@ function editObjCombat(trainerId, objetosAEliminar) {
     );
   }
 }
-
 
 /**
  * Función para editar los objetos evolutivos de un entrenador.
@@ -869,7 +864,7 @@ function editObjEvolution(trainerId, objetosAEliminar) {
 
               if (o.cantidad <= reduceAmount) {
                 cantidadAEliminar -= o.cantidad;
-                return null; 
+                return null;
               } else {
                 cantidadAEliminar -= reduceAmount;
                 return { ...o, cantidad: o.cantidad - reduceAmount };
@@ -877,7 +872,7 @@ function editObjEvolution(trainerId, objetosAEliminar) {
             }
             return o;
           })
-          .filter((o) => o !== null); 
+          .filter((o) => o !== null);
 
         if (cantidadAEliminar > 0) {
           console.log(
@@ -901,7 +896,6 @@ function editObjEvolution(trainerId, objetosAEliminar) {
     );
   }
 }
-
 
 /********************************************************************
  *
@@ -1849,8 +1843,6 @@ app.post("/assign-combatObjects", (req, res) => {
     });
 });
 
-
-
 /***************************************************************
  *                                                              *
  *                                                              *
@@ -2664,13 +2656,13 @@ app.post("/assign-rewards", (req, res) => {
 });
 
 /**
- * 
+ *
  * Función que se utiliza para cuando un entrenador
  * compra objetos que se pagan con energías.
- * 
+ *
  * Este método llama a la función {spendEnergies()}
  * que es donde se trata toda la lógica.
- * 
+ *
  */
 app.post("/spend-energies", (req, res) => {
   const { trainerName, energiesToSpend } = req.body;
@@ -2732,9 +2724,6 @@ async function spendEnergies(trainerName, energiesToSpend) {
     return Promise.reject(error.message);
   }
 }
-
-
-
 
 /***************************************************************
  *                                                              *
@@ -2882,7 +2871,6 @@ function assignBadgeToTrainer(trainerName, badgeName) {
   }
 }
 
-
 app.post("/trainers/order", (req, res) => {
   const newOrder = req.body.trainers;
 
@@ -2903,8 +2891,6 @@ app.post("/trainers/order", (req, res) => {
     res.status(500).send({ message: "Error al guardar el orden" });
   }
 });
-
-
 
 app.listen(PORT, () => {
   console.log(`Servidor GrumpiStore, iniciado en el puerto: ${PORT}`);
