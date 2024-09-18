@@ -1270,6 +1270,121 @@ app.get("/trainer/:nombre", (req, res) => {
   }
 });
 
+app.get("/trainer/:id", (req, res) => {
+
+  const trainerId = parseInt(req.params.id, 10);
+  if (isNaN(trainerId)) {
+    return res.status(400).json({ error: "ID de entrenador inválido" });
+  }
+
+  try {
+    const trainer = db
+      .prepare("SELECT * FROM trainers WHERE id = ?")
+      .get(trainerId);
+
+    if (!trainer) {
+      return res
+        .status(200)
+        .json({ success: false, error: "Entrenador no encontrado" });
+    }
+
+    /**
+     *
+     * PARSEANDO LAS LISTAS DEL ENTRENADOR
+     *
+     */
+    if (trainer.grumpis && trainer.grumpis !== "undefined") {
+      try {
+        trainer.grumpis = JSON.parse(trainer.grumpis);
+      } catch (error) {
+        console.error("Error al parsear grumpis:", error);
+        trainer.grumpis = [];
+      }
+    } else {
+      trainer.grumpis = [];
+    }
+
+    if (trainer.energies && trainer.energies !== "undefined") {
+      try {
+        trainer.energies = JSON.parse(trainer.energies);
+      } catch (error) {
+        console.error("Error al parsear las energías:", error);
+        trainer.energies = [];
+      }
+    } else {
+      trainer.energies = [];
+    }
+
+    if (trainer.medallas && trainer.medallas !== "undefined") {
+      try {
+        trainer.medallas = JSON.parse(trainer.medallas);
+      } catch (error) {
+        console.error("Error al parsear las medallas:", error);
+        trainer.medallas = [];
+      }
+    } else {
+      trainer.medallas = [];
+    }
+
+    if (trainer.objetos_combate && trainer.objetos_combate !== "undefined") {
+      try {
+        trainer.objetos_combate = JSON.parse(trainer.objetos_combate);
+      } catch (error) {
+        console.error("Error al parsear los objetos de combate:", error);
+        trainer.objetos_combate = [];
+      }
+    } else {
+      trainer.objetos_combate = [];
+    }
+
+    if (
+      trainer.objetos_evolutivos &&
+      trainer.objetos_evolutivos !== "undefined"
+    ) {
+      try {
+        trainer.objetos_evolutivos = JSON.parse(trainer.objetos_evolutivos);
+      } catch (error) {
+        console.error("Error al parsear los objetos evolutivos:", error);
+        trainer.objetos_evolutivos = [];
+      }
+    } else {
+      trainer.objetos_evolutivos = [];
+    }
+
+    if (trainer.recompensas && trainer.recompensas !== "undefined") {
+      try {
+        trainer.recompensas = JSON.parse(trainer.recompensas);
+      } catch (error) {
+        console.error("Error al parsear las recompensas:", error);
+        trainer.recompensas = [];
+      }
+    } else {
+      trainer.recompensas = [];
+    }
+
+    if (trainer.distintivos_liga && trainer.distintivos_liga !== "undefined") {
+      try {
+        trainer.distintivos_liga = JSON.parse(trainer.distintivos_liga);
+      } catch (error) {
+        console.error("Error al parsear los distintivos de liga:", error);
+        trainer.distintivos_liga = [];
+      }
+    } else {
+      trainer.distintivos_liga = [];
+    }
+
+    res.json({ success: true, data: trainer });
+  } catch (error) {
+    console.error(
+      "Error al obtener la información del entrenador desde la base de datos:",
+      error
+    );
+    res
+      .status(500)
+      .json({ success: false, error: "Error interno del servidor" });
+  }
+});
+
 /***************************************************************
  *                                                              *
  *                                                              *
