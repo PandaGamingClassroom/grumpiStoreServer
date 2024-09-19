@@ -2617,18 +2617,17 @@ app.post("/assign-rewards", (req, res) => {
 
   if (!reward) {
     return res.status(400).json({
-      error: "Datos de medalla incompletos. Asegúrate de enviar una imagen.",
+      error: "Datos de recompensa incompletos. Asegúrate de enviar una imagen.",
     });
   }
-    
-  assignRewardToTrainer(trainer_id, reward)
 
+  const assignRewardPromise = assignRewardToTrainer(trainer_id, reward);
 
-  Promise.all(promises)
-    .then((messages) => {
+  assignRewardPromise
+    .then((message) => {
       res.status(200).json({
-        message: "Recompensa asignada con éxito a todos los entrenadores.",
-        details: messages,
+        message: "Recompensa asignada con éxito.",
+        details: message,
       });
     })
     .catch((error) => {
@@ -2638,6 +2637,7 @@ app.post("/assign-rewards", (req, res) => {
       });
     });
 });
+
 
 /**
  *
