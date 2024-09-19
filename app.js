@@ -2671,16 +2671,24 @@ async function spendEnergies(trainer_id, energiesToSpend) {
       throw new Error(`Entrenador con ID ${trainer_id} no encontrado.`);
     }
 
-    // Parseamos las energías del entrenador (que es un array de objetos)
-    let energies = JSON.parse(trainer.energies);
+    // Imprime las energías almacenadas para verificar
+    console.log("Energías almacenadas en la base de datos:", trainer.energies);
+
+    // Intenta parsear las energías del entrenador
+    let energies;
+    try {
+      energies = JSON.parse(trainer.energies);
+    } catch (error) {
+      throw new Error("Error al parsear energías desde la base de datos.");
+    }
 
     for (const energyToSpend of energiesToSpend) {
-      // Buscamos la energía del tipo correspondiente
+      // Buscamos la energía del tipo correspondiente, ignorando mayúsculas/minúsculas
       const matchingEnergy = energies.find(
-        (energy) => energy.type === energyToSpend.type
+        (energy) =>
+          energy.type.toLowerCase() === energyToSpend.type.toLowerCase()
       );
 
-      // Verificamos si hay suficientes energías del tipo seleccionado
       if (!matchingEnergy || matchingEnergy.quantity < energyToSpend.quantity) {
         throw new Error(
           `No tienes suficientes energías de tipo ${
@@ -2691,13 +2699,14 @@ async function spendEnergies(trainer_id, energiesToSpend) {
         );
       }
 
-      // Restamos la cantidad seleccionada de energías
+      // Restamos la cantidad de energías del tipo correspondiente
       matchingEnergy.quantity -= energyToSpend.quantity;
 
-      // Si después de restar, la cantidad de energías es 0 o menos, eliminamos ese tipo de energía
+      // Si la cantidad llega a 0 o menos, eliminamos esa energía del array
       if (matchingEnergy.quantity <= 0) {
         energies = energies.filter(
-          (energy) => energy.type !== energyToSpend.type
+          (energy) =>
+            energy.type.toLowerCase() !== energyToSpend.type.toLowerCase()
         );
       }
     }
