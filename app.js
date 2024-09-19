@@ -2682,23 +2682,37 @@ async function spendEnergies(trainer_id, energiesToSpend) {
       throw new Error("Error al parsear energías desde la base de datos.");
     }
 
-    for (const energyToSpend of energiesToSpend) {
-      // Buscamos la energía del tipo correspondiente, asegurando que 'type' existe y no es undefined
-      const matchingEnergy = energies.find(
-        (energy) =>
-          energy.type &&
-          energy.type.toLowerCase() === energyToSpend.type.toLowerCase()
-      );
+    // Creamos un objeto para contar el total de cada tipo de energía
+    const energyTotals = energies.reduce((totals, energy) => {
+      const type = energy.type.toLowerCase(); // Normaliza el tipo de energía a minúsculas
+      if (!totals[type]) {
+        totals[type] = 0;
+      }
+      totals[type] += energy.quantity; // Suma la cantidad de energía por tipo
+      return totals;
+    }, {});
 
-      if (!matchingEnergy || matchingEnergy.quantity < energyToSpend.quantity) {
+    console.log("Recuento de energías actuales por tipo:", energyTotals);
+
+    // Ahora, verificamos si el entrenador tiene suficientes energías de cada tipo antes de gastar
+    for (const energyToSpend of energiesToSpend) {
+      const type = energyToSpend.type.toLowerCase();
+      const totalAvailable = energyTotals[type] || 0; // Total disponible del tipo
+
+      if (totalAvailable < energyToSpend.quantity) {
         throw new Error(
-          `No tienes suficientes energías de tipo ${
-            energyToSpend.type
-          }. Tienes ${
-            matchingEnergy ? matchingEnergy.quantity : 0
-          }, pero necesitas ${energyToSpend.quantity}.`
+          `No tienes suficientes energías de tipo ${energyToSpend.type}. Tienes ${totalAvailable}, pero necesitas ${energyToSpend.quantity}.`
         );
       }
+    }
+
+    // Si llegamos aquí, el entrenador tiene suficientes energías para gastar
+    for (const energyToSpend of energiesToSpend) {
+      // Encontramos la energía correspondiente en el array original
+      const matchingEnergy = energies.find(
+        (energy) =>
+          energy.type.toLowerCase() === energyToSpend.type.toLowerCase()
+      );
 
       // Restamos la cantidad de energías del tipo correspondiente
       matchingEnergy.quantity -= energyToSpend.quantity;
