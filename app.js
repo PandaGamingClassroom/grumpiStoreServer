@@ -2649,9 +2649,9 @@ app.post("/assign-rewards", (req, res) => {
  *
  */
 app.post("/spend-energies", (req, res) => {
-  const { trainerName, energiesToSpend } = req.body;
+  const { trainer_id, energiesToSpend } = req.body;
   console.log("spend-energies:", req.body);
-  spendEnergies(trainerName, energiesToSpend)
+  spendEnergies(trainer_id, energiesToSpend)
     .then((message) => {
       res.status(200).json({ message: message });
     })
@@ -2661,13 +2661,13 @@ app.post("/spend-energies", (req, res) => {
     });
 });
 
-async function spendEnergies(trainerName, energiesToSpend) {
+async function spendEnergies(trainer_id, energiesToSpend) {
   try {
-    const trainerStmt = db.prepare("SELECT * FROM trainers WHERE name = ?");
-    const trainer = trainerStmt.get(trainerName);
+    const trainerStmt = db.prepare("SELECT * FROM trainers WHERE id = ?");
+    const trainer = trainerStmt.get(trainer_id);
 
     if (!trainer) {
-      throw new Error(`Entrenador con nombre ${trainerName} no encontrado.`);
+      throw new Error(`Entrenador con nombre ${trainer.name} no encontrado.`);
     }
 
     // Parseamos las energías del entrenador (que es un array de objetos)
