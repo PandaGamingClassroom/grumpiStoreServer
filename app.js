@@ -2663,6 +2663,7 @@ app.post("/spend-energies", (req, res) => {
 
 async function spendEnergies(trainer_id, energiesToSpend) {
   try {
+    // Obtiene los datos del entrenador por ID
     const trainerStmt = db.prepare("SELECT * FROM trainers WHERE id = ?");
     const trainer = trainerStmt.get(trainer_id);
 
@@ -2679,6 +2680,7 @@ async function spendEnergies(trainer_id, energiesToSpend) {
         (energy) => energy.type === energyToSpend.type
       );
 
+      // Verificamos si hay suficientes energías del tipo seleccionado
       if (!matchingEnergy || matchingEnergy.quantity < energyToSpend.quantity) {
         throw new Error(
           `No tienes suficientes energías de tipo ${
@@ -2689,10 +2691,10 @@ async function spendEnergies(trainer_id, energiesToSpend) {
         );
       }
 
-      // Restamos la cantidad de energías del tipo correspondiente
+      // Restamos la cantidad seleccionada de energías
       matchingEnergy.quantity -= energyToSpend.quantity;
 
-      // Si la cantidad llega a 0 o menos, eliminamos esa energía del array
+      // Si después de restar, la cantidad de energías es 0 o menos, eliminamos ese tipo de energía
       if (matchingEnergy.quantity <= 0) {
         energies = energies.filter(
           (energy) => energy.type !== energyToSpend.type
