@@ -2683,9 +2683,10 @@ async function spendEnergies(trainer_id, energiesToSpend) {
     }
 
     for (const energyToSpend of energiesToSpend) {
-      // Buscamos la energía del tipo correspondiente, ignorando mayúsculas/minúsculas
+      // Buscamos la energía del tipo correspondiente, asegurando que 'type' existe y no es undefined
       const matchingEnergy = energies.find(
         (energy) =>
+          energy.type &&
           energy.type.toLowerCase() === energyToSpend.type.toLowerCase()
       );
 
