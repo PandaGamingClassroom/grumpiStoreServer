@@ -2667,33 +2667,37 @@ async function spendEnergies(trainer_id, energiesToSpend) {
     const trainer = trainerStmt.get(trainer_id);
 
     if (!trainer) {
-      throw new Error(`Entrenador con nombre ${trainer.name} no encontrado.`);
+      throw new Error(`Entrenador con ID ${trainer_id} no encontrado.`);
     }
 
     // Parseamos las energías del entrenador (que es un array de objetos)
     let energies = JSON.parse(trainer.energies);
 
     for (const energyToSpend of energiesToSpend) {
-      // Filtramos las energías que coinciden con el tipo de energía seleccionada
-      const matchingEnergies = energies.filter(
-        (energy) => energy.tipo === energyToSpend.tipo
+      // Buscamos la energía del tipo correspondiente
+      const matchingEnergy = energies.find(
+        (energy) => energy.type === energyToSpend.type
       );
 
-      if (matchingEnergies.length < energyToSpend.cantidad) {
+      if (!matchingEnergy || matchingEnergy.quantity < energyToSpend.quantity) {
         throw new Error(
-          `No tienes suficientes energías de tipo ${energyToSpend.tipo}. Tienes ${matchingEnergies.length}, pero necesitas ${energyToSpend.cantidad}.`
+          `No tienes suficientes energías de tipo ${
+            energyToSpend.type
+          }. Tienes ${
+            matchingEnergy ? matchingEnergy.quantity : 0
+          }, pero necesitas ${energyToSpend.quantity}.`
         );
       }
 
-      // Eliminamos la cantidad de energías seleccionada del tipo correspondiente
-      let countToRemove = energyToSpend.cantidad;
-      energies = energies.filter((energy) => {
-        if (energy.tipo === energyToSpend.tipo && countToRemove > 0) {
-          countToRemove--;
-          return false; // Eliminamos la energía del array
-        }
-        return true; // Mantener las energías que no se eliminan
-      });
+      // Restamos la cantidad de energías del tipo correspondiente
+      matchingEnergy.quantity -= energyToSpend.quantity;
+
+      // Si la cantidad llega a 0 o menos, eliminamos esa energía del array
+      if (matchingEnergy.quantity <= 0) {
+        energies = energies.filter(
+          (energy) => energy.type !== energyToSpend.type
+        );
+      }
     }
 
     // Actualizamos las energías del entrenador en la base de datos
@@ -2708,6 +2712,7 @@ async function spendEnergies(trainer_id, energiesToSpend) {
     return Promise.reject(error.message);
   }
 }
+
 
 /***************************************************************
  *                                                              *
