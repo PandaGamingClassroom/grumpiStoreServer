@@ -2571,7 +2571,7 @@ function saveTrainerData() {
   fs.writeFileSync(filePath, JSON.stringify(trainerData, null, 2), "utf8");
 }
 
-function assignRewardToTrainer(trainerName, reward) {
+function assignRewardToTrainer(trainer_id, reward) {
   console.log("Ruta de la recompensa para asignar al entrenador: ", reward);
   const trainer = db
     .prepare("SELECT * FROM trainers WHERE id = ?")
