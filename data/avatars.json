@@ -1,74 +1,651 @@
 [
-    {
-        "id": 1,
-        "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/001-Bugi.png"
-    },
-    {
-        "id": 2,
-        "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/002-Bolibugi.png"
-    },
-    {
-        "id": 3,
-        "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/003-Bugelion.png"
-    },
-    {
-        "id": 5,
-        "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/005-Cubi.png"
-    },
-    {
-        "id": 6,
-        "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/006-Goser.png"
-    },
-    {
-        "id": 7,
-        "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/007-Elekspoke.png"
-    },
-    {
-        "id": 8,
-        "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/008-Elekspike.png"
-    },
-    {
-        "id": 9,
-        "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/009-Thunderlord.png"
-    },
-    {
-        "id": 10,
-        "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/010-Draguni.png"
-    },
-    {
-        "id": 11,
-        "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/011-Dragreen.png"
-    },
-    {
-        "id": 12,
-        "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/012-Dragrum.png"
-    },
-    {
-        "id": 13,
-        "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/013-Cuacky.png"
-    },
-    {
-        "id": 14,
-        "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/014-Duckin.png"
-    },
-    {
-        "id": 16,
-        "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/016-Fulge.png"
-    },
-    {
-        "id": 17,
-        "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/017-Celelge.png"
-    },
-    {
-        "id": 18,
-        "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/018-Celenior.png"
-    },
-    {
-        "id": 19,
-        "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/019-Shapegru.png"
-    },
-    {
-        "id": 20,
-        "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/020-Angegru.png"
-    }
+  {
+    "id": 1,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/001-Bugi.png"
+  },
+  {
+    "id": 2,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/002-Bolibugi.png"
+  },
+  {
+    "id": 3,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/003-Bugelion.png"
+  },
+  {
+    "id": 4,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/004-Goti.png"
+  },
+  {
+    "id": 5,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/005-Cubi.png"
+  },
+  {
+    "id": 6,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/006-Goser.png"
+  },
+  {
+    "id": 7,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/007-Elekspoke.png"
+  },
+  {
+    "id": 8,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/008-Elekspike.png"
+  },
+  {
+    "id": 9,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/009-Thunderlord.png"
+  },
+  {
+    "id": 10,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/010-Draguni.png"
+  },
+  {
+    "id": 11,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/011-Dragreen.png"
+  },
+  {
+    "id": 12,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/012-Dragrum.png"
+  },
+  {
+    "id": 13,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/013-Cuacky.png"
+  },
+  {
+    "id": 14,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/014-Duckin.png"
+  },
+  {
+    "id": 15,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/015-Ducknake.png"
+  },
+  {
+    "id": 16,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/016-Fulge.png"
+  },
+  {
+    "id": 17,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/017-Celelge.png"
+  },
+  {
+    "id": 18,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/018-Celenior.png"
+  },
+  {
+    "id": 19,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/019-Shapegru.png"
+  },
+  {
+    "id": 20,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/020-Angegru.png"
+  },
+  {
+    "id": 21,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/021-Devigru.png"
+  },
+  {
+    "id": 22,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/022-Dracogru2.png"
+  },
+  {
+    "id": 23,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/023-Seally.png"
+  },
+  {
+    "id": 24,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/024-Axolot.png"
+  },
+  {
+    "id": 25,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/025-Chatty.png"
+  },
+  {
+    "id": 26,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/026-Poisony.png"
+  },
+  {
+    "id": 27,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/027-Dracoison.png"
+  },
+  {
+    "id": 28,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/028-Eggtelio.png"
+  },
+  {
+    "id": 29,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/029-Aquabi.png"
+  },
+  {
+    "id": 30,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/030-Flamebi.png"
+  },
+  {
+    "id": 31,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/031-Lightibi.png"
+  },
+  {
+    "id": 32,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/032-Dino.png"
+  },
+  {
+    "id": 33,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/033-Superdino.png"
+  },
+  {
+    "id": 34,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/034-Tokio.png"
+  },
+  {
+    "id": 35,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/035-Babektry.png"
+  },
+  {
+    "id": 36,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/036-Elektry.png"
+  },
+  {
+    "id": 37,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/037-Gecko.png"
+  },
+  {
+    "id": 38,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/038-Gorgona.png"
+  },
+  {
+    "id": 39,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/039-Thunderbolt.png"
+  },
+  {
+    "id": 40,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/040-Thunderfly.png"
+  },
+  {
+    "id": 41,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/041-Flybolt.png"
+  },
+  {
+    "id": 42,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/042-Seed.png"
+  },
+  {
+    "id": 43,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/043-Groundbro.png"
+  },
+  {
+    "id": 44,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/044-Blacky.png"
+  },
+  {
+    "id": 45,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/045-Bicelph.png"
+  },
+  {
+    "id": 46,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/046-Bliko.png"
+  },
+  {
+    "id": 47,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/047-Blikonix.png"
+  },
+  {
+    "id": 48,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/048-Magalix.png"
+  },
+  {
+    "id": 49,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/049-Tortulio.png"
+  },
+  {
+    "id": 50,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/050-Tortumax.png"
+  },
+
+  {
+    "id": 51,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/051-Flamya.png"
+  },
+  {
+    "id": 52,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/052-Flamyarn.png"
+  },
+  {
+    "id": 53,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/053-Bubby.png"
+  },
+  {
+    "id": 54,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/054-Bubbit.png"
+  },
+  {
+    "id": 55,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/055-Chilly.png"
+  },
+  {
+    "id": 56,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/056-Chillix.png"
+  },
+  {
+    "id": 57,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/057-Gloop.png"
+  },
+  {
+    "id": 58,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/058-Gloopz.png"
+  },
+  {
+    "id": 59,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/059-Gloopzilla.png"
+  },
+  {
+    "id": 60,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/060-Sparki.png"
+  },
+  {
+    "id": 61,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/061-Sparka.png"
+  },
+  {
+    "id": 62,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/062-Blubbi.png"
+  },
+  {
+    "id": 63,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/063-Blubbish.png"
+  },
+  {
+    "id": 64,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/064-Snowli.png"
+  },
+  {
+    "id": 65,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/065-Snowler.png"
+  },
+  {
+    "id": 66,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/066-Cactling.png"
+  },
+  {
+    "id": 67,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/067-Cactlord.png"
+  },
+  {
+    "id": 68,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/068-Stinger.png"
+  },
+  {
+    "id": 69,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/069-Stingerox.png"
+  },
+  {
+    "id": 70,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/070-Fleafly.png"
+  },
+  {
+    "id": 71,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/071-Buzzlie.png"
+  },
+  {
+    "id": 72,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/072-Zubbit.png"
+  },
+  {
+    "id": 73,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/073-Birboo.png"
+  },
+  {
+    "id": 74,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/074-Birbaz.png"
+  },
+  {
+    "id": 75,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/075-Turbir.png"
+  },
+  {
+    "id": 76,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/076-Chirple.png"
+  },
+  {
+    "id": 77,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/077-Fluffy.png"
+  },
+  {
+    "id": 78,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/078-Floof.png"
+  },
+  {
+    "id": 79,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/079-Flufflord.png"
+  },
+  {
+    "id": 80,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/080-Stone.png"
+  },
+  {
+    "id": 81,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/081-Rocko.png"
+  },
+  {
+    "id": 82,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/082-Grumpo.png"
+  },
+  {
+    "id": 83,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/083-Grumpax.png"
+  },
+  {
+    "id": 84,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/084-Spikey.png"
+  },
+  {
+    "id": 85,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/085-Spikar.png"
+  },
+  {
+    "id": 86,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/086-Toxik.png"
+  },
+  {
+    "id": 87,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/087-Toxigon.png"
+  },
+  {
+    "id": 88,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/088-Toxiclaw.png"
+  },
+  {
+    "id": 89,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/089-Crunchi.png"
+  },
+  {
+    "id": 90,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/090-Crunchclaw.png"
+  },
+  {
+    "id": 91,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/091-Puffly.png"
+  },
+  {
+    "id": 92,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/092-Puffle.png"
+  },
+  {
+    "id": 93,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/093-Pufflord.png"
+  },
+  {
+    "id": 94,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/094-Zippi.png"
+  },
+  {
+    "id": 95,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/095-Zippar.png"
+  },
+  {
+    "id": 96,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/096-Zapster.png"
+  },
+  {
+    "id": 97,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/097-Gobble.png"
+  },
+  {
+    "id": 98,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/098-Goblin.png"
+  },
+  {
+    "id": 99,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/099-Gobblord.png"
+  },
+  {
+    "id": 100,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/100-Grizzle.png"
+  },
+  {
+    "id": 101,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/101-Grizzlord.png"
+  },
+  {
+    "id": 102,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/102-Browli.png"
+  },
+  {
+    "id": 103,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/103-Browlord.png"
+  },
+  {
+    "id": 104,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/104-Slippi.png"
+  },
+  {
+    "id": 105,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/105-Sliplord.png"
+  },
+  {
+    "id": 106,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/106-Venomy.png"
+  },
+  {
+    "id": 107,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/107-Venomor.png"
+  },
+  {
+    "id": 108,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/108-Venomax.png"
+  },
+  {
+    "id": 109,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/109-Muddi.png"
+  },
+  {
+    "id": 110,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/110-Mudlord.png"
+  },
+  {
+    "id": 111,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/111-Whirli.png"
+  },
+  {
+    "id": 112,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/112-Whirlord.png"
+  },
+  {
+    "id": 113,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/113-Shadi.png"
+  },
+  {
+    "id": 114,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/114-Shadix.png"
+  },
+  {
+    "id": 115,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/115-Shadylord.png"
+  },
+  {
+    "id": 116,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/116-Gronx.png"
+  },
+  {
+    "id": 117,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/117-Gronxus.png"
+  },
+  {
+    "id": 118,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/118-Gronxlord.png"
+  },
+  {
+    "id": 119,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/119-Crimson.png"
+  },
+  {
+    "id": 120,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/120-Crimstone.png"
+  },
+  {
+    "id": 121,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/121-Crimlords.png"
+  },
+  {
+    "id": 122,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/122-Vortex.png"
+  },
+  {
+    "id": 123,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/123-Vortexian.png"
+  },
+  {
+    "id": 124,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/124-Vortexlord.png"
+  },
+  {
+    "id": 125,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/125-Galaxy.png"
+  },
+  {
+    "id": 126,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/126-Galaxian.png"
+  },
+  {
+    "id": 127,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/127-Galaxlord.png"
+  },
+  {
+    "id": 128,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/128-Stellar.png"
+  },
+  {
+    "id": 129,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/129-Stellaron.png"
+  },
+  {
+    "id": 130,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/130-Stellarlord.png"
+  },
+  {
+    "id": 131,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/131-Tempest.png"
+  },
+  {
+    "id": 132,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/132-Tempestum.png"
+  },
+  {
+    "id": 133,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/133-Tempestlord.png"
+  },
+  {
+    "id": 134,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/134-Winged.png"
+  },
+  {
+    "id": 135,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/135-Wingedlord.png"
+  },
+  {
+    "id": 136,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/136-Aquafly.png"
+  },
+  {
+    "id": 137,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/137-Aquaflyer.png"
+  },
+  {
+    "id": 138,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/138-Aquaflylord.png"
+  },
+  {
+    "id": 139,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/139-Duskwing.png"
+  },
+  {
+    "id": 140,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/140-Duskwinged.png"
+  },
+  {
+    "id": 141,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/141-Duskwinglord.png"
+  },
+  {
+    "id": 142,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/142-Firewing.png"
+  },
+  {
+    "id": 143,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/143-Firewinged.png"
+  },
+  {
+    "id": 144,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/144-Firewinglord.png"
+  },
+  {
+    "id": 145,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/145-Icewing.png"
+  },
+  {
+    "id": 146,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/146-Icewinged.png"
+  },
+  {
+    "id": 147,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/147-Icewinglord.png"
+  },
+  {
+    "id": 148,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/148-Ghostwing.png"
+  },
+  {
+    "id": 149,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/149-Ghostwinged.png"
+  },
+  {
+    "id": 150,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/150-Ghostwinglord.png"
+  },
+  {
+    "id": 151,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/151-Guardian.png"
+  },
+  {
+    "id": 152,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/152-Guardianlord.png"
+  },
+  {
+    "id": 153,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/153-Demonwing.png"
+  },
+  {
+    "id": 154,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/154-Demonwinged.png"
+  },
+  {
+    "id": 155,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/155-Demonwinglord.png"
+  },
+  {
+    "id": 156,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/156-Celestial.png"
+  },
+  {
+    "id": 157,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/157-Celestiallord.png"
+  },
+  {
+    "id": 158,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/158-Legendary.png"
+  },
+  {
+    "id": 159,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/159-Legendarylord.png"
+  },
+  {
+    "id": 160,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/160-Mythical.png"
+  },
+  {
+    "id": 161,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/Ashi.png"
+  },
+  {
+    "id": 162,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/Flare.png"
+  }
 ]
