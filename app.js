@@ -2684,7 +2684,7 @@ async function spendEnergies(trainer_id, energiesToSpend) {
 
     // Creamos un objeto para contar el total de cada tipo de energía
     const energyTotals = energies.reduce((totals, energy) => {
-      const type = energy.type.toLowerCase(); // Normaliza el tipo de energía a minúsculas
+      const type = energy.tipo.toLowerCase(); // Normaliza el tipo de energía a minúsculas
       if (!totals[type]) {
         totals[type] = 0;
       }
