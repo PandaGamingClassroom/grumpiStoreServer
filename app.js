@@ -22,6 +22,7 @@ const filePathAttacks = "./data/attacks.json";
 const filePathEnergies = "./data/energies.json";
 const filePathMedals = "./data/medals.json";
 const filePathLeagueBadges = "./data/leagueBadges.json";
+const filePathAvatars = "./data/avatars.json";
 
 // Directorios de almacenamiento de imágenes
 const uploadDir = path.join(__dirname, "uploads", "grumpis");
@@ -1305,6 +1306,39 @@ function parseDataTrainer(trainer) {
     trainer.distintivos_liga = [];
   }
 }
+
+
+
+
+
+
+/***************************************************************
+ *                                                              *
+ *                                                              *
+ *                                                              *
+ *                            AVATARES                          *
+ *                                                              *
+ *                                                              *
+ *                                                              *
+ ***************************************************************/
+app.get("/getAvatars", (req, res) => {
+  fs.readFile(filePathAvatars, "utf8", (err, data) => {
+    if (err) {
+      console.error("Error al leer el archivo avatars.json:", err);
+      res.status(500).json({ error: "Error al leer el archivo avatars.json" });
+    } else {
+      try {
+        const avatars_list = JSON.parse(data);
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.json({ avatars_list: avatars_list });
+      } catch (parseError) {
+        console.error("Error al parsear el contenido JSON:", parseError);
+        res.status(500).json({ error: "Error al parsear el contenido JSON" });
+      }
+    }
+  });
+});
+
 /***************************************************************
  *                                                              *
  *                                                              *
