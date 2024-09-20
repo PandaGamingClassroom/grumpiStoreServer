@@ -2,5 +2,73 @@
     {
         "id": 1,
         "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/001-Bugi.png"
+    },
+    {
+        "id": 2,
+        "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/002-Bolibugi.png"
+    },
+    {
+        "id": 3,
+        "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/003-Bugelion.png"
+    },
+    {
+        "id": 5,
+        "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/005-Cubi.png"
+    },
+    {
+        "id": 6,
+        "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/006-Goser.png"
+    },
+    {
+        "id": 7,
+        "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/007-Elekspoke.png"
+    },
+    {
+        "id": 8,
+        "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/008-Elekspike.png"
+    },
+    {
+        "id": 9,
+        "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/009-Thunderlord.png"
+    },
+    {
+        "id": 10,
+        "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/010-Draguni.png"
+    },
+    {
+        "id": 11,
+        "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/011-Dragreen.png"
+    },
+    {
+        "id": 12,
+        "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/012-Dragrum.png"
+    },
+    {
+        "id": 13,
+        "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/013-Cuacky.png"
+    },
+    {
+        "id": 14,
+        "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/014-Duckin.png"
+    },
+    {
+        "id": 16,
+        "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/016-Fulge.png"
+    },
+    {
+        "id": 17,
+        "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/017-Celelge.png"
+    },
+    {
+        "id": 18,
+        "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/018-Celenior.png"
+    },
+    {
+        "id": 19,
+        "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/019-Shapegru.png"
+    },
+    {
+        "id": 20,
+        "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/020-Angegru.png"
     }
 ]
