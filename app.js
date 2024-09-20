@@ -533,7 +533,7 @@ app.put("/trainers/update/:id", (req, res) => {
     return res.status(400).json({ error: "ID de entrenador inválido" });
   }
 
-  const { name, password, grumpidolar, combatMark, objetosAEliminar } =
+  const { name, password, avatar, grumpidolar, combatMark, objetosAEliminar } =
     req.body;
 
   try {
@@ -548,6 +548,9 @@ app.put("/trainers/update/:id", (req, res) => {
     // Actualiza los campos si existen y no están vacíos
     if (name !== undefined && name !== "") {
       trainer.name = name;
+    }    
+    if (avatar !== undefined && avatar !== "") {
+      trainer.avatar = avatar;
     }
     if (password !== undefined && password !== "") {
       trainer.password = password;
@@ -562,7 +565,7 @@ app.put("/trainers/update/:id", (req, res) => {
     // Ejecutar la actualización
     const updateStmt = db.prepare(`
       UPDATE trainers 
-      SET name = ?, password = ?, grumpidolar = ?, marca_combate = ? 
+      SET name = ?, password = ?, grumpidolar = ?, marca_combate = ?, avatar = ?
       WHERE id = ?
     `);
     updateStmt.run(
@@ -570,6 +573,7 @@ app.put("/trainers/update/:id", (req, res) => {
       trainer.password,
       trainer.grumpidolar,
       trainer.marca_combate,
+      trainer.avatar,
       trainer.id
     );
 
@@ -618,7 +622,7 @@ function handleObjectDeletion(trainerId, objetosAEliminar) {
 
   // Elimina los objetos de cada tipo si existen
   if (energiasAEliminar.length > 0) {
-    deleteEnergiesFromTrainer(trainerId, energiasAEliminar);
+    editEnergiesFromTrainer(trainerId, energiasAEliminar);
   }
   if (medallasAEliminar.length > 0) {
     deleteMedalsFromTrainer(trainerId, medallasAEliminar);
