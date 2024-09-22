@@ -1955,14 +1955,14 @@ app.get("/getEvoOBjects", (req, res) => {
  ******************************************/
 
 // Función para asignar una energía a un entrenador
-function assignEvoObjectsToTrainer(trainerName, evoObject) {
+function assignEvoObjectsToTrainer(trainerID, evoObject) {
   console.log(
     "Ruta del objeto evolutivo para asignar al entrenador: ",
     evoObject
   );
   const trainer = db
-    .prepare("SELECT * FROM trainers WHERE name = ?")
-    .get(trainerName);
+    .prepare("SELECT * FROM trainers WHERE id = ?")
+    .get(trainerID);
 
   if (trainer) {
     let trainerEvolutionObjects = trainer.objetos_evolutivos
@@ -2000,9 +2000,9 @@ function assignEvoObjectsToTrainer(trainerName, evoObject) {
 
 // Ruta de asignación de los objetos evolutivos
 app.post("/assign-evo-objects", (req, res) => {
-  const { trainerName, evoObject } = req.body;
+  const { trainerID, evoObject } = req.body;
   console.log("assign-evo-objects:", req.body);
-  assignEvoObjectsToTrainer(trainerName, evoObject)
+  assignEvoObjectsToTrainer(trainerID, evoObject)
     .then((message) => {
       res.status(200).json({ message: message });
     })
