@@ -89,10 +89,9 @@ try {
  *************************************/
 // Permitir CORS para todas las solicitudes a imágenes
 app.use(
-  "/uploads/grumpis",
   cors({
-    origin: "*", // Permitir cualquier origen
-    methods: "GET", // Solo permitir GET para las imágenes
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     optionsSuccessStatus: 200,
   })
 );
