@@ -917,11 +917,11 @@ function editObjEvolution(trainerId, objetosAEliminar) {
  *
  *******************************************************************/
 
-function assignCreatureToTrainer(trainerName, creature) {
+function assignCreatureToTrainer(trainer_id, creature) {
   console.log("Grumpi para asignar al entrenador: ", creature);
   const trainer = db
-    .prepare("SELECT * FROM trainers WHERE name = ?")
-    .get(trainerName);
+    .prepare("SELECT * FROM trainers WHERE id = ?")
+    .get(trainer_id);
 
   if (trainer) {
     let trainerGrumpis = trainer.grumpis ? JSON.parse(trainer.grumpis) : [];
@@ -955,12 +955,12 @@ function assignCreatureToTrainer(trainerName, creature) {
 
 // Ruta de asignación de grumpis
 app.post("/assign-creature", (req, res) => {
-  const { trainerNames, creature } = req.body;
+  const { trainerIDs, creature } = req.body;
   console.log("Datos de la solicitud:", req.body);
 
   // Crea una promesa para cada entrenador en el array
-  const promises = trainerNames.map((trainerName) =>
-    assignCreatureToTrainer(trainerName, creature)
+  const promises = trainerIDs.map((trainer_id) =>
+    assignCreatureToTrainer(trainer_id, creature)
   );
 
   // Espera a que todas las promesas se completen
@@ -968,7 +968,7 @@ app.post("/assign-creature", (req, res) => {
     .then((messages) => {
       res.status(200).json({
         message: "Criatura asignada con éxito a todos los entrenadores.",
-        details: messages, // Enviar mensajes detallados de éxito
+        details: messages, 
       });
     })
     .catch((error) => {
