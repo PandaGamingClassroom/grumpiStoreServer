@@ -2743,7 +2743,7 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
     const consolidatedEnergies = energies.reduce((totals, energy) => {
       const type = energy.tipo.toLowerCase();
       if (!totals[type]) {
-        totals[type] = { ...energy, quantity: 0 };
+        totals[type] = { ...energy, quantity: totalEnergies };
       }
       totals[type].quantity += energy.quantity;
       return totals;
