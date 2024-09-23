@@ -2718,23 +2718,6 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
       throw new Error("Error al parsear energías desde la base de datos.");
     }
 
-    // Verifica si las energías proporcionadas por totalEnergies coinciden con las energías del entrenador
-    for (const [type, quantity] of Object.entries(trainer.energies)) {
-      if (!type) {
-        throw new Error("El tipo de energía es inválido.");
-      }
-
-      const totalAvailable =
-        energies.find((e) => e.tipo.toLowerCase() === type.toLowerCase())
-          ?.quantity || 0;
-
-      if (totalAvailable !== quantity) {
-        throw new Error(
-          `La cantidad de energías de tipo ${type} no coincide con la base de datos.`
-        );
-      }
-    }
-
     // Consolidamos las energías por tipo
     const consolidatedEnergies = consolidateEnergies(totalEnergies);
 
