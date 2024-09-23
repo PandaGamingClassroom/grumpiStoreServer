@@ -547,7 +547,7 @@ app.put("/trainers/update/:id", (req, res) => {
     // Actualiza los campos si existen y no están vacíos
     if (name !== undefined && name !== "") {
       trainer.name = name;
-    }    
+    }
     if (avatar !== undefined && avatar !== "") {
       trainer.avatar = avatar;
     }
@@ -967,7 +967,7 @@ app.post("/assign-creature", (req, res) => {
     .then((messages) => {
       res.status(200).json({
         message: "Criatura asignada con éxito a todos los entrenadores.",
-        details: messages, 
+        details: messages,
       });
     })
     .catch((error) => {
@@ -1310,11 +1310,6 @@ function parseDataTrainer(trainer) {
   }
 }
 
-
-
-
-
-
 /***************************************************************
  *                                                              *
  *                                                              *
@@ -1629,8 +1624,7 @@ app.post("/assign-energie", (req, res) => {
           error: "Error al asignar la energía: " + error.message,
         });
       });
-  }
-  else if (Array.isArray(trainerNames) && trainerNames.length > 0) {
+  } else if (Array.isArray(trainerNames) && trainerNames.length > 0) {
     console.log("Trainer IDs recibidos:", trainerNames);
 
     const promises = trainerNames.map((trainer_id) => {
@@ -1648,11 +1642,11 @@ app.post("/assign-energie", (req, res) => {
       .catch((error) => {
         console.error("Error al asignar la energía:", error);
         res.status(500).json({
-          error: "Error al asignar la energía a los entrenadores: " + error.message,
+          error:
+            "Error al asignar la energía a los entrenadores: " + error.message,
         });
       });
-  }
-  else {
+  } else {
     return res.status(400).json({
       error:
         "Lista de entrenadores no válida. Debe ser un array de IDs o un ID válido.",
@@ -1908,7 +1902,6 @@ app.post("/assign-combatObjects", (req, res) => {
       });
     });
 });
-
 
 /***************************************************************
  *                                                              *
@@ -2675,7 +2668,6 @@ app.post("/assign-rewards", (req, res) => {
     });
 });
 
-
 /**
  *
  * Función que se utiliza para cuando un entrenador
@@ -2728,6 +2720,10 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
 
     // Verifica si las energías proporcionadas por totalEnergies coinciden con las energías del entrenador
     for (const [type, quantity] of Object.entries(trainer.energies)) {
+      if (!type) {
+        throw new Error("El tipo de energía es inválido.");
+      }
+
       const totalAvailable =
         energies.find((e) => e.tipo.toLowerCase() === type.toLowerCase())
           ?.quantity || 0;
