@@ -2727,7 +2727,7 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
     }
 
     // Verifica si las energías proporcionadas por totalEnergies coinciden con las energías del entrenador
-    for (const [type, quantity] of Object.entries(totalEnergies)) {
+    for (const [type, quantity] of Object.entries(trainer.energies)) {
       const totalAvailable =
         energies.find((e) => e.tipo.toLowerCase() === type.toLowerCase())
           ?.quantity || 0;
