@@ -2710,17 +2710,28 @@ async function spendEnergies(trainer_id, energiesToSpend) {
 
     console.log("Energías almacenadas en la base de datos:", trainer.energies);
 
+    // Verifica que trainer.energies no sea nulo o vacío
+    if (!trainer.energies) {
+      throw new Error("El entrenador no tiene energías asignadas.");
+    }
+
     // Parseamos las energías del entrenador
     let energies;
     try {
       energies = JSON.parse(trainer.energies);
+      if (!Array.isArray(energies)) {
+        throw new Error("El formato de las energías es inválido.");
+      }
     } catch (error) {
       throw new Error("Error al parsear energías desde la base de datos.");
     }
 
     // Creamos un objeto para contar el total de cada tipo de energía
     const energyTotals = energies.reduce((totals, energy) => {
-      const type = energy.type.toLowerCase();
+      const type = energy.type?.toLowerCase(); // Verifica que type exista
+      if (!type) {
+        throw new Error("Tipo de energía no definido correctamente.");
+      }
       if (!totals[type]) {
         totals[type] = 0;
       }
@@ -2750,9 +2761,15 @@ async function spendEnergies(trainer_id, energiesToSpend) {
       const type = energyToSpend.type.toLowerCase();
       updatedEnergies = updatedEnergies.map((energy) => {
         if (energy.type.toLowerCase() === type) {
+          const newQuantity = energy.quantity - energyToSpend.quantity;
+          if (newQuantity < 0) {
+            throw new Error(
+              `La cantidad de energías para el tipo ${type} no puede ser negativa.`
+            );
+          }
           return {
             ...energy,
-            quantity: energy.quantity - energyToSpend.quantity,
+            quantity: newQuantity,
           };
         }
         return energy;
@@ -2771,9 +2788,11 @@ async function spendEnergies(trainer_id, energiesToSpend) {
 
     return "Energías gastadas correctamente.";
   } catch (error) {
+    console.error("Error en spendEnergies:", error);
     return Promise.reject(error.message);
   }
 }
+
 
 
 
