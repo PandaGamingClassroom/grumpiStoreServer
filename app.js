@@ -2719,7 +2719,7 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
     }
 
     // Consolidamos las energías por tipo
-    const consolidatedEnergies = consolidateEnergies(totalEnergies);
+    const consolidatedEnergies = consolidateEnergies(trainer.energies);
     console.log("Energías consolidadas por tipo:", consolidatedEnergies);
 
     // Verificamos si el entrenador tiene suficientes energías de cada tipo
