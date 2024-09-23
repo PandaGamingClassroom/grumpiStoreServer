@@ -3,81 +3,81 @@
     "id": 1,
     "nombre": "Losa Agua",
     "imagen": "https://grumpistoreserver.onrender.com/uploads/evoObjects/LOSA_AGUA.1.png",
-    "tipo": "agua",
+    "tipo": "Agua",
     "precio": 5
   },
   {
     "id": 2,
     "nombre": "Losa Aire",
     "imagen": "https://grumpistoreserver.onrender.com/uploads/evoObjects/LOSA_AIRE.1.png",
-    "tipo": "aire",
+    "tipo": "Aire",
     "precio": 5
   },
   {
     "id": 3,
     "nombre": "Losa Fuego",
     "imagen": "https://grumpistoreserver.onrender.com/uploads/evoObjects/LOSA_FUEGO.1.png",
-    "tipo": "fuego",
+    "tipo": "Fuego",
     "precio": 5
   },
   {
     "id": 4,
     "nombre": "Losa Luz",
     "imagen": "https://grumpistoreserver.onrender.com/uploads/evoObjects/LOSA_LUZ.1.png",
-    "tipo": "luz",
+    "tipo": "Luz",
     "precio": 5
   },
   {
     "id": 5,
     "nombre": "Losa Normal",
     "imagen": "https://grumpistoreserver.onrender.com/uploads/evoObjects/LOSA_NORMAL.1.png",
-    "tipo": "normal",
+    "tipo": "Normal",
     "precio": 5
   },
   {
     "id": 6,
     "nombre": "Losa Oscuridad",
     "imagen": "https://grumpistoreserver.onrender.com/uploads/evoObjects/LOSA_OSCURIDAD.1.png",
-    "tipo": "oscuridad",
+    "tipo": "Oscuridad",
     "precio": 5
   },
   {
     "id": 7,
     "nombre": "Losa Rayo",
     "imagen": "https://grumpistoreserver.onrender.com/uploads/evoObjects/LOSA_RAYO.1.png",
-    "tipo": "rayo",
+    "tipo": "Rayo",
     "precio": 5
   },
   {
     "id": 8,
     "nombre": "Losa Tierra",
     "imagen": "https://grumpistoreserver.onrender.com/uploads/evoObjects/LOSA_TIERRA.1.png",
-    "tipo": "tierra",
+    "tipo": "Tierra",
     "precio": 5
   },
   {
     "id": 9,
     "nombre": "Losa Vida",
     "imagen": "https://grumpistoreserver.onrender.com/uploads/evoObjects/LOSA_VIDA.1.png",
-    "tipo": "vida",
+    "tipo": "Vida",
     "precio": 5
   },
   {
     "nombre": "Balanza del orden",
     "imagen": "https://grumpistoreserver.onrender.com/uploads/evoObjects/BALANZA_DEL_ORDEN.1.png",
-    "tipo": "normal",
+    "tipo": "Normal",
     "precio": 7
   },
   {
     "nombre": "Pluma celestial",
     "imagen": "https://grumpistoreserver.onrender.com/uploads/evoObjects/PLUMA_CELESTIAL.1.png",
-    "tipo": "luz",
+    "tipo": "Luz",
     "precio": 7
   },
   {
     "nombre": "Pluma oscura",
     "imagen": "https://grumpistoreserver.onrender.com/uploads/evoObjects/PLUMA_OSCURA.1.png",
-    "tipo": "oscuridad",
+    "tipo": "Oscuridad",
     "precio": 7
   }
 ]
