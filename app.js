@@ -2772,10 +2772,10 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
 // Consolidación de energías para eliminar duplicados y sumar cantidades del mismo tipo
 function consolidateEnergies(energies, energyTypeToConsolidate) {
   const consolidated = {};
-  const normalizedType = energyTypeToConsolidate.toLowerCase(); // Normaliza el tipo de energía para comparación
+  const normalizedType = energyTypeToConsolidate // Normaliza el tipo de energía para comparación
 
   energies.forEach((energy) => {
-    const key = energy.tipo.toLowerCase(); // Usa el tipo en minúscula
+    const key = energy.tipo // Usa el tipo en minúscula
     if (key === normalizedType) {
       // Solo consolidamos las energías del tipo especificado
       if (consolidated[key]) {
