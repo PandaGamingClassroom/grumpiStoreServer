@@ -2726,25 +2726,22 @@ async function spendEnergies(trainer_id, energiesToSpend) {
       throw new Error("Error al parsear energías desde la base de datos.");
     }
 
-    // Creamos un objeto para contar el total de cada tipo de energía
-    const energyTotals = energies.reduce((totals, energy) => {
-      const type = energy.type?.toLowerCase(); // Verifica que type exista
-      if (!type) {
-        throw new Error("Tipo de energía no definido correctamente.");
-      }
+    // Consolidamos las energías por tipo
+    const consolidatedEnergies = energies.reduce((totals, energy) => {
+      const type = energy.tipo.toLowerCase();
       if (!totals[type]) {
-        totals[type] = 0;
+        totals[type] = { ...energy, quantity: 0 };
       }
-      totals[type] += energy.quantity;
+      totals[type].quantity += energy.quantity;
       return totals;
     }, {});
 
-    console.log("Recuento de energías actuales por tipo:", energyTotals);
+    console.log("Energías consolidadas por tipo:", consolidatedEnergies);
 
     // Verificamos si el entrenador tiene suficientes energías de cada tipo
     for (const energyToSpend of energiesToSpend) {
       const type = energyToSpend.type.toLowerCase();
-      const totalAvailable = energyTotals[type] || 0;
+      const totalAvailable = consolidatedEnergies[type]?.quantity || 0;
 
       if (totalAvailable < energyToSpend.quantity) {
         throw new Error(
@@ -2753,31 +2750,18 @@ async function spendEnergies(trainer_id, energiesToSpend) {
       }
     }
 
-    // Creamos una copia del array de energías para hacer las modificaciones
-    let updatedEnergies = energies.map((energy) => ({ ...energy }));
-
     // Restamos la cantidad de energías del tipo correspondiente
     for (const energyToSpend of energiesToSpend) {
       const type = energyToSpend.type.toLowerCase();
-      updatedEnergies = updatedEnergies.map((energy) => {
-        if (energy.type.toLowerCase() === type) {
-          const newQuantity = energy.quantity - energyToSpend.quantity;
-          if (newQuantity < 0) {
-            throw new Error(
-              `La cantidad de energías para el tipo ${type} no puede ser negativa.`
-            );
-          }
-          return {
-            ...energy,
-            quantity: newQuantity,
-          };
-        }
-        return energy;
-      });
-
-      // Filtramos las energías que tienen 0 o menos cantidades
-      updatedEnergies = updatedEnergies.filter((energy) => energy.quantity > 0);
+      if (consolidatedEnergies[type]) {
+        consolidatedEnergies[type].quantity -= energyToSpend.quantity;
+      }
     }
+
+    // Convertimos las energías consolidadas nuevamente en un array
+    const updatedEnergies = Object.values(consolidatedEnergies).filter(
+      (energy) => energy.quantity > 0
+    );
 
     // Guardamos las energías actualizadas en la base de datos
     const updatedEnergiesStr = JSON.stringify(updatedEnergies);
@@ -2792,8 +2776,6 @@ async function spendEnergies(trainer_id, energiesToSpend) {
     return Promise.reject(error.message);
   }
 }
-
-
 
 
 /***************************************************************
