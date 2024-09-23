@@ -2719,13 +2719,13 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
     }
 
     // Consolidamos las energías por tipo
-    const consolidatedEnergies = consolidateEnergies(trainer.energies);
+    const consolidatedEnergies = consolidateEnergies(energies);
     console.log("Energías consolidadas por tipo:", consolidatedEnergies);
 
     // Verificamos si el entrenador tiene suficientes energías de cada tipo
     for (const energyToSpend of energiesToSpend) {
       const type = energyToSpend.type.toLowerCase();
-      const totalAvailable = consolidatedEnergies[type]?.quantity || 0;
+      const totalAvailable = consolidatedEnergies[type]?.cantidad || 0;
 
       if (totalAvailable < energyToSpend.quantity) {
         throw new Error(
@@ -2738,13 +2738,13 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
     for (const energyToSpend of energiesToSpend) {
       const type = energyToSpend.type.toLowerCase();
       if (consolidatedEnergies[type]) {
-        consolidatedEnergies[type].quantity -= energyToSpend.quantity;
+        consolidatedEnergies[type].cantidad -= energyToSpend.quantity; // Asegúrate de usar 'cantidad'
       }
     }
 
     // Convertimos las energías consolidadas nuevamente en un array
     const updatedEnergies = Object.values(consolidatedEnergies).filter(
-      (energy) => energy.quantity > 0
+      (energy) => energy.cantidad > 0
     );
 
     // Guardamos las energías actualizadas en la base de datos
@@ -2763,19 +2763,23 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
 
 function consolidateEnergies(energies) {
   const consolidated = {};
-  console.log("Energías del entrenador para consolidar: ", energies);
-  
+
   energies.forEach((energy) => {
-    const tipo = energy.tipo.toLowerCase();
-    if (!consolidated[tipo]) {
-      consolidated[tipo] = { ...energy, quantity: energy.quantity }; // Asegúrate de que `quantity` esté bien definida
+    const key = energy.tipo.toLowerCase(); // Usa el tipo en minúscula
+    if (consolidated[key]) {
+      consolidated[key].cantidad += energy.cantidad; // Aumenta la cantidad según la energía original
     } else {
-      consolidated[tipo].quantity += energy.quantity;
+      consolidated[key] = {
+        ...energy,
+        cantidad: energy.cantidad || 1, // Inicializa la cantidad
+      };
     }
   });
 
-  return consolidated;
+  return consolidated; // Devuelve un objeto de energías consolidadas
 }
+
+
 
 
 /***************************************************************
