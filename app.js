@@ -2719,7 +2719,7 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
     }
 
     // Consolidamos las energías por tipo
-    const consolidatedEnergies = consolidateEnergies(energies);
+    const consolidatedEnergies = consolidateEnergies(energies, energiesToSpend.type);
     console.log("Energías consolidadas por tipo:", consolidatedEnergies);
 
     // Validamos que totalEnergies sea suficiente para el tipo de energía que se quiere gastar
@@ -2770,23 +2770,28 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
 }
 
 // Consolidación de energías para eliminar duplicados y sumar cantidades del mismo tipo
-function consolidateEnergies(energies) {
+function consolidateEnergies(energies, energyTypeToConsolidate) {
   const consolidated = {};
+  const normalizedType = energyTypeToConsolidate.toLowerCase(); // Normaliza el tipo de energía para comparación
 
   energies.forEach((energy) => {
     const key = energy.tipo.toLowerCase(); // Usa el tipo en minúscula
-    if (consolidated[key]) {
-      consolidated[key].cantidad += energy.cantidad; // Aumenta la cantidad según la energía original
-    } else {
-      consolidated[key] = {
-        ...energy,
-        cantidad: energy.cantidad || 1, // Inicializa la cantidad
-      };
+    if (key === normalizedType) {
+      // Solo consolidamos las energías del tipo especificado
+      if (consolidated[key]) {
+        consolidated[key].cantidad += energy.cantidad; // Aumenta la cantidad según la energía original
+      } else {
+        consolidated[key] = {
+          ...energy,
+          cantidad: energy.cantidad || 1, // Inicializa la cantidad
+        };
+      }
     }
   });
 
-  return consolidated; // Devuelve un objeto de energías consolidadas
+  return consolidated; // Devuelve un objeto de energías consolidadas solo del tipo especificado
 }
+
 
 
 /***************************************************************
