@@ -2686,9 +2686,9 @@ app.post("/assign-rewards", (req, res) => {
  *
  */
 app.post("/spend-energies", (req, res) => {
-  const { trainer_id, energiesToSpend } = req.body;
+  const { trainer_id, energiesToSpend, totalEnergies } = req.body;
   console.log("spend-energies:", req.body);
-  spendEnergies(trainer_id, energiesToSpend)
+  spendEnergies(trainer_id, energiesToSpend, totalEnergies)
     .then((message) => {
       res.status(200).json({ message: message });
     })
@@ -2698,7 +2698,7 @@ app.post("/spend-energies", (req, res) => {
     });
 });
 
-async function spendEnergies(trainer_id, energiesToSpend) {
+async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
   try {
     // Obtiene los datos del entrenador por ID
     const trainerStmt = db.prepare("SELECT * FROM trainers WHERE id = ?");
@@ -2724,6 +2724,19 @@ async function spendEnergies(trainer_id, energiesToSpend) {
       }
     } catch (error) {
       throw new Error("Error al parsear energías desde la base de datos.");
+    }
+
+    // Verifica si las energías proporcionadas por totalEnergies coinciden con las energías del entrenador
+    for (const [type, quantity] of Object.entries(totalEnergies)) {
+      const totalAvailable =
+        energies.find((e) => e.tipo.toLowerCase() === type.toLowerCase())
+          ?.quantity || 0;
+
+      if (totalAvailable !== quantity) {
+        throw new Error(
+          `La cantidad de energías de tipo ${type} no coincide con la base de datos.`
+        );
+      }
     }
 
     // Consolidamos las energías por tipo
@@ -2776,6 +2789,7 @@ async function spendEnergies(trainer_id, energiesToSpend) {
     return Promise.reject(error.message);
   }
 }
+
 
 
 /***************************************************************
