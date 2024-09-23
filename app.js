@@ -2740,14 +2740,7 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
     }
 
     // Consolidamos las energías por tipo
-    const consolidatedEnergies = energies.reduce((totals, energy) => {
-      const type = energy.tipo.toLowerCase();
-      if (!totals[type]) {
-        totals[type] = { ...energy, quantity: totalEnergies };
-      }
-      totals[type].quantity += energy.quantity;
-      return totals;
-    }, {});
+    const consolidatedEnergies = consolidateEnergies(totalEnergies);
 
     console.log("Energías consolidadas por tipo:", consolidatedEnergies);
 
@@ -2790,7 +2783,19 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
   }
 }
 
+function consolidateEnergies(energies) {
+  const consolidated = {};
 
+  energies.forEach((energy) => {
+    if (!consolidated[energy.tipo]) {
+      consolidated[energy.tipo] = { ...energy, quantity: 1 };
+    } else {
+      consolidated[energy.tipo].quantity += 1;
+    }
+  });
+
+  return Object.values(consolidated);
+}
 
 /***************************************************************
  *                                                              *
