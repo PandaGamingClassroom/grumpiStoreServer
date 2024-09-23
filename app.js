@@ -2719,8 +2719,7 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
     }
 
     // Consolidamos las energías por tipo
-    const consolidatedEnergies = consolidateEnergies(trainer.energies);
-
+    const consolidatedEnergies = consolidateEnergies(totalEnergies);
     console.log("Energías consolidadas por tipo:", consolidatedEnergies);
 
     // Verificamos si el entrenador tiene suficientes energías de cada tipo
@@ -2766,14 +2765,15 @@ function consolidateEnergies(energies) {
   const consolidated = {};
 
   energies.forEach((energy) => {
-    if (!consolidated[energy.tipo]) {
-      consolidated[energy.tipo] = { ...energy, quantity: 1 };
+    const tipo = energy.tipo.toLowerCase();
+    if (!consolidated[tipo]) {
+      consolidated[tipo] = { ...energy, quantity: energy.quantity }; // Asegúrate de que `quantity` esté bien definida
     } else {
-      consolidated[energy.tipo].quantity += 1;
+      consolidated[tipo].quantity += energy.quantity;
     }
   });
 
-  return Object.values(consolidated);
+  return consolidated;
 }
 
 /***************************************************************
