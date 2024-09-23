@@ -2763,7 +2763,8 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
 
 function consolidateEnergies(energies) {
   const consolidated = {};
-
+  console.log("Energías del entrenador para consolidar: ", energies);
+  
   energies.forEach((energy) => {
     const tipo = energy.tipo.toLowerCase();
     if (!consolidated[tipo]) {
@@ -2775,6 +2776,7 @@ function consolidateEnergies(energies) {
 
   return consolidated;
 }
+
 
 /***************************************************************
  *                                                              *
