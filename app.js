@@ -2773,26 +2773,20 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
 }
 
 // Consolidación de energías para eliminar duplicados y sumar cantidades del mismo tipo
-function consolidateEnergies(energies, energyTypeToConsolidate) {
+function consolidateEnergies(energies) {
   const consolidated = {};
-  const normalizedType = energyTypeToConsolidate.toLowerCase();
 
   energies.forEach((energy) => {
-    const key = energy.tipo.toLowerCase(); 
-    if (key === normalizedType) {
-      if (consolidated[key]) {
-        consolidated[key].cantidad += energy.cantidad; 
-      } else {
-        consolidated[key] = {
-          ...energy,
-          cantidad: energy.cantidad || 1, 
-        };
-      }
+    if (consolidated[energy.tipo]) {
+      consolidated[energy.tipo].quantity += energy.quantity;
+    } else {
+      consolidated[energy.tipo] = { ...energy, quantity: energy.quantity };
     }
   });
 
-  return consolidated; 
+  return Object.values(consolidated);
 }
+
 
 
 
