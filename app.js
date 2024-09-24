@@ -2734,8 +2734,11 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
         );
       }
 
+      console.log("Total disponible: ", totalEnergies);
+      console.log("Total a gastar: ", energyToSpend.quantity);
+      
       // También verificamos si el entrenador tiene suficientes energías consolidadas por seguridad
-      if (totalAvailable < energyToSpend.quantity) {
+      if (totalEnergies < energyToSpend.quantity) {
         throw new Error(
           `Error de sincronización: las energías consolidadas no coinciden con el total. Energías disponibles: ${totalAvailable}.`
         );
@@ -2772,24 +2775,23 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
 // Consolidación de energías para eliminar duplicados y sumar cantidades del mismo tipo
 function consolidateEnergies(energies, energyTypeToConsolidate) {
   const consolidated = {};
-  const normalizedType = energyTypeToConsolidate // Normaliza el tipo de energía para comparación
+  const normalizedType = energyTypeToConsolidate.toLowerCase();
 
   energies.forEach((energy) => {
-    const key = energy.tipo // Usa el tipo en minúscula
+    const key = energy.tipo.toLowerCase(); 
     if (key === normalizedType) {
-      // Solo consolidamos las energías del tipo especificado
       if (consolidated[key]) {
-        consolidated[key].cantidad += energy.cantidad; // Aumenta la cantidad según la energía original
+        consolidated[key].cantidad += energy.cantidad; 
       } else {
         consolidated[key] = {
           ...energy,
-          cantidad: energy.cantidad || 1, // Inicializa la cantidad
+          cantidad: energy.cantidad || 1, 
         };
       }
     }
   });
 
-  return consolidated; // Devuelve un objeto de energías consolidadas solo del tipo especificado
+  return consolidated; 
 }
 
 
