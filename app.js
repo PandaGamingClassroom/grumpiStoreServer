@@ -2737,11 +2737,11 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
         );
       }
 
-      console.log("Total disponible: ", totalAvailable);
+      console.log("Total disponible: ", totalEnergies);
       console.log("Total a gastar: ", energyToSpend.quantity);
 
       // También verificamos si el entrenador tiene suficientes energías consolidadas por seguridad
-      if (totalAvailable < energyToSpend.quantity) {
+      if (totalEnergies < energyToSpend.quantity) {
         throw new Error(
           `Error de sincronización: las energías consolidadas no coinciden con el total. Energías disponibles: ${totalAvailable}.`
         );
