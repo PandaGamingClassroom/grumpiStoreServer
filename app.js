@@ -2742,24 +2742,22 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
       const type = energyToSpend.type.toLowerCase();
       let remainingToSpend = energyToSpend.quantity;
 
-      // Filtrar las energías del tipo correspondiente
-      let energiesOfType = energies.filter(
-        (e) => e.tipo.toLowerCase() === type
-      );
-
       // Recorrer las energías del tipo y restar/eliminar la cantidad adecuada
-      for (let i = 0; i < energiesOfType.length && remainingToSpend > 0; i++) {
-        let energia = energiesOfType[i];
+      for (let i = 0; i < energies.length && remainingToSpend > 0; i++) {
+        let energia = energies[i];
 
-        if (energia.cantidad <= remainingToSpend) {
-          // Si la cantidad de energía actual es menor o igual a lo que necesitamos gastar, la eliminamos
-          remainingToSpend -= energia.cantidad;
-          // Remover esta energía de la lista original
-          energies = energies.filter((e) => e !== energia);
-        } else {
-          // Si la cantidad es mayor, solo restamos lo necesario y dejamos el resto
-          energia.cantidad -= remainingToSpend;
-          remainingToSpend = 0;
+        // Solo operamos en energías del tipo correcto
+        if (energia.tipo.toLowerCase() === type) {
+          if (energia.cantidad <= remainingToSpend) {
+            // Si la cantidad de energía actual es menor o igual a lo que necesitamos gastar, la eliminamos
+            remainingToSpend -= energia.cantidad;
+            energies.splice(i, 1); // Remover esta energía del array
+            i--; // Reducimos el índice ya que hemos eliminado un elemento
+          } else {
+            // Si la cantidad es mayor, solo restamos lo necesario y dejamos el resto
+            energia.cantidad -= remainingToSpend;
+            remainingToSpend = 0;
+          }
         }
       }
     }
@@ -2779,23 +2777,6 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
     return Promise.reject(error.message);
   }
 }
-
-// Consolidación de energías para eliminar duplicados y sumar cantidades del mismo tipo
-function consolidateEnergies(energies) {
-  const consolidated = {};
-
-  energies.forEach((energy) => {
-    if (consolidated[energy.tipo]) {
-      consolidated[energy.tipo].quantity += energy.quantity;
-    } else {
-      consolidated[energy.tipo] = { ...energy, quantity: energy.quantity };
-    }
-  });
-
-  return Object.values(consolidated);
-}
-
-
 
 
 /***************************************************************
