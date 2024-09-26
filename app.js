@@ -2763,6 +2763,8 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
 
     // Actualizamos solo las energías modificadas
     const updatedEnergies = energies.map((energy) => {
+      console.log('Mapeo de la energía: ', energy);
+      
       const type = energy.type.toLowerCase();
       if (consolidatedEnergies[type]) {
         return {
