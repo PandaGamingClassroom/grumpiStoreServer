@@ -2745,27 +2745,27 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
       let remainingToSpend = energyToSpend.quantity;
       console.log("remainingToSpend: ", remainingToSpend);
 
-      // Recorrer las energías del tipo y restar/eliminar la cantidad adecuada
+      // Recorrer las energías del tipo correspondiente
       for (let i = 0; i < energies.length && remainingToSpend > 0; i++) {
         let energia = energies[i];
 
         // Solo operamos en energías del tipo correcto
         if (energia.tipo.toLowerCase() === type) {
           if (energia.cantidad <= remainingToSpend) {
-            // Si la cantidad de energía actual es menor o igual a lo que necesitamos gastar, la eliminamos
+            // Si la cantidad de energía actual es menor o igual a lo que necesitamos gastar, eliminamos todo
             remainingToSpend -= energia.cantidad;
-            energies.splice(i, 1); // Remover esta energía del array
-            i--; // Ajustamos el índice porque hemos eliminado un elemento
+            energia.cantidad = 0; // Marcar para eliminar después
           } else {
-            // Si la cantidad es mayor, solo restamos lo necesario y dejamos el resto
+            // Si la cantidad es mayor, solo restamos lo necesario
             energia.cantidad -= remainingToSpend;
             remainingToSpend = 0;
           }
         }
       }
-    }
 
-    console.log("Energías restantes después de gastar:", energies);
+      // Eliminamos las energías con cantidad 0
+      energies = energies.filter((e) => e.cantidad > 0);
+    }
 
     // Guardamos las energías actualizadas en la base de datos
     const updatedEnergiesStr = JSON.stringify(energies);
@@ -2780,6 +2780,7 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
     return Promise.reject(error.message);
   }
 }
+
 
 
 /***************************************************************
