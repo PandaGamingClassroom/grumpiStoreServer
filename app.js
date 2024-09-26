@@ -2690,7 +2690,7 @@ app.post("/spend-energies", (req, res) => {
     });
 });
 
-async function spendEnergies(trainer_id, energiesToSpend) {
+async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
   try {
     // Obtiene los datos del entrenador por ID
     const trainerStmt = db.prepare("SELECT * FROM trainers WHERE id = ?");
@@ -2718,48 +2718,54 @@ async function spendEnergies(trainer_id, energiesToSpend) {
       throw new Error("Error al parsear energías desde la base de datos.");
     }
 
-    // Validamos que el entrenador tiene suficientes energías de cada tipo
+    // Validamos que totalEnergies sea suficiente para cada tipo de energía que se quiere gastar
     for (const energyToSpend of energiesToSpend) {
-      const type = energyToSpend.type.toLowerCase();
-      const totalRequired = energyToSpend.quantity;
+      const type = energyToSpend.type.toLowerCase(); // Aseguramos el uso de minúsculas
+      const availableEnergiesOfType = energies.filter(
+        (e) => e.tipo.toLowerCase() === type
+      );
 
-      const totalAvailable = energies
-        .filter((e) => e.tipo.toLowerCase() === type)
-        .reduce((sum, e) => sum + e.cantidad, 0);
-
-      if (totalAvailable < totalRequired) {
+      // Comparamos contra el total de energías disponibles de este tipo
+      const totalAvailable = availableEnergiesOfType.reduce(
+        (sum, e) => sum + e.cantidad,
+        0
+      );
+      if (totalAvailable < energyToSpend.quantity) {
         throw new Error(
-          `No tienes suficientes energías del tipo ${energyToSpend.type}. Tienes ${totalAvailable}, pero necesitas ${totalRequired}.`
+          `No tienes suficientes energías del tipo ${energyToSpend.type}. Tienes ${totalAvailable}, pero necesitas ${energyToSpend.quantity}.`
         );
       }
     }
 
-    // Ahora recorremos cada tipo de energía a gastar y reducimos la cantidad correspondiente
+    // Ahora recorremos y eliminamos la cantidad seleccionada de energías del tipo correspondiente
     for (const energyToSpend of energiesToSpend) {
       const type = energyToSpend.type.toLowerCase();
+      console.log("Energías a gastar: ", energyToSpend);
+
       let remainingToSpend = energyToSpend.quantity;
+      console.log("remainingToSpend: ", remainingToSpend);
 
-      // Recorremos el array de energías del entrenador para restar las energías del tipo correcto
+      // Recorrer las energías del tipo y restar/eliminar la cantidad adecuada
       for (let i = 0; i < energies.length && remainingToSpend > 0; i++) {
-        const energia = energies[i];
+        let energia = energies[i];
 
-        // Solo modificamos las energías del tipo indicado
+        // Solo operamos en energías del tipo correcto
         if (energia.tipo.toLowerCase() === type) {
           if (energia.cantidad <= remainingToSpend) {
-            // Si la energía actual tiene menos o igual cantidad de la que necesitamos, restamos todo y eliminamos esta entrada
+            // Si la cantidad de energía actual es menor o igual a lo que necesitamos gastar, la eliminamos
             remainingToSpend -= energia.cantidad;
-            energia.cantidad = 0; // Marcamos para eliminar
+            energies.splice(i, 1); // Remover esta energía del array
+            i--; // Reducimos el índice ya que hemos eliminado un elemento
           } else {
-            // Si la cantidad es mayor a lo que necesitamos, restamos lo necesario y dejamos el resto
+            // Si la cantidad es mayor, solo restamos lo necesario y dejamos el resto
             energia.cantidad -= remainingToSpend;
             remainingToSpend = 0;
           }
         }
       }
-
-      // Eliminamos las energías con cantidad 0 del array
-      energies = energies.filter((e) => e.cantidad > 0);
     }
+
+    console.log("Energías restantes después de gastar:", energies);
 
     // Guardamos las energías actualizadas en la base de datos
     const updatedEnergiesStr = JSON.stringify(energies);
@@ -2774,9 +2780,6 @@ async function spendEnergies(trainer_id, energiesToSpend) {
     return Promise.reject(error.message);
   }
 }
-
-
-
 
 
 /***************************************************************
