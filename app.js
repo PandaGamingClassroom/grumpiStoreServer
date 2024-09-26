@@ -2740,7 +2740,10 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
     // Ahora recorremos y eliminamos la cantidad seleccionada de energías del tipo correspondiente
     for (const energyToSpend of energiesToSpend) {
       const type = energyToSpend.type.toLowerCase();
+      console.log("Energías a gastar: ", energyToSpend);
+      
       let remainingToSpend = energyToSpend.quantity;
+      console.log("remainingToSpend: ", remainingToSpend);
 
       // Recorrer las energías del tipo y restar/eliminar la cantidad adecuada
       for (let i = 0; i < energies.length && remainingToSpend > 0; i++) {
