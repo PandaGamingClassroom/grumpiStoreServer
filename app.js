@@ -2719,7 +2719,10 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
     }
 
     // Consolidamos las energías por tipo
-    const consolidatedEnergies = consolidateEnergies(energies, energiesToSpend.type);
+    const consolidatedEnergies = consolidateEnergies(
+      energies,
+      energiesToSpend.type
+    );
     console.log("Energías consolidadas por tipo:", consolidatedEnergies);
 
     // Validamos que totalEnergies sea suficiente para el tipo de energía que se quiere gastar
@@ -2734,11 +2737,11 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
         );
       }
 
-      console.log("Total disponible: ", totalEnergies);
+      console.log("Total disponible: ", totalAvailable);
       console.log("Total a gastar: ", energyToSpend.quantity);
-      
+
       // También verificamos si el entrenador tiene suficientes energías consolidadas por seguridad
-      if (totalEnergies < energyToSpend.quantity) {
+      if (totalAvailable < energyToSpend.quantity) {
         throw new Error(
           `Error de sincronización: las energías consolidadas no coinciden con el total. Energías disponibles: ${totalAvailable}.`
         );
@@ -2750,13 +2753,25 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
       const type = energyToSpend.type.toLowerCase(); // Aseguramos el uso de minúsculas
       if (consolidatedEnergies[type]) {
         consolidatedEnergies[type].cantidad -= energyToSpend.quantity; // Restamos la cantidad correspondiente
+        if (consolidatedEnergies[type].cantidad < 0) {
+          consolidatedEnergies[type].cantidad = 0; // Evitamos cantidades negativas
+        }
       }
     }
 
-    // Filtramos las energías que quedaron con cantidad > 0 para que no se guarden energías de cantidad 0 o negativa
-    const updatedEnergies = Object.values(consolidatedEnergies).filter(
-      (energy) => energy.cantidad > 0
-    );
+    // Actualizamos solo las energías modificadas
+    const updatedEnergies = energies.map((energy) => {
+      const type = energy.type.toLowerCase();
+      if (consolidatedEnergies[type]) {
+        return {
+          type: energy.type,
+          cantidad: consolidatedEnergies[type].cantidad,
+        };
+      }
+      return energy; // Mantiene las energías no modificadas
+    });
+
+    console.log("Energías actualizadas:", updatedEnergies);
 
     // Guardamos las energías actualizadas en la base de datos
     const updatedEnergiesStr = JSON.stringify(updatedEnergies);
@@ -2771,6 +2786,7 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
     return Promise.reject(error.message);
   }
 }
+
 
 // Consolidación de energías para eliminar duplicados y sumar cantidades del mismo tipo
 function consolidateEnergies(energies) {
