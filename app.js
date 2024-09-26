@@ -2750,6 +2750,8 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
 
     // Restamos la cantidad de energías del tipo correspondiente
     for (const energyToSpend of energiesToSpend) {
+      console.log('Energia to spend: ', energyToSpend);
+      
       const type = energyToSpend.type.toLowerCase(); // Aseguramos el uso de minúsculas
       if (consolidatedEnergies[type]) {
         consolidatedEnergies[type].cantidad -= energyToSpend.quantity; // Restamos la cantidad correspondiente
