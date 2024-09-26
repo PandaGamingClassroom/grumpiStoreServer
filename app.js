@@ -2754,7 +2754,7 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
           if (energia.cantidad <= remainingToSpend) {
             // Si la cantidad de energía actual es menor o igual a lo que necesitamos gastar, la eliminamos
             remainingToSpend -= energia.cantidad;
-            energies.splice(i, 1); // Remover esta energía del array
+            energies.splice(i, remainingToSpend); // Remover esta energía del array
             i--; // Reducimos el índice ya que hemos eliminado un elemento
           } else {
             // Si la cantidad es mayor, solo restamos lo necesario y dejamos el resto
