@@ -2765,14 +2765,14 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
     const updatedEnergies = energies.map((energy) => {
       console.log('Mapeo de la energía: ', energy);
       
-      const type = energy.type.toLowerCase();
+      const type = energy.tipo.toLowerCase();
       if (consolidatedEnergies[type]) {
         return {
-          type: energy.type,
+          type: energy.tipo,
           cantidad: consolidatedEnergies[type].cantidad,
         };
       }
-      return energy; // Mantiene las energías no modificadas
+      return energy; 
     });
 
     console.log("Energías actualizadas:", updatedEnergies);
