@@ -2690,50 +2690,96 @@ app.post("/spend-energies", (req, res) => {
     });
 });
 
-function updateTrainerEnergiesInDB(trainerId, updatedEnergies) {
-  const updateStmt = db.prepare(
-    `UPDATE trainers SET energies = ? WHERE id = ?`
-  );
-  updateStmt.run(JSON.stringify(updatedEnergies), trainerId); // Guarda las energías como JSON
-}
+async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
+  try {
+    // Obtiene los datos del entrenador por ID
+    const trainerStmt = db.prepare("SELECT * FROM trainers WHERE id = ?");
+    const trainer = trainerStmt.get(trainer_id);
 
-// Función modificada spendEnergies que también guarda en la base de datos
-function spendEnergies(trainerId, trainerEnergies, energyToSpend) {
-  // energyToSpend es una lista de objetos con { tipo: 'agua', cantidad: 5 }
+    if (!trainer) {
+      throw new Error(`Entrenador con ID ${trainer_id} no encontrado.`);
+    }
 
-  energyToSpend.forEach((energy) => {
-    const tipo = energy.tipo;
-    let cantidadARestar = energy.cantidad;
+    console.log("Energías almacenadas en la base de datos:", trainer.energies);
 
-    // Filtrar las energías del entrenador por tipo
-    let energiesOfType = trainerEnergies.filter((e) => e.tipo === tipo);
+    // Verifica que trainer.energies no sea nulo o vacío
+    if (!trainer.energies) {
+      throw new Error("El entrenador no tiene energías asignadas.");
+    }
 
-    // Ordenar por cantidad para empezar restando de las instancias más pequeñas
-    energiesOfType.sort((a, b) => a.cantidad - b.cantidad);
+    // Parseamos las energías del entrenador
+    let energies;
+    try {
+      energies = JSON.parse(trainer.energies);
+      if (!Array.isArray(energies)) {
+        throw new Error("El formato de las energías es inválido.");
+      }
+    } catch (error) {
+      throw new Error("Error al parsear energías desde la base de datos.");
+    }
 
-    // Recorrer las energías del entrenador de ese tipo y restar la cantidad
-    for (let i = 0; i < energiesOfType.length && cantidadARestar > 0; i++) {
-      let energia = energiesOfType[i];
+    // Validamos que totalEnergies sea suficiente para cada tipo de energía que se quiere gastar
+    for (const energyToSpend of energiesToSpend) {
+      const type = energyToSpend.type.toLowerCase(); // Aseguramos el uso de minúsculas
+      const availableEnergiesOfType = energies.filter(
+        (e) => e.tipo.toLowerCase() === type
+      );
 
-      if (energia.cantidad <= cantidadARestar) {
-        // Si la energía actual es menor o igual a lo que necesitamos restar, la eliminamos
-        cantidadARestar -= energia.cantidad;
-        // Remover esa energía de la lista original
-        trainerEnergies = trainerEnergies.filter((e) => e !== energia);
-      } else {
-        // Si la energía es mayor, solo restamos la cantidad solicitada y la actualizamos
-        energia.cantidad -= cantidadARestar;
-        cantidadARestar = 0;
+      // Comparamos contra el total de energías disponibles de este tipo
+      const totalAvailable = availableEnergiesOfType.reduce(
+        (sum, e) => sum + e.cantidad,
+        0
+      );
+      if (totalAvailable < energyToSpend.quantity) {
+        throw new Error(
+          `No tienes suficientes energías del tipo ${energyToSpend.type}. Tienes ${totalAvailable}, pero necesitas ${energyToSpend.quantity}.`
+        );
       }
     }
-  });
 
-  // Actualizar la lista de energías en la base de datos
-  updateTrainerEnergiesInDB(trainerId, trainerEnergies);
+    // Ahora recorremos y eliminamos la cantidad seleccionada de energías del tipo correspondiente
+    for (const energyToSpend of energiesToSpend) {
+      const type = energyToSpend.type.toLowerCase();
+      let remainingToSpend = energyToSpend.quantity;
 
-  // Retornar la lista actualizada de energías
-  return trainerEnergies;
+      // Filtrar las energías del tipo correspondiente
+      let energiesOfType = energies.filter(
+        (e) => e.tipo.toLowerCase() === type
+      );
+
+      // Recorrer las energías del tipo y restar/eliminar la cantidad adecuada
+      for (let i = 0; i < energiesOfType.length && remainingToSpend > 0; i++) {
+        let energia = energiesOfType[i];
+
+        if (energia.cantidad <= remainingToSpend) {
+          // Si la cantidad de energía actual es menor o igual a lo que necesitamos gastar, la eliminamos
+          remainingToSpend -= energia.cantidad;
+          // Remover esta energía de la lista original
+          energies = energies.filter((e) => e !== energia);
+        } else {
+          // Si la cantidad es mayor, solo restamos lo necesario y dejamos el resto
+          energia.cantidad -= remainingToSpend;
+          remainingToSpend = 0;
+        }
+      }
+    }
+
+    console.log("Energías restantes después de gastar:", energies);
+
+    // Guardamos las energías actualizadas en la base de datos
+    const updatedEnergiesStr = JSON.stringify(energies);
+    const updateStmt = db.prepare(
+      "UPDATE trainers SET energies = ? WHERE id = ?"
+    );
+    updateStmt.run(updatedEnergiesStr, trainer.id);
+
+    return "Energías gastadas correctamente.";
+  } catch (error) {
+    console.error("Error en spendEnergies:", error);
+    return Promise.reject(error.message);
+  }
 }
+
 // Consolidación de energías para eliminar duplicados y sumar cantidades del mismo tipo
 function consolidateEnergies(energies) {
   const consolidated = {};
