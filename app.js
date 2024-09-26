@@ -2746,7 +2746,7 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
       console.log("remainingToSpend: ", remainingToSpend);
 
       // Recorrer las energías del tipo y restar/eliminar la cantidad adecuada
-      for (let i = 0; i < energies.length && remainingToSpend > 0; i++) {
+      for (let i = 0; i <= remainingToSpend; i++) {
         let energia = energies[i];
 
         // Solo operamos en energías del tipo correcto
@@ -2755,7 +2755,6 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
             // Si la cantidad de energía actual es menor o igual a lo que necesitamos gastar, la eliminamos
             remainingToSpend -= energia.cantidad;
             energies.splice(i, remainingToSpend); // Remover esta energía del array
-            i--; // Reducimos el índice ya que hemos eliminado un elemento
           } else {
             // Si la cantidad es mayor, solo restamos lo necesario y dejamos el resto
             energia.cantidad -= remainingToSpend;
