@@ -1825,31 +1825,20 @@ function assignCombatObjectToTrainer(trainer_id, combatObject) {
       ? JSON.parse(trainer.objetos_combate)
       : [];
 
-    // Comparar el nombre del objeto de combate en lugar del objeto completo
-    const alreadyAssigned = trainerCombatObj.some(
-      (obj) => obj.nombre === combatObject.nombre
+    // Simplemente agregar el objeto sin importar si ya existe
+    trainerCombatObj.push(combatObject);
+
+    const updateStmt = db.prepare(`
+      UPDATE trainers
+      SET objetos_combate = ?
+      WHERE id = ?
+    `);
+    updateStmt.run(JSON.stringify(trainerCombatObj), trainer.id);
+
+    console.log("Objeto de combate asignado correctamente al entrenador.");
+    return Promise.resolve(
+      "Objeto de combate asignado correctamente al entrenador."
     );
-
-    if (!alreadyAssigned) {
-      trainerCombatObj.push(combatObject);
-
-      const updateStmt = db.prepare(`
-        UPDATE trainers
-        SET objetos_combate = ?
-        WHERE id = ?
-      `);
-      updateStmt.run(JSON.stringify(trainerCombatObj), trainer.id);
-
-      console.log("Objeto de combate asignado correctamente al entrenador.");
-      return Promise.resolve(
-        "Objeto de combate asignado correctamente al entrenador."
-      );
-    } else {
-      console.log("El objeto de combate ya está asignado a este entrenador.");
-      return Promise.resolve(
-        "El objeto de combate ya está asignado a este entrenador."
-      );
-    }
   } else {
     return Promise.reject(
       new Error(`Entrenador con nombre ${trainer_id} no encontrado.`)
@@ -1892,6 +1881,7 @@ app.post("/assign-combatObjects", (req, res) => {
       });
     });
 });
+
 
 /***************************************************************
  *                                                              *
