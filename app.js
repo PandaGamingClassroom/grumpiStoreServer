@@ -1851,14 +1851,7 @@ app.post("/assign-combatObjects", (req, res) => {
   let { trainerIDs, combatObject } = req.body;
   console.log("assign-combatObjects - Request body:", req.body);
 
-  // Validar si existe el objeto de combate (ajustar a las propiedades correctas)
-  if (!combatObject || !combatObject.image || !combatObject.nombre) {
-    return res.status(400).json({
-      error:
-        "Datos del objeto de combate incompletos. Asegúrate de enviar un nombre e imagen válidos.",
-    });
-  }
-
+  
   // Asignar el objeto de combate a cada entrenador
   const promises = trainerIDs.map((trainer_id) =>
     assignCombatObjectToTrainer(trainer_id, combatObject)
