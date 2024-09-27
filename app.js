@@ -1856,7 +1856,7 @@ function assignCombatObjectToTrainer(trainer_id, combatObject) {
 
 // Ruta de asignación de objetos de combate
 app.post("/assign-combatObjects", (req, res) => {
-  let { trainer_id, trainerIDs, combatObject } = req.body;
+  let { trainerIDs, combatObject } = req.body;
   console.log("assign-combatObjects - Request body:", req.body);
 
   // Validar si existe el objeto de combate
@@ -1865,11 +1865,6 @@ app.post("/assign-combatObjects", (req, res) => {
       error:
         "Datos del objeto de combate incompletos. Asegúrate de enviar un nombre e imagen válidos.",
     });
-  }
-
-  // Si se proporciona `trainer_id`, sobreescribe `trainerNames`
-  if (trainer_id) {
-    trainerIDs = [trainer_id];
   }
 
   // Verificar si la lista de nombres de entrenadores es válida
@@ -2692,7 +2687,6 @@ app.post("/spend-energies", (req, res) => {
 
 async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
   try {
-    // Obtiene los datos del entrenador por ID
     const trainerStmt = db.prepare("SELECT * FROM trainers WHERE id = ?");
     const trainer = trainerStmt.get(trainer_id);
 
@@ -2700,14 +2694,10 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
       throw new Error(`Entrenador con ID ${trainer_id} no encontrado.`);
     }
 
-    console.log("Energías almacenadas en la base de datos:", trainer.energies);
-
-    // Verifica que trainer.energies no sea nulo o vacío
     if (!trainer.energies) {
       throw new Error("El entrenador no tiene energías asignadas.");
     }
 
-    // Parseamos las energías del entrenador
     let energies;
     try {
       energies = JSON.parse(trainer.energies);
@@ -2718,14 +2708,12 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
       throw new Error("Error al parsear energías desde la base de datos.");
     }
 
-    // Validamos que totalEnergies sea suficiente para cada tipo de energía que se quiere gastar
     for (const energyToSpend of energiesToSpend) {
       const type = energyToSpend.type.toLowerCase(); // Aseguramos el uso de minúsculas
       const availableEnergiesOfType = energies.filter(
         (e) => e.tipo.toLowerCase() === type
       );
 
-      // Comparamos contra el total de energías disponibles de este tipo
       const totalAvailable = availableEnergiesOfType.reduce(
         (sum, e) => sum + e.cantidad,
         0
@@ -2737,27 +2725,18 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
       }
     }
 
-    // Ahora recorremos y eliminamos la cantidad seleccionada de energías del tipo correspondiente
     for (const energyToSpend of energiesToSpend) {
       const type = energyToSpend.type.toLowerCase();
-      console.log("Energías a gastar: ", energyToSpend);
-
       let remainingToSpend = energyToSpend.quantity;
-      console.log("remainingToSpend: ", remainingToSpend);
-
-      // Recorrer las energías del tipo y restar/eliminar la cantidad adecuada
       for (let i = 0; i < energies.length && remainingToSpend > 0; i++) {
         let energia = energies[i];
 
-        // Solo operamos en energías del tipo correcto
         if (energia.tipo.toLowerCase() === type) {
           if (energia.cantidad <= remainingToSpend) {
-            // Si la cantidad de energía actual es menor o igual a lo que necesitamos gastar, la eliminamos
             remainingToSpend -= energia.cantidad;
-            energies.splice(i, remainingToSpend); // Remover esta energía del array
-            i--; // Reducimos el índice ya que hemos eliminado un elemento
+            energies.splice(i, remainingToSpend); 
+            i--; 
           } else {
-            // Si la cantidad es mayor, solo restamos lo necesario y dejamos el resto
             energia.cantidad -= remainingToSpend;
             remainingToSpend = 0;
           }
@@ -2767,7 +2746,6 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
 
     console.log("Energías restantes después de gastar:", energies);
 
-    // Guardamos las energías actualizadas en la base de datos
     const updatedEnergiesStr = JSON.stringify(energies);
     const updateStmt = db.prepare(
       "UPDATE trainers SET energies = ? WHERE id = ?"
