@@ -1825,7 +1825,10 @@ function assignCombatObjectToTrainer(trainer_id, combatObject) {
       ? JSON.parse(trainer.objetos_combate)
       : [];
 
-    const alreadyAssigned = trainerCombatObj.includes(combatObject);
+    // Comparar el nombre del objeto de combate en lugar del objeto completo
+    const alreadyAssigned = trainerCombatObj.some(
+      (obj) => obj.nombre === combatObject.nombre
+    );
 
     if (!alreadyAssigned) {
       trainerCombatObj.push(combatObject);
@@ -1859,19 +1862,11 @@ app.post("/assign-combatObjects", (req, res) => {
   let { trainerIDs, combatObject } = req.body;
   console.log("assign-combatObjects - Request body:", req.body);
 
-  // Validar si existe el objeto de combate
-  if (!combatObject || !combatObject.image || !combatObject.name) {
+  // Validar si existe el objeto de combate (ajustar a las propiedades correctas)
+  if (!combatObject || !combatObject.image || !combatObject.nombre) {
     return res.status(400).json({
       error:
         "Datos del objeto de combate incompletos. Asegúrate de enviar un nombre e imagen válidos.",
-    });
-  }
-
-  // Verificar si la lista de nombres de entrenadores es válida
-  if (!trainerIDs || !Array.isArray(trainerIDs) || trainerIDs.length === 0) {
-    return res.status(400).json({
-      error:
-        "Lista de entrenadores no válida. Debe ser un array de nombres de entrenadores o un ID válido.",
     });
   }
 
