@@ -2889,18 +2889,18 @@ function assignBadgeToTrainer(trainerName, badgeName) {
 app.post("/trainers/updateOrder", (req, res) => {
   const trainers = req.body.trainers;
 
-  trainers.forEach((trainer, index) => {
-    const sql = `UPDATE trainers SET \`order\` = ? WHERE id = ?`;
-    db.run(sql, [index, trainer.id], (err) => {
-      if (err) {
-        return res
-          .status(500)
-          .json({ message: "Error al actualizar el orden." });
-      }
-    });
-  });
+  try {
+    const stmt = db.prepare(`UPDATE trainers SET \`order\` = ? WHERE id = ?`);
 
-  res.status(200).json({ message: "Orden actualizado correctamente." });
+    trainers.forEach((trainer, index) => {
+      stmt.run(index, trainer.id); // Usa stmt.run para ejecutar la consulta
+    });
+
+    res.status(200).json({ message: "Orden actualizado correctamente." });
+  } catch (err) {
+    console.error("Error al actualizar el orden:", err);
+    res.status(500).json({ message: "Error al actualizar el orden." });
+  }
 });
 
 app.listen(PORT, () => {
