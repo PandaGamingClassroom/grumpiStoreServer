@@ -753,37 +753,13 @@ function editGrumpisFromTrainer(trainerId, objetosAEliminar) {
     if (trainer) {
       let grumpis = JSON.parse(trainer.grumpis) || [];
 
-      objetosAEliminar.forEach((grumpi) => {
-        console.log("Procesando grumpi para eliminar: ", grumpi);
+      // Guardar los nombres de los grumpis a eliminar
+      const grumpisAEliminar = objetosAEliminar.map((grumpi) => grumpi.nombre);
 
-        let cantidadAEliminar = grumpi.cantidad || 1;
+      // Filtrar los grumpis que no están en la lista de eliminados
+      grumpis = grumpis.filter((g) => !grumpisAEliminar.includes(g.nombre));
 
-        // Actualiza la lista de grumpis
-        grumpis = grumpis
-          .map((g) => {
-            if (g.nombre === grumpi.nombre) {
-              // Solo se puede eliminar si hay suficientes grumpis
-              if (g.cantidad <= cantidadAEliminar) {
-                // No quedan grumpis, eliminamos el objeto
-                cantidadAEliminar -= g.cantidad;
-                return null; // Marcamos como null para eliminar
-              } else {
-                // Restar la cantidad deseada
-                cantidadAEliminar -= cantidadAEliminar;
-                return { ...g, cantidad: g.cantidad - cantidadAEliminar };
-              }
-            }
-            return g; // Mantener el grumpi si no coincide
-          })
-          .filter((g) => g !== null); // Filtrar grumpis eliminados
-
-        if (cantidadAEliminar > 0) {
-          console.log(
-            `No se pudo eliminar toda la cantidad del grumpi ${grumpi.nombre}. Quedaron ${cantidadAEliminar} unidades sin eliminar.`
-          );
-        }
-      });
-
+      // Actualizar en la base de datos
       const updateStmt = db.prepare(
         `UPDATE trainers SET grumpis = ? WHERE id = ?`
       );
@@ -799,6 +775,7 @@ function editGrumpisFromTrainer(trainerId, objetosAEliminar) {
     );
   }
 }
+
 
 
 /**
