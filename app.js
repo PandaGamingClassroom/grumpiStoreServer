@@ -7,14 +7,14 @@ const chokidar = require("chokidar");
 const simpleGit = require("simple-git");
 const path = require("path");
 const Database = require("better-sqlite3");
+
 const PORT = process.env.PORT || 3001;
 
 module.exports = app;
 
-
 // Aumenta el límite del tamaño del cuerpo a 10MB
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ limit: '10mb', extended: true }));
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ limit: "10mb", extended: true }));
 
 // RUTAS DE ACCESO
 const filePath = "./data/trainers.json";
@@ -55,10 +55,10 @@ if (!fs.existsSync(dbDirectory)) {
   console.log(`Directorio creado: ${dbDirectory}`);
 }
 
-// Inicializar la base de datos
+// Inicializar la base de datos correctamente
 let db;
 try {
-  db = new Database(dbPath);
+  db = new Database(dbPath); // Asigna la base de datos correctamente aquí
   console.log(`Conectado a la base de datos en: ${dbPath}`);
 } catch (error) {
   console.error("Error al conectar con la base de datos:", error);
@@ -1856,7 +1856,6 @@ app.post("/assign-combatObjects", (req, res) => {
   let { trainerIDs, combatObject } = req.body;
   console.log("assign-combatObjects - Request body:", req.body);
 
-  
   // Asignar el objeto de combate a cada entrenador
   const promises = trainerIDs.map((trainer_id) =>
     assignCombatObjectToTrainer(trainer_id, combatObject)
@@ -1879,7 +1878,6 @@ app.post("/assign-combatObjects", (req, res) => {
       });
     });
 });
-
 
 /***************************************************************
  *                                                              *
@@ -2717,8 +2715,8 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
         if (energia.tipo.toLowerCase() === type) {
           if (energia.cantidad <= remainingToSpend) {
             remainingToSpend -= energia.cantidad;
-            energies.splice(i, remainingToSpend); 
-            i--; 
+            energies.splice(i, remainingToSpend);
+            i--;
           } else {
             energia.cantidad -= remainingToSpend;
             remainingToSpend = 0;
@@ -2741,7 +2739,6 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
     return Promise.reject(error.message);
   }
 }
-
 
 /***************************************************************
  *                                                              *
