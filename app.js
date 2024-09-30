@@ -758,22 +758,24 @@ function editGrumpisFromTrainer(trainerId, objetosAEliminar) {
 
         let cantidadAEliminar = grumpi.cantidad || 1;
 
+        // Actualiza la lista de grumpis
         grumpis = grumpis
           .map((g) => {
             if (g.nombre === grumpi.nombre) {
-              let reduceAmount = Math.min(g.cantidad, cantidadAEliminar);
-
-              if (g.cantidad <= reduceAmount) {
+              // Solo se puede eliminar si hay suficientes grumpis
+              if (g.cantidad <= cantidadAEliminar) {
+                // No quedan grumpis, eliminamos el objeto
                 cantidadAEliminar -= g.cantidad;
-                return null;
+                return null; // Marcamos como null para eliminar
               } else {
-                cantidadAEliminar -= reduceAmount;
-                return { ...g, cantidad: g.cantidad - reduceAmount };
+                // Restar la cantidad deseada
+                cantidadAEliminar -= cantidadAEliminar;
+                return { ...g, cantidad: g.cantidad - cantidadAEliminar };
               }
             }
-            return g;
+            return g; // Mantener el grumpi si no coincide
           })
-          .filter((g) => g !== null);
+          .filter((g) => g !== null); // Filtrar grumpis eliminados
 
         if (cantidadAEliminar > 0) {
           console.log(
@@ -797,6 +799,7 @@ function editGrumpisFromTrainer(trainerId, objetosAEliminar) {
     );
   }
 }
+
 
 /**
  * Función para editar los objetos de combate seleccionados.
