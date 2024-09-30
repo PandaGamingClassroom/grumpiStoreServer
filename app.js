@@ -11,6 +11,11 @@ const PORT = process.env.PORT || 3001;
 
 module.exports = app;
 
+
+// Aumenta el límite del tamaño del cuerpo a 10MB
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ limit: '10mb', extended: true }));
+
 // RUTAS DE ACCESO
 const filePath = "./data/trainers.json";
 const filePathAmin = "./data/admin.json";
