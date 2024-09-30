@@ -2884,25 +2884,21 @@ function assignBadgeToTrainer(trainerName, badgeName) {
   }
 }
 
-app.post("/trainers/order", (req, res) => {
-  const newOrder = req.body.trainers;
+app.post("/trainers/updateOrder", (req, res) => {
+  const trainers = req.body.trainers;
 
-  try {
-    const updateStmt = db.prepare(
-      'UPDATE trainers SET "order" = ? WHERE id = ?'
-    );
+  trainers.forEach((trainer, index) => {
+    const sql = `UPDATE trainers SET \`order\` = ? WHERE id = ?`;
+    db.run(sql, [index, trainer.id], (err) => {
+      if (err) {
+        return res
+          .status(500)
+          .json({ message: "Error al actualizar el orden." });
+      }
+    });
+  });
 
-    db.transaction(() => {
-      newOrder.forEach((trainer, index) => {
-        updateStmt.run(index, trainer.id);
-      });
-    })();
-
-    res.status(200).send({ message: "Orden guardado con éxito" });
-  } catch (error) {
-    console.error("Error al guardar el orden:", error);
-    res.status(500).send({ message: "Error al guardar el orden" });
-  }
+  res.status(200).json({ message: "Orden actualizado correctamente." });
 });
 
 app.listen(PORT, () => {
