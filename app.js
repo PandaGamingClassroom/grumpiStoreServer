@@ -2829,7 +2829,7 @@ function assignBadgeToTrainer(trainerName, badgeName) {
     badgeName
   );
   const trainer = db
-    .prepare("SELECT * FROM trainers WHERE name = ?")
+    .prepare("SELECT * FROM trainers WHERE id = ?")
     .get(trainerName);
 
   if (trainer) {
