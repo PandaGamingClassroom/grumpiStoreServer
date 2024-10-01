@@ -1694,7 +1694,7 @@ function assignMedalToTrainer(trainerName, medalImagePath) {
     medalImagePath
   );
   const trainer = db
-    .prepare("SELECT * FROM trainers WHERE name = ?")
+    .prepare("SELECT * FROM trainers WHERE id = ?")
     .get(trainerName);
 
   if (trainer) {
