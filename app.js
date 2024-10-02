@@ -2469,54 +2469,28 @@ app.put("/profesors/update_all_data/:name", (req, res) => {
  * Hace uso de la BD
  */
 app.delete("/professor_to_delete/:id", async (req, res) => {
-  const userName = req.params.id;
-
+  const profesorID = parseInt(req.params.id, 10);
+  if (isNaN(profesorID)) {
+    return res.status(400).json({ error: "ID de profesor inválido" });
+  }
   try {
-    // Eliminar el profesor de la base de datos
-    const deleteQuery = db.prepare(`DELETE FROM profesores WHERE id = ?`);
-    const result = deleteQuery.run(userName);
+    const deleteStmt = db.prepare("DELETE FROM profesores WHERE id = ?");
+    const result = deleteStmt.run(profesorID);
 
     if (result.changes === 0) {
-      return res.status(404).json({
-        error: `Profesor con nombre ${userName} no encontrado en la base de datos`,
-      });
+      return res
+        .status(404)
+        .json({ error: `Usuario con id ${profesorID} no encontrado` });
     }
 
-    console.log(
-      `Profesor con nombre ${userName} eliminado de la base de datos`
-    );
-
-    // Leer y actualizar el archivo JSON
-    const data = await fs.promises.readFile(filePathAmin, "utf8");
-    let profesor_list = JSON.parse(data);
-
-    // Filtrar la lista de profesores para excluir el profesor seleccionado
-    const updatedProfessorList = profesor_list.filter(
-      (professor) => professor.nombre !== userName
-    );
-
-    if (updatedProfessorList.length === profesor_list.length) {
-      return res.status(404).json({
-        error: `Profesor con nombre ${userName} no encontrado en el archivo`,
-      });
-    }
-
-    await fs.promises.writeFile(
-      filePathAmin,
-      JSON.stringify(updatedProfessorList, null, 2)
-    );
-
-    console.log(
-      `Profesor con nombre ${userName} eliminado correctamente del archivo`
-    );
-
-    // Devolver la lista actualizada como respuesta
     res.status(200).json({
-      message: `Profesor con nombre ${userName} eliminado correctamente`,
-      profesor_list: updatedProfessorList,
+      message: `Usuario con id ${profesorID} eliminado correctamente`,
     });
-  } catch (err) {
-    console.error("Error al procesar el archivo JSON o la base de datos:", err);
+  } catch (dbError) {
+    console.error(
+      "Error al eliminar el profesor de la base de datos:",
+      dbError
+    );
     res.status(500).json({ error: "Error interno del servidor" });
   }
 });
