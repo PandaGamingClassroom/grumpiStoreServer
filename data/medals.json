@@ -46,5 +46,11 @@
         "nombre": "Medalla Vida",
         "tipo": "Vida",
         "imagen": "https://grumpistoreserver.onrender.com/uploads/medals/Medalla_vida.1.png"
+    },
+    {
+        "id": 9,
+        "nombre": "Medalla Aire",
+        "tipo": "Aire",
+        "imagen": "https://grumpistoreserver.onrender.com/uploads/medals/Medalla_Aire.png"
     }
 ]
