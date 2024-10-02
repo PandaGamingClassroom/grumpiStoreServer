@@ -2873,7 +2873,7 @@ app.post("/trainers/updateOrder", (req, res) => {
     const stmt = db.prepare(`UPDATE trainers SET \`order\` = ? WHERE id = ?`);
 
     trainers.forEach((trainer, index) => {
-      stmt.run(index, trainer.id); // Usa stmt.run para ejecutar la consulta
+      stmt.run(index, trainer.id);
     });
 
     res.status(200).json({ message: "Orden actualizado correctamente." });
@@ -2882,6 +2882,24 @@ app.post("/trainers/updateOrder", (req, res) => {
     res.status(500).json({ message: "Error al actualizar el orden." });
   }
 });
+
+app.post("/profesors/updateOrder", (req, res) => {
+  const profesors = req.body.profesors;
+
+  try {
+    const stmt = db.prepare(`UPDATE profesores SET \`order\` = ? WHERE id = ?`);
+
+    profesors.forEach((trainer, index) => {
+      stmt.run(index, trainer.id); 
+    });
+
+    res.status(200).json({ message: "Orden actualizado correctamente." });
+  } catch (err) {
+    console.error("Error al actualizar el orden:", err);
+    res.status(500).json({ message: "Error al actualizar el orden." });
+  }
+});
+
 
 app.listen(PORT, () => {
   console.log(`Servidor GrumpiStore, iniciado en el puerto: ${PORT}`);
