@@ -2468,12 +2468,12 @@ app.put("/profesors/update_all_data/:name", (req, res) => {
  * Función para eliminar un profesor
  * Hace uso de la BD
  */
-app.delete("/professor_to_delete/:name", async (req, res) => {
-  const userName = req.params.name;
+app.delete("/professor_to_delete/:id", async (req, res) => {
+  const userName = req.params.id;
 
   try {
     // Eliminar el profesor de la base de datos
-    const deleteQuery = db.prepare(`DELETE FROM profesores WHERE nombre = ?`);
+    const deleteQuery = db.prepare(`DELETE FROM profesores WHERE id = ?`);
     const result = deleteQuery.run(userName);
 
     if (result.changes === 0) {
