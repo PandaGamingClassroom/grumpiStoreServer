@@ -73,17 +73,21 @@ if (fs.existsSync(dbPath)) {
 }
 
 try {
+  // Agregar la columna 'order' a la tabla 'trainers'
   db.prepare(
     `
     ALTER TABLE trainers ADD COLUMN "order" INTEGER;
-  `
+    `
   ).run();
+
+  // Agregar la columna 'order' a la tabla 'profesores'
   db.prepare(
     `
     ALTER TABLE profesores ADD COLUMN "order" INTEGER;
-  `
+    `
   ).run();
-  console.log("Columna 'order' agregada con éxito.");
+
+  console.log("Columna 'order' agregada con éxito a ambas tablas.");
 } catch (err) {
   if (err.message.includes("duplicate column name")) {
     console.log("La columna 'order' ya existe.");
@@ -91,6 +95,7 @@ try {
     console.error("Error al agregar la columna 'order':", err);
   }
 }
+
 
 /**************************************
  *                                    *
