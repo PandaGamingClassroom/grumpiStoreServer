@@ -78,6 +78,11 @@ try {
     ALTER TABLE trainers ADD COLUMN "order" INTEGER;
   `
   ).run();
+  db.prepare(
+    `
+    ALTER TABLE profesores ADD COLUMN "order" INTEGER;
+  `
+  ).run();
   console.log("Columna 'order' agregada con éxito.");
 } catch (err) {
   if (err.message.includes("duplicate column name")) {
@@ -221,7 +226,8 @@ function createTables() {
       apellidos TEXT NOT NULL,
       usuario TEXT NOT NULL,
       password TEXT NOT NULL,
-      rol TEXT
+      rol TEXT,
+      order INTEGER
     );
   `;
 
