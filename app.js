@@ -2900,8 +2900,8 @@ app.post("/profesors/updateOrder", (req, res) => {
   try {
     const stmt = db.prepare(`UPDATE profesores SET \`order\` = ? WHERE id = ?`);
 
-    profesors.forEach((trainer, index) => {
-      stmt.run(index, trainer.id); 
+    profesors.forEach((profesor, index) => {
+      stmt.run(index, profesor.id); 
     });
 
     res.status(200).json({ message: "Orden actualizado correctamente." });
