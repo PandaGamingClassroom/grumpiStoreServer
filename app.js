@@ -2671,6 +2671,7 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
       }
     }
 
+    console.log("energiesToSpend: ", energiesToSpend);
     for (const energyToSpend of energiesToSpend) {
       const type = energyToSpend.type.toLowerCase();
       let remainingToSpend = energyToSpend.quantity;
