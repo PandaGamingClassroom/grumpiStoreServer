@@ -2689,7 +2689,7 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
         // Solo actuamos sobre el tipo de energía que coincide
         if (energia.tipo.toLowerCase() === type) {
           if (energia.cantidad <= remainingToSpend) {
-            // Si la cantidad es menor o igual a lo que necesitamos gastar, eliminamos esa instancia
+            // Si la cantidad es menor o igual a lo que necesitamos gastar, restamos todo y eliminamos la instancia
             remainingToSpend -= energia.cantidad;
             energies.splice(i, 1); // Eliminar la instancia de energía
             i--; // Ajustamos el índice porque hemos eliminado un elemento
@@ -2715,7 +2715,6 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
     return Promise.reject(error.message);
   }
 }
-
 
 /***************************************************************
  *                                                              *
