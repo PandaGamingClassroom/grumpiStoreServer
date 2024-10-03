@@ -2633,7 +2633,6 @@ app.post("/spend-energies", (req, res) => {
 
 async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
   try {
-    // Obtener el entrenador
     const trainerStmt = db.prepare("SELECT * FROM trainers WHERE id = ?");
     const trainer = trainerStmt.get(trainer_id);
 
@@ -2645,7 +2644,6 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
       throw new Error("El entrenador no tiene energías asignadas.");
     }
 
-    // Parsear las energías del entrenador desde la base de datos
     let energies;
     try {
       energies = JSON.parse(trainer.energies);
@@ -2656,20 +2654,16 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
       throw new Error("Error al parsear energías desde la base de datos.");
     }
 
-    // Verificar que el entrenador tenga suficientes energías de cada tipo a gastar
     for (const energyToSpend of energiesToSpend) {
-      const type = energyToSpend.type.toLowerCase();
+      const type = energyToSpend.type.toLowerCase(); // Aseguramos el uso de minúsculas
       const availableEnergiesOfType = energies.filter(
         (e) => e.tipo.toLowerCase() === type
       );
 
-      // Calcular el total de energías disponibles de ese tipo
       const totalAvailable = availableEnergiesOfType.reduce(
         (sum, e) => sum + e.cantidad,
         0
       );
-
-      // Si no tiene suficientes energías, lanzar error
       if (totalAvailable < energyToSpend.quantity) {
         throw new Error(
           `No tienes suficientes energías del tipo ${energyToSpend.type}. Tienes ${totalAvailable}, pero necesitas ${energyToSpend.quantity}.`
@@ -2677,32 +2671,27 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
       }
     }
 
-    // Restar las energías seleccionadas de cada tipo
     for (const energyToSpend of energiesToSpend) {
       const type = energyToSpend.type.toLowerCase();
       let remainingToSpend = energyToSpend.quantity;
-
-      // Iterar sobre las energías del entrenador
       for (let i = 0; i < energies.length && remainingToSpend > 0; i++) {
         let energia = energies[i];
 
-        // Solo actuamos sobre el tipo de energía que coincide
         if (energia.tipo.toLowerCase() === type) {
           if (energia.cantidad <= remainingToSpend) {
-            // Si la cantidad es menor o igual a lo que necesitamos gastar, eliminamos esa instancia
             remainingToSpend -= energia.cantidad;
-            energies.splice(i, 1); // Eliminar la instancia de energía
-            i--; // Ajustamos el índice porque hemos eliminado un elemento
+            energies.splice(i, remainingToSpend);
+            i--;
           } else {
-            // Si tiene más energía de la que necesitamos gastar, solo restamos lo necesario
             energia.cantidad -= remainingToSpend;
-            remainingToSpend = 0; // Ya no queda más por gastar
+            remainingToSpend = 0;
           }
         }
       }
     }
 
-    // Actualizamos las energías del entrenador en la base de datos
+    console.log("Energías restantes después de gastar:", energies);
+
     const updatedEnergiesStr = JSON.stringify(energies);
     const updateStmt = db.prepare(
       "UPDATE trainers SET energies = ? WHERE id = ?"
@@ -2715,6 +2704,7 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
     return Promise.reject(error.message);
   }
 }
+
 
 
 /***************************************************************
