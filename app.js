@@ -2674,7 +2674,9 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
     for (const energyToSpend of energiesToSpend) {
       const type = energyToSpend.type.toLowerCase();
       let remainingToSpend = energyToSpend.quantity;
-      for (let i = 0; i < energies.length && remainingToSpend > 0; i++) {
+      console.log("remainingToSpend: ", remainingToSpend);
+      
+      for (let i = 0; i < remainingToSpend > 0; i++) {
         let energia = energies[i];
 
         if (energia.tipo.toLowerCase() === type) {
@@ -2689,9 +2691,6 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
         }
       }
     }
-
-    console.log("Energías restantes después de gastar:", energies);
-
     const updatedEnergiesStr = JSON.stringify(energies);
     const updateStmt = db.prepare(
       "UPDATE trainers SET energies = ? WHERE id = ?"
