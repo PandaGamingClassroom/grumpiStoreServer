@@ -7,6 +7,8 @@ const chokidar = require("chokidar");
 const simpleGit = require("simple-git");
 const path = require("path");
 const Database = require("better-sqlite3");
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
 const PORT = process.env.PORT || 3001;
 
@@ -139,6 +141,25 @@ app.use((req, res, next) => {
 fs.mkdirSync(uploadDir, { recursive: true });
 fs.mkdirSync(uploadDirMedals, { recursive: true });
 
+
+// Configuración de Cloudinary
+cloudinary.config({
+  cloud_name: 'dkmg8dtwy',
+  api_key: '599214592465719',
+  api_secret: 'NeH36pVIqFqSfV8I-CGpLgmIcFA',
+});
+
+// Configuración de multer para usar Cloudinary como almacenamiento
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'blog_images', // Carpeta donde se guardarán las imágenes
+    format: async () => 'png', // Puedes ajustar el formato si es necesario
+    public_id: (req, file) => file.originalname, // Nombre del archivo
+  },
+});
+
+/** 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     let uploadDir;
@@ -153,7 +174,7 @@ const storage = multer.diskStorage({
     cb(null, file.originalname);
   },
 });
-
+*/
 const upload = multer({ storage: storage });
 
 /*********************************************
@@ -2898,6 +2919,17 @@ app.post("/profesors/updateOrder", (req, res) => {
   }
 });
 
+
+/** 
+ * SUBIDA DE IMAGENES A CLOUDINARY
+ */
+app.post('/upload_images_post', upload.array('images', 2), (req, res) => {
+  try {
+    res.json(req.files.map(file => file.path));
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Servidor GrumpiStore, iniciado en el puerto: ${PORT}`);
