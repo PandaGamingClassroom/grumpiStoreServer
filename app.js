@@ -2956,23 +2956,23 @@ app.post('/upload_images_post', upload.array('images', 2), (req, res) => {
 
 app.post('/create_post', upload.array('images', 2), (req, res) => {
   try {
-    const { title, content, order } = req.body;
+    const { title, content, order, id_profesor } = req.body;
 
     // Manejar imágenes opcionales
     const image_one = req.files[0] ? req.files[0].path : null;
     const image_two = req.files[1] ? req.files[1].path : null;
 
-    if (!title || !content) {
-      return res.status(400).json({ error: 'Título y contenido son requeridos' });
+    if (!title || !content || !id_profesor) {
+      return res.status(400).json({ error: 'Título, contenido e id_profesor son requeridos' });
     }
 
-    // Guardar en la base de datos
+    // Guardar en la base de datos incluyendo el id_profesor
     const insertPostQuery = `
-      INSERT INTO post (title, content, image_one, image_two, post_order)
-      VALUES (?, ?, ?, ?, ?);
+      INSERT INTO post (title, content, image_one, image_two, post_order, id_profesor)
+      VALUES (?, ?, ?, ?, ?, ?);
     `;
     const stmt = db.prepare(insertPostQuery);
-    stmt.run(title, content, image_one, image_two, order || null);
+    stmt.run(title, content, image_one, image_two, order || null, id_profesor);
 
     res.status(200).json({ message: 'Post creado exitosamente' });
   } catch (error) {
@@ -2980,7 +2980,6 @@ app.post('/create_post', upload.array('images', 2), (req, res) => {
     res.status(500).json({ error: 'Error creando el post' });
   }
 });
-
 
 /**
  * 
@@ -2991,15 +2990,12 @@ app.get('/get_posts/:id_profesor', (req, res) => {
   try {
     const { id_profesor } = req.params;
 
-    // Consulta SQL para obtener los posts de un profesor por su id
     const selectPostsQuery = `
       SELECT id, title, content, image_one, image_two, post_order
       FROM post
       WHERE id_profesor = ?
-      ORDER BY post_order;
     `;
     
-    // Ejecutar la consulta con el id del profesor
     const posts = db.prepare(selectPostsQuery).all(id_profesor);
 
     res.status(200).json(posts);
@@ -3008,6 +3004,7 @@ app.get('/get_posts/:id_profesor', (req, res) => {
     res.status(500).json({ error: 'Error obteniendo los posts del profesor' });
   }
 });
+
 
 
 app.listen(PORT, () => {
