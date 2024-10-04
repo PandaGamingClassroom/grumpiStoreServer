@@ -2987,22 +2987,28 @@ app.post('/create_post', upload.array('images', 2), (req, res) => {
  * FUNCIÓN PARA AÑADIR UN NUEVO POST
  * 
  */
-app.get('/get_posts', (req, res) => {
+app.get('/get_posts/:profesor_id', (req, res) => {
   try {
+    const { profesor_id } = req.params;
+
+    // Consulta SQL para obtener los posts de un profesor por su id
     const selectPostsQuery = `
       SELECT id, title, content, image_one, image_two, post_order
       FROM post
+      WHERE profesor_id = ?
       ORDER BY post_order;
     `;
     
-    const posts = db.prepare(selectPostsQuery).all();
+    // Ejecutar la consulta con el id del profesor
+    const posts = db.prepare(selectPostsQuery).all(profesor_id);
 
     res.status(200).json(posts);
   } catch (error) {
-    console.error('Error obteniendo los posts:', error);
-    res.status(500).json({ error: 'Error obteniendo los posts' });
+    console.error('Error obteniendo los posts del profesor:', error);
+    res.status(500).json({ error: 'Error obteniendo los posts del profesor' });
   }
 });
+
 
 app.listen(PORT, () => {
   console.log(`Servidor GrumpiStore, iniciado en el puerto: ${PORT}`);
