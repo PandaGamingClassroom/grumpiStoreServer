@@ -153,9 +153,9 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: 'blog_images', // Carpeta donde se guardarán las imágenes
-    format: async () => 'png', // Puedes ajustar el formato si es necesario
-    public_id: (req, file) => file.originalname, // Nombre del archivo
+    folder: 'blog_images',
+    format: async () => 'png',
+    public_id: (req, file) => file.originalname,
   },
 });
 
@@ -257,12 +257,24 @@ function createTables() {
     );
   `;
 
+  const createPostsTable = `
+  CREATE TABLE IF NOT EXISTS post (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    titulo TEXT NOT NULL,
+    contenido TEXT NOT NULL,
+    image_one TEXT,
+    image_two TEXT,
+    order INTEGER
+  );
+`;
+
   try {
     db.exec(createTrainersTable);
     db.exec(createGrumpisTable);
     db.exec(createTrainerGrumpisTable);
     db.exec(createAtaquesTable);
     db.exec(createProfesoresTable);
+    db.exec(createPostsTable);
     console.log("Tablas creadas correctamente.");
   } catch (err) {
     console.error("Error creando tablas:", err.message);
@@ -2921,7 +2933,9 @@ app.post("/profesors/updateOrder", (req, res) => {
 
 
 /** 
+ * 
  * SUBIDA DE IMAGENES A CLOUDINARY
+ * 
  */
 app.post('/upload_images_post', upload.array('images', 2), (req, res) => {
   try {
@@ -2930,6 +2944,41 @@ app.post('/upload_images_post', upload.array('images', 2), (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
+
+/*********************************
+ *                               *
+ *      CREACIÓN DE POSTS        *
+ *                               *
+ *********************************/
+
+app.post('/create_post', upload.array('images', 2), (req, res) => {
+  try {
+    const { titulo, contenido, orden } = req.body;
+
+    // Manejar imágenes opcionales
+    const imageOneUrl = req.files[0] ? req.files[0].path : null;
+    const imageTwoUrl = req.files[1] ? req.files[1].path : null;
+
+    if (!titulo || !contenido) {
+      return res.status(400).json({ error: 'Título y contenido son requeridos' });
+    }
+
+    // Guardar en la base de datos
+    const insertPostQuery = `
+      INSERT INTO post (titulo, contenido, image_one, image_two, orden)
+      VALUES (?, ?, ?, ?, ?);
+    `;
+    const stmt = db.prepare(insertPostQuery);
+    stmt.run(titulo, contenido, imageOneUrl, imageTwoUrl, orden || null);
+
+    res.status(200).json({ message: 'Post creado exitosamente' });
+  } catch (error) {
+    console.error('Error creando el post:', error);
+    res.status(500).json({ error: 'Error creando el post' });
+  }
+});
+
 
 app.listen(PORT, () => {
   console.log(`Servidor GrumpiStore, iniciado en el puerto: ${PORT}`);
