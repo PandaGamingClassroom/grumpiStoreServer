@@ -260,8 +260,8 @@ function createTables() {
   const createPostsTable = `
   CREATE TABLE IF NOT EXISTS post (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    titulo TEXT NOT NULL,
-    contenido TEXT NOT NULL,
+    title TEXT NOT NULL,
+    content TEXT NOT NULL,
     image_one TEXT,
     image_two TEXT,
     order INTEGER
@@ -2954,23 +2954,23 @@ app.post('/upload_images_post', upload.array('images', 2), (req, res) => {
 
 app.post('/create_post', upload.array('images', 2), (req, res) => {
   try {
-    const { titulo, contenido, orden } = req.body;
+    const { title, content, order } = req.body;
 
     // Manejar imágenes opcionales
-    const imageOneUrl = req.files[0] ? req.files[0].path : null;
-    const imageTwoUrl = req.files[1] ? req.files[1].path : null;
+    const image_one = req.files[0] ? req.files[0].path : null;
+    const image_two = req.files[1] ? req.files[1].path : null;
 
-    if (!titulo || !contenido) {
+    if (!title || !content) {
       return res.status(400).json({ error: 'Título y contenido son requeridos' });
     }
 
     // Guardar en la base de datos
     const insertPostQuery = `
-      INSERT INTO post (titulo, contenido, image_one, image_two, orden)
+      INSERT INTO post (title, content, image_one, image_two, order)
       VALUES (?, ?, ?, ?, ?);
     `;
     const stmt = db.prepare(insertPostQuery);
-    stmt.run(titulo, contenido, imageOneUrl, imageTwoUrl, orden || null);
+    stmt.run(title, content, image_one, image_two, order || null);
 
     res.status(200).json({ message: 'Post creado exitosamente' });
   } catch (error) {
