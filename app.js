@@ -2966,7 +2966,7 @@ app.post('/create_post', upload.array('images', 2), (req, res) => {
 
     // Guardar en la base de datos
     const insertPostQuery = `
-      INSERT INTO post (title, content, image_one, image_two, order)
+      INSERT INTO post (title, content, image_one, image_two, "order")
       VALUES (?, ?, ?, ?, ?);
     `;
     const stmt = db.prepare(insertPostQuery);
