@@ -264,7 +264,9 @@ function createTables() {
     content TEXT NOT NULL,
     image_one TEXT,
     image_two TEXT,
-    post_order INTEGER
+    id_profesor INTEGER,
+    post_order INTEGER,
+    FOREIGN KEY (id_profesor) REFERENCES profesores(id)
   );
 `;
 
