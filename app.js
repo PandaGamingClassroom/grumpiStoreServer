@@ -2179,31 +2179,30 @@ app.get("/profesor/:nombre", (req, res) => {
   }
 });
 
-app.get("/profesor/:id", async (req, res) => {
-  const profesorId = parseInt(req.params.id);
-
+app.get("/get_profesor/:id", async (req, res) => {
   try {
-    const profesores = await readJsonFile(filePathAmin);
-    const entrenadores = await readJsonFile(filePath);
+    const { id } = req.params;
 
-    const profesor = profesores.find((p) => p.id === profesorId);
+    const selectProfesorQuery = `
+      SELECT * FROM profesores
+      WHERE id = ?
+    `;
+    
+    // Usamos .get porque esperamos un solo resultado
+    const profesor = db.prepare(selectProfesorQuery).get(id);
 
     if (!profesor) {
       return res.status(404).json({ error: "Profesor no encontrado" });
     }
 
-    const entrenadoresAsignados = entrenadores.filter(
-      (t) => t.id_profesor === profesorId
-    );
-
-    res.json({
-      profesor,
-      entrenadores: entrenadoresAsignados,
-    });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    // Devolver el profesor encontrado
+    res.status(200).json(profesor);
+  } catch (error) {
+    console.error('Error obteniendo el profesor:', error);
+    res.status(500).json({ error: 'Error obteniendo el profesor' });
   }
 });
+
 
 /**
  * Obtiene la lista de enteenadores de un profesor.
