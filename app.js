@@ -2987,20 +2987,20 @@ app.post('/create_post', upload.array('images', 2), (req, res) => {
  * FUNCIÓN PARA AÑADIR UN NUEVO POST
  * 
  */
-app.get('/get_posts/:profesor_id', (req, res) => {
+app.get('/get_posts/:id_profesor', (req, res) => {
   try {
-    const { profesor_id } = req.params;
+    const { id_profesor } = req.params;
 
     // Consulta SQL para obtener los posts de un profesor por su id
     const selectPostsQuery = `
       SELECT id, title, content, image_one, image_two, post_order
       FROM post
-      WHERE profesor_id = ?
+      WHERE id_profesor = ?
       ORDER BY post_order;
     `;
     
     // Ejecutar la consulta con el id del profesor
-    const posts = db.prepare(selectPostsQuery).all(profesor_id);
+    const posts = db.prepare(selectPostsQuery).all(id_profesor);
 
     res.status(200).json(posts);
   } catch (error) {
