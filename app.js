@@ -2980,6 +2980,28 @@ app.post('/create_post', upload.array('images', 2), (req, res) => {
 });
 
 
+/**
+ * 
+ * FUNCIÓN PARA AÑADIR UN NUEVO POST
+ * 
+ */
+app.get('/get_posts', (req, res) => {
+  try {
+    const selectPostsQuery = `
+      SELECT id, title, content, image_one, image_two, post_order
+      FROM post
+      ORDER BY post_order;
+    `;
+    
+    const posts = db.prepare(selectPostsQuery).all();
+
+    res.status(200).json(posts);
+  } catch (error) {
+    console.error('Error obteniendo los posts:', error);
+    res.status(500).json({ error: 'Error obteniendo los posts' });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Servidor GrumpiStore, iniciado en el puerto: ${PORT}`);
 });
