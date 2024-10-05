@@ -2998,7 +2998,7 @@ app.get('/get_posts/:id_profesor', (req, res) => {
     const { id_profesor } = req.params;
 
     const selectPostsQuery = `
-      SELECT id, title, content, image_one, image_two, post_order
+      SELECT id, title, content, image_one, image_two, background, post_order
       FROM post
       WHERE id_profesor = ?
     `;
