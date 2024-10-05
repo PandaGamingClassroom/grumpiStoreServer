@@ -2954,14 +2954,20 @@ app.post('/upload_images_post', upload.array('images', 2), (req, res) => {
  *                               *
  *********************************/
 
-app.post('/create_post', upload.array('images', 3), (req, res) => {
+// Configuración para aceptar múltiples campos
+const uploadFields = upload.fields([
+  { name: 'images', maxCount: 2 }, 
+  { name: 'backgroundImage', maxCount: 1 }
+]);
+
+app.post('/create_post', uploadFields, (req, res) => {
   try {
     const { title, content, order, id_profesor } = req.body;
 
     // Manejar imágenes opcionales
-    const image_one = req.files[0] ? req.files[0].path : null;
-    const image_two = req.files[1] ? req.files[1].path : null;
-    const background = req.files[2] ? req.files[2].path : null;
+    const image_one = req.files['images']?.[0]?.path || null;
+    const image_two = req.files['images']?.[1]?.path || null;
+    const background = req.files['backgroundImage']?.[0]?.path || null;
 
     if (!title || !content || !id_profesor) {
       return res.status(400).json({ error: 'Título, contenido e id_profesor son requeridos' });
@@ -2970,7 +2976,7 @@ app.post('/create_post', upload.array('images', 3), (req, res) => {
     // Guardar en la base de datos incluyendo el id_profesor
     const insertPostQuery = `
       INSERT INTO post (title, content, image_one, image_two, background, post_order, id_profesor)
-      VALUES (?, ?, ?, ?, ?, ?);
+      VALUES (?, ?, ?, ?, ?, ?, ?);
     `;
     const stmt = db.prepare(insertPostQuery);
     stmt.run(title, content, image_one, image_two, background, order || null, id_profesor);
