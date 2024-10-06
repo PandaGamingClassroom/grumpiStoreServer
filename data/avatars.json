@@ -85,7 +85,7 @@
   },
   {
     "id": 22,
-    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/022-Dracogru2.png"
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/022-Dracogru.png"
   },
   {
     "id": 23,
@@ -642,10 +642,18 @@
   },
   {
     "id": 161,
-    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/Ashi.png"
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/X-Ashi.png"
   },
   {
     "id": 162,
-    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/Flare.png"
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/X-Flare.png"
+  },
+  {
+    "id": 163,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/X-Grinch.png"
+  },
+  {
+    "id": 164,
+    "imagen": "https://grumpistoreserver.onrender.com/uploads/creatures/X-Nifú.png"
   }
 ]
