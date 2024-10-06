@@ -3012,6 +3012,32 @@ app.get('/get_posts/:id_profesor', (req, res) => {
   }
 });
 
+/**
+ * 
+ * Elimina un post seleccionado
+ * 
+ */
+app.delete('/delete_post/:id', (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deletePostQuery = `
+      DELETE FROM post
+      WHERE id = ?
+    `;
+
+    const result = db.prepare(deletePostQuery).run(id);
+
+    if (result.changes > 0) {
+      res.status(200).json({ message: 'Post eliminado exitosamente' });
+    } else {
+      res.status(404).json({ error: 'Post no encontrado' });
+    }
+  } catch (error) {
+    console.error('Error eliminando el post:', error);
+    res.status(500).json({ error: 'Error eliminando el post' });
+  }
+});
 
 
 app.listen(PORT, () => {
