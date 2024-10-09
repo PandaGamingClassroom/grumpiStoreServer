@@ -2323,7 +2323,7 @@ app.post("/profesores/:id/entrenadores", (req, res) => {
  *
  */
 app.put("/profesors/update/:name", (req, res) => {
-  const professorName = req.params.name; // Nombre del profesor a actualizar
+  const professorName = req.params.id; // Nombre del profesor a actualizar
   const { professor_name, password, connection_count, last_conection } =
     req.body; // Campos a actualizar
 
@@ -2336,7 +2336,7 @@ app.put("/profesors/update/:name", (req, res) => {
     const updateQuery = db.prepare(`
       UPDATE profesores
       SET nombre = ?, password = ?, connection_count = ?, last_conection = ?
-      WHERE nombre = ?
+      WHERE id = ?
     `);
 
     // Ejecuta la consulta de actualización
