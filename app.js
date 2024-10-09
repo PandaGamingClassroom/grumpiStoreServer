@@ -588,29 +588,33 @@ app.put("/trainers/update/:id", (req, res) => {
     return res.status(400).json({ error: "ID de entrenador inválido" });
   }
 
-  const { name, password, avatar, grumpidolar, combatMark, objetosAEliminar } =
-    req.body;
+  const { name, password, avatar, grumpidolar, combatMark } = req.body;
 
   // Fecha y hora de la última conexión
   const lastConnection = new Date().toISOString();
   const dateLastConnection = lastConnection.split("T")[0];
 
+  // Validar campos obligatorios si es necesario
+  if (!name) {
+    return res.status(400).json({ error: "El nombre es requerido" });
+  }
+
   try {
     const updateStmt = db.prepare(`
       UPDATE trainers 
       SET name = ?, password = ?, grumpidolar = ?, marca_combate = ?, avatar = ?, 
-          last_conection = ?, connection_count = ?
+          last_connection = ?, connection_count = ?
       WHERE id = ?
     `);
 
     updateStmt.run(
-      name || null,
+      name, // Asegúrate de que name no sea null
       password || null,
       grumpidolar || null,
       combatMark || null,
       avatar || null,
       lastConnection,
-      dateLastConnection,
+      (req.body.connection_count || 0) + 1, // Incrementa el contador de conexiones
       trainerId
     );
 
