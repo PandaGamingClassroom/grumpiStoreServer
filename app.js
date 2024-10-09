@@ -7,8 +7,8 @@ const chokidar = require("chokidar");
 const simpleGit = require("simple-git");
 const path = require("path");
 const Database = require("better-sqlite3");
-const cloudinary = require('cloudinary').v2;
-const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const cloudinary = require("cloudinary").v2;
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
 const PORT = process.env.PORT || 3001;
 
@@ -98,7 +98,6 @@ try {
   }
 }
 
-
 /**************************************
  *                                    *
  *       Configuración de CORS        *
@@ -141,20 +140,19 @@ app.use((req, res, next) => {
 fs.mkdirSync(uploadDir, { recursive: true });
 fs.mkdirSync(uploadDirMedals, { recursive: true });
 
-
 // Configuración de Cloudinary
 cloudinary.config({
-  cloud_name: 'dkmg8dtwy',
-  api_key: '599214592465719',
-  api_secret: 'NeH36pVIqFqSfV8I-CGpLgmIcFA',
+  cloud_name: "dkmg8dtwy",
+  api_key: "599214592465719",
+  api_secret: "NeH36pVIqFqSfV8I-CGpLgmIcFA",
 });
 
 // Configuración de multer para usar Cloudinary como almacenamiento
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: 'blog_images',
-    format: async () => 'png',
+    folder: "blog_images",
+    format: async () => "png",
     public_id: (req, file) => file.originalname,
   },
 });
@@ -201,7 +199,7 @@ function createTables() {
       recompensas TEXT,
       energies TEXT,
       connection_count INTEGER,
-      last_conection TEXT,
+      last_conection TIMESTAMP,
       order INTEGER
     );
   `;
@@ -256,7 +254,7 @@ function createTables() {
       password TEXT NOT NULL,
       rol TEXT,
       connection_count INTEGER,
-      last_conection TEXT,
+      last_conection TIMESTAMP,
       order INTEGER
     );
   `;
@@ -588,40 +586,74 @@ app.put("/trainers/update/:id", (req, res) => {
     return res.status(400).json({ error: "ID de entrenador inválido" });
   }
 
-  const { name, password, avatar, grumpidolar, combatMark } = req.body;
-
-  // Fecha y hora de la última conexión
-  const lastConnection = new Date().toISOString();
-  const dateLastConnection = lastConnection.split("T")[0];
-
-  // Validar campos obligatorios si es necesario
-  if (!name) {
-    return res.status(400).json({ error: "El nombre es requerido" });
-  }
+  const {
+    name,
+    password,
+    avatar,
+    grumpidolar,
+    combatMark,
+    objetosAEliminar,
+    connection_count,
+    last_conection,
+  } = req.body;
 
   try {
+    const trainer = db
+      .prepare("SELECT * FROM trainers WHERE id = ?")
+      .get(trainerId);
+
+    if (!trainer) {
+      return res.status(404).json({ error: "Entrenador no encontrado" });
+    }
+
+    // Actualiza los campos si existen y no están vacíos
+    if (name !== undefined && name !== "") {
+      trainer.name = name;
+    }
+    if (avatar !== undefined && avatar !== "") {
+      trainer.avatar = avatar;
+    }
+    if (password !== undefined && password !== "") {
+      trainer.password = password;
+    }
+    if (grumpidolar !== undefined && grumpidolar !== "") {
+      trainer.grumpidolar = grumpidolar;
+    }
+    if (combatMark !== undefined && combatMark !== null) {
+      trainer.marca_combate = combatMark;
+    }
+    if (connection_count !== undefined && connection_count !== null) {
+      trainer.connection_count = connection_count;
+    }
+    if (last_conection !== undefined && last_conection !== null) {
+      trainer.last_conection = last_conection;
+    }
+
+    // Ejecutar la actualización
     const updateStmt = db.prepare(`
       UPDATE trainers 
-      SET name = ?, password = ?, grumpidolar = ?, marca_combate = ?, avatar = ?, 
-          last_conection = ?, connection_count = ?
+      SET name = ?, password = ?, grumpidolar = ?, marca_combate = ?, avatar = ?, connection_count = ?, last_conection = ?
       WHERE id = ?
     `);
-
     updateStmt.run(
-      name, // Asegúrate de que name no sea null
-      password || null,
-      grumpidolar || null,
-      combatMark || null,
-      avatar || null,
-      lastConnection,
-      (req.body.connection_count || 0) + 1, // Incrementa el contador de conexiones
-      trainerId
+      trainer.name,
+      trainer.password,
+      trainer.grumpidolar,
+      trainer.marca_combate,
+      trainer.avatar,
+      trainer.connection_count,
+      trainer.last_conection,
+      trainerId // Cambié esto para usar trainerId en vez de trainer.id
     );
 
-    res.status(200).json({
-      message: "Entrenador actualizado correctamente con última conexión",
-      data: { name, lastConnection, dateLastConnection },
-    });
+    console.log("Trainer actualizado:", trainer);
+
+    // Manejar la eliminación de objetos
+    if (Array.isArray(objetosAEliminar)) {
+      handleObjectDeletion(trainerId, objetosAEliminar); // Cambié trainer.id a trainerId
+    }
+
+    res.status(200).json({ message: "Entrenador actualizado correctamente" });
   } catch (dbError) {
     console.error(
       "Error al actualizar el entrenador en la base de datos:",
@@ -808,8 +840,6 @@ function editGrumpisFromTrainer(trainerId, objetosAEliminar) {
     );
   }
 }
-
-
 
 /**
  * Función para editar los objetos de combate seleccionados.
@@ -2174,7 +2204,7 @@ app.get("/get_profesor/:id", async (req, res) => {
       SELECT * FROM profesores
       WHERE id = ?
     `;
-    
+
     // Usamos .get porque esperamos un solo resultado
     const profesor = db.prepare(selectProfesorQuery).get(id);
 
@@ -2185,11 +2215,10 @@ app.get("/get_profesor/:id", async (req, res) => {
     // Devolver el profesor encontrado
     res.status(200).json(profesor);
   } catch (error) {
-    console.error('Error obteniendo el profesor:', error);
-    res.status(500).json({ error: 'Error obteniendo el profesor' });
+    console.error("Error obteniendo el profesor:", error);
+    res.status(500).json({ error: "Error obteniendo el profesor" });
   }
 });
-
 
 /**
  * Obtiene la lista de enteenadores de un profesor.
@@ -2654,7 +2683,7 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
       const type = energyToSpend.type.toLowerCase();
       let remainingToSpend = energyToSpend.quantity; // Energía restante por gastar
       console.log("remainingToSpend: ", remainingToSpend);
-      
+
       // Recorrer las energías del entrenador y eliminar las cantidades correctas
       for (let i = 0; i < energies.length && remainingToSpend > 0; i++) {
         let energia = energies[i];
@@ -2687,8 +2716,6 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
     return Promise.reject(error.message);
   }
 }
-
-
 
 /***************************************************************
  *                                                              *
@@ -2860,7 +2887,7 @@ app.post("/profesors/updateOrder", (req, res) => {
     const stmt = db.prepare(`UPDATE profesores SET \`order\` = ? WHERE id = ?`);
 
     profesors.forEach((profesor, index) => {
-      stmt.run(index, profesor.id); 
+      stmt.run(index, profesor.id);
     });
 
     res.status(200).json({ message: "Orden actualizado correctamente." });
@@ -2870,20 +2897,18 @@ app.post("/profesors/updateOrder", (req, res) => {
   }
 });
 
-
-/** 
- * 
+/**
+ *
  * SUBIDA DE IMAGENES A CLOUDINARY
- * 
+ *
  */
-app.post('/upload_images_post', upload.array('images', 2), (req, res) => {
+app.post("/upload_images_post", upload.array("images", 2), (req, res) => {
   try {
-    res.json(req.files.map(file => file.path));
+    res.json(req.files.map((file) => file.path));
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
-
 
 /*********************************
  *                               *
@@ -2893,21 +2918,23 @@ app.post('/upload_images_post', upload.array('images', 2), (req, res) => {
 
 // Configuración para aceptar múltiples campos
 const uploadFields = upload.fields([
-  { name: 'images', maxCount: 2 }, 
-  { name: 'backgroundImage', maxCount: 1 }
+  { name: "images", maxCount: 2 },
+  { name: "backgroundImage", maxCount: 1 },
 ]);
 
-app.post('/create_post', uploadFields, (req, res) => {
+app.post("/create_post", uploadFields, (req, res) => {
   try {
     const { title, content, order, id_profesor } = req.body;
 
     // Manejar imágenes opcionales
-    const image_one = req.files['images']?.[0]?.path || null;
-    const image_two = req.files['images']?.[1]?.path || null;
-    const background = req.files['backgroundImage']?.[0]?.path || null;
+    const image_one = req.files["images"]?.[0]?.path || null;
+    const image_two = req.files["images"]?.[1]?.path || null;
+    const background = req.files["backgroundImage"]?.[0]?.path || null;
 
     if (!title || !content || !id_profesor) {
-      return res.status(400).json({ error: 'Título, contenido e id_profesor son requeridos' });
+      return res
+        .status(400)
+        .json({ error: "Título, contenido e id_profesor son requeridos" });
     }
 
     // Guardar en la base de datos incluyendo el id_profesor
@@ -2916,21 +2943,29 @@ app.post('/create_post', uploadFields, (req, res) => {
       VALUES (?, ?, ?, ?, ?, ?, ?);
     `;
     const stmt = db.prepare(insertPostQuery);
-    stmt.run(title, content, image_one, image_two, background, order || null, id_profesor);
+    stmt.run(
+      title,
+      content,
+      image_one,
+      image_two,
+      background,
+      order || null,
+      id_profesor
+    );
 
-    res.status(200).json({ message: 'Post creado exitosamente' });
+    res.status(200).json({ message: "Post creado exitosamente" });
   } catch (error) {
-    console.error('Error creando el post:', error);
-    res.status(500).json({ error: 'Error creando el post' });
+    console.error("Error creando el post:", error);
+    res.status(500).json({ error: "Error creando el post" });
   }
 });
 
 /**
- * 
+ *
  * FUNCIÓN PARA AÑADIR UN NUEVO POST
- * 
+ *
  */
-app.get('/get_posts/:id_profesor', (req, res) => {
+app.get("/get_posts/:id_profesor", (req, res) => {
   try {
     const { id_profesor } = req.params;
 
@@ -2939,22 +2974,22 @@ app.get('/get_posts/:id_profesor', (req, res) => {
       FROM post
       WHERE id_profesor = ?
     `;
-    
+
     const posts = db.prepare(selectPostsQuery).all(id_profesor);
 
     res.status(200).json(posts);
   } catch (error) {
-    console.error('Error obteniendo los posts del profesor:', error);
-    res.status(500).json({ error: 'Error obteniendo los posts del profesor' });
+    console.error("Error obteniendo los posts del profesor:", error);
+    res.status(500).json({ error: "Error obteniendo los posts del profesor" });
   }
 });
 
 /**
- * 
+ *
  * Elimina un post seleccionado
- * 
+ *
  */
-app.delete('/delete_post/:id', (req, res) => {
+app.delete("/delete_post/:id", (req, res) => {
   try {
     const { id } = req.params;
 
@@ -2966,16 +3001,15 @@ app.delete('/delete_post/:id', (req, res) => {
     const result = db.prepare(deletePostQuery).run(id);
 
     if (result.changes > 0) {
-      res.status(200).json({ message: 'Post eliminado exitosamente' });
+      res.status(200).json({ message: "Post eliminado exitosamente" });
     } else {
-      res.status(404).json({ error: 'Post no encontrado' });
+      res.status(404).json({ error: "Post no encontrado" });
     }
   } catch (error) {
-    console.error('Error eliminando el post:', error);
-    res.status(500).json({ error: 'Error eliminando el post' });
+    console.error("Error eliminando el post:", error);
+    res.status(500).json({ error: "Error eliminando el post" });
   }
 });
-
 
 app.listen(PORT, () => {
   console.log(`Servidor GrumpiStore, iniciado en el puerto: ${PORT}`);
