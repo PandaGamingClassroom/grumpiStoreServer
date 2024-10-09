@@ -599,7 +599,7 @@ app.put("/trainers/update/:id", (req, res) => {
     const updateStmt = db.prepare(`
       UPDATE trainers 
       SET name = ?, password = ?, grumpidolar = ?, marca_combate = ?, avatar = ?, 
-          last_conection = ?, date_last_conection = ?
+          last_conection = ?, connection_count = ?
       WHERE id = ?
     `);
 
@@ -2300,7 +2300,7 @@ app.put("/profesors/update/:name", (req, res) => {
   try {
     const updateQuery = db.prepare(`
       UPDATE profesores
-      SET nombre = ?, password = ?, last_conection = ?, date_last_conection = ?
+      SET nombre = ?, password = ?, last_conection = ?, connection_count = ?
       WHERE nombre = ?
     `);
 
