@@ -201,7 +201,7 @@ function createTables() {
       recompensas TEXT,
       energies TEXT,
       connection_count INTEGER,
-      date_last_contection TEXT,
+      last_conection TEXT,
       order INTEGER
     );
   `;
@@ -256,7 +256,7 @@ function createTables() {
       password TEXT NOT NULL,
       rol TEXT,
       connection_count INTEGER,
-      date_last_contection TEXT,
+      last_conection TEXT,
       order INTEGER
     );
   `;
@@ -603,7 +603,7 @@ app.put("/trainers/update/:id", (req, res) => {
     const updateStmt = db.prepare(`
       UPDATE trainers 
       SET name = ?, password = ?, grumpidolar = ?, marca_combate = ?, avatar = ?, 
-          last_connection = ?, connection_count = ?
+          last_conection = ?, connection_count = ?
       WHERE id = ?
     `);
 
