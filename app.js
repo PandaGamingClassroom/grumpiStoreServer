@@ -200,6 +200,8 @@ function createTables() {
       grumpidolar INTEGER,
       recompensas TEXT,
       energies TEXT,
+      connection_count INTEGER,
+      date_last_contection TEXT,
       order INTEGER
     );
   `;
@@ -253,6 +255,8 @@ function createTables() {
       usuario TEXT NOT NULL,
       password TEXT NOT NULL,
       rol TEXT,
+      connection_count INTEGER,
+      date_last_contection TEXT,
       order INTEGER
     );
   `;
@@ -587,55 +591,33 @@ app.put("/trainers/update/:id", (req, res) => {
   const { name, password, avatar, grumpidolar, combatMark, objetosAEliminar } =
     req.body;
 
+  // Fecha y hora de la última conexión
+  const lastConnection = new Date().toISOString();
+  const dateLastConnection = lastConnection.split("T")[0];
+
   try {
-    const trainer = db
-      .prepare("SELECT * FROM trainers WHERE id = ?")
-      .get(trainerId);
-
-    if (!trainer) {
-      return res.status(404).json({ error: "Entrenador no encontrado" });
-    }
-
-    // Actualiza los campos si existen y no están vacíos
-    if (name !== undefined && name !== "") {
-      trainer.name = name;
-    }
-    if (avatar !== undefined && avatar !== "") {
-      trainer.avatar = avatar;
-    }
-    if (password !== undefined && password !== "") {
-      trainer.password = password;
-    }
-    if (grumpidolar !== undefined && grumpidolar !== "") {
-      trainer.grumpidolar = grumpidolar;
-    }
-    if (combatMark !== undefined && combatMark !== null) {
-      trainer.marca_combate = combatMark;
-    }
-
-    // Ejecutar la actualización
     const updateStmt = db.prepare(`
       UPDATE trainers 
-      SET name = ?, password = ?, grumpidolar = ?, marca_combate = ?, avatar = ?
+      SET name = ?, password = ?, grumpidolar = ?, marca_combate = ?, avatar = ?, 
+          last_conection = ?, date_last_conection = ?
       WHERE id = ?
     `);
+
     updateStmt.run(
-      trainer.name,
-      trainer.password,
-      trainer.grumpidolar,
-      trainer.marca_combate,
-      trainer.avatar,
-      trainer.id
+      name || null,
+      password || null,
+      grumpidolar || null,
+      combatMark || null,
+      avatar || null,
+      lastConnection,
+      dateLastConnection,
+      trainerId
     );
 
-    console.log("Trainer actualizado:", trainer);
-
-    // Manejar la eliminación de objetos
-    if (Array.isArray(objetosAEliminar)) {
-      handleObjectDeletion(trainer.id, objetosAEliminar);
-    }
-
-    res.status(200).json({ message: "Entrenador actualizado correctamente" });
+    res.status(200).json({
+      message: "Entrenador actualizado correctamente con última conexión",
+      data: { name, lastConnection, dateLastConnection },
+    });
   } catch (dbError) {
     console.error(
       "Error al actualizar el entrenador en la base de datos:",
@@ -2308,84 +2290,35 @@ app.post("/profesores/:id/entrenadores", (req, res) => {
  *
  */
 app.put("/profesors/update/:name", (req, res) => {
-  const professorName = req.params.name; // Nombre del profesor a actualizar
-  const { professor_name, password } = req.body; // Campos a actualizar
+  const professorName = req.params.name;
+  const { professor_name, password } = req.body;
 
-  console.log("Profesor que se va a editar: ", professorName);
-  console.log("Atributos a editar del profesor: ", professor_name, password);
+  // Fecha y hora de la última conexión
+  const lastConnection = new Date().toISOString();
+  const dateLastConnection = lastConnection.split("T")[0];
 
-  // Actualización en la base de datos
   try {
-    // Prepara la consulta de actualización
     const updateQuery = db.prepare(`
       UPDATE profesores
-      SET nombre = ?, password = ?
+      SET nombre = ?, password = ?, last_conection = ?, date_last_conection = ?
       WHERE nombre = ?
     `);
 
-    // Ejecuta la consulta de actualización
     const result = updateQuery.run(
       professor_name || professorName,
       password || null,
+      lastConnection,
+      dateLastConnection,
       professorName
     );
 
-    // Verifica si se actualizó alguna fila
     if (result.changes === 0) {
       return res.status(404).json({ error: "Profesor no encontrado." });
     }
 
-    console.log("Profesor actualizado en la base de datos.");
-
-    // Actualización en el archivo JSON
-    fs.readFile(filePathAmin, "utf8", (err, data) => {
-      if (err) {
-        return res
-          .status(500)
-          .json({ error: `Error al leer el fichero [${filePathAmin}]` });
-      }
-
-      let professors;
-      try {
-        professors = JSON.parse(data);
-      } catch (parseErr) {
-        return res
-          .status(500)
-          .json({ error: "Error al parsear los datos de los profesores." });
-      }
-
-      const professorIndex = professors.findIndex(
-        (prof) => prof.nombre === professorName
-      );
-
-      if (professorIndex === -1) {
-        return res
-          .status(404)
-          .json({ error: "Profesor no encontrado en el archivo." });
-      }
-
-      // Actualizar los datos del profesor en el archivo JSON
-      if (professor_name) professors[professorIndex].nombre = professor_name;
-      if (password) professors[professorIndex].password = password;
-
-      // Guardar los datos actualizados en el archivo
-      fs.writeFile(
-        filePathAmin,
-        JSON.stringify(professors, null, 2),
-        "utf8",
-        (writeErr) => {
-          if (writeErr) {
-            return res.status(500).json({
-              error: "Error al guardar los datos actualizados en el archivo.",
-            });
-          }
-
-          res.status(200).json({
-            message: "Profesor actualizado correctamente.",
-            data: professors[professorIndex],
-          });
-        }
-      );
+    res.status(200).json({
+      message: "Profesor actualizado correctamente con última conexión.",
+      data: { professor_name, lastConnection, dateLastConnection },
     });
   } catch (dbError) {
     console.error(
