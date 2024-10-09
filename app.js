@@ -2341,11 +2341,11 @@ app.put("/profesors/update/:name", (req, res) => {
 
     // Ejecuta la consulta de actualización
     const result = updateQuery.run(
-      professor_name || professorName,
-      password || null,
-      professorName,
-      connection_count,
-      last_conection
+      professor_name || professorName, // Cambiar el nombre si se proporciona
+      password || null, // Usar null si no se proporciona una contraseña
+      connection_count || null, // Usar null si no se proporciona el conteo
+      last_conection || null, // Usar null si no se proporciona la última conexión
+      professorName // Usar el nombre original para la cláusula WHERE
     );
 
     // Verifica si se actualizó alguna fila
@@ -2413,6 +2413,7 @@ app.put("/profesors/update/:name", (req, res) => {
     res.status(500).json({ error: "Error interno del servidor" });
   }
 });
+
 
 /**
  *
