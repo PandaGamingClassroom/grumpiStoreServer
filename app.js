@@ -2422,21 +2422,29 @@ app.put("/profesors/update/:name", (req, res) => {
  */
 app.put("/profesors/update_all_data/:name", (req, res) => {
   const professorName = req.params.name; // Nombre del profesor a actualizar
-  const { usuario, professor_name, password } = req.body; // Campos a actualizar
+  const {
+    usuario,
+    professor_name,
+    password,
+    connection_count,
+    last_conection,
+  } = req.body; // Campos a actualizar
 
   console.log("Profesor que se va a editar: ", professorName);
   console.log(
     "Atributos a editar del profesor: ",
     usuario,
     professor_name,
-    password
+    password,
+    connection_count,
+    last_conection
   );
 
   try {
     // Primero, actualiza en la base de datos
     const updateQuery = db.prepare(`
       UPDATE profesores
-      SET nombre = ?, password = ?, usuario = ?
+      SET nombre = ?, password = ?, usuario = ?, connection_count = ?, last_conection = ?
       WHERE nombre = ?
     `);
 
@@ -2444,7 +2452,9 @@ app.put("/profesors/update_all_data/:name", (req, res) => {
       professor_name || professorName, // Usar el nombre nuevo si se proporciona
       password || null, // Usar null si no se proporciona una nueva contraseña
       usuario || null, // Usar null si no se proporciona un nuevo usuario
-      professorName // El nombre antiguo para encontrar al profesor
+      professorName, // El nombre antiguo para encontrar al profesor
+      connection_count,
+      last_conection
     );
 
     // Verificar si se actualizó alguna fila en la base de datos
@@ -2483,29 +2493,7 @@ app.put("/profesors/update_all_data/:name", (req, res) => {
           .json({ error: "Profesor no encontrado en el archivo." });
       }
 
-      // Actualizar los datos del profesor en el archivo JSON
-      if (professor_name) professors[professorIndex].nombre = professor_name;
-      if (password) professors[professorIndex].password = password;
-      if (usuario) professors[professorIndex].usuario = usuario;
 
-      // Guardar los datos actualizados en el archivo
-      fs.writeFile(
-        filePathAmin,
-        JSON.stringify(professors, null, 2),
-        "utf8",
-        (writeErr) => {
-          if (writeErr) {
-            return res.status(500).json({
-              error: "Error al guardar los datos actualizados en el archivo.",
-            });
-          }
-
-          res.status(200).json({
-            message: "Profesor actualizado correctamente.",
-            data: professors[professorIndex],
-          });
-        }
-      );
     });
   } catch (dbError) {
     console.error(
