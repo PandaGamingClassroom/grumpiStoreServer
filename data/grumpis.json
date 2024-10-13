@@ -3978,5 +3978,66 @@
       }
     ],
     "tipo": "Fuego"
+  },
+  {
+    "id": 165,
+    "trainer_id": 0,
+    "nombre": "X-Giollet Ojotón",
+    "PS": 120,
+    "n_grumpidex": "E5",
+    "clase":"evento",
+    "img_general": "https://grumpistoreserver.onrender.com/uploads/grumpis/general/E5.1.png",
+    "img_general_trasera": "https://grumpistoreserver.onrender.com/uploads/grumpis/general/E5.2.png",
+    "img_conseguir": "https://grumpistoreserver.onrender.com/uploads/grumpis/howToGetGrumpis/E5.1.png",
+    "img_conseguir_trasera": "https://grumpistoreserver.onrender.com/uploads/grumpis/howToGetGrumpis/E5.2.png",
+    "descripcion": "Grumpi de evento de Halloween 2024. Grumpi de tipo normal, con una apariencia camaleónica, que le permite controlar todos los elementos.",
+    "ataques": [
+      {
+        "nombre": "Agujas rosas",
+        "efecto": "40",
+        "tipo": "Normal"
+      },
+      {
+        "nombre": "Pinchos amarillos",
+        "efecto": "20 + Paralizar",
+        "tipo": "Rayo"
+      },
+      {
+        "nombre": "Escudo azul",
+        "efecto": "Se protege durante un turno de un ataque enemigo.",
+        "tipo": "Agua"
+      },
+      {
+        "nombre": "Ojo de botón",
+        "efecto": "40",
+        "tipo": "Luz"
+      },
+      {
+        "nombre": "Absorver",
+        "efecto": "10 + Se cura 30 puntos de salud",
+        "tipo": "Vida"
+      },
+      {
+        "nombre": "Aleteo",
+        "efecto": "Confunde al enemigo. Potencia +20 su próximo ataque eléctrico.",
+        "tipo": "Aire"
+      },
+      {
+        "nombre": "Bola de fuego",
+        "efecto": "20 + Quemadura",
+        "tipo": "Fuego"
+      },
+      {
+        "nombre": "Brazo de oso",
+        "efecto": "40",
+        "tipo": "Tierra"
+      },
+      {
+        "nombre": "Cola oscura",
+        "efecto": "40",
+        "tipo": "Oscuridad"
+      }
+    ],
+    "tipo": "Normal"
   }
 ]
