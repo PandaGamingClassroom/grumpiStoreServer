@@ -761,5 +761,54 @@
     "efecto": "60 + cegar",
     "tipo": "Vida",
     "especial": false
+  },
+  {
+    "id": 110,
+    "nombre": "Ajugas rosas",
+    "efecto": "40",
+    "tipo": "Normal",
+    "especial": false
+  },
+  {
+    "id": 111,
+    "nombre": "Pinchos amarillos",
+    "efecto": "20 + Paralizar",
+    "tipo": "Rayo",
+    "especial": false
+  },
+  {
+    "id": 112,
+    "nombre": "Escudo azul",
+    "efecto": "Se protege durante un turno de un ataque enemigo.",
+    "tipo": "Agua",
+    "especial": false
+  },
+  {
+    "id": 113,
+    "nombre": "Ojo de botón",
+    "efecto": "40",
+    "tipo": "Luz",
+    "especial": false
+  },
+  {
+    "id": 114,
+    "nombre": "Bola de fuego",
+    "efecto": "20 + Quemadura",
+    "tipo": "Fuego",
+    "especial": false
+  },
+  {
+    "id": 115,
+    "nombre": "Brazo de oso",
+    "efecto": "40",
+    "tipo": "Tierra",
+    "especial": false
+  },
+  {
+    "id": 116,
+    "nombre": "Cola oscura",
+    "efecto": "40",
+    "tipo": "Oscuridad",
+    "especial": false
   }
 ]
