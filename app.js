@@ -3052,6 +3052,93 @@ app.delete("/delete_post/:id", (req, res) => {
   }
 });
 
+
+/*********************************
+ *                               *
+ *      EDICIÓN DE POSTS         *
+ *                               *
+ *********************************/
+
+// Configuración para aceptar múltiples campos (reutilizamos `uploadFields`)
+app.put("/edit_post/:id", uploadFields, (req, res) => {
+  try {
+    const { id } = req.params;
+    const { title, content, order, id_profesor } = req.body;
+
+    // Manejar imágenes opcionales
+    const image_one = req.files["images"]?.[0]?.path || null;
+    const image_two = req.files["images"]?.[1]?.path || null;
+    const background = req.files["backgroundImage"]?.[0]?.path || null;
+
+    // Verificar que el post existe
+    const selectPostQuery = `
+      SELECT * FROM post WHERE id = ?;
+    `;
+    const post = db.prepare(selectPostQuery).get(id);
+
+    if (!post) {
+      return res.status(404).json({ error: "Post no encontrado" });
+    }
+
+    // Preparar la consulta de actualización solo para los campos que hayan cambiado
+    const updateFields = [];
+    const updateValues = [];
+
+    if (title) {
+      updateFields.push("title = ?");
+      updateValues.push(title);
+    }
+    if (content) {
+      updateFields.push("content = ?");
+      updateValues.push(content);
+    }
+    if (order) {
+      updateFields.push("post_order = ?");
+      updateValues.push(order);
+    }
+    if (id_profesor) {
+      updateFields.push("id_profesor = ?");
+      updateValues.push(id_profesor);
+    }
+    if (image_one) {
+      updateFields.push("image_one = ?");
+      updateValues.push(image_one);
+    }
+    if (image_two) {
+      updateFields.push("image_two = ?");
+      updateValues.push(image_two);
+    }
+    if (background) {
+      updateFields.push("background = ?");
+      updateValues.push(background);
+    }
+
+    if (updateFields.length === 0) {
+      return res.status(400).json({ error: "No se proporcionaron campos para actualizar" });
+    }
+
+    // Agregar el ID del post al final de los valores
+    updateValues.push(id);
+
+    // Ejecutar la actualización
+    const updatePostQuery = `
+      UPDATE post SET ${updateFields.join(", ")}
+      WHERE id = ?;
+    `;
+    const stmt = db.prepare(updatePostQuery);
+    const result = stmt.run(...updateValues);
+
+    if (result.changes > 0) {
+      res.status(200).json({ message: "Post editado exitosamente" });
+    } else {
+      res.status(500).json({ error: "Error editando el post" });
+    }
+  } catch (error) {
+    console.error("Error editando el post:", error);
+    res.status(500).json({ error: "Error editando el post" });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Servidor GrumpiStore, iniciado en el puerto: ${PORT}`);
 });
