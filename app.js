@@ -714,69 +714,50 @@ function handleObjectDeletion(trainerId, objetosAEliminar) {
  * @param {*} updatedTrainer Recibe los datos del enetrenador a editar.
  * @param {*} objetosAEliminar Recibe los datos del objeto a editar.
  */
-function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
+function editEnergiesFromTrainer(trainerId, energiasAEliminar) {
   const trainer = db
     .prepare("SELECT * FROM trainers WHERE id = ?")
     .get(trainerId);
 
   if (!trainer) {
-    throw new Error("Entrenador no encontrado");
+    throw new Error("Entrenador no encontrado.");
   }
 
-  // Verificar si el campo energies existe y es una cadena JSON válida
-  let energias = [];
-  if (trainer.energies) {
-    try {
-      energias = JSON.parse(trainer.energies);
-    } catch (e) {
-      throw new Error("Formato de energías inválido en la base de datos.");
+  const energiasDelEntrenador = trainer.energies || [];
+
+  energiasAEliminar.forEach((energiaAEliminar) => {
+    const energiaExistente = energiasDelEntrenador.find(
+      (energia) => energia.nombre === energiaAEliminar.nombre
+    );
+
+    if (!energiaExistente) {
+      throw new Error(
+        `La energía ${energiaAEliminar.nombre} no se encuentra en las energías del entrenador.`
+      );
     }
-  }
-  console.log("Energías del entrenador:", energias);
 
-  if (!Array.isArray(objetosAEliminar)) {
-    throw new Error("objetosAEliminar no es un array o no existe.");
-  }
+    if (energiaExistente.cantidad < energiaAEliminar.cantidad) {
+      throw new Error(
+        `No hay suficiente ${energiaAEliminar.nombre} para eliminar.`
+      );
+    }
 
-  objetosAEliminar.forEach((objeto) => {
-    const { tipo, nombre, cantidad } = objeto;
+    // Restar la cantidad de energía
+    energiaExistente.cantidad -= energiaAEliminar.cantidad;
 
-    if (tipo === "energia") {
-      const energia = energias.find((e) => e.nombre === nombre);
-      console.log(`Buscando energía: ${nombre}, Resultados:`, energia);
-
-      if (energia) {
-        console.log(`Cantidad disponible de ${nombre}: ${energia.cantidad}`);
-
-        if (cantidad > 0 && energia.cantidad >= cantidad) {
-          energia.cantidad -= cantidad;
-
-          // Si la cantidad de energía se reduce a 0, se elimina del array
-          if (energia.cantidad === 0) {
-            energias = energias.filter((e) => e.nombre !== nombre);
-          }
-        } else if (cantidad <= 0) {
-          throw new Error(`La cantidad a eliminar debe ser mayor que cero.`);
-        } else {
-          throw new Error(`No hay suficiente ${nombre} para eliminar.`);
-        }
-      } else {
-        throw new Error(
-          `${nombre} no se encontró en las energías del entrenador.`
-        );
-      }
+    // Si la cantidad llega a cero, eliminar la energía
+    if (energiaExistente.cantidad === 0) {
+      const index = energiasDelEntrenador.indexOf(energiaExistente);
+      energiasDelEntrenador.splice(index, 1);
     }
   });
 
-  // Actualizar energías en la base de datos
+  // Actualizar el entrenador con las energías modificadas en la base de datos
   db.prepare("UPDATE trainers SET energies = ? WHERE id = ?").run(
-    JSON.stringify(energias),
+    JSON.stringify(energiasDelEntrenador),
     trainerId
   );
-
-  return { message: "Energías actualizadas correctamente." };
 }
-
 
 
 /**
