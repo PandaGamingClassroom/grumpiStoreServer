@@ -727,13 +727,14 @@ function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
   // Asegurarse de que energias sea un array
   let energias = trainer.energies ? JSON.parse(trainer.energies) : []; // Parsea si es un JSON string
 
-  // Verificar que energiasAEliminar existe y es un array
-  if (!Array.isArray(objetosAEliminar.energiasAEliminar)) {
+  // Verificar que energiasAEliminar es un array y existe
+  const energiasAEliminar = objetosAEliminar.energiasAEliminar;
+  if (!Array.isArray(energiasAEliminar)) {
     throw new Error("energiasAEliminar no es un array o no existe.");
   }
 
-  // Recorrer objetos a eliminar
-  objetosAEliminar.energiasAEliminar.forEach((objeto) => {
+  // Recorrer el array de energías del entrenador
+  energiasAEliminar.forEach((objeto) => {
     const { tipo, nombre, cantidad } = objeto;
 
     // Verificar que el objeto a eliminar sea de tipo energía
@@ -771,6 +772,7 @@ function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
 
   return { message: "Energías actualizadas correctamente." };
 }
+
 
 /**
  * Función para editar las medallas seleccionadas
