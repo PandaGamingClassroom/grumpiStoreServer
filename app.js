@@ -727,25 +727,23 @@ function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
 
         let remainingToDelete = energia.cantidad || 1;
 
-        // Recorremos cada instancia de la energía en la lista y eliminamos cantidades hasta completar el total solicitado
-        for (let i = 0; i < energies.length && remainingToDelete > 0; i++) {
-          let e = energies[i];
-
-          if (e.nombre === energia.nombre) {
-            // Eliminamos la cantidad solicitada, restando de remainingToDelete
+        energies = energies.reduce((updatedEnergies, e) => {
+          if (e.nombre === energia.nombre && remainingToDelete > 0) {
+            // Calcula cuánta cantidad eliminar de la energía actual
             const reduceAmount = Math.min(e.cantidad, remainingToDelete);
             e.cantidad -= reduceAmount;
             remainingToDelete -= reduceAmount;
 
-            // Si la cantidad de esta energía es 0, la eliminamos del array
-            if (e.cantidad <= 0) {
-              energies[i] = null;
+            // Solo agrega de nuevo la energía si su cantidad es mayor que 0
+            if (e.cantidad > 0) {
+              updatedEnergies.push(e);
             }
+          } else {
+            // Si el nombre no coincide o no hay cantidad que eliminar, se agrega tal cual
+            updatedEnergies.push(e);
           }
-        }
-
-        // Filtramos para eliminar los elementos que han quedado en null
-        energies = energies.filter((e) => e !== null);
+          return updatedEnergies;
+        }, []);
 
         if (remainingToDelete > 0) {
           console.log(
