@@ -715,7 +715,6 @@ function handleObjectDeletion(trainerId, objetosAEliminar) {
  * @param {*} objetosAEliminar Recibe los datos del objeto a editar.
  */
 function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
-  // Obtener el entrenador por su ID
   const trainer = db
     .prepare("SELECT * FROM trainers WHERE id = ?")
     .get(trainerId);
@@ -724,35 +723,27 @@ function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
     throw new Error("Entrenador no encontrado");
   }
 
-  // Asegurarse de que energias sea un array
-  let energias = trainer.energies ? JSON.parse(trainer.energies) : []; // Parsea si es un JSON string
-  console.log("Energías del entrenador:", energias); // Debug
+  let energias = trainer.energies ? JSON.parse(trainer.energies) : [];
+  console.log("Energías del entrenador:", energias);
 
-  // Asegúrate de que objetosAEliminar es un array
   if (!Array.isArray(objetosAEliminar)) {
     throw new Error("objetosAEliminar no es un array o no existe.");
   }
 
-  // Recorrer el array de energías a eliminar
   objetosAEliminar.forEach((objeto) => {
     const { tipo, nombre, cantidad } = objeto;
 
-    // Verificar que el objeto a eliminar sea de tipo energía
     if (tipo === "energia") {
-      // Encontrar la energía que se quiere eliminar
+      // Usar find para obtener la energía correcta
       const energia = energias.find((e) => e.nombre === nombre);
-      console.log(`Buscando energía: ${nombre}, Resultados:`, energia); // Debug
+      console.log(`Buscando energía: ${nombre}, Resultados:`, energia);
 
       if (energia) {
-        // Log para ver la cantidad disponible antes de la resta
         console.log(`Cantidad disponible de ${nombre}: ${energia.cantidad}`);
 
-        // Comprobar si hay suficiente cantidad para eliminar
         if (energia.cantidad >= cantidad) {
-          // Restar la cantidad
           energia.cantidad -= cantidad;
 
-          // Eliminar la energía si su cantidad llega a cero
           if (energia.cantidad <= 0) {
             energias = energias.filter((e) => e.nombre !== nombre);
           }
@@ -767,7 +758,6 @@ function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
     }
   });
 
-  // Actualizar las energías en la base de datos
   db.prepare("UPDATE trainers SET energies = ? WHERE id = ?").run(
     JSON.stringify(energias),
     trainerId
@@ -775,7 +765,6 @@ function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
 
   return { message: "Energías actualizadas correctamente." };
 }
-
 
 /**
  * Función para editar las medallas seleccionadas
@@ -2424,7 +2413,6 @@ app.put("/profesors/update/:name", (req, res) => {
   }
 });
 
-
 /**
  *
  * Modificación de todos los datos del profesor
@@ -2503,8 +2491,6 @@ app.put("/profesors/update_all_data/:name", (req, res) => {
           .status(404)
           .json({ error: "Profesor no encontrado en el archivo." });
       }
-
-
     });
   } catch (dbError) {
     console.error(
@@ -3062,7 +3048,6 @@ app.delete("/delete_post/:id", (req, res) => {
   }
 });
 
-
 /*********************************
  *                               *
  *      EDICIÓN DE POSTS         *
@@ -3124,7 +3109,9 @@ app.put("/edit_post/:id", uploadFields, (req, res) => {
     }
 
     if (updateFields.length === 0) {
-      return res.status(400).json({ error: "No se proporcionaron campos para actualizar" });
+      return res
+        .status(400)
+        .json({ error: "No se proporcionaron campos para actualizar" });
     }
 
     // Agregar el ID del post al final de los valores
