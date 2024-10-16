@@ -726,6 +726,7 @@ function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
 
   // Asegurarse de que energias sea un array
   let energias = trainer.energies ? JSON.parse(trainer.energies) : []; // Parsea si es un JSON string
+  console.log("Energías del entrenador:", energias); // Debug
 
   // Asegúrate de que objetosAEliminar es un array
   if (!Array.isArray(objetosAEliminar)) {
@@ -740,6 +741,7 @@ function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
     if (tipo === "energia") {
       // Encontrar la energía que se quiere eliminar
       const energia = energias.find((e) => e.nombre === nombre);
+      console.log(`Buscando energía: ${nombre}, Resultados:`, energia); // Debug
 
       if (energia) {
         // Log para ver la cantidad disponible antes de la resta
