@@ -724,8 +724,8 @@ function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
     throw new Error("Entrenador no encontrado");
   }
 
-  // Convertir la lista de energías en un objeto para fácil acceso
-  const energias = trainer.energies || []; // Asegúrate de que esto corresponda a cómo almacenas las energías
+  // Asegurarse de que energias sea un array
+  let energias = trainer.energies ? JSON.parse(trainer.energies) : []; // Parsea si es un JSON string
 
   // Recorrer objetos a eliminar
   objetosAEliminar.forEach((objeto) => {
@@ -739,6 +739,11 @@ function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
         // Restar la cantidad
         if (energia.cantidad >= cantidad) {
           energia.cantidad -= cantidad;
+
+          // Eliminar la energía si su cantidad llega a cero
+          if (energia.cantidad === 0) {
+            energias = energias.filter((e) => e.nombre !== nombre);
+          }
         } else {
           throw new Error(`No hay suficiente ${nombre} para eliminar.`);
         }
@@ -751,10 +756,9 @@ function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
   });
 
   // Actualizar las energías en la base de datos
-  db.prepare("UPDATE trainers SET energies = ? WHERE id = ?").run(
-    JSON.stringify(energias),
-    trainerId
-  ); // Asegúrate de que esto corresponda a cómo almacenas las energías
+  db
+    .prepare("UPDATE trainers SET energies = ? WHERE id = ?")
+    .run(JSON.stringify(energias), trainerId); // Asegúrate de que esto corresponda a cómo almacenas las energías
 
   return { message: "Energías actualizadas correctamente." };
 }
