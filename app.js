@@ -725,26 +725,23 @@ function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
       objetosAEliminar.forEach((energia) => {
         console.log("Procesando energía para eliminar: ", energia);
 
-        let cantidadAEliminar = energia.cantidad || 1;
-        let remainingToDelete = cantidadAEliminar;
+        let remainingToDelete = energia.cantidad || 1;
 
+        // Recorremos las energías en orden y eliminamos la cantidad deseada
         energies = energies
           .map((e) => {
             if (e.nombre === energia.nombre && remainingToDelete > 0) {
-              // Eliminar la cantidad de la energía actual
-              let reduceAmount = Math.min(e.cantidad, remainingToDelete);
+              // Reducimos la cantidad en el mínimo entre la cantidad actual y la que queda por eliminar
+              const reduceAmount = Math.min(e.cantidad, remainingToDelete);
+              e.cantidad -= reduceAmount;
+              remainingToDelete -= reduceAmount;
 
-              if (e.cantidad <= reduceAmount) {
-                remainingToDelete -= e.cantidad;
-                return null;
-              } else {
-                remainingToDelete -= reduceAmount;
-                return { ...e, cantidad: e.cantidad - reduceAmount };
-              }
+              // Si la cantidad de energía es 0, marcamos para eliminar
+              return e.cantidad > 0 ? e : null;
             }
             return e;
           })
-          .filter((e) => e !== null);
+          .filter((e) => e !== null); // Eliminamos las energías con cantidad 0
 
         if (remainingToDelete > 0) {
           console.log(
@@ -768,6 +765,7 @@ function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
     );
   }
 }
+
 
 
 /**
