@@ -724,6 +724,7 @@ function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
   }
 
   let energias = trainer.energies ? JSON.parse(trainer.energies) : [];
+  energias = consolidateEnergies(energias); // Consolidar energías
   console.log("Energías del entrenador:", energias);
 
   if (!Array.isArray(objetosAEliminar)) {
@@ -734,7 +735,6 @@ function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
     const { tipo, nombre, cantidad } = objeto;
 
     if (tipo === "energia") {
-      // Usar find para obtener la energía correcta
       const energia = energias.find((e) => e.nombre === nombre);
       console.log(`Buscando energía: ${nombre}, Resultados:`, energia);
 
@@ -744,7 +744,7 @@ function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
         if (energia.cantidad >= cantidad) {
           energia.cantidad -= cantidad;
 
-          if (energia.cantidad <= 0) {
+          if (energia.cantidad === 0) {
             energias = energias.filter((e) => e.nombre !== nombre);
           }
         } else {
@@ -765,6 +765,22 @@ function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
 
   return { message: "Energías actualizadas correctamente." };
 }
+
+
+function consolidateEnergies(energies) {
+  const consolidated = {};
+
+  energies.forEach((energy) => {
+    if (consolidated[energy.nombre]) {
+      consolidated[energy.nombre].cantidad += 1; // O la cantidad que corresponda
+    } else {
+      consolidated[energy.nombre] = { ...energy, cantidad: 1 };
+    }
+  });
+
+  return Object.values(consolidated);
+}
+
 
 /**
  * Función para editar las medallas seleccionadas
