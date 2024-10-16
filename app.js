@@ -723,7 +723,15 @@ function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
     throw new Error("Entrenador no encontrado");
   }
 
-  let energias = trainer.energies ? JSON.parse(trainer.energies) : [];
+  // Verificar si el campo energies existe y es una cadena JSON válida
+  let energias = [];
+  if (trainer.energies) {
+    try {
+      energias = JSON.parse(trainer.energies);
+    } catch (e) {
+      throw new Error("Formato de energías inválido en la base de datos.");
+    }
+  }
   console.log("Energías del entrenador:", energias);
 
   if (!Array.isArray(objetosAEliminar)) {
@@ -734,7 +742,6 @@ function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
     const { tipo, nombre, cantidad } = objeto;
 
     if (tipo === "energia") {
-      // Usar find para obtener la energía correcta
       const energia = energias.find((e) => e.nombre === nombre);
       console.log(`Buscando energía: ${nombre}, Resultados:`, energia);
 
@@ -769,6 +776,7 @@ function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
 
   return { message: "Energías actualizadas correctamente." };
 }
+
 
 
 /**
