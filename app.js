@@ -771,10 +771,11 @@ function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
   db.prepare("UPDATE trainers SET energies = ? WHERE id = ?").run(
     JSON.stringify(energias),
     trainerId
-  ); // Asegúrate de que esto corresponda a cómo almacenas las energías
+  );
 
   return { message: "Energías actualizadas correctamente." };
 }
+
 
 /**
  * Función para editar las medallas seleccionadas
