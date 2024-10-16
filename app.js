@@ -727,7 +727,6 @@ function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
 
         let remainingToDelete = energia.cantidad || 1;
 
-        // Recorremos las energías en orden y eliminamos la cantidad deseada
         energies = energies
           .map((e) => {
             if (e.nombre === energia.nombre && remainingToDelete > 0) {
@@ -736,7 +735,7 @@ function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
               e.cantidad -= reduceAmount;
               remainingToDelete -= reduceAmount;
 
-              // Si la cantidad de energía es 0, marcamos para eliminar
+              // Si la cantidad de energía se reduce a 0, la eliminamos
               return e.cantidad > 0 ? e : null;
             }
             return e;
@@ -765,7 +764,6 @@ function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
     );
   }
 }
-
 
 
 /**
