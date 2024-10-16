@@ -650,7 +650,7 @@ app.put("/trainers/update/:id", (req, res) => {
 
     // Manejar la eliminación de objetos
     if (Array.isArray(objetosAEliminar)) {
-      handleObjectDeletion(trainerId, objetosAEliminar); // Cambié trainer.id a trainerId
+      handleObjectDeletion(trainerId, objetosAEliminar);
     }
 
     res.status(200).json({ message: "Entrenador actualizado correctamente" });
@@ -726,17 +726,19 @@ function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
         console.log("Procesando energía para eliminar: ", energia);
 
         let cantidadAEliminar = energia.cantidad || 1;
+        let remainingToDelete = cantidadAEliminar;
 
         energies = energies
           .map((e) => {
-            if (e.nombre === energia.nombre) {
-              let reduceAmount = Math.min(e.cantidad, cantidadAEliminar);
+            if (e.nombre === energia.nombre && remainingToDelete > 0) {
+              // Eliminar la cantidad de la energía actual
+              let reduceAmount = Math.min(e.cantidad, remainingToDelete);
 
               if (e.cantidad <= reduceAmount) {
-                cantidadAEliminar -= e.cantidad;
+                remainingToDelete -= e.cantidad;
                 return null;
               } else {
-                cantidadAEliminar -= reduceAmount;
+                remainingToDelete -= reduceAmount;
                 return { ...e, cantidad: e.cantidad - reduceAmount };
               }
             }
@@ -744,9 +746,9 @@ function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
           })
           .filter((e) => e !== null);
 
-        if (cantidadAEliminar > 0) {
+        if (remainingToDelete > 0) {
           console.log(
-            `No se pudo eliminar toda la cantidad de la energía ${energia.nombre}. Quedaron ${cantidadAEliminar} unidades sin eliminar.`
+            `No se pudo eliminar toda la cantidad de la energía ${energia.nombre}. Quedaron ${remainingToDelete} unidades sin eliminar.`
           );
         }
       });
@@ -766,6 +768,7 @@ function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
     );
   }
 }
+
 
 /**
  * Función para editar las medallas seleccionadas
