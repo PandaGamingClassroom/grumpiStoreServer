@@ -724,7 +724,6 @@ function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
   }
 
   let energias = trainer.energies ? JSON.parse(trainer.energies) : [];
-  energias = consolidateEnergies(energias); // Consolidar energías
   console.log("Energías del entrenador:", energias);
 
   if (!Array.isArray(objetosAEliminar)) {
@@ -735,18 +734,22 @@ function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
     const { tipo, nombre, cantidad } = objeto;
 
     if (tipo === "energia") {
+      // Usar find para obtener la energía correcta
       const energia = energias.find((e) => e.nombre === nombre);
       console.log(`Buscando energía: ${nombre}, Resultados:`, energia);
 
       if (energia) {
         console.log(`Cantidad disponible de ${nombre}: ${energia.cantidad}`);
 
-        if (energia.cantidad >= cantidad) {
+        if (cantidad > 0 && energia.cantidad >= cantidad) {
           energia.cantidad -= cantidad;
 
+          // Si la cantidad de energía se reduce a 0, se elimina del array
           if (energia.cantidad === 0) {
             energias = energias.filter((e) => e.nombre !== nombre);
           }
+        } else if (cantidad <= 0) {
+          throw new Error(`La cantidad a eliminar debe ser mayor que cero.`);
         } else {
           throw new Error(`No hay suficiente ${nombre} para eliminar.`);
         }
@@ -758,27 +761,13 @@ function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
     }
   });
 
+  // Actualizar energías en la base de datos
   db.prepare("UPDATE trainers SET energies = ? WHERE id = ?").run(
     JSON.stringify(energias),
     trainerId
   );
 
   return { message: "Energías actualizadas correctamente." };
-}
-
-
-function consolidateEnergies(energies) {
-  const consolidated = {};
-
-  energies.forEach((energy) => {
-    if (consolidated[energy.nombre]) {
-      consolidated[energy.nombre].cantidad += 1; // O la cantidad que corresponda
-    } else {
-      consolidated[energy.nombre] = { ...energy, cantidad: 1 };
-    }
-  });
-
-  return Object.values(consolidated);
 }
 
 
