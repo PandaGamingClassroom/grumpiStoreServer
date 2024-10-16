@@ -728,7 +728,7 @@ function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
   let energias = trainer.energies ? JSON.parse(trainer.energies) : []; // Parsea si es un JSON string
 
   // Recorrer objetos a eliminar
-  objetosAEliminar.forEach((objeto) => {
+  objetosAEliminar.energiasAEliminar.forEach((objeto) => {
     const { tipo, nombre, cantidad } = objeto;
 
     // Verificar que el objeto a eliminar sea de tipo energía
@@ -736,6 +736,9 @@ function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
       const energia = energias.find((e) => e.nombre === nombre);
 
       if (energia) {
+        // Log para ver la cantidad disponible antes de la resta
+        console.log(`Cantidad disponible de ${nombre}: ${energia.cantidad}`);
+
         // Restar la cantidad
         if (energia.cantidad >= cantidad) {
           energia.cantidad -= cantidad;
@@ -756,12 +759,14 @@ function editEnergiesFromTrainer(trainerId, objetosAEliminar) {
   });
 
   // Actualizar las energías en la base de datos
-  db
-    .prepare("UPDATE trainers SET energies = ? WHERE id = ?")
-    .run(JSON.stringify(energias), trainerId); // Asegúrate de que esto corresponda a cómo almacenas las energías
+  db.prepare("UPDATE trainers SET energies = ? WHERE id = ?").run(
+    JSON.stringify(energias),
+    trainerId
+  ); // Asegúrate de que esto corresponda a cómo almacenas las energías
 
   return { message: "Energías actualizadas correctamente." };
 }
+
 
 /**
  * Función para editar las medallas seleccionadas
