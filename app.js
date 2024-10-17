@@ -714,6 +714,19 @@ function handleObjectDeletion(trainerId, objetosAEliminar) {
  * @param {*} updatedTrainer Recibe los datos del enetrenador a editar.
  * @param {*} objetosAEliminar Recibe los datos del objeto a editar.
  */
+// Consolidar energías
+const consolidateEnergies = (energies) => {
+    const consolidated = {};
+    energies.forEach(energy => {
+        if (!consolidated[energy.nombre.toLowerCase()]) {
+            consolidated[energy.nombre.toLowerCase()] = { ...energy, cantidad: energy.cantidad || 1 };
+        } else {
+            consolidated[energy.nombre.toLowerCase()].cantidad += energy.cantidad || 1;
+        }
+    });
+    return Object.values(consolidated);
+};
+
 function editEnergiesFromTrainer(trainerId, energiasAEliminar) {
   // Obtener datos del entrenador
   const trainer = db
@@ -723,13 +736,14 @@ function editEnergiesFromTrainer(trainerId, energiasAEliminar) {
     throw new Error("Entrenador no encontrado.");
   }
 
-  // Parsear las energías del entrenador desde JSON
+  // Parsear y consolidar las energías del entrenador
   let energiasDelEntrenador;
   try {
     energiasDelEntrenador = JSON.parse(trainer.energies);
     if (!Array.isArray(energiasDelEntrenador)) {
       throw new Error("Formato de energías inválido.");
     }
+    energiasDelEntrenador = consolidateEnergies(energiasDelEntrenador); // Consolidar aquí
   } catch (error) {
     throw new Error("Error al parsear energías desde la base de datos.");
   }
@@ -777,6 +791,7 @@ function editEnergiesFromTrainer(trainerId, energiasAEliminar) {
 
   return "Energías eliminadas correctamente.";
 }
+
 
 
 /**
