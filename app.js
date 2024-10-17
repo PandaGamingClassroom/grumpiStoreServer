@@ -715,17 +715,19 @@ function handleObjectDeletion(trainerId, objetosAEliminar) {
  * @param {*} objetosAEliminar Recibe los datos del objeto a editar.
  */
 // Consolidar energías
-const consolidateEnergies = (energies) => {
-    const consolidated = {};
-    energies.forEach(energy => {
-        if (!consolidated[energy.nombre.toLowerCase()]) {
-            consolidated[energy.nombre.toLowerCase()] = { ...energy, cantidad: energy.cantidad || 1 };
-        } else {
-            consolidated[energy.nombre.toLowerCase()].cantidad += energy.cantidad || 1;
-        }
-    });
-    return Object.values(consolidated);
-};
+function consolidateEnergies(energies) {
+  const consolidated = {};
+
+  energies.forEach((energy) => {
+    if (consolidated[energy.id]) {
+      consolidated[energy.id].cantidad += energy.cantidad || 1;
+    } else {
+      consolidated[energy.id] = { ...energy, cantidad: energy.cantidad || 1 };
+    }
+  });
+
+  return Object.values(consolidated);
+}
 
 function editEnergiesFromTrainer(trainerId, energiasAEliminar) {
   // Obtener datos del entrenador
@@ -743,7 +745,7 @@ function editEnergiesFromTrainer(trainerId, energiasAEliminar) {
     if (!Array.isArray(energiasDelEntrenador)) {
       throw new Error("Formato de energías inválido.");
     }
-    energiasDelEntrenador = consolidateEnergies(energiasDelEntrenador); // Consolidar aquí
+    energiasDelEntrenador = consolidateEnergies(energiasDelEntrenador);
   } catch (error) {
     throw new Error("Error al parsear energías desde la base de datos.");
   }
@@ -778,7 +780,7 @@ function editEnergiesFromTrainer(trainerId, energiasAEliminar) {
     // Si no hay suficientes energías del tipo deseado, lanzar un error
     if (remainingToRemove > 0) {
       throw new Error(
-        `No hay suficiente ${energiaAEliminar.nombre} para eliminar.`
+        `No hay suficiente cantidad de ${energiaAEliminar.nombre}. Faltan ${remainingToRemove}.`
       );
     }
   });
