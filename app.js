@@ -739,23 +739,36 @@ function editEnergiesFromTrainer(trainerId, energiasAEliminar) {
   energiasAEliminar.forEach((energiaAEliminar) => {
     const { nombre, tipo_energia, cantidad } = energiaAEliminar;
 
-    // Contar cuántas instancias hay en la lista del entrenador
-    let instancias = 0;
-    energiasDelEntrenador = energiasDelEntrenador.filter((energia) => {
-      // Verificar si la energía coincide con el nombre y tipo_energia
+    // Buscar la energía correspondiente en las energías del entrenador
+    let totalDisponibles = 0;
+
+    // Contar cuántas energías del tipo y nombre especificado hay
+    energiasDelEntrenador.forEach((energia) => {
       if (energia.nombre === nombre && energia.tipo === tipo_energia) {
-        instancias++; // Contar instancias encontradas
-        return instancias <= cantidad; // Retener solo hasta la cantidad que se quiere eliminar
+        totalDisponibles++; // Contar instancias encontradas
       }
-      return true; // Retener otras energías
     });
 
-    // Comprobar si se eliminaron suficientes instancias
-    if (instancias < cantidad) {
+    // Comprobar si hay suficientes energías para eliminar
+    if (totalDisponibles < cantidad) {
       throw new Error(
         `No hay suficientes energías de tipo ${tipo_energia} y nombre ${nombre} para eliminar.`
       );
     }
+
+    // Ahora eliminar las energías especificadas
+    let energiasEliminadas = 0;
+    energiasDelEntrenador = energiasDelEntrenador.filter((energia) => {
+      // Verificar si la energía coincide con el nombre y tipo_energia
+      if (energia.nombre === nombre && energia.tipo === tipo_energia) {
+        // Solo eliminar si no hemos alcanzado la cantidad que queremos eliminar
+        if (energiasEliminadas < cantidad) {
+          energiasEliminadas++; // Aumentar el contador de eliminadas
+          return false; // Eliminar esta energía
+        }
+      }
+      return true; // Retener otras energías
+    });
   });
 
   // Actualizar la lista de energías del entrenador en la base de datos
@@ -766,6 +779,7 @@ function editEnergiesFromTrainer(trainerId, energiasAEliminar) {
 
   return "Energías eliminadas correctamente.";
 }
+
 
 /**
  * Función para editar las medallas seleccionadas
