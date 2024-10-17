@@ -714,21 +714,6 @@ function handleObjectDeletion(trainerId, objetosAEliminar) {
  * @param {*} updatedTrainer Recibe los datos del enetrenador a editar.
  * @param {*} objetosAEliminar Recibe los datos del objeto a editar.
  */
-// Consolidar energías
-function consolidateEnergies(energies) {
-  const consolidated = {};
-
-  energies.forEach((energy) => {
-    if (consolidated[energy.id]) {
-      consolidated[energy.id].cantidad += energy.cantidad || 1;
-    } else {
-      consolidated[energy.id] = { ...energy, cantidad: energy.cantidad || 1 };
-    }
-  });
-
-  return Object.values(consolidated);
-}
-
 function editEnergiesFromTrainer(trainerId, energiasAEliminar) {
   // Obtener datos del entrenador
   const trainer = db
@@ -745,45 +730,32 @@ function editEnergiesFromTrainer(trainerId, energiasAEliminar) {
     if (!Array.isArray(energiasDelEntrenador)) {
       throw new Error("Formato de energías inválido.");
     }
-    energiasDelEntrenador = consolidateEnergies(energiasDelEntrenador);
+    console.log("Energías del entrenador: ", energiasDelEntrenador);
   } catch (error) {
     throw new Error("Error al parsear energías desde la base de datos.");
   }
 
-  // Recorrer los objetos a eliminar y actualizar la lista del entrenador
-  energiasAEliminar.objetosAEliminar.forEach((energiaAEliminar) => {
-    const tipo = energiaAEliminar.nombre.toLowerCase();
-    let remainingToRemove = energiaAEliminar.cantidad;
-
-    // Filtrar las energías que coinciden con el tipo a eliminar
-    for (
-      let i = 0;
-      i < energiasDelEntrenador.length && remainingToRemove > 0;
-      i++
-    ) {
-      const energia = energiasDelEntrenador[i];
-
-      if (energia.nombre.toLowerCase() === tipo) {
-        if (energia.cantidad <= remainingToRemove) {
-          // Eliminar esta entrada completamente si su cantidad es menor o igual a lo que necesitamos eliminar
-          remainingToRemove -= energia.cantidad;
-          energiasDelEntrenador.splice(i, 1);
-          i--; // Ajustar el índice después de eliminar
-        } else {
-          // Resta solo la cantidad necesaria
-          energia.cantidad -= remainingToRemove;
-          remainingToRemove = 0; // Se ha eliminado toda la cantidad requerida
-        }
+  // Recorrer la lista de energías del entrenador
+  energiasDelEntrenador.forEach((energia) => {
+    // Buscar si hay una energía a eliminar del mismo tipo
+    const energiaAEliminar = energiasAEliminar.find(
+      (e) => e.tipo === energia.tipo
+    );
+    if (energiaAEliminar) {
+      // Comprobar si hay suficientes energías para eliminar
+      if (energia.cantidad >= energiaAEliminar.cantidad) {
+        // Restar la cantidad de energía
+        energia.cantidad -= energiaAEliminar.cantidad;
+      } else {
+        throw new Error(
+          `No hay suficientes energías de tipo ${energia.tipo} para eliminar.`
+        );
       }
     }
-
-    // Si no hay suficientes energías del tipo deseado, lanzar un error
-    if (remainingToRemove > 0) {
-      throw new Error(
-        `No hay suficiente cantidad de ${energiaAEliminar.nombre}. Faltan ${remainingToRemove}.`
-      );
-    }
   });
+
+  // Eliminar energías que lleguen a cero
+  energiasDelEntrenador = energiasDelEntrenador.filter((e) => e.cantidad > 0);
 
   // Actualizar la lista de energías del entrenador en la base de datos
   db.prepare("UPDATE trainers SET energies = ? WHERE id = ?").run(
@@ -793,6 +765,7 @@ function editEnergiesFromTrainer(trainerId, energiasAEliminar) {
 
   return "Energías eliminadas correctamente.";
 }
+
 
 
 
