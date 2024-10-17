@@ -735,27 +735,25 @@ function editEnergiesFromTrainer(trainerId, energiasAEliminar) {
     throw new Error("Error al parsear energías desde la base de datos.");
   }
 
-  // Recorrer la lista de energías del entrenador
-  energiasDelEntrenador.forEach((energia) => {
-    // Buscar si hay una energía a eliminar del mismo tipo
-    const energiaAEliminar = energiasAEliminar.find(
-      (e) => e.tipo === energia.tipo
+  // Recorrer la lista de energías a eliminar
+  energiasAEliminar.forEach((energiaAEliminar) => {
+    // Buscar la energía correspondiente en las energías del entrenador
+    const energia = energiasDelEntrenador.find(
+      (e) => e.tipo === energiaAEliminar.tipo
     );
-    if (energiaAEliminar) {
+
+    if (energia) {
       // Comprobar si hay suficientes energías para eliminar
       if (energia.cantidad >= energiaAEliminar.cantidad) {
         // Restar la cantidad de energía
         energia.cantidad -= energiaAEliminar.cantidad;
       } else {
         throw new Error(
-          `No hay suficientes energías de tipo ${energia.tipo} para eliminar.`
+          `No hay suficientes energías de tipo ${energiaAEliminar.tipo} para eliminar.`
         );
       }
     }
   });
-
-  // Eliminar energías que lleguen a cero
-  energiasDelEntrenador = energiasDelEntrenador.filter((e) => e.cantidad > 0);
 
   // Actualizar la lista de energías del entrenador en la base de datos
   db.prepare("UPDATE trainers SET energies = ? WHERE id = ?").run(
