@@ -737,21 +737,24 @@ function editEnergiesFromTrainer(trainerId, energiasAEliminar) {
 
   // Recorrer la lista de energías a eliminar
   energiasAEliminar.forEach((energiaAEliminar) => {
-    // Buscar la energía correspondiente en las energías del entrenador
-    const energia = energiasDelEntrenador.find(
-      (e) => e.tipo === energiaAEliminar.tipo
-    );
+    const { nombre, tipo_energia, cantidad } = energiaAEliminar;
 
-    if (energia) {
-      // Comprobar si hay suficientes energías para eliminar
-      if (energia.cantidad >= energiaAEliminar.cantidad) {
-        // Restar la cantidad de energía
-        energia.cantidad -= energiaAEliminar.cantidad;
-      } else {
-        throw new Error(
-          `No hay suficientes energías de tipo ${energiaAEliminar.tipo} para eliminar.`
-        );
+    // Contar cuántas instancias hay en la lista del entrenador
+    let instancias = 0;
+    energiasDelEntrenador = energiasDelEntrenador.filter((energia) => {
+      // Verificar si la energía coincide con el nombre y tipo_energia
+      if (energia.nombre === nombre && energia.tipo === tipo_energia) {
+        instancias++; // Contar instancias encontradas
+        return instancias <= cantidad; // Retener solo hasta la cantidad que se quiere eliminar
       }
+      return true; // Retener otras energías
+    });
+
+    // Comprobar si se eliminaron suficientes instancias
+    if (instancias < cantidad) {
+      throw new Error(
+        `No hay suficientes energías de tipo ${tipo_energia} y nombre ${nombre} para eliminar.`
+      );
     }
   });
 
@@ -763,9 +766,6 @@ function editEnergiesFromTrainer(trainerId, energiasAEliminar) {
 
   return "Energías eliminadas correctamente.";
 }
-
-
-
 
 /**
  * Función para editar las medallas seleccionadas
