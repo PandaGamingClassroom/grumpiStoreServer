@@ -988,39 +988,38 @@ function editLeagueBagdes(trainerId, objetosAEliminar) {
       let distintivos_liga = JSON.parse(trainer.distintivos_liga) || [];
 
       objetosAEliminar.forEach((badgeLeague) => {
-        console.log(
-          "Procesando distintivo de liga para eliminar: ",
-          badgeLeague
-        );
+        const { nombre, tipo_energia, cantidad } = badgeLeague;
 
-        let cantidadAEliminar = badgeLeague.cantidad || 1;
+        let totalDisponibles = 0;
 
-        distintivos_liga = distintivos_liga.filter((o) => {
+        distintivos_liga = distintivos_liga.forEach((o) => {
           if (o.nombre === badgeLeague.nombre) {
             if (o.cantidad <= cantidadAEliminar) {
-              cantidadAEliminar -= o.cantidad;
-              return false;
-            } else {
-              o.cantidad -= cantidadAEliminar;
-              return true;
+              totalDisponibles++;
             }
           }
-          return true;
         });
 
-        if (cantidadAEliminar > 0) {
+        if (totalDisponibles > cantidad) {
           console.log(
             `No se pudo eliminar toda la cantidad del distintivo de liga ${badgeLeague.nombre}. Quedaron ${cantidadAEliminar} unidades sin eliminar.`
           );
         }
       });
+      let distintivosEliminados = 0;
+      distintivos_liga = distintivos_liga.filter((distintivo) => {
+        if (distintivo.nombre === nombre) {
+          if (distintivosEliminados < cantidad) {
+            distintivosEliminados++;
+            return false;
+          }
+        }
+        return false;
+      });
 
-      const updateStmt = db.prepare(
-        `UPDATE trainers SET distintivos_liga = ? WHERE id = ?`
-      );
-      updateStmt.run(JSON.stringify(distintivos_liga), trainerId);
-
+      db.prepare(`UPDATE trainers SET distintivos_liga = ? WHERE id = ?`);
       console.log("Distintivos de liga actualizados correctamente.");
+      return "Distintivo de liga eliminado correctamente.";
     } else {
       console.log("Entrenador no encontrado.");
     }
@@ -1030,8 +1029,6 @@ function editLeagueBagdes(trainerId, objetosAEliminar) {
     );
   }
 }
-
-
 
 /********************************************************************
  *
