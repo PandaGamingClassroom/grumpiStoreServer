@@ -988,26 +988,28 @@ function editLeagueBagdes(trainerId, objetosAEliminar) {
       let distintivos_liga = JSON.parse(trainer.distintivos_liga) || [];
 
       objetosAEliminar.forEach((badgeLeague) => {
-        console.log("Procesando distintivo de liga para eliminar: ", badgeLeague);
+        console.log(
+          "Procesando distintivo de liga para eliminar: ",
+          badgeLeague
+        );
 
         let cantidadAEliminar = badgeLeague.cantidad || 1;
 
-        distintivos_liga = distintivos_liga
-          .map((o) => {
-            if (o.nombre === badgeLeague.nombre) {
-              let reduceAmount = Math.min(o.cantidad, cantidadAEliminar);
+        distintivos_liga = distintivos_liga.filter((o) => {
+          if (o.nombre === badgeLeague.nombre) {
+            let reduceAmount = Math.min(o.cantidad, cantidadAEliminar);
 
-              if (o.cantidad <= reduceAmount) {
-                cantidadAEliminar -= o.cantidad;
-                return null;
-              } else {
-                cantidadAEliminar -= reduceAmount;
-                return { ...o, cantidad: o.cantidad - reduceAmount };
-              }
+            if (o.cantidad <= reduceAmount) {
+              cantidadAEliminar -= o.cantidad;
+              return false;
+            } else {
+              o.cantidad -= reduceAmount;
+              cantidadAEliminar -= reduceAmount;
+              return true; 
             }
-            return o;
-          })
-          .filter((o) => o !== null);
+          }
+          return true; 
+        });
 
         if (cantidadAEliminar > 0) {
           console.log(
@@ -1031,6 +1033,7 @@ function editLeagueBagdes(trainerId, objetosAEliminar) {
     );
   }
 }
+
 
 /********************************************************************
  *
