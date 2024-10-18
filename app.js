@@ -979,7 +979,7 @@ function editObjEvolution(trainerId, objetosAEliminar) {
 }
 
 // Eliminación de distintivos de liga del entrenador
-function editLeagueBagdes(trainerId, objetosAEliminar) {
+function editLeagueBadges(trainerId, objetosAEliminar) {
   if (Array.isArray(objetosAEliminar) && objetosAEliminar.length > 0) {
     const trainerStmt = db.prepare(`SELECT * FROM trainers WHERE id = ?`);
     const trainer = trainerStmt.get(trainerId);
@@ -997,14 +997,11 @@ function editLeagueBagdes(trainerId, objetosAEliminar) {
 
         distintivos_liga = distintivos_liga.filter((o) => {
           if (o.nombre === badgeLeague.nombre) {
-            let reduceAmount = Math.min(o.cantidad, cantidadAEliminar);
-
-            if (o.cantidad <= reduceAmount) {
+            if (o.cantidad <= cantidadAEliminar) {
               cantidadAEliminar -= o.cantidad;
-              return false;
+              return false; 
             } else {
-              o.cantidad -= reduceAmount;
-              cantidadAEliminar -= reduceAmount;
+              o.cantidad -= cantidadAEliminar;
               return true; 
             }
           }
@@ -1033,6 +1030,7 @@ function editLeagueBagdes(trainerId, objetosAEliminar) {
     );
   }
 }
+
 
 
 /********************************************************************
