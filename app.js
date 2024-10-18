@@ -988,43 +988,48 @@ function editLeagueBagdes(trainerId, objetosAEliminar) {
       let distintivos_liga = JSON.parse(trainer.distintivos_liga) || [];
 
       objetosAEliminar.forEach((badgeLeague) => {
-        const { nombre, tipo_energia, cantidad } = badgeLeague;
+        const { nombre, cantidad } = badgeLeague;
+        let distintivosEliminados = 0;
 
-        let totalDisponibles = 0;
-
-        distintivos_liga = distintivos_liga.forEach((o) => {
-          if (o.nombre === badgeLeague.nombre) {
-            totalDisponibles++;
+        distintivos_liga = distintivos_liga.filter((distintivo) => {
+          if (distintivo.nombre === nombre) {
+            if (distintivosEliminados < cantidad) {
+              distintivosEliminados++;
+              return false;
+            }
           }
+          return true; 
         });
 
-        if (totalDisponibles > cantidad) {
+        if (distintivosEliminados < cantidad) {
           console.log(
-            `No se pudo eliminar toda la cantidad del distintivo de liga ${badgeLeague.nombre}. Quedaron ${cantidadAEliminar} unidades sin eliminar.`
+            `No se pudo eliminar toda la cantidad del distintivo de liga ${nombre}. Quedaron ${
+              cantidad - distintivosEliminados
+            } unidades sin eliminar.`
+          );
+        } else {
+          console.log(
+            `Se eliminó la cantidad solicitada del distintivo ${nombre}.`
           );
         }
       });
-      let distintivosEliminados = 0;
-      distintivos_liga = distintivos_liga.filter((distintivo) => {
-        if (distintivo.nombre === nombre) {
-          if (distintivosEliminados < cantidad) {
-            distintivosEliminados++;
-            return false;
-          }
-        }
-        return false;
-      });
 
-      db.prepare(`UPDATE trainers SET distintivos_liga = ? WHERE id = ?`);
+      const updateStmt = db.prepare(
+        `UPDATE trainers SET distintivos_liga = ? WHERE id = ?`
+      );
+      updateStmt.run(JSON.stringify(distintivos_liga), trainerId);
+
       console.log("Distintivos de liga actualizados correctamente.");
       return "Distintivo de liga eliminado correctamente.";
     } else {
       console.log("Entrenador no encontrado.");
+      return "Entrenador no encontrado.";
     }
   } else {
     console.log(
       "No hay distintivos de liga a eliminar o el formato de objetosAEliminar es incorrecto."
     );
+    return "No hay distintivos de liga a eliminar o el formato de objetosAEliminar es incorrecto.";
   }
 }
 
