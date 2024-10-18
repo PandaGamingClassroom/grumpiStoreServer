@@ -926,6 +926,71 @@ function editObjCombat(trainerId, objetosAEliminar) {
  * @param {*} objetosAEliminar
  */
 function editObjEvolution(trainerId, objetosAEliminar) {
+  // Obtener datos del entrenador
+  const trainer = db
+    .prepare("SELECT * FROM trainers WHERE id = ?")
+    .get(trainerId);
+  if (!trainer) {
+    throw new Error("Entrenador no encontrado.");
+  }
+
+  // Parsear y consolidar las energías del entrenador
+  let objEvolutivosEntrenador;
+  try {
+    objEvolutivosEntrenador = JSON.parse(trainer.objetos_evolutivos);
+    if (!Array.isArray(objEvolutivosEntrenador)) {
+      throw new Error("Formato de objetos evolutivos inválido.");
+    }
+    console.log("Energías del entrenador: ", objEvolutivosEntrenador);
+  } catch (error) {
+    throw new Error("Error al parsear objetos evolutivos desde la base de datos.");
+  }
+
+  // Recorrer la lista de energías a eliminar
+  objetosAEliminar.forEach((energiaAEliminar) => {
+    const { nombre, tipo, cantidad } = energiaAEliminar;
+
+    // Buscar la energía correspondiente en las energías del entrenador
+    let totalDisponibles = 0;
+
+    // Contar cuántas energías del tipo y nombre especificado hay
+    objEvolutivosEntrenador.forEach((energia) => {
+      if (energia.nombre === nombre && energia.tipo === tipo) {
+        totalDisponibles++; // Contar instancias encontradas
+      }
+    });
+
+    // Comprobar si hay suficientes energías para eliminar
+    if (totalDisponibles < cantidad) {
+      throw new Error(
+        `No hay suficientes energías de tipo ${tipo} y nombre ${nombre} para eliminar.`
+      );
+    }
+
+    // Ahora eliminar las energías especificadas
+    let objEvolutivosEliminados = 0;
+    objEvolutivosEntrenador = objEvolutivosEntrenador.filter((energia) => {
+      // Verificar si la energía coincide con el nombre y tipo_energia
+      if (energia.nombre === nombre && energia.tipo === tipo_energia) {
+        // Solo eliminar si no hemos alcanzado la cantidad que queremos eliminar
+        if (objEvolutivosEliminados < cantidad) {
+          objEvolutivosEliminados++; // Aumentar el contador de eliminadas
+          return false; // Eliminar esta energía
+        }
+      }
+      return true; // Retener otras energías
+    });
+  });
+
+  // Actualizar la lista de energías del entrenador en la base de datos
+  db.prepare("UPDATE trainers SET energies = ? WHERE id = ?").run(
+    JSON.stringify(objEvolutivosEntrenador),
+    trainerId
+  );
+
+
+  return "Energías eliminadas correctamente.";
+
   if (Array.isArray(objetosAEliminar) && objetosAEliminar.length > 0) {
     const trainerStmt = db.prepare(`SELECT * FROM trainers WHERE id = ?`);
     const trainer = trainerStmt.get(trainerId);
@@ -3193,3 +3258,4 @@ app.put("/edit_post/:id", uploadFields, (req, res) => {
 app.listen(PORT, () => {
   console.log(`Servidor GrumpiStore, iniciado en el puerto: ${PORT}`);
 });
+
