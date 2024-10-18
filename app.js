@@ -963,9 +963,9 @@ function editObjEvolution(trainerId, objetosAEliminar) {
 
     let objEvolutivosEliminados = 0;
     objEvolutivosEntrenador = objEvolutivosEntrenador.filter((energia) => {
-      if (energia.nombre === nombre && energia.tipo === tipo_energia) {
+      if (energia.nombre === nombre && energia.tipo === tipo) {
         if (objEvolutivosEliminados < cantidad) {
-          objEvolutivosEliminados++; 
+          objEvolutivosEliminados++;
           return false;
         }
       }
