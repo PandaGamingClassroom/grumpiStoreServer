@@ -994,9 +994,7 @@ function editLeagueBagdes(trainerId, objetosAEliminar) {
 
         distintivos_liga = distintivos_liga.forEach((o) => {
           if (o.nombre === badgeLeague.nombre) {
-            if (o.cantidad <= cantidadAEliminar) {
-              totalDisponibles++;
-            }
+            totalDisponibles++;
           }
         });
 
