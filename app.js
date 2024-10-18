@@ -680,6 +680,9 @@ function handleObjectDeletion(trainerId, objetosAEliminar) {
   const objEvolutivoAEliminar = objetosAEliminar.filter(
     (objeto) => objeto.tipo === "evolutivo"
   );
+  const distintivoLigaAEliminar = objetosAEliminar.filter(
+    (objeto) => objeto.tipo === "distintivos_liga"
+  );
 
   console.log("Objetos a eliminar:", {
     energiasAEliminar,
@@ -687,6 +690,7 @@ function handleObjectDeletion(trainerId, objetosAEliminar) {
     grumpisAEliminar,
     objCombateAEliminar,
     objEvolutivoAEliminar,
+    distintivoLigaAEliminar,
   });
 
   // Elimina los objetos de cada tipo si existen
@@ -704,6 +708,9 @@ function handleObjectDeletion(trainerId, objetosAEliminar) {
   }
   if (objEvolutivoAEliminar.length > 0) {
     editObjEvolution(trainerId, objEvolutivoAEliminar);
+  }
+  if (distintivoLigaAEliminar.length > 0) {
+    editLeagueBagdes(trainerId, distintivoLigaAEliminar);
   }
 }
 
@@ -779,7 +786,6 @@ function editEnergiesFromTrainer(trainerId, energiasAEliminar) {
 
   return "Energías eliminadas correctamente.";
 }
-
 
 /**
  * Función para editar las medallas seleccionadas
@@ -968,6 +974,60 @@ function editObjEvolution(trainerId, objetosAEliminar) {
   } else {
     console.log(
       "No hay objetos evolutivos a eliminar o el formato de objetosAEliminar es incorrecto."
+    );
+  }
+}
+
+// Eliminación de distintivos de liga del entrenador
+function editLeagueBagdes(trainerId, objetosAEliminar) {
+  if (Array.isArray(objetosAEliminar) && objetosAEliminar.length > 0) {
+    const trainerStmt = db.prepare(`SELECT * FROM trainers WHERE id = ?`);
+    const trainer = trainerStmt.get(trainerId);
+
+    if (trainer) {
+      let distintivos_liga = JSON.parse(trainer.distintivos_liga) || [];
+
+      objetosAEliminar.forEach((badgeLeague) => {
+        console.log("Procesando distintivo de liga para eliminar: ", badgeLeague);
+
+        let cantidadAEliminar = badgeLeague.cantidad || 1;
+
+        distintivos_liga = distintivos_liga
+          .map((o) => {
+            if (o.nombre === badgeLeague.nombre) {
+              let reduceAmount = Math.min(o.cantidad, cantidadAEliminar);
+
+              if (o.cantidad <= reduceAmount) {
+                cantidadAEliminar -= o.cantidad;
+                return null;
+              } else {
+                cantidadAEliminar -= reduceAmount;
+                return { ...o, cantidad: o.cantidad - reduceAmount };
+              }
+            }
+            return o;
+          })
+          .filter((o) => o !== null);
+
+        if (cantidadAEliminar > 0) {
+          console.log(
+            `No se pudo eliminar toda la cantidad del distintivo de liga ${badgeLeague.nombre}. Quedaron ${cantidadAEliminar} unidades sin eliminar.`
+          );
+        }
+      });
+
+      const updateStmt = db.prepare(
+        `UPDATE trainers SET distintivos_liga = ? WHERE id = ?`
+      );
+      updateStmt.run(JSON.stringify(distintivos_liga), trainerId);
+
+      console.log("Distintivos de liga actualizados correctamente.");
+    } else {
+      console.log("Entrenador no encontrado.");
+    }
+  } else {
+    console.log(
+      "No hay distintivos de liga a eliminar o el formato de objetosAEliminar es incorrecto."
     );
   }
 }
