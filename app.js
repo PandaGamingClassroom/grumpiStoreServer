@@ -956,9 +956,14 @@ function editObjEvolution(trainerId, objetosAEliminar) {
     });
 
     if (totalDisponibles < cantidad) {
-      throw new Error(
-        `No hay suficientes energías de tipo ${tipo} y nombre ${nombre} para eliminar.`
-      );
+      
+      objetosAEliminar.forEach((objEvolutivo) => {
+        if (objEvolutivo.tipo === "objetos_evolutivos") {
+          objEvolutivosEntrenador = objEvolutivosEntrenador.filter(
+            (m) => m.nombre !== objEvolutivo.nombre
+          );
+        }
+      });
     }
 
     let objEvolutivosEliminados = 0;
