@@ -987,29 +987,10 @@ function editLeagueBagdes(trainerId, objetosAEliminar) {
     if (trainer) {
       let distintivos_liga = JSON.parse(trainer.distintivos_liga) || [];
 
-      objetosAEliminar.forEach((badgeLeague) => {
-        const { nombre, cantidad } = badgeLeague;
-        let distintivosEliminados = 0;
-
-        distintivos_liga = distintivos_liga.filter((distintivo) => {
-          if (distintivo.nombre === nombre) {
-            if (distintivosEliminados < cantidad) {
-              distintivosEliminados++;
-              return false;
-            }
-          }
-          return true; 
-        });
-
-        if (distintivosEliminados < cantidad) {
-          console.log(
-            `No se pudo eliminar toda la cantidad del distintivo de liga ${nombre}. Quedaron ${
-              cantidad - distintivosEliminados
-            } unidades sin eliminar.`
-          );
-        } else {
-          console.log(
-            `Se eliminó la cantidad solicitada del distintivo ${nombre}.`
+      objetosAEliminar.forEach((medalla) => {
+        if (medalla.tipo === "distintivos_liga") {
+          distintivos_liga = distintivos_liga.filter(
+            (m) => m.nombre !== medalla.nombre
           );
         }
       });
@@ -1020,16 +1001,13 @@ function editLeagueBagdes(trainerId, objetosAEliminar) {
       updateStmt.run(JSON.stringify(distintivos_liga), trainerId);
 
       console.log("Distintivos de liga actualizados correctamente.");
-      return "Distintivo de liga eliminado correctamente.";
     } else {
       console.log("Entrenador no encontrado.");
-      return "Entrenador no encontrado.";
     }
   } else {
     console.log(
       "No hay distintivos de liga a eliminar o el formato de objetosAEliminar es incorrecto."
     );
-    return "No hay distintivos de liga a eliminar o el formato de objetosAEliminar es incorrecto.";
   }
 }
 
