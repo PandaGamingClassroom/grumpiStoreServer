@@ -979,7 +979,7 @@ function editObjEvolution(trainerId, objetosAEliminar) {
 }
 
 // Eliminación de distintivos de liga del entrenador
-function editLeagueBadges(trainerId, objetosAEliminar) {
+function editLeagueBagdes(trainerId, objetosAEliminar) {
   if (Array.isArray(objetosAEliminar) && objetosAEliminar.length > 0) {
     const trainerStmt = db.prepare(`SELECT * FROM trainers WHERE id = ?`);
     const trainer = trainerStmt.get(trainerId);
@@ -999,13 +999,13 @@ function editLeagueBadges(trainerId, objetosAEliminar) {
           if (o.nombre === badgeLeague.nombre) {
             if (o.cantidad <= cantidadAEliminar) {
               cantidadAEliminar -= o.cantidad;
-              return false; 
+              return false;
             } else {
               o.cantidad -= cantidadAEliminar;
-              return true; 
+              return true;
             }
           }
-          return true; 
+          return true;
         });
 
         if (cantidadAEliminar > 0) {
