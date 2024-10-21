@@ -982,7 +982,7 @@ function editObjEvolution(trainerId, objetosAEliminar) {
   const updateStmt = db.prepare(
     "UPDATE trainers SET objetos_evolutivos = ? WHERE id = ?"
   );
-  updateStmt.run(JSON.stringify(objetos_evolutivos), trainerId);
+  updateStmt.run(JSON.stringify(objEvolutivosEntrenador), trainerId);
 
   console.log("Objetos evolutivos actualizados correctamente.");
 }
