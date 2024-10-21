@@ -941,7 +941,9 @@ function editObjEvolution(trainerId, objetosAEliminar) {
     }
     console.log("Energías del entrenador: ", objEvolutivosEntrenador);
   } catch (error) {
-    throw new Error("Error al parsear objetos evolutivos desde la base de datos.");
+    throw new Error(
+      "Error al parsear objetos evolutivos desde la base de datos."
+    );
   }
 
   objetosAEliminar.forEach((energiaAEliminar) => {
@@ -951,12 +953,11 @@ function editObjEvolution(trainerId, objetosAEliminar) {
 
     objEvolutivosEntrenador.forEach((energia) => {
       if (energia.nombre === nombre && energia.tipo === tipo) {
-        totalDisponibles++; 
+        totalDisponibles++;
       }
     });
 
     if (totalDisponibles < cantidad) {
-      
       objetosAEliminar.forEach((objEvolutivo) => {
         if (objEvolutivo.tipo === "objetos_evolutivos") {
           objEvolutivosEntrenador = objEvolutivosEntrenador.filter(
@@ -974,17 +975,16 @@ function editObjEvolution(trainerId, objetosAEliminar) {
           return false;
         }
       }
-      return true; 
+      return true;
     });
   });
 
-  db.prepare("UPDATE trainers SET objetos_evolutivos = ? WHERE id = ?").run(
-    JSON.stringify(objEvolutivosEntrenador),
-    trainerId
+  const updateStmt = db.prepare(
+    "UPDATE trainers SET objetos_evolutivos = ? WHERE id = ?"
   );
+  updateStmt.run(JSON.stringify(objetos_evolutivos), trainerId);
 
-
-  return "Energías eliminadas correctamente.";
+  console.log("Objetos evolutivos actualizados correctamente.");
 }
 
 // Eliminación de distintivos de liga del entrenador
@@ -3202,4 +3202,3 @@ app.put("/edit_post/:id", uploadFields, (req, res) => {
 app.listen(PORT, () => {
   console.log(`Servidor GrumpiStore, iniciado en el puerto: ${PORT}`);
 });
-
