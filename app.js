@@ -629,7 +629,6 @@ app.put("/trainers/update/:id", (req, res) => {
       trainer.last_conection = last_conection;
     }
 
-    // Ejecutar la actualización
     const updateStmt = db.prepare(`
       UPDATE trainers 
       SET name = ?, password = ?, grumpidolar = ?, marca_combate = ?, avatar = ?, connection_count = ?, last_conection = ?
@@ -643,12 +642,11 @@ app.put("/trainers/update/:id", (req, res) => {
       trainer.avatar,
       trainer.connection_count,
       trainer.last_conection,
-      trainerId // Cambié esto para usar trainerId en vez de trainer.id
+      trainerId 
     );
 
     console.log("Trainer actualizado:", trainer);
 
-    // Manejar la eliminación de objetos
     if (Array.isArray(objetosAEliminar)) {
       handleObjectDeletion(trainerId, objetosAEliminar);
     }
@@ -683,6 +681,9 @@ function handleObjectDeletion(trainerId, objetosAEliminar) {
   const distintivoLigaAEliminar = objetosAEliminar.filter(
     (objeto) => objeto.tipo === "distintivos_liga"
   );
+  const recompensaAEliminar = objetosAEliminar.filter(
+    (objeto) => objeto.tipo === "recompensa"
+  );
 
   console.log("Objetos a eliminar:", {
     energiasAEliminar,
@@ -691,6 +692,7 @@ function handleObjectDeletion(trainerId, objetosAEliminar) {
     objCombateAEliminar,
     objEvolutivoAEliminar,
     distintivoLigaAEliminar,
+    recompensaAEliminar,
   });
 
   // Elimina los objetos de cada tipo si existen
@@ -712,6 +714,65 @@ function handleObjectDeletion(trainerId, objetosAEliminar) {
   if (distintivoLigaAEliminar.length > 0) {
     editLeagueBagdes(trainerId, distintivoLigaAEliminar);
   }
+  if (recompensaAEliminar.length > 0) {
+    editRewards(trainerId, recompensaAEliminar);
+  }
+}
+
+function editRewards(trainerId, recompensaAEliminar) {
+  const trainer = db
+    .prepare("SELECT * FROM trainers WHERE id = ?")
+    .get(trainerId);
+  if (!trainer) {
+    throw new Error("Entrenador no encontrado.");
+  }
+
+  let recompensasDelEntrenador;
+  try {
+    recompensasDelEntrenador = JSON.parse(trainer.energies);
+    if (!Array.isArray(recompensasDelEntrenador)) {
+      throw new Error("Formato de recompensas inválido.");
+    }
+    console.log("Recompensas del entrenador: ", recompensasDelEntrenador);
+  } catch (error) {
+    throw new Error("Error al parsear recompensas desde la base de datos.");
+  }
+
+  recompensaAEliminar.forEach((recompensaAEliminar) => {
+    const { nombre, tipo_recompensa, cantidad } = recompensaAEliminar;
+
+    let totalDisponibles = 0;
+
+    recompensasDelEntrenador.forEach((recompensa) => {
+      if (recompensa.nombre === nombre && recompensa.tipo === tipo_recompensa) {
+        totalDisponibles++; 
+      }
+    });
+
+    if (totalDisponibles < cantidad) {
+      throw new Error(
+        `No hay suficientes recompensas de tipo ${tipo_recompensa} y nombre ${nombre} para eliminar.`
+      );
+    }
+
+    let recompensasEliminadas = 0;
+    recompensasDelEntrenador = recompensasDelEntrenador.filter((recompensa) => {
+      if (recompensa.nombre === nombre && recompensa.tipo === tipo_energia) {
+        if (recompensasEliminadas < cantidad) {
+          recompensasEliminadas++;
+          return false; 
+        }
+      }
+      return true; 
+    });
+  });
+
+  db.prepare("UPDATE trainers SET recompensas = ? WHERE id = ?").run(
+    JSON.stringify(recompensasDelEntrenador),
+    trainerId
+  );
+
+  return "Recompensas eliminadas correctamente.";
 }
 
 /**
