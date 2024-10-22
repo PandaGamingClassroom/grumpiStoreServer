@@ -719,6 +719,12 @@ function handleObjectDeletion(trainerId, objetosAEliminar) {
   }
 }
 
+/**
+ * Función para eliminar las recompensas seleccionadas del entrenador.
+ * @param {*} trainerId Recibe el ID del entrenador.
+ * @param {*} recompensaAEliminar Recibe las recompensas a eliminar
+ * @returns Devuelve la lista actualizada de recompensas.
+ */
 function editRewards(trainerId, recompensaAEliminar) {
   const trainer = db
     .prepare("SELECT * FROM trainers WHERE id = ?")
