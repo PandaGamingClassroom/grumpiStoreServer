@@ -946,10 +946,24 @@ function editObjEvolution(trainerId, objetosAEliminar) {
     );
   }
 
+  console.log(
+    "Objetos evolutivos actuales del entrenador:",
+    objEvolutivosEntrenador
+  );
+
   objetosAEliminar.forEach((objetoAEliminar) => {
     const { nombre, tipo, cantidad } = objetoAEliminar;
 
+    console.log(
+      `Intentando eliminar ${cantidad} objeto(s) de tipo ${tipo} con nombre ${nombre}`
+    );
+
     let objEvolutivosEliminados = 0;
+
+    const objetosCoincidentes = objEvolutivosEntrenador.filter((objeto) => {
+      return objeto.nombre === nombre && objeto.tipo === tipo;
+    });
+    console.log("Objetos coincidentes encontrados:", objetosCoincidentes);
 
     objEvolutivosEntrenador = objEvolutivosEntrenador.filter((objeto) => {
       if (
@@ -960,12 +974,16 @@ function editObjEvolution(trainerId, objetosAEliminar) {
         objEvolutivosEliminados++;
         return false; 
       }
-      return true; 
+      return true;
     });
 
     if (objEvolutivosEliminados < cantidad) {
       console.warn(
         `No se encontraron suficientes objetos de tipo ${tipo} y nombre ${nombre} para eliminar.`
+      );
+    } else {
+      console.log(
+        `${objEvolutivosEliminados} objeto(s) eliminados de tipo ${tipo} con nombre ${nombre}`
       );
     }
   });
@@ -987,6 +1005,7 @@ function editObjEvolution(trainerId, objetosAEliminar) {
 
   console.log("Objetos evolutivos actualizados correctamente.");
 }
+
 
 
 // Eliminación de distintivos de liga del entrenador
