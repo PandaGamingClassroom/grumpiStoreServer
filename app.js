@@ -929,6 +929,7 @@ function editObjEvolution(trainerId, objetosAEliminar) {
   const trainer = db
     .prepare("SELECT * FROM trainers WHERE id = ?")
     .get(trainerId);
+
   if (!trainer) {
     throw new Error("Entrenador no encontrado.");
   }
@@ -939,53 +940,54 @@ function editObjEvolution(trainerId, objetosAEliminar) {
     if (!Array.isArray(objEvolutivosEntrenador)) {
       throw new Error("Formato de objetos evolutivos inválido.");
     }
-    console.log("Energías del entrenador: ", objEvolutivosEntrenador);
   } catch (error) {
     throw new Error(
       "Error al parsear objetos evolutivos desde la base de datos."
     );
   }
 
-  objetosAEliminar.forEach((energiaAEliminar) => {
-    const { nombre, tipo, cantidad } = energiaAEliminar;
-
-    let totalDisponibles = 0;
-
-    objEvolutivosEntrenador.forEach((energia) => {
-      if (energia.nombre === nombre && energia.tipo === tipo) {
-        totalDisponibles++;
-      }
-    });
-
-    if (totalDisponibles < cantidad) {
-      objetosAEliminar.forEach((objEvolutivo) => {
-        if (objEvolutivo.tipo === "objetos_evolutivos") {
-          objEvolutivosEntrenador = objEvolutivosEntrenador.filter(
-            (m) => m.nombre !== objEvolutivo.nombre
-          );
-        }
-      });
-    }
+  objetosAEliminar.forEach((objetoAEliminar) => {
+    const { nombre, tipo, cantidad } = objetoAEliminar;
 
     let objEvolutivosEliminados = 0;
-    objEvolutivosEntrenador = objEvolutivosEntrenador.filter((energia) => {
-      if (energia.nombre === nombre && energia.tipo === tipo) {
-        if (objEvolutivosEliminados < cantidad) {
-          objEvolutivosEliminados++;
-          return false;
-        }
+
+    objEvolutivosEntrenador = objEvolutivosEntrenador.filter((objeto) => {
+      if (
+        objeto.nombre === nombre &&
+        objeto.tipo === tipo &&
+        objEvolutivosEliminados < cantidad
+      ) {
+        objEvolutivosEliminados++;
+        return false; 
       }
-      return true;
+      return true; 
     });
+
+    if (objEvolutivosEliminados < cantidad) {
+      console.warn(
+        `No se encontraron suficientes objetos de tipo ${tipo} y nombre ${nombre} para eliminar.`
+      );
+    }
   });
 
   const updateStmt = db.prepare(
     "UPDATE trainers SET objetos_evolutivos = ? WHERE id = ?"
   );
-  updateStmt.run(JSON.stringify(objEvolutivosEntrenador), trainerId);
+
+  const result = updateStmt.run(
+    JSON.stringify(objEvolutivosEntrenador),
+    trainerId
+  );
+
+  if (result.changes === 0) {
+    throw new Error(
+      "No se pudo actualizar los objetos evolutivos en la base de datos."
+    );
+  }
 
   console.log("Objetos evolutivos actualizados correctamente.");
 }
+
 
 // Eliminación de distintivos de liga del entrenador
 function editLeagueBagdes(trainerId, objetosAEliminar) {
