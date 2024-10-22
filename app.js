@@ -729,7 +729,7 @@ function editRewards(trainerId, recompensaAEliminar) {
 
   let recompensasDelEntrenador;
   try {
-    recompensasDelEntrenador = JSON.parse(trainer.energies);
+    recompensasDelEntrenador = JSON.parse(trainer.recompensas);
     if (!Array.isArray(recompensasDelEntrenador)) {
       throw new Error("Formato de recompensas inválido.");
     }
