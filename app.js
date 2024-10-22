@@ -952,42 +952,41 @@ function editObjEvolution(trainerId, objetosAEliminar) {
   );
 
   objetosAEliminar.forEach((objetoAEliminar) => {
-    const { nombre, tipo, cantidad } = objetoAEliminar;
+    const { nombre, cantidad } = objetoAEliminar;
 
     console.log(
-      `Intentando eliminar ${cantidad} objeto(s) de tipo ${tipo} con nombre ${nombre}`
+      `Intentando eliminar ${cantidad} objeto(s) con nombre ${nombre}`
     );
 
     let objEvolutivosEliminados = 0;
 
+    // Mostrar objetos coincidentes antes de eliminarlos
     const objetosCoincidentes = objEvolutivosEntrenador.filter((objeto) => {
-      return objeto.nombre === nombre && objeto.tipo === tipo;
+      return objeto.nombre === nombre;
     });
     console.log("Objetos coincidentes encontrados:", objetosCoincidentes);
 
+    // Eliminar los objetos coincidentes
     objEvolutivosEntrenador = objEvolutivosEntrenador.filter((objeto) => {
-      if (
-        objeto.nombre === nombre &&
-        objeto.tipo === tipo &&
-        objEvolutivosEliminados < cantidad
-      ) {
+      if (objeto.nombre === nombre && objEvolutivosEliminados < cantidad) {
         objEvolutivosEliminados++;
-        return false; 
+        return false; // Eliminar este objeto
       }
-      return true;
+      return true; // Mantener este objeto
     });
 
     if (objEvolutivosEliminados < cantidad) {
       console.warn(
-        `No se encontraron suficientes objetos de tipo ${tipo} y nombre ${nombre} para eliminar.`
+        `No se encontraron suficientes objetos con nombre ${nombre} para eliminar.`
       );
     } else {
       console.log(
-        `${objEvolutivosEliminados} objeto(s) eliminados de tipo ${tipo} con nombre ${nombre}`
+        `${objEvolutivosEliminados} objeto(s) eliminados con nombre ${nombre}`
       );
     }
   });
 
+  // Actualizar la base de datos
   const updateStmt = db.prepare(
     "UPDATE trainers SET objetos_evolutivos = ? WHERE id = ?"
   );
@@ -1005,7 +1004,6 @@ function editObjEvolution(trainerId, objetosAEliminar) {
 
   console.log("Objetos evolutivos actualizados correctamente.");
 }
-
 
 
 // Eliminación de distintivos de liga del entrenador
