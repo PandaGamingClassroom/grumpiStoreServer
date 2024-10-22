@@ -744,7 +744,7 @@ function editRewards(trainerId, recompensaAEliminar) {
     let totalDisponibles = 0;
 
     recompensasDelEntrenador.forEach((recompensa) => {
-      if (recompensa.nombre === nombre && recompensa.tipo === tipo_recompensa) {
+      if (recompensa.nombre === nombre) {
         totalDisponibles++; 
       }
     });
@@ -757,10 +757,10 @@ function editRewards(trainerId, recompensaAEliminar) {
 
     let recompensasEliminadas = 0;
     recompensasDelEntrenador = recompensasDelEntrenador.filter((recompensa) => {
-      if (recompensa.nombre === nombre && recompensa.tipo === tipo_energia) {
+      if (recompensa.nombre === nombre && recompensa.tipo === tipo_recompensa) {
         if (recompensasEliminadas < cantidad) {
           recompensasEliminadas++;
-          return false; 
+          return false;
         }
       }
       return true; 
