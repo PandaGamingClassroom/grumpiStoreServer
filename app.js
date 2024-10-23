@@ -157,6 +157,16 @@ const storage = new CloudinaryStorage({
   },
 });
 
+const profileImgStorage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "profile_img", // Carpeta específica para imágenes de perfil
+    format: async () => "png", // Formato de la imagen
+    public_id: (req, file) => "profile_" + Date.now(), // ID único para cada imagen
+  },
+});
+
+
 /** 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -174,6 +184,7 @@ const storage = multer.diskStorage({
 });
 */
 const upload = multer({ storage: storage });
+const uploadProfileImg = multer({ storage: profileImgStorage });
 
 /*********************************************
  *                                           *
@@ -252,6 +263,7 @@ function createTables() {
       apellidos TEXT NOT NULL,
       usuario TEXT NOT NULL,
       password TEXT NOT NULL,
+      img_profile TEXT,
       rol TEXT,
       connection_count INTEGER,
       last_conection TIMESTAMP,
@@ -3284,6 +3296,22 @@ app.put("/edit_post/:id", uploadFields, (req, res) => {
     res.status(500).json({ error: "Error editando el post" });
   }
 });
+
+
+/**
+ * Función para subir imágenes de perfil del profesor
+ */
+app.post(
+  "/upload_profile_image",
+  uploadProfileImg.single("image"),
+  (req, res) => {
+    try {
+      res.json({ imageUrl: req.file.path });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  }
+);
 
 app.listen(PORT, () => {
   console.log(`Servidor GrumpiStore, iniciado en el puerto: ${PORT}`);
