@@ -2588,6 +2588,7 @@ app.put("/profesors/update_all_data/:name", (req, res) => {
     password,
     connection_count,
     last_conection,
+    img_profile, // Imagen del perfil subida
   } = req.body; // Campos a actualizar
 
   console.log("Profesor que se va a editar: ", professorName);
@@ -2597,27 +2598,28 @@ app.put("/profesors/update_all_data/:name", (req, res) => {
     professor_name,
     password,
     connection_count,
-    last_conection
+    last_conection,
+    img_profile
   );
 
   try {
     // Primero, actualiza en la base de datos
     const updateQuery = db.prepare(`
       UPDATE profesores
-      SET nombre = ?, password = ?, usuario = ?, connection_count = ?, last_conection = ?
+      SET nombre = ?, password = ?, usuario = ?, connection_count = ?, last_conection = ?, img_profile = ?
       WHERE nombre = ?
     `);
 
     const result = updateQuery.run(
-      professor_name || professorName, // Usar el nombre nuevo si se proporciona
-      password || null, // Usar null si no se proporciona una nueva contraseña
-      usuario || null, // Usar null si no se proporciona un nuevo usuario
-      professorName, // El nombre antiguo para encontrar al profesor
-      connection_count,
-      last_conection
+      professor_name || professorName,
+      password || null,
+      usuario || null,
+      connection_count || null,
+      last_conection || null,
+      img_profile || null, // Actualiza la URL de la imagen si se proporciona
+      professorName
     );
 
-    // Verificar si se actualizó alguna fila en la base de datos
     if (result.changes === 0) {
       return res
         .status(404)
@@ -2626,33 +2628,8 @@ app.put("/profesors/update_all_data/:name", (req, res) => {
 
     console.log("Profesor actualizado en la base de datos.");
 
-    // Después de actualizar en la base de datos, actualizar en el archivo JSON
-    fs.readFile(filePathAmin, "utf8", (err, data) => {
-      if (err) {
-        return res
-          .status(500)
-          .json({ error: `Error al leer el fichero [${filePathAmin}]` });
-      }
-
-      let professors;
-      try {
-        professors = JSON.parse(data);
-      } catch (parseErr) {
-        return res
-          .status(500)
-          .json({ error: "Error al parsear los datos de los profesores." });
-      }
-
-      const professorIndex = professors.findIndex(
-        (prof) => prof.nombre === professorName
-      );
-
-      if (professorIndex === -1) {
-        return res
-          .status(404)
-          .json({ error: "Profesor no encontrado en el archivo." });
-      }
-    });
+    // Aquí puedes actualizar cualquier otro archivo si es necesario, por ejemplo JSON
+    res.json({ message: "Datos actualizados correctamente." });
   } catch (dbError) {
     console.error(
       "Error al actualizar el profesor en la base de datos:",
@@ -2661,6 +2638,7 @@ app.put("/profesors/update_all_data/:name", (req, res) => {
     res.status(500).json({ error: "Error interno del servidor" });
   }
 });
+
 
 /**
  *
