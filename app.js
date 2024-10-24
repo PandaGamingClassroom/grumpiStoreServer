@@ -2640,6 +2640,49 @@ app.put("/profesors/update_all_data/:id", (req, res) => {
 });
 
 
+app.put("/profesors/update_img_profile/:id", (req, res) => {
+  const professorName = req.params.id; // Nombre del profesor a actualizar
+  const {
+    img_profile,
+  } = req.body;
+
+  console.log("Profesor que se va a editar: ", professorName);
+  console.log(
+    "Atributos a editar del profesor: ",
+    img_profile
+  );
+
+  try {
+    // Primero, actualiza en la base de datos
+    const updateQuery = db.prepare(`
+      UPDATE profesores
+      SET img_profile = ?
+      WHERE id = ?
+    `);
+
+    const result = updateQuery.run(
+      img_profile || null, 
+    );
+
+    if (result.changes === 0) {
+      return res
+        .status(404)
+        .json({ error: "Profesor no encontrado en la base de datos." });
+    }
+
+    console.log("Profesor actualizado en la base de datos.");
+
+    // Aquí puedes actualizar cualquier otro archivo si es necesario, por ejemplo JSON
+    res.json({ message: "Datos actualizados correctamente." });
+  } catch (dbError) {
+    console.error(
+      "Error al actualizar el profesor en la base de datos:",
+      dbError
+    );
+    res.status(500).json({ error: "Error interno del servidor" });
+  }
+});
+
 /**
  *
  * Función para eliminar un profesor
