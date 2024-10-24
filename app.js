@@ -2639,21 +2639,17 @@ app.put("/profesors/update_all_data/:id", (req, res) => {
   }
 });
 
-
+/**
+ * Función para actualizar la imagen de perfil del profesor.
+ */
 app.put("/profesors/update_img_profile/:id", (req, res) => {
-  const professorName = req.params.id; // Nombre del profesor a actualizar
-  const {
-    img_profile,
-  } = req.body;
+  const professorId = req.params.id; 
+  const { img_profile } = req.body; 
 
-  console.log("Profesor que se va a editar: ", professorName);
-  console.log(
-    "Atributos a editar del profesor: ",
-    img_profile
-  );
+  console.log("Profesor que se va a editar: ", professorId);
+  console.log("Atributos a editar del profesor: ", img_profile);
 
   try {
-    // Primero, actualiza en la base de datos
     const updateQuery = db.prepare(`
       UPDATE profesores
       SET img_profile = ?
@@ -2661,7 +2657,8 @@ app.put("/profesors/update_img_profile/:id", (req, res) => {
     `);
 
     const result = updateQuery.run(
-      img_profile || null, 
+      img_profile || null,
+      professorId 
     );
 
     if (result.changes === 0) {
@@ -2672,7 +2669,6 @@ app.put("/profesors/update_img_profile/:id", (req, res) => {
 
     console.log("Profesor actualizado en la base de datos.");
 
-    // Aquí puedes actualizar cualquier otro archivo si es necesario, por ejemplo JSON
     res.json({ message: "Datos actualizados correctamente." });
   } catch (dbError) {
     console.error(
@@ -2682,6 +2678,7 @@ app.put("/profesors/update_img_profile/:id", (req, res) => {
     res.status(500).json({ error: "Error interno del servidor" });
   }
 });
+
 
 /**
  *
