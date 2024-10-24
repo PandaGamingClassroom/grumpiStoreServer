@@ -2580,16 +2580,16 @@ app.put("/profesors/update/:name", (req, res) => {
  * Hace uso de la BD
  *
  */
-app.put("/profesors/update_all_data/:name", (req, res) => {
-  const professorName = req.params.name; // Nombre del profesor a actualizar
+app.put("/profesors/update_all_data/:id", (req, res) => {
+  const professorName = req.params.id; // Nombre del profesor a actualizar
   const {
     usuario,
     professor_name,
     password,
     connection_count,
     last_conection,
-    img_profile, // Imagen del perfil subida
-  } = req.body; // Campos a actualizar
+    img_profile, 
+  } = req.body; 
 
   console.log("Profesor que se va a editar: ", professorName);
   console.log(
