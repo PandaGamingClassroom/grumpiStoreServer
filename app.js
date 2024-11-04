@@ -301,8 +301,9 @@ function createTables() {
   const createSubscriptionsTable = `
     CREATE TABLE IF NOT EXISTS subscriptions (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      professorId TEXT NOT NULL,
-      subscription TEXT NOT NULL
+      professor_id TEXT NOT NULL,
+      subscription TEXT NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
   `;
 
@@ -3371,7 +3372,7 @@ app.get("/notifications/:professorId", async (req, res) => {
 
 // Guarda la suscripción en el servidor
 app.post("/save-subscription", async (req, res) => {
-  const { subscription, professorId } = req.body;
+  const { subscription, professor_id } = req.body;
 
   try {
     // Convertir la suscripción a un JSON string para almacenar
@@ -3379,12 +3380,12 @@ app.post("/save-subscription", async (req, res) => {
 
     // Guardar o actualizar la suscripción en la base de datos
     const stmt = db.prepare(
-      `INSERT INTO subscriptions (professorId, subscription) 
+      `INSERT INTO subscriptions (professor_id, subscription) 
        VALUES (?, ?) 
-       ON CONFLICT(professorId) 
+       ON CONFLICT(professor_id) 
        DO UPDATE SET subscription = ?`
     );
-    stmt.run(professorId, subscriptionString, subscriptionString);
+    stmt.run(professor_id, subscriptionString, subscriptionString);
 
     res.status(200).send("Subscription saved");
   } catch (error) {
@@ -3394,11 +3395,11 @@ app.post("/save-subscription", async (req, res) => {
 });
 
 // Función para enviar una notificación push
-async function sendPushNotification(professorId, message) {
+async function sendPushNotification(professor_id, message) {
   try {
     const subscriptionRecord = db
-      .prepare("SELECT subscription FROM subscriptions WHERE professorId = ?")
-      .get(professorId);
+      .prepare("SELECT subscription FROM subscriptions WHERE professor_id = ?")
+      .get(professor_id);
 
     if (subscriptionRecord) {
       const subscription = JSON.parse(subscriptionRecord.subscription);
@@ -3421,10 +3422,10 @@ async function sendPushNotification(professorId, message) {
 }
 
 app.post("/notify-professor", async (req, res) => {
-  const { professorId, message } = req.body;
+  const { professor_id, message } = req.body;
 
   try {
-    await sendPushNotification(professorId, message);
+    await sendPushNotification(professor_id, message);
     res.status(200).send("Notificación enviada");
   } catch (error) {
     console.error("Error al enviar la notificación", error);
