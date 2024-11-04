@@ -3388,6 +3388,9 @@ app.get("/notifications/:professor_id", async (req, res) => {
 app.post("/save-subscription", async (req, res) => {
   const { subscription, professor_id } = req.body;
 
+  console.log("Guardando suscripción para el profesor:", professor_id); // Agregar log
+  console.log("Suscripción:", subscription); // Agregar log
+
   try {
     // Convertir la suscripción a JSON string para almacenar
     const subscriptionString = JSON.stringify(subscription);
@@ -3407,7 +3410,6 @@ app.post("/save-subscription", async (req, res) => {
     res.status(500).send("Failed to save subscription");
   }
 });
-
 // Función para enviar una notificación push
 async function sendPushNotification(professor_id, message) {
   try {
