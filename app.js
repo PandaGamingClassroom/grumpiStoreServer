@@ -3386,9 +3386,9 @@ app.get("/notifications/:professor_id", async (req, res) => {
 
 // Guarda la suscripción en el servidor
 app.post("/save-subscription", async (req, res) => {
-  const { subscription, professorId } = req.body;
+  const { subscription, professor_id } = req.body;
 
-  if (!professorId) {
+  if (!professor_id) {
     console.error("professor_id es requerido");
     return res.status(400).send("professor_id es requerido");
   }
@@ -3401,7 +3401,7 @@ app.post("/save-subscription", async (req, res) => {
       ON CONFLICT(professor_id) 
       DO UPDATE SET subscription = excluded.subscription
     `);
-    stmt.run(professorId, subscriptionString);
+    stmt.run(professor_id, subscriptionString);
     res.status(200).send("Subscription saved");
   } catch (error) {
     console.error("Error saving subscription", error);
