@@ -3438,22 +3438,22 @@ async function sendPushNotification(professor_id, message) {
 
 app.post("/notify-professor", async (req, res) => {
   console.log("Cuerpo de la solicitud:", req.body); 
-  const { professorId, message } = req.body;
+  const { professor_id, message } = req.body;
 
-  if (!professorId || !message) {
+  if (!professor_id || !message) {
     return res.status(400).send("professor_id y message son requeridos");
   }
   try {
     const subscriptionRecord = db
       .prepare("SELECT subscription FROM subscriptions WHERE professor_id = ?")
-      .get(professorId);
+      .get(professor_id);
 
     if (!subscriptionRecord) {
       console.error("No se encontró la suscripción del profesor");
       return res.status(400).send("No se encontró la suscripción del profesor");
     }
 
-    await sendPushNotification(professorId, message);
+    await sendPushNotification(professor_id, message);
 
     const insertNotification = db.prepare(`
       INSERT INTO notifications (professor_id, message) 
