@@ -3375,17 +3375,17 @@ app.post("/save-subscription", async (req, res) => {
   const { subscription, professor_id } = req.body;
 
   try {
-    // Convertir la suscripción a un JSON string para almacenar
+    // Convertir la suscripción a JSON string para almacenar
     const subscriptionString = JSON.stringify(subscription);
 
     // Guardar o actualizar la suscripción en la base de datos
     const stmt = db.prepare(
       `INSERT INTO subscriptions (professor_id, subscription) 
-       VALUES (?, ?) 
+       VALUES (?, ?)
        ON CONFLICT(professor_id) 
-       DO UPDATE SET subscription = ?`
+       DO UPDATE SET subscription = excluded.subscription`
     );
-    stmt.run(professor_id, subscriptionString, subscriptionString);
+    stmt.run(professor_id, subscriptionString);
 
     res.status(200).send("Subscription saved");
   } catch (error) {
