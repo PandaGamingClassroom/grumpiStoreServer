@@ -3353,6 +3353,22 @@ app.post(
   }
 );
 
+
+app.get("/notifications/:professorId", async (req, res) => {
+  const { professorId } = req.params;
+
+  try {
+    const notifications = db
+      .prepare("SELECT * FROM subscriptions WHERE professorId = ?")
+      .all(professorId); // Obtiene todas las notificaciones del profesor específico
+
+    res.status(200).json(notifications);
+  } catch (error) {
+    console.error("Error al obtener notificaciones", error);
+    res.status(500).send("Failed to retrieve notifications");
+  }
+});
+
 // Guarda la suscripción en el servidor
 app.post("/save-subscription", async (req, res) => {
   const { subscription, professorId } = req.body;
