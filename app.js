@@ -3355,13 +3355,13 @@ app.post(
 );
 
 
-app.get("/notifications/:professorId", async (req, res) => {
-  const { professorId } = req.params;
+app.get("/notifications/:professor_id", async (req, res) => {
+  const { professor_id } = req.params;
 
   try {
     const notifications = db
-      .prepare("SELECT * FROM subscriptions WHERE professorId = ?")
-      .all(professorId); // Obtiene todas las notificaciones del profesor específico
+      .prepare("SELECT * FROM subscriptions WHERE professor_id = ?")
+      .all(professor_id); // Obtiene todas las notificaciones del profesor específico
 
     res.status(200).json(notifications);
   } catch (error) {
