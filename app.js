@@ -9,6 +9,7 @@ const path = require("path");
 const Database = require("better-sqlite3");
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const webpush = require("web-push");
 
 const PORT = process.env.PORT || 3001;
 
@@ -139,6 +140,18 @@ app.use((req, res, next) => {
 
 fs.mkdirSync(uploadDir, { recursive: true });
 fs.mkdirSync(uploadDirMedals, { recursive: true });
+
+/**
+ * 
+ *    CONFIGURACIÓN PARA NOTIFICACIONES PUSH
+ * 
+ */
+webpush.setVapidDetails(
+  "mailto:gamificacionpanda@gmail.com",
+  "BFD_VPxiPRpJzte77znqB9zm3v6acV1fQUSyFo-jdOQNi_GKhxVgaKJfvCFSrAdX9XTa-5NrBbYhSbIKkeyPRPs",
+  "PihPoW12F34Hj2rWIi3C69tx-IUrIhEZVyFLe4uyVxc"
+);
+
 
 // Configuración de Cloudinary
 cloudinary.config({
@@ -3331,6 +3344,43 @@ app.post(
   }
 );
 
+
+// Simulación de base de datos
+const subscriptions = {}; // Un objeto en memoria para almacenar las suscripciones temporalmente
+
+// Guarda la suscripción en el servidor
+app.post('/api/save-subscription', (req, res) => {
+  const { subscription, professorId } = req.body;
+  subscriptions[professorId] = subscription; // Guarda la suscripción usando el ID del profesor como clave
+  res.status(200).send('Subscription saved');
+});
+
+// Función para enviar una notificación push
+function sendPushNotification(subscription, message) {
+  webpush
+    .sendNotification(subscription, JSON.stringify(message))
+    .then((response) => console.log('Notificación enviada', response))
+    .catch((error) => console.error('Error enviando la notificación', error));
+}
+
+// Endpoint para notificar al profesor
+app.post('/api/notify-professor', (req, res) => {
+  const { professorId, message } = req.body;
+
+  // Obtiene la suscripción del profesor desde la "base de datos"
+  const subscription = subscriptions[professorId];
+
+  if (subscription) {
+    sendPushNotification(subscription, message);
+    res.status(200).send('Notificación enviada');
+  } else {
+    res.status(404).send('Subscription not found');
+  }
+});
+
+
+
 app.listen(PORT, () => {
   console.log(`Servidor GrumpiStore, iniciado en el puerto: ${PORT}`);
 });
+
