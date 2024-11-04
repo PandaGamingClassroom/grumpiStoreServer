@@ -3386,30 +3386,29 @@ app.get("/notifications/:professor_id", async (req, res) => {
 
 // Guarda la suscripción en el servidor
 app.post("/save-subscription", async (req, res) => {
-  const { subscription, professor_id } = req.body;
+  const { subscription, professorId } = req.body;
 
-  console.log("Guardando suscripción para el profesor:", professor_id); // Agregar log
-  console.log("Suscripción:", subscription); // Agregar log
+  if (!professorId) {
+    console.error("professor_id es requerido");
+    return res.status(400).send("professor_id es requerido");
+  }
 
   try {
-    // Convertir la suscripción a JSON string para almacenar
     const subscriptionString = JSON.stringify(subscription);
-
-    // Guardar o actualizar la suscripción en la base de datos
     const stmt = db.prepare(`
       INSERT INTO subscriptions (professor_id, subscription) 
       VALUES (?, ?)
       ON CONFLICT(professor_id) 
       DO UPDATE SET subscription = excluded.subscription
     `);
-    stmt.run(professor_id, subscriptionString);
-
+    stmt.run(professorId, subscriptionString);
     res.status(200).send("Subscription saved");
   } catch (error) {
     console.error("Error saving subscription", error);
     res.status(500).send("Failed to save subscription");
   }
 });
+
 // Función para enviar una notificación push
 async function sendPushNotification(professor_id, message) {
   try {
