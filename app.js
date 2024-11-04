@@ -298,6 +298,14 @@ function createTables() {
   );
 `;
 
+  const createSubscriptionsTable = `
+    CREATE TABLE IF NOT EXISTS subscriptions (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      professorId TEXT NOT NULL,
+      subscription TEXT NOT NULL
+    );
+  `;
+
   try {
     db.exec(createTrainersTable);
     db.exec(createGrumpisTable);
@@ -305,6 +313,7 @@ function createTables() {
     db.exec(createAtaquesTable);
     db.exec(createProfesoresTable);
     db.exec(createPostsTable);
+    db.exec(createSubscriptionsTable);
     console.log("Tablas creadas correctamente.");
   } catch (err) {
     console.error("Error creando tablas:", err.message);
@@ -3344,40 +3353,60 @@ app.post(
   }
 );
 
-
-// Simulación de base de datos
-const subscriptions = {}; // Un objeto en memoria para almacenar las suscripciones temporalmente
-
 // Guarda la suscripción en el servidor
-app.post('/api/save-subscription', (req, res) => {
+app.post("/save-subscription", async (req, res) => {
   const { subscription, professorId } = req.body;
-  subscriptions[professorId] = subscription; // Guarda la suscripción usando el ID del profesor como clave
-  res.status(200).send('Subscription saved');
-});
 
-// Función para enviar una notificación push
-function sendPushNotification(subscription, message) {
-  webpush
-    .sendNotification(subscription, JSON.stringify(message))
-    .then((response) => console.log('Notificación enviada', response))
-    .catch((error) => console.error('Error enviando la notificación', error));
-}
+  try {
+    // Convertir la suscripción a un JSON string para almacenar
+    const subscriptionString = JSON.stringify(subscription);
 
-// Endpoint para notificar al profesor
-app.post('/api/notify-professor', (req, res) => {
-  const { professorId, message } = req.body;
+    // Guardar o actualizar la suscripción en la base de datos
+    const stmt = db.prepare(
+      `INSERT INTO subscriptions (professorId, subscription) 
+       VALUES (?, ?) 
+       ON CONFLICT(professorId) 
+       DO UPDATE SET subscription = ?`
+    );
+    stmt.run(professorId, subscriptionString, subscriptionString);
 
-  // Obtiene la suscripción del profesor desde la "base de datos"
-  const subscription = subscriptions[professorId];
-
-  if (subscription) {
-    sendPushNotification(subscription, message);
-    res.status(200).send('Notificación enviada');
-  } else {
-    res.status(404).send('Subscription not found');
+    res.status(200).send("Subscription saved");
+  } catch (error) {
+    console.error("Error saving subscription", error);
+    res.status(500).send("Failed to save subscription");
   }
 });
 
+// Función para enviar una notificación push
+async function sendPushNotification(professorId, message) {
+  try {
+    const subscriptionRecord = db
+      .prepare("SELECT subscription FROM subscriptions WHERE professorId = ?")
+      .get(professorId);
+
+    if (subscriptionRecord) {
+      const subscription = JSON.parse(subscriptionRecord.subscription); // Convertir de string a objeto
+      await webpush.sendNotification(subscription, JSON.stringify({ message }));
+      console.log("Notificación enviada");
+    } else {
+      console.error("No se encontró la suscripción del profesor");
+    }
+  } catch (error) {
+    console.error("Error enviando la notificación", error);
+  }
+}
+
+app.post("/notify-professor", async (req, res) => {
+  const { professorId, message } = req.body;
+
+  try {
+    await sendPushNotification(professorId, message);
+    res.status(200).send("Notificación enviada");
+  } catch (error) {
+    console.error("Error al enviar la notificación", error);
+    res.status(500).send("Failed to send notification");
+  }
+});
 
 
 app.listen(PORT, () => {
