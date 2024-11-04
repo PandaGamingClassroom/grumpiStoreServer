@@ -301,7 +301,7 @@ function createTables() {
   const createSubscriptionsTable = `
     CREATE TABLE IF NOT EXISTS subscriptions (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      professor_id TEXT NOT NULL,
+      professor_id TEXT NOT NULL UNIQUE,
       subscription TEXT NOT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
@@ -3393,12 +3393,12 @@ app.post("/save-subscription", async (req, res) => {
     const subscriptionString = JSON.stringify(subscription);
 
     // Guardar o actualizar la suscripción en la base de datos
-    const stmt = db.prepare(
-      `INSERT INTO subscriptions (professor_id, subscription) 
-       VALUES (?, ?)
-       ON CONFLICT(professor_id) 
-       DO UPDATE SET subscription = excluded.subscription`
-    );
+    const stmt = db.prepare(`
+      INSERT INTO subscriptions (professor_id, subscription) 
+      VALUES (?, ?)
+      ON CONFLICT(professor_id) 
+      DO UPDATE SET subscription = excluded.subscription
+    `);
     stmt.run(professor_id, subscriptionString);
 
     res.status(200).send("Subscription saved");
@@ -3439,6 +3439,16 @@ app.post("/notify-professor", async (req, res) => {
   const { professor_id, message } = req.body;
 
   try {
+    // Verificar que el profesor tenga una suscripción antes de enviar la notificación
+    const subscriptionRecord = db
+      .prepare("SELECT subscription FROM subscriptions WHERE professor_id = ?")
+      .get(professor_id);
+
+    if (!subscriptionRecord) {
+      console.error("No se encontró la suscripción del profesor");
+      return res.status(400).send("No se encontró la suscripción del profesor");
+    }
+
     await sendPushNotification(professor_id, message);
 
     // Registrar la notificación en la tabla `notifications`
