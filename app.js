@@ -307,6 +307,17 @@ function createTables() {
     );
   `;
 
+  const createNotificationsTable = `
+  CREATE TABLE IF NOT EXISTS notifications (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    professor_id TEXT NOT NULL,
+    message TEXT NOT NULL,
+    read_status BOOLEAN DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (professor_id) REFERENCES subscriptions(professor_id)
+  );
+`;
+
   try {
     db.exec(createTrainersTable);
     db.exec(createGrumpisTable);
@@ -315,6 +326,7 @@ function createTables() {
     db.exec(createProfesoresTable);
     db.exec(createPostsTable);
     db.exec(createSubscriptionsTable);
+    db.exec(createNotificationsTable);
     console.log("Tablas creadas correctamente.");
   } catch (err) {
     console.error("Error creando tablas:", err.message);
@@ -3360,8 +3372,10 @@ app.get("/notifications/:professor_id", async (req, res) => {
 
   try {
     const notifications = db
-      .prepare("SELECT * FROM subscriptions WHERE professor_id = ?")
-      .all(professor_id); // Obtiene todas las notificaciones del profesor específico
+      .prepare(
+        "SELECT * FROM notifications WHERE professor_id = ? ORDER BY created_at DESC"
+      )
+      .all(professor_id);
 
     res.status(200).json(notifications);
   } catch (error) {
@@ -3426,7 +3440,15 @@ app.post("/notify-professor", async (req, res) => {
 
   try {
     await sendPushNotification(professor_id, message);
-    res.status(200).send("Notificación enviada");
+
+    // Registrar la notificación en la tabla `notifications`
+    const insertNotification = db.prepare(`
+      INSERT INTO notifications (professor_id, message) 
+      VALUES (?, ?)
+    `);
+    insertNotification.run(professor_id, message);
+
+    res.status(200).send("Notificación enviada y registrada");
   } catch (error) {
     console.error("Error al enviar la notificación", error);
     res.status(500).send("Failed to send notification");
