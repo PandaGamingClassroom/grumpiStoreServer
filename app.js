@@ -3401,8 +3401,16 @@ async function sendPushNotification(professorId, message) {
       .get(professorId);
 
     if (subscriptionRecord) {
-      const subscription = JSON.parse(subscriptionRecord.subscription); // Convertir de string a objeto
-      await webpush.sendNotification(subscription, JSON.stringify({ message }));
+      const subscription = JSON.parse(subscriptionRecord.subscription);
+
+      // Crear el payload de notificación con title y body
+      const payload = JSON.stringify({
+        title: "Notificación de Grumpi Store",
+        body: message,
+      });
+
+      // Enviar la notificación
+      await webpush.sendNotification(subscription, payload);
       console.log("Notificación enviada");
     } else {
       console.error("No se encontró la suscripción del profesor");
