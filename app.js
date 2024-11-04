@@ -3388,26 +3388,35 @@ app.get("/notifications/:professor_id", async (req, res) => {
 app.post("/save-subscription", async (req, res) => {
   const { subscription, professor_id } = req.body;
 
+  // Validación del ID del profesor
   if (!professor_id) {
     console.error("professor_id es requerido");
-    return res.status(400).send("professor_id es requerido");
+    return res.status(400).json({ error: "professor_id es requerido" });
   }
 
   try {
+    // Convertir la suscripción a una cadena JSON
     const subscriptionString = JSON.stringify(subscription);
+
+    // Preparar la consulta para insertar o actualizar la suscripción
     const stmt = db.prepare(`
       INSERT INTO subscriptions (professor_id, subscription) 
       VALUES (?, ?)
       ON CONFLICT(professor_id) 
       DO UPDATE SET subscription = excluded.subscription
     `);
+
+    // Ejecutar la consulta
     stmt.run(professor_id, subscriptionString);
-    res.status(200).send("Subscription saved");
+
+    // Devolver un objeto JSON como respuesta
+    res.status(200).json({ message: "Subscription saved" });
   } catch (error) {
     console.error("Error saving subscription", error);
-    res.status(500).send("Failed to save subscription");
+    res.status(500).json({ error: "Failed to save subscription" });
   }
 });
+
 
 // Función para enviar una notificación push
 async function sendPushNotification(professor_id, message) {
@@ -3437,7 +3446,7 @@ async function sendPushNotification(professor_id, message) {
 }
 
 app.post("/notify-professor", async (req, res) => {
-  console.log("Cuerpo de la solicitud:", req.body);
+  console.log("Cuerpo de la solicitud:", req.body); // Agregado
 
   let { professor_id, message, combatObject } = req.body;
 
@@ -3458,6 +3467,11 @@ app.post("/notify-professor", async (req, res) => {
       console.error("No se encontró la suscripción del profesor");
       return res.status(400).send("No se encontró la suscripción del profesor");
     }
+
+    // Agrega un log aquí para verificar si se llama a sendPushNotification
+    console.log(
+      `Enviando notificación a profesor ${professor_id} con mensaje: ${message}`
+    );
 
     // Enviar la notificación push
     await sendPushNotification(professor_id, message);
