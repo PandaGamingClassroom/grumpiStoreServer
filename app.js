@@ -3438,6 +3438,10 @@ async function sendPushNotification(professor_id, message) {
 app.post("/notify-professor", async (req, res) => {
   const { professor_id, message } = req.body;
 
+  if (!professor_id || !message) {
+    return res.status(400).send("professor_id y message son requeridos");
+  }
+
   try {
     // Verificar que el profesor tenga una suscripción antes de enviar la notificación
     const subscriptionRecord = db
