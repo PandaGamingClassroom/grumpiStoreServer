@@ -3409,15 +3409,42 @@ app.post("/save-subscription", async (req, res) => {
   }
 });
 
+// Función para enviar una notificación push
+async function sendPushNotification(professor_id, message) {
+  try {
+    const subscriptionRecord = db
+      .prepare("SELECT subscription FROM subscriptions WHERE professor_id = ?")
+      .get(professor_id);
+
+    if (subscriptionRecord) {
+      const subscription = JSON.parse(subscriptionRecord.subscription);
+
+      // Crear el payload de notificación con title y body
+      const payload = JSON.stringify({
+        title: "Notificación de Grumpi Store",
+        body: message,
+      });
+
+      // Enviar la notificación
+      await webpush.sendNotification(subscription, payload);
+      console.log("Notificación enviada");
+    } else {
+      console.error("No se encontró la suscripción del profesor");
+    }
+  } catch (error) {
+    console.error("Error enviando la notificación", error);
+  }
+}
+
 app.post("/notify-professor", async (req, res) => {
   console.log("Cuerpo de la solicitud:", req.body);
+
   let { professor_id, message, combatObject } = req.body;
 
   if (!professor_id || !message) {
     return res.status(400).send("professor_id y message son requeridos");
   }
 
-  // Convierte combatObject a una cadena legible si está presente
   if (combatObject) {
     message += `: ${JSON.stringify(combatObject)}`;
   }
@@ -3448,6 +3475,7 @@ app.post("/notify-professor", async (req, res) => {
     res.status(500).send("Failed to send notification");
   }
 });
+
 
 
 app.listen(PORT, () => {
