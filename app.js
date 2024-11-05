@@ -3435,7 +3435,7 @@ async function sendPushNotification(professor_id, message) {
 }
 
 app.post("/notify-professor", async (req, res) => {
-  console.log("Cuerpo de la solicitud:", req.body); // Agregado
+  console.log("Cuerpo de la solicitud:", req.body);
 
   let { professor_id, message, combatObject } = req.body;
 
@@ -3448,16 +3448,16 @@ app.post("/notify-professor", async (req, res) => {
   }
 
   try {
-    const subscriptionRecord = db
-      .prepare("SELECT subscription FROM subscriptions WHERE professor_id = ?")
+    // Verifica si el professor_id existe en la tabla de profesores
+    const professorRecord = db
+      .prepare("SELECT id FROM professors WHERE id = ?")
       .get(professor_id);
 
-    if (!subscriptionRecord) {
-      console.error("No se encontró la suscripción del profesor");
-      return res.status(400).send("No se encontró la suscripción del profesor");
+    if (!professorRecord) {
+      console.error("El professor_id no existe:", professor_id);
+      return res.status(400).send("El professor_id no existe");
     }
 
-    // Agrega un log aquí para verificar si se llama a sendPushNotification
     console.log(
       `Enviando notificación a profesor ${professor_id} con mensaje: ${message}`
     );
