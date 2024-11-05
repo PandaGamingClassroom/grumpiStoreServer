@@ -3388,17 +3388,15 @@ app.get("/notifications/:professor_id", async (req, res) => {
 app.post("/save-subscription", async (req, res) => {
   const { subscription, professor_id } = req.body;
 
-  // Validación del ID del profesor
-  if (!professor_id) {
-    console.error("professor_id es requerido");
-    return res.status(400).json({ error: "professor_id es requerido" });
+  if (!professor_id || !subscription) {
+    console.error("professor_id y suscripción son requeridos");
+    return res
+      .status(400)
+      .json({ error: "professor_id y suscripción son requeridos" });
   }
 
   try {
-    // Convertir la suscripción a una cadena JSON
     const subscriptionString = JSON.stringify(subscription);
-
-    // Preparar la consulta para insertar o actualizar la suscripción
     const stmt = db.prepare(`
       INSERT INTO subscriptions (professor_id, subscription) 
       VALUES (?, ?)
@@ -3406,17 +3404,14 @@ app.post("/save-subscription", async (req, res) => {
       DO UPDATE SET subscription = excluded.subscription
     `);
 
-    // Ejecutar la consulta
     stmt.run(professor_id, subscriptionString);
-
-    // Devolver un objeto JSON como respuesta
+    console.log("Suscripción guardada correctamente");
     res.status(200).json({ message: "Subscription saved" });
   } catch (error) {
-    console.error("Error saving subscription", error);
+    console.error("Error al guardar la suscripción", error);
     res.status(500).json({ error: "Failed to save subscription" });
   }
 });
-
 
 // Función para enviar una notificación push
 async function sendPushNotification(professor_id, message) {
@@ -3427,21 +3422,24 @@ async function sendPushNotification(professor_id, message) {
 
     if (subscriptionRecord) {
       const subscription = JSON.parse(subscriptionRecord.subscription);
-
-      // Crear el payload de notificación con title y body
       const payload = JSON.stringify({
         title: "Notificación de Grumpi Store",
         body: message,
       });
 
-      // Enviar la notificación
       await webpush.sendNotification(subscription, payload);
-      console.log("Notificación enviada");
+      console.log(
+        "Notificación enviada exitosamente al profesor:",
+        professor_id
+      );
     } else {
-      console.error("No se encontró la suscripción del profesor");
+      console.error(
+        "No se encontró la suscripción para el profesor:",
+        professor_id
+      );
     }
   } catch (error) {
-    console.error("Error enviando la notificación", error);
+    console.error("Error enviando la notificación push", error);
   }
 }
 
