@@ -3444,9 +3444,9 @@ app.post("/notify-professor", async (req, res) => {
   }
 
   if (combatObject) {
-    message += `: ${JSON.stringify(combatObject)}`;
+    message += `: ${JSON.stringify(combatObject, null, 2)}`;
   }
-  
+
   try {
     const subscriptionRecord = db
       .prepare("SELECT subscription FROM subscriptions WHERE professor_id = ?")
