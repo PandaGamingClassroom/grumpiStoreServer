@@ -3450,7 +3450,7 @@ app.post("/notify-professor", async (req, res) => {
   try {
     // Verifica si el professor_id existe en la tabla de profesores
     const professorRecord = db
-      .prepare("SELECT id FROM professors WHERE id = ?")
+      .prepare("SELECT id FROM profesores WHERE id = ?")
       .get(professor_id);
 
     if (!professorRecord) {
