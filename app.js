@@ -142,16 +142,15 @@ fs.mkdirSync(uploadDir, { recursive: true });
 fs.mkdirSync(uploadDirMedals, { recursive: true });
 
 /**
- * 
+ *
  *    CONFIGURACIÓN PARA NOTIFICACIONES PUSH
- * 
+ *
  */
 webpush.setVapidDetails(
   "mailto:gamificacionpanda@gmail.com",
   "BFD_VPxiPRpJzte77znqB9zm3v6acV1fQUSyFo-jdOQNi_GKhxVgaKJfvCFSrAdX9XTa-5NrBbYhSbIKkeyPRPs",
   "PihPoW12F34Hj2rWIi3C69tx-IUrIhEZVyFLe4uyVxc"
 );
-
 
 // Configuración de Cloudinary
 cloudinary.config({
@@ -178,7 +177,6 @@ const profileImgStorage = new CloudinaryStorage({
     public_id: (req, file) => "profile_" + Date.now(), // ID único para cada imagen
   },
 });
-
 
 /** 
 const storage = multer.diskStorage({
@@ -689,7 +687,7 @@ app.put("/trainers/update/:id", (req, res) => {
       trainer.avatar,
       trainer.connection_count,
       trainer.last_conection,
-      trainerId 
+      trainerId
     );
 
     console.log("Trainer actualizado:", trainer);
@@ -798,7 +796,7 @@ function editRewards(trainerId, recompensaAEliminar) {
 
     recompensasDelEntrenador.forEach((recompensa) => {
       if (recompensa.nombre === nombre) {
-        totalDisponibles++; 
+        totalDisponibles++;
       }
     });
 
@@ -816,7 +814,7 @@ function editRewards(trainerId, recompensaAEliminar) {
           return false;
         }
       }
-      return true; 
+      return true;
     });
   });
 
@@ -1118,7 +1116,6 @@ function editObjEvolution(trainerId, objetosAEliminar) {
 
   console.log("Objetos evolutivos actualizados correctamente.");
 }
-
 
 // Eliminación de distintivos de liga del entrenador
 function editLeagueBagdes(trainerId, objetosAEliminar) {
@@ -2623,8 +2620,8 @@ app.put("/profesors/update_all_data/:id", (req, res) => {
     password,
     connection_count,
     last_conection,
-    img_profile, 
-  } = req.body; 
+    img_profile,
+  } = req.body;
 
   console.log("Profesor que se va a editar: ", professorName);
   console.log(
@@ -2678,8 +2675,8 @@ app.put("/profesors/update_all_data/:id", (req, res) => {
  * Función para actualizar la imagen de perfil del profesor.
  */
 app.put("/profesors/update_img_profile/:id", (req, res) => {
-  const professorId = req.params.id; 
-  const { img_profile } = req.body; 
+  const professorId = req.params.id;
+  const { img_profile } = req.body;
 
   console.log("Profesor que se va a editar: ", professorId);
   console.log("Atributos a editar del profesor: ", img_profile);
@@ -2691,10 +2688,7 @@ app.put("/profesors/update_img_profile/:id", (req, res) => {
       WHERE id = ?
     `);
 
-    const result = updateQuery.run(
-      img_profile || null,
-      professorId 
-    );
+    const result = updateQuery.run(img_profile || null, professorId);
 
     if (result.changes === 0) {
       return res
@@ -2713,7 +2707,6 @@ app.put("/profesors/update_img_profile/:id", (req, res) => {
     res.status(500).json({ error: "Error interno del servidor" });
   }
 });
-
 
 /**
  *
@@ -3350,7 +3343,6 @@ app.put("/edit_post/:id", uploadFields, (req, res) => {
   }
 });
 
-
 /**
  * Función para subir imágenes de perfil del profesor
  */
@@ -3365,7 +3357,6 @@ app.post(
     }
   }
 );
-
 
 app.get("/notifications/:professor_id", async (req, res) => {
   const { professor_id } = req.params;
@@ -3455,7 +3446,7 @@ app.post("/notify-professor", async (req, res) => {
   if (combatObject) {
     message += `: ${JSON.stringify(combatObject)}`;
   }
-
+  
   try {
     const subscriptionRecord = db
       .prepare("SELECT subscription FROM subscriptions WHERE professor_id = ?")
@@ -3476,8 +3467,8 @@ app.post("/notify-professor", async (req, res) => {
 
     // Registrar la notificación en la base de datos
     const insertNotification = db.prepare(`
-      INSERT INTO notifications (professor_id, message) 
-      VALUES (?, ?)
+      INSERT INTO notifications (professor_id, message, created_at) 
+      VALUES (?, ?, CURRENT_TIMESTAMP)
     `);
     insertNotification.run(professor_id, message);
 
@@ -3488,9 +3479,6 @@ app.post("/notify-professor", async (req, res) => {
   }
 });
 
-
-
 app.listen(PORT, () => {
   console.log(`Servidor GrumpiStore, iniciado en el puerto: ${PORT}`);
 });
-
