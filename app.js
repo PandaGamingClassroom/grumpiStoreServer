@@ -3479,6 +3479,27 @@ app.post("/notify-professor", async (req, res) => {
   }
 });
 
+app.post("/notifications/read", (req, res) => {
+  const { notificationId, professorId } = req.body;
+
+  if (!notificationId || !professorId) {
+    return res.status(400).json({ error: "Datos insuficientes." });
+  }
+
+  const query = `UPDATE notifications 
+                 SET read = 1 
+                 WHERE id = ? AND professor_id = ?`;
+  db.run(query, [notificationId, professorId], function (err) {
+    if (err) {
+      console.error("Error al actualizar notificación:", err);
+      return res
+        .status(500)
+        .json({ error: "Error al actualizar notificación." });
+    }
+    res.json({ success: true, message: "Notificación marcada como leída." });
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Servidor GrumpiStore, iniciado en el puerto: ${PORT}`);
 });
