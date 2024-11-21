@@ -3486,18 +3486,22 @@ app.post("/notifications/read", (req, res) => {
     return res.status(400).json({ error: "Datos insuficientes." });
   }
 
-  const query = `UPDATE notifications 
-                 SET read_status = 1 
-                 WHERE id = ? AND professor_id = ?`;
-  db.run(query, [notificationId, professorId], function (err) {
-    if (err) {
-      console.error("Error al actualizar notificación:", err);
-      return res
-        .status(500)
-        .json({ error: "Error al actualizar notificación." });
+  try {
+    const query = `UPDATE notifications 
+                   SET read_status = 1 
+                   WHERE id = ? AND professor_id = ?`;
+    const stmt = db.prepare(query); // Prepara la consulta
+    const result = stmt.run(notificationId, professorId); // Ejecuta la consulta
+
+    if (result.changes > 0) {
+      res.json({ success: true, message: "Notificación marcada como leída." });
+    } else {
+      res.status(404).json({ error: "No se encontró la notificación." });
     }
-    res.json({ success: true, message: "Notificación marcada como leída." });
-  });
+  } catch (err) {
+    console.error("Error al actualizar notificación:", err);
+    res.status(500).json({ error: "Error al actualizar notificación." });
+  }
 });
 
 app.listen(PORT, () => {
