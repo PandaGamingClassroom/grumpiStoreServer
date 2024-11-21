@@ -3487,7 +3487,7 @@ app.post("/notifications/read", (req, res) => {
   }
 
   const query = `UPDATE notifications 
-                 SET read = 1 
+                 SET read_status = 1 
                  WHERE id = ? AND professor_id = ?`;
   db.run(query, [notificationId, professorId], function (err) {
     if (err) {
