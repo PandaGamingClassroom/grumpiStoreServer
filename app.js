@@ -2864,10 +2864,9 @@ app.post("/assign-rewards", (req, res) => {
  *
  */
 app.post("/spend-energies", (req, res) => {
-  const { trainer_id, energiesToSpend, totalEnergies } = req.body;
+  const { trainer_id, energiesToSpend } = req.body;
   console.log("spend-energies:", req.body);
-
-  spendEnergies(trainer_id, energiesToSpend, totalEnergies)
+  spendEnergies(trainer_id, energiesToSpend)
     .then((message) => {
       res.status(200).json({ message: message });
     })
@@ -2877,7 +2876,7 @@ app.post("/spend-energies", (req, res) => {
     });
 });
 
-async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
+async function spendEnergies(trainer_id, energiesToSpend) {
   try {
     // Obtener el entrenador de la base de datos
     const trainerStmt = db.prepare("SELECT * FROM trainers WHERE id = ?");
@@ -2903,15 +2902,10 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
 
     // Verificar que el entrenador tiene suficientes energías de cada tipo
     for (const energyToSpend of energiesToSpend) {
-      const type = energyToSpend.type.toLowerCase(); // Convertir a minúsculas
-      const availableEnergiesOfType = energies.filter(
-        (e) => e.tipo.toLowerCase() === type
-      );
-
-      const totalAvailable = availableEnergiesOfType.reduce(
-        (sum, e) => sum + e.cantidad,
-        0
-      );
+      const type = energyToSpend.type.toLowerCase();
+      const totalAvailable = energies
+        .filter((e) => e.tipo.toLowerCase() === type)
+        .reduce((sum, e) => sum + e.cantidad, 0);
 
       if (totalAvailable < energyToSpend.quantity) {
         throw new Error(
@@ -2930,12 +2924,14 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
 
         if (energia.tipo.toLowerCase() === type) {
           if (energia.cantidad <= remainingToSpend) {
+            // Si la cantidad disponible es menor o igual a lo que necesitamos, restamos todo y eliminamos la entrada
             remainingToSpend -= energia.cantidad;
-            energies.splice(i, 1); // Eliminar la energía consumida completamente
-            i--; // Ajustar índice después de eliminar
+            energies.splice(i, 1); // Eliminar esta entrada de la lista
+            i--; // Ajustar el índice después de eliminar un elemento
           } else {
+            // Si hay más cantidad de la que necesitamos, restamos lo necesario
             energia.cantidad -= remainingToSpend;
-            remainingToSpend = 0; // No queda más por gastar
+            remainingToSpend = 0; // Ya no queda más por gastar
           }
         }
       }
@@ -2946,7 +2942,7 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
     const updateStmt = db.prepare(
       "UPDATE trainers SET energies = ? WHERE id = ?"
     );
-    updateStmt.run(updatedEnergiesStr, trainer_id);
+    updateStmt.run(updatedEnergiesStr, trainer.id);
 
     return "Energías gastadas correctamente.";
   } catch (error) {
@@ -2954,6 +2950,7 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
     return Promise.reject(error.message);
   }
 }
+
 
 
 /***************************************************************
