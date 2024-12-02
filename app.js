@@ -2866,6 +2866,7 @@ app.post("/assign-rewards", (req, res) => {
 app.post("/spend-energies", (req, res) => {
   const { trainer_id, energiesToSpend, totalEnergies } = req.body;
   console.log("spend-energies:", req.body);
+
   spendEnergies(trainer_id, energiesToSpend, totalEnergies)
     .then((message) => {
       res.status(200).json({ message: message });
@@ -2907,7 +2908,6 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
         (e) => e.tipo.toLowerCase() === type
       );
 
-      // Total de energías disponibles de ese tipo
       const totalAvailable = availableEnergiesOfType.reduce(
         (sum, e) => sum + e.cantidad,
         0
@@ -2920,39 +2920,33 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
       }
     }
 
-    console.log("energiesToSpend: ", energiesToSpend);
-
     // Restar las energías seleccionadas
     for (const energyToSpend of energiesToSpend) {
       const type = energyToSpend.type.toLowerCase();
-      let remainingToSpend = energyToSpend.quantity; // Energía restante por gastar
-      console.log("remainingToSpend: ", remainingToSpend);
+      let remainingToSpend = energyToSpend.quantity;
 
-      // Recorrer las energías del entrenador y eliminar las cantidades correctas
       for (let i = 0; i < energies.length && remainingToSpend > 0; i++) {
         let energia = energies[i];
 
         if (energia.tipo.toLowerCase() === type) {
           if (energia.cantidad <= remainingToSpend) {
-            // Si la cantidad es menor o igual a lo que necesitamos gastar, restamos y eliminamos esta entrada
             remainingToSpend -= energia.cantidad;
-            energies.splice(i, remainingToSpend); // Eliminar esta entrada de la lista
-            i--; // Ajustar el índice después de eliminar un elemento
+            energies.splice(i, 1); // Eliminar la energía consumida completamente
+            i--; // Ajustar índice después de eliminar
           } else {
-            // Si hay más cantidad de la que necesitamos gastar, restamos lo necesario
             energia.cantidad -= remainingToSpend;
-            remainingToSpend = 0; // Ya no queda más por gastar
+            remainingToSpend = 0; // No queda más por gastar
           }
         }
       }
     }
 
-    // Actualizamos las energías del entrenador en la base de datos
+    // Actualizar las energías del entrenador en la base de datos
     const updatedEnergiesStr = JSON.stringify(energies);
     const updateStmt = db.prepare(
       "UPDATE trainers SET energies = ? WHERE id = ?"
     );
-    updateStmt.run(updatedEnergiesStr, trainer.id);
+    updateStmt.run(updatedEnergiesStr, trainer_id);
 
     return "Energías gastadas correctamente.";
   } catch (error) {
@@ -2960,6 +2954,7 @@ async function spendEnergies(trainer_id, energiesToSpend, totalEnergies) {
     return Promise.reject(error.message);
   }
 }
+
 
 /***************************************************************
  *                                                              *
