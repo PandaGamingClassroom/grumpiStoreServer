@@ -267,6 +267,18 @@ function createTables() {
     );
   `;
 
+  const createMedallasTable = `
+    CREATE TABLE IF NOT EXISTS medallas (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      trainer_id INTEGER,
+      nombre TEXT NOT NULL,
+      imagen TEXT,
+      tipo TEXT,
+      cantidad TEXT,
+      FOREIGN KEY (trainer_id) REFERENCES trainers(id)
+    );
+  `;
+
   const createProfesoresTable = `
     CREATE TABLE IF NOT EXISTS profesores (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -321,6 +333,7 @@ function createTables() {
     db.exec(createGrumpisTable);
     db.exec(createTrainerGrumpisTable);
     db.exec(createAtaquesTable);
+    db.exec(createMedallasTable);
     db.exec(createProfesoresTable);
     db.exec(createPostsTable);
     db.exec(createSubscriptionsTable);
