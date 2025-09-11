@@ -650,9 +650,10 @@ app.put("/trainers/update/:id", (req, res) => {
     avatar,
     grumpidolar,
     combatMark,
-    objetosAEliminar,
     connection_count,
     last_conection,
+    energies, 
+    objetosAEliminar,
   } = req.body;
 
   try {
@@ -664,34 +665,28 @@ app.put("/trainers/update/:id", (req, res) => {
       return res.status(404).json({ error: "Entrenador no encontrado" });
     }
 
-    // Actualiza los campos si existen y no están vacíos
-    if (name !== undefined && name !== "") {
-      trainer.name = name;
-    }
-    if (avatar !== undefined && avatar !== "") {
-      trainer.avatar = avatar;
-    }
-    if (password !== undefined && password !== "") {
-      trainer.password = password;
-    }
-    if (grumpidolar !== undefined && grumpidolar !== "") {
+    if (name !== undefined && name !== "") trainer.name = name;
+    if (avatar !== undefined && avatar !== "") trainer.avatar = avatar;
+    if (password !== undefined && password !== "") trainer.password = password;
+    if (grumpidolar !== undefined && grumpidolar !== "")
       trainer.grumpidolar = grumpidolar;
-    }
-    if (combatMark !== undefined && combatMark !== null) {
+    if (combatMark !== undefined && combatMark !== null)
       trainer.marca_combate = combatMark;
-    }
-    if (connection_count !== undefined && connection_count !== null) {
+    if (connection_count !== undefined && connection_count !== null)
       trainer.connection_count = connection_count;
-    }
-    if (last_conection !== undefined && last_conection !== null) {
+    if (last_conection !== undefined && last_conection !== null)
       trainer.last_conection = last_conection;
+
+    if (energies !== undefined && Array.isArray(energies)) {
+      trainer.energies = JSON.stringify(energies);
     }
 
     const updateStmt = db.prepare(`
       UPDATE trainers 
-      SET name = ?, password = ?, grumpidolar = ?, marca_combate = ?, avatar = ?, connection_count = ?, last_conection = ?
+      SET name = ?, password = ?, grumpidolar = ?, marca_combate = ?, avatar = ?, connection_count = ?, last_conection = ?, energies = ?
       WHERE id = ?
     `);
+
     updateStmt.run(
       trainer.name,
       trainer.password,
@@ -700,6 +695,7 @@ app.put("/trainers/update/:id", (req, res) => {
       trainer.avatar,
       trainer.connection_count,
       trainer.last_conection,
+      trainer.energies, // 👈 guardamos el JSON de energías
       trainerId
     );
 
@@ -711,13 +707,11 @@ app.put("/trainers/update/:id", (req, res) => {
 
     res.status(200).json({ message: "Entrenador actualizado correctamente" });
   } catch (dbError) {
-    console.error(
-      "Error al actualizar el entrenador en la base de datos:",
-      dbError
-    );
+    console.error("Error al actualizar el entrenador:", dbError);
     res.status(500).json({ error: "Error interno del servidor" });
   }
 });
+
 
 // Función modularizada para manejar la eliminación de objetos
 function handleObjectDeletion(trainerId, objetosAEliminar) {
